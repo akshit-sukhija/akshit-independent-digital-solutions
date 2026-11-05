@@ -1,0 +1,70 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@layer base {
+  :root {
+    --color-warm-ink: #11100E;
+    --color-midnight: #0F1320;
+    --color-surface: #1A1814;
+    --color-raised: #232019;
+    --color-hairline: #3A3429;
+    --color-ivory: #F4EFE6;
+    --color-text-primary: #F2EBDD;
+    --color-text-secondary: #A9A092;
+    --color-champagne: #E8D5A8;
+    --color-gold: #C9A24B;
+    --color-gold-ivory: #7A5B14;
+    --color-amber: #E08A1E;
+    --color-live: #8FBF7A;
+
+    --font-serif: 'Instrument Serif', Georgia, serif;
+    --font-sans: 'Instrument Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-mono: 'IBM Plex Mono', monospace;
+  }
+
+  html {
+    font-family: var(--font-sans);
+    background-color: #11100E;
+    color: #F2EBDD;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1, h2, .font-display {
+    font-family: var(--font-serif);
+    text-wrap: balance;
+  }
+
+  code, pre, .font-mono {
+    font-family: var(--font-mono);
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Subtle architectural blueprint grid background */
+.bg-blueprint-grid {
+  background-size: 48px 48px;
+  background-image:
+    linear-gradient(to right, rgba(201, 162, 75, 0.045) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(201, 162, 75, 0.045) 1px, transparent 1px);
+}
+
+.bg-lamplit-glow {
+  background: radial-gradient(circle at 50% 0%, rgba(201, 162, 75, 0.11) 0%, rgba(17, 16, 14, 0) 68%);
+}
+
+/* Reduced motion accessibility compliance */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
