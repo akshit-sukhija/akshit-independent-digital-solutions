@@ -1,5 +1,13 @@
+import { useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { ArrowLeft, ArrowRight, ArrowUpRight } from 'lucide-react';
+import {
+  ArrowLeft,
+  ArrowRight,
+  ArrowUpRight,
+  ChevronDown,
+  ChevronUp,
+  FileCheck2,
+} from 'lucide-react';
 import { PageMeta } from '../components/PageMeta';
 import { MotionReveal } from '../components/MotionReveal';
 import { ProjectPipelineDiagram } from '../components/ArchitectureDiagram';
@@ -10,6 +18,7 @@ import { getProjectBySlug } from '../utils/studioLogic';
 export function CaseStudyPage() {
   const { slug } = useParams<{ slug: string }>();
   const project = slug ? getProjectBySlug(slug) : undefined;
+  const [showTechnicalSpec, setShowTechnicalSpec] = useState(false);
 
   if (!project) {
     return (
@@ -21,11 +30,11 @@ export function CaseStudyPage() {
         <div className="max-w-[800px] mx-auto bg-[#1A1814] border border-[#3A3429] rounded-lg p-8 space-y-6">
           <p className="font-mono text-xs text-[#E08A1E]">Case Study Lookup · 404</p>
           <h1 className="font-display text-3xl sm:text-4xl text-[#F2EBDD]">
-            Requested Case Study Not Found
+            Case Study Not Found
           </h1>
           <p className="text-sm text-[#A9A092] leading-relaxed">
-            The project slug <code className="text-[#E8D5A8]">{slug}</code> does not match a
-            documented case study in the portfolio.
+            The project URL <code className="text-[#E8D5A8]">{slug}</code> does not match any of
+            the five projects in this portfolio.
           </p>
           <div className="flex flex-wrap items-center gap-4 pt-2">
             <Link
@@ -52,10 +61,10 @@ export function CaseStudyPage() {
     <div>
       <PageMeta
         title={`${project.title} — Case Study`}
-        description={`${project.title}: ${project.solutionSummary}`}
+        description={`${project.title}: ${project.plainSubtitle}`}
       />
 
-      {/* Case Study Editorial Header */}
+      {/* Header + Source Evidence Inspector Bar */}
       <section className="bg-[#11100E] bg-lamplit-glow border-b border-[#3A3429] pt-12 pb-16 px-6">
         <div className="max-w-[1200px] mx-auto space-y-8">
           <Link
@@ -66,13 +75,13 @@ export function CaseStudyPage() {
             <span>Back to Project Portfolio</span>
           </Link>
 
-          <MotionReveal className="space-y-5 max-w-4xl">
+          <MotionReveal className="space-y-4 max-w-4xl">
             <div className="flex flex-wrap items-center gap-2 font-mono text-xs text-[#A9A092]">
               <span className="text-[#C9A24B] font-medium">{project.tierLabel}</span>
               <span aria-hidden="true">·</span>
               <span>{project.category}</span>
               <span aria-hidden="true">·</span>
-              <span>{project.projectClassification}</span>
+              <span className="text-[#E8D5A8]">{project.evidenceTypeLabel}</span>
             </div>
 
             <h1
@@ -83,33 +92,34 @@ export function CaseStudyPage() {
             </h1>
 
             <p className="text-lg sm:text-xl text-[#E8D5A8] leading-relaxed">
-              {project.subtitle}
+              {project.plainSubtitle}
             </p>
           </MotionReveal>
 
-          {/* Attribution, Role, Stack & Verified External Evidence Strip */}
+          {/* Evidence Inspector Card */}
           <MotionReveal
-            delay={0.08}
-            className="grid grid-cols-1 md:grid-cols-12 gap-6 bg-[#1A1814] border border-[#3A3429] rounded-lg p-6"
+            delay={0.06}
+            className="bg-[#1A1814] border border-[#3A3429] rounded-lg p-6 grid grid-cols-1 md:grid-cols-12 gap-6"
           >
             <div className="md:col-span-4 space-y-1.5">
-              <p className="font-mono text-xs text-[#C9A24B]">Documented Role & Collaborators</p>
+              <p className="font-mono text-xs text-[#C9A24B] inline-flex items-center gap-1.5">
+                <FileCheck2 className="w-3.5 h-3.5" />
+                <span>My Role & Collaborators</span>
+              </p>
               <p className="text-sm font-semibold text-[#F2EBDD]">{project.documentedRole}</p>
               <p className="text-xs text-[#A9A092] leading-relaxed">{project.collaborators}</p>
             </div>
 
             <div className="md:col-span-5 space-y-1.5">
-              <p className="font-mono text-xs text-[#C9A24B]">Verified Technical Stack</p>
-              <p className="font-mono text-xs text-[#F2EBDD] leading-relaxed">
-                {project.verifiedStack.join(' · ')}
-              </p>
+              <p className="font-mono text-xs text-[#C9A24B]">Evidence Behind This Project</p>
+              <p className="text-xs text-[#F2EBDD] leading-relaxed">{project.evidenceNote}</p>
               <p className="text-xs text-[#A9A092] leading-relaxed pt-1">
                 {project.attributionNote}
               </p>
             </div>
 
             <div className="md:col-span-3 flex flex-col justify-between gap-3 md:border-l md:border-[#3A3429] md:pl-6">
-              <p className="font-mono text-xs text-[#C9A24B]">Verified Evidence</p>
+              <p className="font-mono text-xs text-[#C9A24B]">Verified Links</p>
               <div className="space-y-2">
                 {project.liveDemoUrl && (
                   <a
@@ -118,7 +128,7 @@ export function CaseStudyPage() {
                     rel="noopener noreferrer"
                     className="w-full inline-flex items-center justify-between px-3.5 py-2 text-xs font-mono text-[#11100E] bg-[#C9A24B] hover:bg-[#E8D5A8] rounded transition-colors"
                   >
-                    <span>Open Live Deployment</span>
+                    <span>Open Live App</span>
                     <ArrowUpRight className="w-3.5 h-3.5" />
                   </a>
                 )}
@@ -129,13 +139,13 @@ export function CaseStudyPage() {
                     rel="noopener noreferrer"
                     className="w-full inline-flex items-center justify-between px-3.5 py-2 text-xs font-mono text-[#F2EBDD] bg-[#11100E] border border-[#3A3429] hover:border-[#C9A24B] rounded transition-colors"
                   >
-                    <span>View GitHub Source</span>
+                    <span>View GitHub Code</span>
                     <ArrowUpRight className="w-3.5 h-3.5" />
                   </a>
                 )}
                 {!project.liveDemoUrl && !project.githubUrl && (
                   <p className="text-xs text-[#E8D5A8] font-mono leading-relaxed">
-                    Documented via 100+ page formal academic technical report (No public URL claimed).
+                    Backed by a 100+ page formal academic technical report (no public URL claimed).
                   </p>
                 )}
               </div>
@@ -144,39 +154,51 @@ export function CaseStudyPage() {
         </div>
       </section>
 
-      {/* Problem, Business Context & Solution Overview */}
+      {/* Section 1 & 2: Problem -> Approach -> Result */}
       <section className="bg-[#11100E] py-16 px-6 border-b border-[#3A3429]">
         <div className="max-w-[1200px] mx-auto space-y-12">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
             <MotionReveal className="bg-[#1A1814] border border-[#3A3429] rounded-lg p-6 space-y-3">
               <p className="font-mono text-xs text-[#C9A24B]">01 · The Problem</p>
-              <h2 className="font-display text-2xl text-[#F2EBDD]">Operational Challenge</h2>
-              <p className="text-sm text-[#A9A092] leading-relaxed">{project.problemSummary}</p>
+              <h2 className="font-display text-2xl text-[#F2EBDD]">What Was Going Wrong</h2>
+              <p className="text-sm text-[#F2EBDD]/90 leading-relaxed">{project.problemSummary}</p>
+              <p className="text-xs text-[#A9A092] leading-relaxed pt-2 border-t border-[#3A3429]">
+                {project.businessContext}
+              </p>
             </MotionReveal>
 
             <MotionReveal
-              delay={0.06}
+              delay={0.05}
               className="bg-[#1A1814] border border-[#3A3429] rounded-lg p-6 space-y-3"
             >
-              <p className="font-mono text-xs text-[#C9A24B]">02 · Why It Matters</p>
-              <h2 className="font-display text-2xl text-[#F2EBDD]">Business & Practical Context</h2>
-              <p className="text-sm text-[#A9A092] leading-relaxed">{project.businessContext}</p>
+              <p className="font-mono text-xs text-[#C9A24B]">02 · The Approach</p>
+              <h2 className="font-display text-2xl text-[#F2EBDD]">How We Solved It</h2>
+              <p className="text-sm text-[#F2EBDD]/90 leading-relaxed">{project.approachSummary}</p>
+              <p className="text-xs text-[#A9A092] leading-relaxed pt-2 border-t border-[#3A3429]">
+                {project.solutionSummary}
+              </p>
             </MotionReveal>
 
             <MotionReveal
-              delay={0.12}
-              className="bg-[#232019] border border-[#C9A24B]/60 rounded-lg p-6 space-y-3"
+              delay={0.1}
+              className="bg-[#232019] border border-[#C9A24B]/70 rounded-lg p-6 space-y-3"
             >
-              <p className="font-mono text-xs text-[#C9A24B]">03 · The Solution</p>
-              <h2 className="font-display text-2xl text-[#F2EBDD]">Engineered Deliverable</h2>
-              <p className="text-sm text-[#F2EBDD] leading-relaxed">{project.solutionSummary}</p>
+              <p className="font-mono text-xs text-[#C9A24B]">03 · The Result</p>
+              <h2 className="font-display text-2xl text-[#F2EBDD]">What Was Delivered</h2>
+              <p className="text-sm text-[#F2EBDD] leading-relaxed">{project.resultSummary}</p>
+              <ul className="space-y-1 text-xs text-[#E8D5A8] pt-2 border-t border-[#3A3429]">
+                {project.deliverables.map((del) => (
+                  <li key={del}>· {del}</li>
+                ))}
+              </ul>
             </MotionReveal>
           </div>
 
-          {/* Interactive Architecture & Data Flow Diagram */}
+          {/* Section 3: How It Works Visual Flowchart */}
           <MotionReveal>
             <ProjectPipelineDiagram
               projectTitle={project.title}
+              plainHowItWorksSummary={project.plainHowItWorksSummary}
               architectureSummary={project.architectureSummary}
               nodes={project.architectureNodes}
             />
@@ -184,48 +206,45 @@ export function CaseStudyPage() {
         </div>
       </section>
 
-      {/* Verified System Elements & Deliverables + Step-by-Step Workflow */}
+      {/* Section 4: Plain-English Features + Step-by-Step Walkthrough */}
       <section className="bg-[#1A1814] py-16 px-6 border-b border-[#3A3429]">
         <div className="max-w-[1200px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12">
-          {/* Verified Features & Deliverables */}
-          <MotionReveal className="lg:col-span-5 space-y-8">
-            <div className="space-y-4">
-              <p className="font-mono text-xs text-[#C9A24B]">Documented Capabilities</p>
-              <h2 className="font-display text-3xl text-[#F2EBDD]">
-                Verified Project Elements
+          {/* Plain-English Benefits with Expandable Technical Note */}
+          <MotionReveal className="lg:col-span-5 space-y-6">
+            <div>
+              <p className="font-mono text-xs text-[#C9A24B]">Key Capabilities</p>
+              <h2 className="font-display text-3xl text-[#F2EBDD] mt-1">
+                What the System Does
               </h2>
-              <ul className="space-y-3 pt-2">
-                {project.verifiedElements.map((el) => (
-                  <li
-                    key={el}
-                    className="bg-[#11100E] border border-[#3A3429] rounded p-3.5 text-sm text-[#F2EBDD] flex items-start gap-3"
-                  >
-                    <span className="font-mono text-xs text-[#C9A24B] pt-0.5">—</span>
-                    <span>{el}</span>
-                  </li>
-                ))}
-              </ul>
+              <p className="text-xs text-[#A9A092] mt-1">
+                Written in plain English, with technical notes underneath each point.
+              </p>
             </div>
 
-            <div className="bg-[#11100E] border border-[#3A3429] rounded-lg p-6 space-y-3">
-              <p className="font-mono text-xs text-[#E8D5A8]">Concrete Deliverables</p>
-              <ul className="space-y-2 text-xs text-[#A9A092]">
-                {project.deliverables.map((del) => (
-                  <li key={del} className="flex items-start gap-2">
-                    <span className="font-mono text-[#C9A24B]">·</span>
-                    <span>{del}</span>
-                  </li>
-                ))}
-              </ul>
+            <div className="space-y-4">
+              {project.plainFeatures.map((feat) => (
+                <div
+                  key={feat.plain}
+                  className="bg-[#11100E] border border-[#3A3429] rounded-lg p-4 space-y-2"
+                >
+                  <p className="text-sm font-medium text-[#F2EBDD] leading-relaxed">
+                    {feat.plain}
+                  </p>
+                  <p className="font-mono text-[11px] text-[#A9A092] pt-2 border-t border-[#3A3429]/70 leading-relaxed">
+                    <span className="text-[#C9A24B]">Technical detail: </span>
+                    {feat.technical}
+                  </p>
+                </div>
+              ))}
             </div>
           </MotionReveal>
 
-          {/* Workflow Storytelling */}
-          <MotionReveal delay={0.08} className="lg:col-span-7 space-y-6">
+          {/* Step-by-Step How Information Moves */}
+          <MotionReveal delay={0.06} className="lg:col-span-7 space-y-6">
             <div>
-              <p className="font-mono text-xs text-[#C9A24B]">Execution Sequence</p>
+              <p className="font-mono text-xs text-[#C9A24B]">Step-by-Step Walkthrough</p>
               <h2 className="font-display text-3xl text-[#F2EBDD] mt-1">
-                End-to-End System & Analytical Workflow
+                How Information Moves Through {project.title}
               </h2>
             </div>
 
@@ -233,15 +252,18 @@ export function CaseStudyPage() {
               {project.workflowSteps.map((step) => (
                 <div
                   key={step.step}
-                  className="bg-[#11100E] border border-[#3A3429] rounded-lg p-5 flex flex-col sm:flex-row sm:items-start gap-4"
+                  className="bg-[#11100E] border border-[#3A3429] rounded-lg p-5 space-y-2"
                 >
-                  <span className="font-mono text-xs text-[#C9A24B] shrink-0 pt-0.5">
-                    Stage {step.step}
-                  </span>
-                  <div className="space-y-1">
+                  <div className="flex items-center gap-3">
+                    <span className="font-mono text-xs text-[#C9A24B]">Step {step.step}</span>
                     <h3 className="text-base font-semibold text-[#F2EBDD]">{step.title}</h3>
-                    <p className="text-sm text-[#A9A092] leading-relaxed">{step.detail}</p>
                   </div>
+                  <p className="text-sm text-[#A9A092] leading-relaxed">{step.detail}</p>
+                  {step.technicalDetail && (
+                    <p className="font-mono text-[11px] text-[#E8D5A8]/80 pt-1">
+                      Under the hood: {step.technicalDetail}
+                    </p>
+                  )}
                 </div>
               ))}
             </div>
@@ -249,87 +271,108 @@ export function CaseStudyPage() {
         </div>
       </section>
 
-      {/* Technical Artifacts, SQL / Pipeline Specifications & Decisions */}
+      {/* Section 5: Tools Used (Plain-English Explanations + Expandable Deep Technical Spec) */}
       <section className="bg-[#11100E] py-16 px-6 border-b border-[#3A3429]">
-        <div className="max-w-[1200px] mx-auto space-y-12">
-          {/* Technical & Analytical Evidence Artifacts */}
-          <div className="space-y-6">
+        <div className="max-w-[1200px] mx-auto space-y-10">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
             <div>
-              <p className="font-mono text-xs text-[#C9A24B]">
-                Documented Technical Specification & Analytical Evidence
-              </p>
+              <p className="font-mono text-xs text-[#C9A24B]">05 · Tools & Technology</p>
               <h2 className="font-display text-3xl text-[#F2EBDD] mt-1">
-                Verified Pipeline & Methodology Breakdown
+                Tools Used & What Each One Does
               </h2>
             </div>
+            <button
+              type="button"
+              onClick={() => setShowTechnicalSpec((prev) => !prev)}
+              className="inline-flex items-center gap-2 px-4 py-2 text-xs font-mono text-[#E8D5A8] bg-[#1A1814] border border-[#3A3429] hover:border-[#C9A24B] rounded cursor-pointer"
+            >
+              <span>
+                {showTechnicalSpec
+                  ? 'Hide Deep Code & Architecture Specs'
+                  : 'Inspect Code, SQL & Technical Decisions'}
+              </span>
+              {showTechnicalSpec ? (
+                <ChevronUp className="w-4 h-4" />
+              ) : (
+                <ChevronDown className="w-4 h-4" />
+              )}
+            </button>
+          </div>
 
-            {project.evidenceArtifacts.map((artifact) => (
-              <MotionReveal
-                key={artifact.title}
-                className="bg-[#1A1814] border border-[#3A3429] rounded-lg p-6 space-y-4"
+          {/* Plain-English Tools Grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            {project.plainToolsSummary.map((item) => (
+              <div
+                key={item.tool}
+                className="bg-[#1A1814] border border-[#3A3429] rounded-lg p-5 space-y-2"
               >
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-[#3A3429] pb-3">
-                  <h3 className="text-base font-semibold text-[#F2EBDD]">{artifact.title}</h3>
-                  {artifact.datasetOrHardwareCondition && (
-                    <span className="font-mono text-xs text-[#E08A1E]">
-                      {artifact.datasetOrHardwareCondition}
-                    </span>
-                  )}
-                </div>
-                <p className="text-xs text-[#A9A092]">{artifact.caption}</p>
-                <pre className="bg-[#11100E] border border-[#3A3429] rounded p-4 overflow-x-auto font-mono text-xs text-[#E8D5A8] leading-relaxed">
-                  <code>{artifact.codeOrSpec}</code>
-                </pre>
-              </MotionReveal>
+                <p className="font-mono text-xs text-[#C9A24B]">{item.tool}</p>
+                <p className="text-sm text-[#F2EBDD] leading-relaxed">{item.whatItDoes}</p>
+              </div>
             ))}
           </div>
 
-          {/* Engineering & Analytical Decisions */}
-          <div className="space-y-6">
-            <div>
-              <p className="font-mono text-xs text-[#C9A24B]">Design Rationale</p>
-              <h2 className="font-display text-3xl text-[#F2EBDD] mt-1">
-                Key Technical & Analytical Decisions
-              </h2>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {project.technicalDecisions.map((item) => (
-                <MotionReveal
-                  key={item.decision}
-                  className="bg-[#1A1814] border border-[#3A3429] rounded-lg p-6 space-y-3"
+          {/* Expandable Technical Depth for Developers & Technical Reviewers */}
+          {showTechnicalSpec && (
+            <div className="space-y-8 pt-4 border-t border-[#3A3429]">
+              {project.evidenceArtifacts.map((artifact) => (
+                <div
+                  key={artifact.title}
+                  className="bg-[#1A1814] border border-[#3A3429] rounded-lg p-6 space-y-4"
                 >
-                  <h3 className="text-base font-semibold text-[#F2EBDD]">{item.decision}</h3>
-                  <p className="text-sm text-[#A9A092] leading-relaxed">
-                    <strong className="text-[#E8D5A8] font-normal">Rationale: </strong>
-                    {item.rationale}
-                  </p>
-                  <p className="text-xs text-[#A9A092] pt-2 border-t border-[#3A3429]">
-                    <strong className="text-[#F2EBDD] font-normal">Trade-off: </strong>
-                    {item.tradeoff}
-                  </p>
-                </MotionReveal>
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-[#3A3429] pb-3">
+                    <h3 className="text-base font-semibold text-[#F2EBDD]">{artifact.title}</h3>
+                    {artifact.datasetOrHardwareCondition && (
+                      <span className="font-mono text-xs text-[#E08A1E]">
+                        {artifact.datasetOrHardwareCondition}
+                      </span>
+                    )}
+                  </div>
+                  <p className="text-xs text-[#A9A092]">{artifact.caption}</p>
+                  <pre className="bg-[#11100E] border border-[#3A3429] rounded p-4 overflow-x-auto font-mono text-xs text-[#E8D5A8] leading-relaxed">
+                    <code>{artifact.codeOrSpec}</code>
+                  </pre>
+                </div>
               ))}
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {project.technicalDecisions.map((item) => (
+                  <div
+                    key={item.decision}
+                    className="bg-[#1A1814] border border-[#3A3429] rounded-lg p-6 space-y-2.5"
+                  >
+                    <h3 className="text-base font-semibold text-[#F2EBDD]">{item.decision}</h3>
+                    <p className="text-sm text-[#A9A092] leading-relaxed">
+                      <strong className="text-[#E8D5A8] font-normal">Why: </strong>
+                      {item.rationale}
+                    </p>
+                    <p className="text-xs text-[#A9A092] pt-2 border-t border-[#3A3429]">
+                      <strong className="text-[#F2EBDD] font-normal">Trade-off: </strong>
+                      {item.tradeoff}
+                    </p>
+                  </div>
+                ))}
+              </div>
             </div>
-          </div>
+          )}
         </div>
       </section>
 
-      {/* Honest Limitations, Scope Boundaries & Lessons (Ivory Contrast Panel) */}
+      {/* Section 6: Limitations & Honest Scope (Ivory Contrast Panel) */}
       <section className="bg-[#F4EFE6] text-[#11100E] py-16 px-6 border-b border-[#3A3429]/30">
         <div className="max-w-[1200px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-10">
           <MotionReveal className="space-y-4">
             <p className="font-mono text-xs text-[#7A5B14]">
-              Transparent Engineering Audit
+              06 · Honest Limitations & Scope
             </p>
             <h2 className="font-display text-3xl text-[#11100E]">
-              Scope Boundaries & Limitations
+              What You Should Know About This Project
             </h2>
             <ul className="space-y-3 text-sm text-[#232019] leading-relaxed">
               {project.limitationsAndScope.map((lim) => (
                 <li
                   key={lim}
-                  className="bg-white/70 border border-[#3A3429]/20 rounded p-4 flex items-start gap-3"
+                  className="bg-white/80 border border-[#3A3429]/20 rounded p-4 flex items-start gap-3"
                 >
                   <span className="font-mono text-[#7A5B14] font-semibold">—</span>
                   <span>{lim}</span>
@@ -338,18 +381,18 @@ export function CaseStudyPage() {
             </ul>
           </MotionReveal>
 
-          <MotionReveal delay={0.08} className="space-y-4">
+          <MotionReveal delay={0.06} className="space-y-4">
             <p className="font-mono text-xs text-[#7A5B14]">
-              Transferable Client Value
+              Practical Takeaways
             </p>
             <h2 className="font-display text-3xl text-[#11100E]">
-              Lessons Applied to Client Engagements
+              How This Helps Future Client Projects
             </h2>
             <ul className="space-y-3 text-sm text-[#232019] leading-relaxed">
               {project.keyLessons.map((lesson) => (
                 <li
                   key={lesson}
-                  className="bg-white/70 border border-[#3A3429]/20 rounded p-4 flex items-start gap-3"
+                  className="bg-white/80 border border-[#3A3429]/20 rounded p-4 flex items-start gap-3"
                 >
                   <span className="font-mono text-[#7A5B14] font-semibold">→</span>
                   <span>{lesson}</span>
@@ -360,7 +403,7 @@ export function CaseStudyPage() {
         </div>
       </section>
 
-      {/* Adjacent Case Study Navigation */}
+      {/* Prev / Next Navigation */}
       <section className="bg-[#11100E] py-12 px-6 border-b border-[#3A3429]">
         <div className="max-w-[1200px] mx-auto flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4">
           {prevProject ? (
@@ -370,7 +413,7 @@ export function CaseStudyPage() {
             >
               <ArrowLeft className="w-4 h-4 text-[#C9A24B] shrink-0" />
               <div>
-                <p className="font-mono text-xs text-[#A9A092]">Previous Case Study</p>
+                <p className="font-mono text-xs text-[#A9A092]">Previous Project</p>
                 <p className="text-sm font-semibold text-[#F2EBDD]">
                   {prevProject.indexNumber}. {prevProject.title}
                 </p>
@@ -386,7 +429,7 @@ export function CaseStudyPage() {
               className="bg-[#1A1814] border border-[#3A3429] hover:border-[#C9A24B] rounded-lg p-4 flex items-center justify-between gap-3 transition-colors sm:ml-auto"
             >
               <div className="text-right">
-                <p className="font-mono text-xs text-[#A9A092]">Next Case Study</p>
+                <p className="font-mono text-xs text-[#A9A092]">Next Project</p>
                 <p className="text-sm font-semibold text-[#F2EBDD]">
                   {nextProject.indexNumber}. {nextProject.title}
                 </p>
@@ -399,8 +442,8 @@ export function CaseStudyPage() {
 
       <CtaSection
         variant="dark"
-        headline={`Facing a problem similar to ${project.title}?`}
-        supportingCopy="Share your workflow, documents, or dataset. I will review your requirements and propose a practical, right-sized digital deliverable."
+        headline={`Have a problem similar to ${project.title}?`}
+        supportingCopy="Share your workflow, documents, or spreadsheet. I will review your material and suggest a practical solution scope."
       />
     </div>
   );

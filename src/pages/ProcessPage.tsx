@@ -1,16 +1,20 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, ChevronDown, ChevronUp } from 'lucide-react';
 import { PageMeta } from '../components/PageMeta';
 import { MotionReveal } from '../components/MotionReveal';
+import { FiveStepProcessDiagram } from '../components/ArchitectureDiagram';
 import { CtaSection } from '../components/CtaSection';
 import { PROCESS_STAGES } from '../data/studioData';
 
 export function ProcessPage() {
+  const [showTechNotes, setShowTechNotes] = useState(false);
+
   return (
     <div>
       <PageMeta
-        title="How I Work — Client Experience & Collaboration Process"
-        description="Direct, transparent collaboration with an independent digital solutions operator. Learn how problems are reviewed, scoped, built, and handed over."
+        title="How I Work — The Five-Step Client Journey"
+        description="A simple five-step journey from explaining your business problem in plain English to receiving a finished dashboard, automation, or web tool."
       />
 
       {/* Editorial Header */}
@@ -18,38 +22,71 @@ export function ProcessPage() {
         <div className="max-w-[1200px] mx-auto space-y-6">
           <MotionReveal className="max-w-3xl space-y-4">
             <p className="font-mono text-xs text-[#C9A24B]">
-              Client Experience · Direct Solo Collaboration
+              How I Work · Simple Five-Step Client Journey
             </p>
             <h1
               className="font-display text-[#F2EBDD] leading-tight"
               style={{ fontSize: 'clamp(2.25rem, 4vw, 3.75rem)' }}
             >
-              How We Turn an Operational Problem Into a Working Deliverable
+              From Your Business Problem to a Working Solution in Five Clear Steps
             </h1>
             <p className="text-base sm:text-lg text-[#A9A092] leading-relaxed">
-              When you engage me, you work directly with the person analysing your data, designing
-              the workflow, and writing the code. There are no sales layers, inflated agency
-              retainers, or unverified turnaround promises.
+              When you work with me, you talk directly with the person analysing your data and
+              building your tool. You never have to speak in technical jargon.
             </p>
           </MotionReveal>
         </div>
       </section>
 
-      {/* 6-Stage Client Collaboration Journey */}
+      {/* Interactive 5-Step Flowchart */}
+      <section className="bg-[#11100E] py-14 px-6 border-b border-[#3A3429]">
+        <div className="max-w-[1200px] mx-auto">
+          <MotionReveal>
+            <FiveStepProcessDiagram />
+          </MotionReveal>
+        </div>
+      </section>
+
+      {/* Detailed 5-Step Breakdown */}
       <section className="bg-[#11100E] py-20 px-6 border-b border-[#3A3429]">
         <div className="max-w-[1200px] mx-auto space-y-8">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2">
+            <div>
+              <p className="font-mono text-xs text-[#C9A24B]">Step-by-Step Guide</p>
+              <h2 className="font-display text-3xl text-[#F2EBDD] mt-1">
+                What Happens at Each Step
+              </h2>
+            </div>
+            <button
+              type="button"
+              onClick={() => setShowTechNotes((prev) => !prev)}
+              className="inline-flex items-center gap-1.5 px-3.5 py-2 text-xs font-mono text-[#E8D5A8] bg-[#1A1814] border border-[#3A3429] hover:border-[#C9A24B] rounded cursor-pointer self-start sm:self-auto"
+            >
+              <span>
+                {showTechNotes
+                  ? 'Hide Technical Engineering Notes'
+                  : 'Show Technical Notes (For Reviewers)'}
+              </span>
+              {showTechNotes ? (
+                <ChevronUp className="w-3.5 h-3.5" />
+              ) : (
+                <ChevronDown className="w-3.5 h-3.5" />
+              )}
+            </button>
+          </div>
+
           {PROCESS_STAGES.map((stage, idx) => (
             <MotionReveal
               key={stage.stepNumber}
-              delay={idx * 0.05}
+              delay={idx * 0.04}
               className="bg-[#1A1814] border border-[#3A3429] rounded-lg p-6 md:p-8"
             >
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
                 <div className="lg:col-span-4 space-y-2">
-                  <p className="font-mono text-xs text-[#C9A24B]">Stage {stage.stepNumber}</p>
-                  <h2 className="font-display text-3xl text-[#F2EBDD]">
+                  <p className="font-mono text-xs text-[#C9A24B]">Step {stage.stepNumber}</p>
+                  <h3 className="font-display text-2xl sm:text-3xl text-[#F2EBDD]">
                     {stage.stepNumber}. {stage.title}
-                  </h2>
+                  </h3>
                   <p className="text-xs font-mono text-[#E8D5A8] pt-1">{stage.keyPrinciple}</p>
                 </div>
 
@@ -72,6 +109,12 @@ export function ProcessPage() {
                       </p>
                     </div>
                   </div>
+
+                  {showTechNotes && (
+                    <p className="font-mono text-xs text-[#E8D5A8]/90 bg-[#11100E] border border-[#3A3429] rounded p-3">
+                      Technical workflow note: {stage.technicalNote}
+                    </p>
+                  )}
                 </div>
               </div>
             </MotionReveal>
@@ -79,60 +122,51 @@ export function ProcessPage() {
         </div>
       </section>
 
-      {/* Practical Working Principles (Ivory Editorial Contrast Section) */}
+      {/* Practical Working Commitments (Ivory Contrast Panel) */}
       <section className="bg-[#F4EFE6] text-[#11100E] py-16 px-6 border-b border-[#3A3429]/30">
         <div className="max-w-[1200px] mx-auto space-y-8">
           <MotionReveal className="max-w-3xl space-y-2">
             <p className="font-mono text-xs text-[#7A5B14]">
-              Practical Commitments
+              Straightforward Working Promises
             </p>
             <h2 className="font-display text-3xl sm:text-4xl text-[#11100E]">
-              What You Can Expect From Every Engagement
+              How I Keep Projects Simple and Honest
             </h2>
           </MotionReveal>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <MotionReveal className="bg-white/80 border border-[#3A3429]/20 rounded-lg p-6 space-y-2.5">
-              <p className="font-mono text-xs text-[#7A5B14]">01 · Right-Sized Recommendations</p>
+            <div className="bg-white/80 border border-[#3A3429]/20 rounded-lg p-6 space-y-2.5">
+              <p className="font-mono text-xs text-[#7A5B14]">01 · Right-Sized Solutions</p>
               <h3 className="text-base font-semibold text-[#11100E]">
-                No Unnecessary Software Bloat
+                No Big Software Builds When a Simple Fix Works
               </h3>
               <p className="text-sm text-[#232019] leading-relaxed">
-                If your business problem can be solved by cleaning a dataset and building a clear
-                Power BI dashboard or Python script, I will recommend that instead of pitching a
-                large custom web application.
+                If your question can be answered by cleaning an Excel sheet and building a Power BI
+                dashboard, I will recommend that instead of pitching a costly custom app.
               </p>
-            </MotionReveal>
+            </div>
 
-            <MotionReveal
-              delay={0.06}
-              className="bg-white/80 border border-[#3A3429]/20 rounded-lg p-6 space-y-2.5"
-            >
-              <p className="font-mono text-xs text-[#7A5B14]">02 · Small Paid Pilots Welcome</p>
+            <div className="bg-white/80 border border-[#3A3429]/20 rounded-lg p-6 space-y-2.5">
+              <p className="font-mono text-xs text-[#7A5B14]">02 · Small Paid Pilots</p>
               <h3 className="text-base font-semibold text-[#11100E]">
-                Validate Value Before Scaling Scope
+                Test on a Small Sample First
               </h3>
               <p className="text-sm text-[#232019] leading-relaxed">
-                Where appropriate, we can begin with a focused paid pilot—such as testing extraction
-                logic on a sample batch of documents or auditing one historical dataset—before
-                committing to a broader tool.
+                Want to see how an automation works on 15 sample PDFs before committing to a bigger
+                tool? We can start with a small, focused paid pilot.
               </p>
-            </MotionReveal>
+            </div>
 
-            <MotionReveal
-              delay={0.12}
-              className="bg-white/80 border border-[#3A3429]/20 rounded-lg p-6 space-y-2.5"
-            >
-              <p className="font-mono text-xs text-[#7A5B14]">03 · Honest Timeline Assessment</p>
+            <div className="bg-white/80 border border-[#3A3429]/20 rounded-lg p-6 space-y-2.5">
+              <p className="font-mono text-xs text-[#7A5B14]">03 · Realistic Timelines</p>
               <h3 className="text-base font-semibold text-[#11100E]">
-                Timelines Set After Scope Review
+                Agreed After Checking Your Files
               </h3>
               <p className="text-sm text-[#232019] leading-relaxed">
-                I do not advertise artificial 48-hour turnaround gimmicks. Delivery schedules are
-                agreed transparently after inspecting your actual data quality and deliverable
-                requirements.
+                I never promise fake overnight delivery dates before seeing your data. We set a
+                realistic schedule together once I review your sample material.
               </p>
-            </MotionReveal>
+            </div>
           </div>
 
           <div className="pt-2">
@@ -140,7 +174,7 @@ export function ProcessPage() {
               to="/enquire"
               className="inline-flex items-center gap-2 px-6 py-3 text-sm font-medium text-[#F4EFE6] bg-[#11100E] hover:bg-[#232019] rounded transition-colors"
             >
-              <span>Start With an Initial Project Enquiry</span>
+              <span>Start Step 01 — Describe Your Problem</span>
               <ArrowRight className="w-4 h-4 text-[#C9A24B]" />
             </Link>
           </div>

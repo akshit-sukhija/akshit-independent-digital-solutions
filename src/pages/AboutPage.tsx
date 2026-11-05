@@ -1,5 +1,6 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, ArrowUpRight } from 'lucide-react';
+import { ArrowRight, ArrowUpRight, Code2, UserCheck } from 'lucide-react';
 import { PageMeta } from '../components/PageMeta';
 import { MotionReveal } from '../components/MotionReveal';
 import { CtaSection } from '../components/CtaSection';
@@ -11,83 +12,167 @@ import {
 } from '../data/studioData';
 
 export function AboutPage() {
+  const [showCodeCard, setShowCodeCard] = useState(false);
+  const [photoLoaded, setPhotoLoaded] = useState(false);
+
   return (
     <div>
       <PageMeta
         title="About Akshit — Independent Digital Solutions"
-        description="Learn about Akshit’s problem-solving approach across AI workflow automation, data analytics, and custom software development for Indian startups and SMBs."
+        description="Meet Akshit—an independent solo operator in India helping startups and small businesses with data analysis, AI automation, and custom digital tools."
       />
 
-      {/* Personal & Credible Introduction */}
+      {/* Personal Introduction + Profile Card */}
       <section className="bg-[#11100E] bg-lamplit-glow border-b border-[#3A3429] pt-14 pb-20 px-6">
         <div className="max-w-[1200px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+          {/* Left Column: Simple-English Story */}
           <MotionReveal className="lg:col-span-7 space-y-6">
             <p className="font-mono text-xs text-[#C9A24B]">
-              About · Independent Individual Operator · India
+              About Me · Independent Solo Operator · India
             </p>
             <h1
               className="font-display text-[#F2EBDD] leading-tight"
               style={{ fontSize: 'clamp(2.25rem, 4vw, 3.75rem)' }}
             >
-              Bridging Analytical Rigour, Applied AI & Working Software
+              Helping Businesses Turn Messy Data and Manual Work Into Clear Digital Tools
             </h1>
             <p className="text-lg text-[#E8D5A8] leading-relaxed">
               {BRAND_IDENTITY.positioningStatement}
             </p>
             <div className="space-y-4 text-base text-[#A9A092] leading-relaxed">
               <p>
-                I am Akshit—an independent builder and analyst working at the intersection of
-                AI workflow automation, business data analytics, and full-stack digital tools.
+                Hi, I’m Akshit. I work independently at the intersection of{' '}
+                <strong className="text-[#F2EBDD] font-normal">business data analysis</strong>,{' '}
+                <strong className="text-[#F2EBDD] font-normal">AI workflow automation</strong>, and{' '}
+                <strong className="text-[#F2EBDD] font-normal">custom web software</strong>.
               </p>
               <p>
-                My approach starts with a simple observation: most small businesses and early-stage
-                teams do not suffer from a lack of software buzzwords. They suffer from fragmented
-                information—customer records sitting unexamined in spreadsheets, critical dates
-                buried inside PDF circulars, or diagnostic outputs scattered across incompatible
-                tools.
+                Most growing businesses do not need complicated tech buzzwords. They need someone
+                who can look at a confusing sales spreadsheet, a pile of routine PDF circulars, or
+                an idea for an internal tool—understand the business problem behind it—and build a
+                clean, working solution.
               </p>
               <p>
-                Because I work across data analysis (Python, SQL, Power BI), deterministic + AI
-                automation, and application engineering (React, TypeScript, FastAPI), I can look at
-                a business problem objectively and build the deliverable that actually solves it.
+                Because I handle the data cleaning, rule logic, and web interface myself, you work
+                directly with one person from our first conversation to final handover.
               </p>
+            </div>
+
+            <div className="pt-2 flex flex-wrap items-center gap-4">
+              <button
+                type="button"
+                onClick={() => setShowCodeCard((prev) => !prev)}
+                className="inline-flex items-center gap-2 px-4 py-2.5 text-xs font-mono text-[#E8D5A8] bg-[#1A1814] border border-[#3A3429] hover:border-[#C9A24B] rounded transition-colors cursor-pointer"
+              >
+                <Code2 className="w-4 h-4 text-[#C9A24B]" />
+                <span>
+                  {showCodeCard
+                    ? 'Switch to Standard Profile Card'
+                    : 'View Optional Code-Style Profile Card'}
+                </span>
+              </button>
+
+              <Link
+                to="/work"
+                className="inline-flex items-center gap-2 px-5 py-2.5 text-xs font-medium text-[#11100E] bg-[#C9A24B] hover:bg-[#E8D5A8] rounded transition-colors"
+              >
+                <span>See My 5 Projects</span>
+                <ArrowRight className="w-3.5 h-3.5" />
+              </Link>
             </div>
           </MotionReveal>
 
-          {/* Operator Principles Card */}
+          {/* Right Column: Profile Portrait Card + Optional Interactive Code-Style Profile View */}
           <MotionReveal
-            delay={0.08}
+            delay={0.06}
             className="lg:col-span-5 bg-[#1A1814] border border-[#3A3429] rounded-lg p-6 md:p-8 space-y-6"
           >
-            <div className="border-b border-[#3A3429] pb-4">
-              <p className="font-mono text-xs text-[#C9A24B]">Studio Operating Profile</p>
-              <h2 className="font-display text-2xl text-[#F2EBDD] mt-1">
-                How I Operate
-              </h2>
+            {/* Profile Photo Frame with Resilient Studio Monogram Fallback */}
+            <div className="flex items-center gap-5 border-b border-[#3A3429] pb-6">
+              <div className="relative w-20 h-20 rounded-lg bg-[#11100E] border border-[#C9A24B]/60 flex items-center justify-center overflow-hidden shrink-0">
+                <img
+                  src="/profile.jpg"
+                  alt="Akshit — Independent Digital Solutions"
+                  referrerPolicy="no-referrer"
+                  onLoad={() => setPhotoLoaded(true)}
+                  onError={(e) => {
+                    e.currentTarget.style.display = 'none';
+                  }}
+                  className={`w-full h-full object-cover ${photoLoaded ? 'block' : 'hidden'}`}
+                />
+                {!photoLoaded && (
+                  <div className="text-center select-none">
+                    <span className="font-display text-3xl text-[#C9A24B] block leading-none">
+                      A
+                    </span>
+                    <span className="font-mono text-[9px] text-[#E8D5A8] tracking-widest uppercase">
+                      Studio
+                    </span>
+                  </div>
+                )}
+              </div>
+
+              <div className="space-y-1">
+                <div className="inline-flex items-center gap-1.5 font-mono text-xs text-[#C9A24B]">
+                  <UserCheck className="w-3.5 h-3.5" />
+                  <span>Independent Operator</span>
+                </div>
+                <h2 className="font-display text-2xl text-[#F2EBDD]">Akshit</h2>
+                <p className="text-xs text-[#A9A092]">
+                  AI Automation · Data Analysis · Custom Web Tools
+                </p>
+              </div>
             </div>
 
-            <div className="space-y-4 text-sm">
-              <div>
-                <p className="font-mono text-xs text-[#E8D5A8]">Structure</p>
-                <p className="text-[#A9A092] mt-1 leading-relaxed">
-                  Solo independent operator—never a fictional agency front. You communicate directly
-                  with the person doing the analysis and engineering.
+            {showCodeCard ? (
+              <div className="space-y-2">
+                <p className="font-mono text-xs text-[#C9A24B]">
+                  Interactive Code-Style Profile Card
                 </p>
+                <pre className="bg-[#11100E] border border-[#3A3429] rounded p-4 font-mono text-xs text-[#E8D5A8] overflow-x-auto leading-relaxed">
+                  <code>{`{
+  "name": "Akshit",
+  "studio": "Independent Digital Solutions",
+  "location": "India (INR Scope-Based Work)",
+  "coreCapabilities": {
+    "data": ["Python", "SQL", "Pandas", "NumPy", "Power BI"],
+    "ai": ["Applied AI", "NLP", "Prompt Design", "Rule-Backed Automation"],
+    "web": ["React 19", "TypeScript", "FastAPI", "Streamlit", "SQLite"],
+    "product": ["Research", "Prototyping", "Workflows", "Documentation"]
+  },
+  "verifiedAcademicRecord": {
+    "cgpa": "9.10 / 10",
+    "aggregate": "85.026%",
+    "sgpas": [9.50, 8.81, 9.10, 8.96]
+  },
+  "github": "https://github.com/akshit-sukhija"
+}`}</code>
+                </pre>
               </div>
-              <div>
-                <p className="font-mono text-xs text-[#E8D5A8]">Primary Focus</p>
-                <p className="text-[#A9A092] mt-1 leading-relaxed">
-                  Indian startup founders, SMBs, D2C brands, consultants, and operational teams
-                  with practical INR scope-based engagements.
-                </p>
+            ) : (
+              <div className="space-y-4 text-sm">
+                <div>
+                  <p className="font-mono text-xs text-[#E8D5A8]">How I Work With Clients</p>
+                  <p className="text-[#A9A092] mt-1 leading-relaxed">
+                    Solo independent operator—not a multi-person agency. You talk directly with me
+                    throughout the entire project.
+                  </p>
+                </div>
+                <div>
+                  <p className="font-mono text-xs text-[#E8D5A8]">Who I Help Most</p>
+                  <p className="text-[#A9A092] mt-1 leading-relaxed">
+                    Indian startup founders, small and medium businesses, D2C brands, consultants,
+                    and operational teams.
+                  </p>
+                </div>
+                <div>
+                  <p className="font-mono text-xs text-[#E8D5A8]">What Makes My Work Different</p>
+                  <p className="text-[#A9A092] mt-1 leading-relaxed">
+                    {BRAND_IDENTITY.differentiation}
+                  </p>
+                </div>
               </div>
-              <div>
-                <p className="font-mono text-xs text-[#E8D5A8]">Core Differentiation</p>
-                <p className="text-[#A9A092] mt-1 leading-relaxed">
-                  {BRAND_IDENTITY.differentiation}
-                </p>
-              </div>
-            </div>
+            )}
 
             <div className="pt-4 border-t border-[#3A3429] flex flex-wrap items-center justify-between gap-4">
               <a
@@ -111,18 +196,19 @@ export function AboutPage() {
         </div>
       </section>
 
-      {/* Structured Skills Matrix (Data, AI, Development, Product) */}
+      {/* Skills Section: Simple English First + Technical Tools */}
       <section className="bg-[#1A1814] py-20 px-6 border-b border-[#3A3429]">
         <div className="max-w-[1200px] mx-auto space-y-12">
           <MotionReveal className="max-w-3xl space-y-2">
             <p className="font-mono text-xs text-[#C9A24B]">
-              Structured Technical Capabilities
+              Skills & Capabilities · Plain English + Technical Stack
             </p>
             <h2 className="font-display text-3xl sm:text-4xl text-[#F2EBDD]">
-              Four Interconnected Disciplines
+              What I Bring to Your Project
             </h2>
             <p className="text-base text-[#A9A092] leading-relaxed">
-              Every capability listed below is backed by documented project work in this portfolio.
+              Grouped into four clear areas, showing both the practical business benefit and the
+              technical tools used under the hood.
             </p>
           </MotionReveal>
 
@@ -130,7 +216,7 @@ export function AboutPage() {
             {SKILLS_MATRIX.map((group, idx) => (
               <MotionReveal
                 key={group.category}
-                delay={idx * 0.06}
+                delay={idx * 0.05}
                 className="bg-[#11100E] border border-[#3A3429] rounded-lg p-6 md:p-8 flex flex-col justify-between gap-6"
               >
                 <div className="space-y-4">
@@ -139,24 +225,28 @@ export function AboutPage() {
                       0{idx + 1} · {group.category}
                     </span>
                     <span className="font-mono text-xs text-[#A9A092]">
-                      {group.skills.length} core tools
+                      {group.skills.join(' · ')}
                     </span>
                   </div>
 
                   <h3 className="font-display text-2xl sm:text-3xl text-[#F2EBDD]">
-                    {group.category} Capabilities
+                    {group.plainTitle}
                   </h3>
 
                   <p className="text-sm text-[#A9A092] leading-relaxed">{group.summary}</p>
 
-                  {/* Clean unboxed inline metadata list */}
-                  <p className="font-mono text-xs text-[#E8D5A8] pt-2">
-                    {group.skills.join(' · ')}
-                  </p>
+                  <ul className="space-y-2 text-xs text-[#F2EBDD]/90 pt-1">
+                    {group.plainOutcomes.map((outcome) => (
+                      <li key={outcome} className="flex items-start gap-2">
+                        <span className="font-mono text-[#C9A24B]">—</span>
+                        <span>{outcome}</span>
+                      </li>
+                    ))}
+                  </ul>
                 </div>
 
                 <p className="text-xs text-[#A9A092] pt-3 border-t border-[#3A3429]">
-                  <strong className="text-[#F2EBDD] font-normal">Applied in: </strong>
+                  <strong className="text-[#E8D5A8] font-normal">Proven in: </strong>
                   {group.appliedIn}
                 </p>
               </MotionReveal>
@@ -165,69 +255,17 @@ export function AboutPage() {
         </div>
       </section>
 
-      {/* Problem-Solving Methodology (Ivory Editorial Contrast Panel) */}
-      <section className="bg-[#F4EFE6] text-[#11100E] py-16 px-6 border-b border-[#3A3429]/30">
-        <div className="max-w-[1200px] mx-auto space-y-10">
-          <MotionReveal className="max-w-3xl space-y-2">
-            <p className="font-mono text-xs text-[#7A5B14]">
-              Engineering & Analytical Philosophy
-            </p>
-            <h2 className="font-display text-3xl sm:text-4xl text-[#11100E]">
-              How I Approach Unstructured Problems
-            </h2>
-          </MotionReveal>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="bg-white/80 border border-[#3A3429]/20 rounded-lg p-6 space-y-2.5">
-              <p className="font-mono text-xs text-[#7A5B14]">Principle 01</p>
-              <h3 className="text-base font-semibold text-[#11100E]">
-                Deterministic Logic First, AI Second
-              </h3>
-              <p className="text-sm text-[#232019] leading-relaxed">
-                Whether detecting schedule clashes in Notice Decoder or evaluating compliance rules
-                in Contract Risk Governance, explicit deterministic rules handle the critical math
-                and verdicts while AI handles unstructured text and narrative explanation.
-              </p>
-            </div>
-
-            <div className="bg-white/80 border border-[#3A3429]/20 rounded-lg p-6 space-y-2.5">
-              <p className="font-mono text-xs text-[#7A5B14]">Principle 02</p>
-              <h3 className="text-base font-semibold text-[#11100E]">
-                Question Surface-Level Metrics
-              </h3>
-              <p className="text-sm text-[#232019] leading-relaxed">
-                As demonstrated in Decoding Customer Value (3,900 records), high purchase spend does
-                not automatically equal organic loyalty. Good analysis tests underlying promotional
-                dependency before recommending commercial action.
-              </p>
-            </div>
-
-            <div className="bg-white/80 border border-[#3A3429]/20 rounded-lg p-6 space-y-2.5">
-              <p className="font-mono text-xs text-[#7A5B14]">Principle 03</p>
-              <h3 className="text-base font-semibold text-[#11100E]">
-                Auditability & Clean Handover
-              </h3>
-              <p className="text-sm text-[#232019] leading-relaxed">
-                From SHA-256 artifact integrity verification in SentinelX to comprehensive
-                technical documentation, deliverables are engineered so stakeholders can trust and
-                maintain the output.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Supporting Credibility: Verified Academic Record & Collaborator Attribution */}
+      {/* Supporting Credibility: Verified Academic Record & Collaborator Credits */}
       <section className="bg-[#11100E] py-16 px-6">
         <div className="max-w-[1200px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-          {/* Verified Academic Record (Secondary Supporting Credibility) */}
+          {/* Verified Academic Record */}
           <MotionReveal className="lg:col-span-6 bg-[#1A1814] border border-[#3A3429] rounded-lg p-6 md:p-8 space-y-6">
             <div className="border-b border-[#3A3429] pb-4">
               <p className="font-mono text-xs text-[#A9A092]">
                 Supporting Credibility · Verified Academic Record
               </p>
               <h2 className="font-display text-2xl text-[#F2EBDD] mt-1">
-                Academic Foundation
+                Academic Consistency
               </h2>
             </div>
 
@@ -251,10 +289,13 @@ export function AboutPage() {
             </div>
 
             <div className="bg-[#11100E] border border-[#3A3429] rounded p-4 space-y-2">
-              <p className="font-mono text-xs text-[#A9A092]">Verified Semester Progression</p>
+              <p className="font-mono text-xs text-[#A9A092]">Semester SGPAs</p>
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-1">
                 {VERIFIED_ACADEMIC_RECORD.semesterSgpas.map((sem) => (
-                  <div key={sem.semester} className="border-r last:border-r-0 border-[#3A3429] pr-2">
+                  <div
+                    key={sem.semester}
+                    className="border-r last:border-r-0 border-[#3A3429] pr-2"
+                  >
                     <p className="font-mono text-[11px] text-[#A9A092]">{sem.semester}</p>
                     <p className="font-mono text-sm font-semibold text-[#F2EBDD] tabular-nums">
                       SGPA {sem.sgpa}
@@ -265,23 +306,23 @@ export function AboutPage() {
             </div>
           </MotionReveal>
 
-          {/* Documented Roles & Collaborator Attribution Registry */}
+          {/* Honest Project Attribution & Co-Creator Credits */}
           <MotionReveal
-            delay={0.08}
+            delay={0.06}
             className="lg:col-span-6 bg-[#1A1814] border border-[#3A3429] rounded-lg p-6 md:p-8 space-y-6"
           >
             <div className="border-b border-[#3A3429] pb-4">
               <p className="font-mono text-xs text-[#C9A24B]">
-                Attribution & Documentation Ethics
+                Honest Attribution & Co-Creator Credits
               </p>
               <h2 className="font-display text-2xl text-[#F2EBDD] mt-1">
-                Documented Project Roles & Co-Creators
+                My Role on Each Project
               </h2>
             </div>
 
             <p className="text-xs text-[#A9A092] leading-relaxed">
-              Every project in this studio portfolio clearly distinguishes between collaborative and
-              solo work and credits co-creators accurately.
+              Every project clearly states whether it was built solo or with a co-creator, along
+              with my exact documented role.
             </p>
 
             <ul className="space-y-3 text-xs">
@@ -298,7 +339,7 @@ export function AboutPage() {
                       {proj.indexNumber}. {proj.title}
                     </Link>
                     <p className="text-[#A9A092] mt-0.5">
-                      Role: <span className="text-[#E8D5A8]">{proj.documentedRole}</span>
+                      My Role: <span className="text-[#E8D5A8]">{proj.documentedRole}</span>
                     </p>
                   </div>
                   <span className="font-mono text-[11px] text-[#A9A092] shrink-0">

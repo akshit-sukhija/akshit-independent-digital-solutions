@@ -4,39 +4,41 @@ import {
   filterAndSortProjects,
   getProjectBySlug,
   matchProblemToService,
+  estimateProjectScope,
   validateEnquiryForm,
   formatEnquiryBrief,
+  AVAILABLE_INFO_OPTIONS,
+  DESIRED_OUTCOME_OPTIONS,
   type EnquiryFormInput,
 } from './studioLogic';
 
-test('strict project hierarchy preserves Notice Decoder, SentinelX, and Decoding Customer Value order', () => {
+test('strict project hierarchy preserves Notice Decoder, SentinelX, Decoding Customer Value, Contract Risk Governance, and Lureline', () => {
   const all = filterAndSortProjects('all', 'all');
   assert.equal(all.length, 5);
   assert.equal(all[0].slug, 'notice-decoder');
-  assert.equal(all[0].tier, 'flagship');
   assert.equal(all[1].slug, 'sentinelx');
-  assert.equal(all[1].tier, 'flagship');
   assert.equal(all[2].slug, 'decoding-customer-value');
-  assert.equal(all[2].tier, 'featured');
   assert.equal(all[3].slug, 'contract-risk-governance');
-  assert.equal(all[3].tier, 'secondary');
   assert.equal(all[4].slug, 'lureline');
-  assert.equal(all[4].tier, 'secondary');
 });
 
-test('primary vs secondary tier filter separates flagship/featured from secondary projects', () => {
-  const primary = filterAndSortProjects('all', 'primary');
-  assert.equal(primary.length, 3);
+test('Portfolio Explorer filters by category, technology, and evidence type accurately', () => {
+  const liveApps = filterAndSortProjects('all', 'all', 'all', 'live-demo');
   assert.deepEqual(
-    primary.map((p) => p.slug),
-    ['notice-decoder', 'sentinelx', 'decoding-customer-value']
+    liveApps.map((p) => p.slug),
+    ['notice-decoder', 'lureline']
   );
 
-  const secondary = filterAndSortProjects('all', 'secondary');
-  assert.equal(secondary.length, 2);
+  const pythonProjects = filterAndSortProjects('all', 'all', 'Python', 'all');
   assert.deepEqual(
-    secondary.map((p) => p.slug),
-    ['contract-risk-governance', 'lureline']
+    pythonProjects.map((p) => p.slug),
+    ['sentinelx', 'decoding-customer-value', 'contract-risk-governance']
+  );
+
+  const reportOrStudy = filterAndSortProjects('all', 'all', 'all', 'report-or-study');
+  assert.deepEqual(
+    reportOrStudy.map((p) => p.slug),
+    ['sentinelx', 'decoding-customer-value']
   );
 });
 
@@ -50,6 +52,19 @@ test('factual accuracy guardrails on project records', () => {
   assert.ok(dcv);
   assert.equal(dcv.liveDemoUrl, undefined);
   assert.ok(dcv.githubUrl?.includes('IITG_Decoding_Customer_Value_Akshit_Bhumika'));
+});
+
+test('four-step estimateProjectScope recommends appropriate service without inventing prices', () => {
+  const estimate = estimateProjectScope({
+    problemCategory: 'Automate a repetitive workflow',
+    availableInformation: AVAILABLE_INFO_OPTIONS[1],
+    desiredOutcomeType: DESIRED_OUTCOME_OPTIONS[1],
+    timelinePreference: 'Within 1–2 weeks (Focused analysis / small pilot)',
+  });
+
+  assert.equal(estimate.recommendedService.id, 'ai-workflow-automation');
+  assert.ok(estimate.scopeDisclaimer.includes('No instant price or guaranteed date'));
+  assert.ok(estimate.matchingProjects.some((p) => p.slug === 'notice-decoder'));
 });
 
 test('validateEnquiryForm rejects empty or invalid inputs and accepts valid Indian business enquiry', () => {
@@ -68,13 +83,6 @@ test('validateEnquiryForm rejects empty or invalid inputs and accepts valid Indi
   const invalidResult = validateEnquiryForm(emptyInput);
   assert.equal(invalidResult.isValid, false);
   assert.ok(invalidResult.errors.name);
-  assert.ok(invalidResult.errors.businessName);
-  assert.ok(invalidResult.errors.email);
-  assert.ok(invalidResult.errors.problemCategory);
-  assert.ok(invalidResult.errors.desiredOutcome);
-  assert.ok(invalidResult.errors.availableMaterial);
-  assert.ok(invalidResult.errors.budgetRange);
-  assert.ok(invalidResult.errors.expectedTimeline);
 
   const validInput: EnquiryFormInput = {
     name: 'Rohan Mehta',

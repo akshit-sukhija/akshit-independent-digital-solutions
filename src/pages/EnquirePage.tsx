@@ -36,12 +36,25 @@ export function EnquirePage() {
 
   useEffect(() => {
     const preselectedProblem = searchParams.get('problem');
-    if (
-      preselectedProblem &&
-      PROBLEM_CATEGORIES.includes(preselectedProblem as (typeof PROBLEM_CATEGORIES)[number])
-    ) {
-      setForm((prev) => ({ ...prev, problemCategory: preselectedProblem }));
-    }
+    const preselectedMaterial = searchParams.get('material');
+    const preselectedOutcome = searchParams.get('outcome');
+    const preselectedTimeline = searchParams.get('timeline');
+
+    setForm((prev) => ({
+      ...prev,
+      problemCategory:
+        preselectedProblem &&
+        PROBLEM_CATEGORIES.includes(preselectedProblem as (typeof PROBLEM_CATEGORIES)[number])
+          ? preselectedProblem
+          : prev.problemCategory,
+      availableMaterial: preselectedMaterial ?? prev.availableMaterial,
+      desiredOutcome: preselectedOutcome ?? prev.desiredOutcome,
+      expectedTimeline:
+        preselectedTimeline &&
+        TIMELINE_OPTIONS.includes(preselectedTimeline as (typeof TIMELINE_OPTIONS)[number])
+          ? preselectedTimeline
+          : prev.expectedTimeline,
+    }));
   }, [searchParams]);
 
   const matchedRecommendation = matchProblemToService(form.problemCategory);
@@ -51,9 +64,9 @@ export function EnquirePage() {
     businessName: form.businessName || '[Your Business / Startup]',
     email: form.email || '[your.email@company.in]',
     desiredOutcome:
-      form.desiredOutcome || '[Describe the business outcome or decision clarity you want]',
+      form.desiredOutcome || '[Explain the result or time-saver you want]',
     availableMaterial:
-      form.availableMaterial || '[Mention spreadsheets, PDFs, or current manual steps available]',
+      form.availableMaterial || '[Mention what spreadsheets, PDFs, or notes you have]',
   });
 
   const handleFieldChange = (field: keyof EnquiryFormInput, value: string) => {
@@ -90,7 +103,6 @@ export function EnquirePage() {
       setCopied(true);
       setTimeout(() => setCopied(false), 3000);
     } catch {
-      // Fallback copy if clipboard API is restricted
       const textarea = document.createElement('textarea');
       textarea.value = textToCopy;
       document.body.appendChild(textarea);
@@ -126,8 +138,8 @@ export function EnquirePage() {
   return (
     <div>
       <PageMeta
-        title="Discuss a Project — Problem-First Enquiry"
-        description="Submit a problem-first project enquiry to Akshit. Describe your business problem, desired outcome, available data, and approximate INR budget for a tailored scope proposal."
+        title="Discuss a Project — Guided Plain-English Enquiry"
+        description="Describe your business problem, available spreadsheets or documents, and desired outcome in plain English to create a structured project enquiry brief."
       />
 
       {/* Editorial Header */}
@@ -135,7 +147,7 @@ export function EnquirePage() {
         <div className="max-w-[1200px] mx-auto space-y-4">
           <MotionReveal className="max-w-3xl space-y-4">
             <p className="font-mono text-xs text-[#C9A24B]">
-              Project Enquiry · Problem-First & Scope-Based (INR)
+              Project Enquiry · Guided & Plain-English (INR)
             </p>
             <h1
               className="font-display text-[#F2EBDD] leading-tight"
@@ -144,26 +156,26 @@ export function EnquirePage() {
               Tell Me About the Problem You Want to Solve
             </h1>
             <p className="text-base sm:text-lg text-[#A9A092] leading-relaxed">
-              You do not need to write a technical specification or choose programming languages.
-              Share what your business is dealing with, what data or documents exist, and the
-              outcome you want—and we will define a realistic scope together.
+              You do not need any technical knowledge to fill this out. Answer in everyday words—this
+              form builds a clear Project Brief that you can copy, download, or open in your email
+              app.
             </p>
           </MotionReveal>
         </div>
       </section>
 
-      {/* Main Enquiry Workspace: Form + Live Project Summary Preview */}
+      {/* Main Enquiry Workspace */}
       <section className="bg-[#11100E] py-16 px-6">
         <div className="max-w-[1200px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
-          {/* Left Column: Accessible Problem-First Enquiry Form */}
+          {/* Left Column: Guided Form */}
           <div className="lg:col-span-7 bg-[#1A1814] border border-[#3A3429] rounded-lg p-6 md:p-8">
             <form onSubmit={handleSubmit} noValidate className="space-y-6">
               <div className="border-b border-[#3A3429] pb-4">
                 <h2 className="font-display text-2xl text-[#F2EBDD]">
-                  01. Your Details & Business Context
+                  01. Who You Are
                 </h2>
                 <p className="text-xs text-[#A9A092] mt-1">
-                  All fields marked with * are required to prepare an accurate project brief.
+                  Fields marked with * are needed to generate your project brief.
                 </p>
               </div>
 
@@ -173,7 +185,7 @@ export function EnquirePage() {
                   className="bg-[#232019] border border-[#E08A1E] rounded p-4 text-xs text-[#F2EBDD] space-y-1"
                 >
                   <p className="font-mono text-[#E08A1E] font-medium">
-                    Please review the highlighted fields before generating your final enquiry brief:
+                    Please fill in the highlighted fields below:
                   </p>
                   <ul className="list-disc list-inside text-[#A9A092] space-y-0.5">
                     {Object.values(errors).map((err) => (
@@ -222,7 +234,7 @@ export function EnquirePage() {
                     onChange={(e) => handleFieldChange('businessName', e.target.value)}
                     aria-invalid={Boolean(errors.businessName)}
                     aria-describedby={errors.businessName ? 'err-business' : undefined}
-                    placeholder="e.g. Mehta D2C Retail / Independent Consultant"
+                    placeholder="e.g. Mehta Retail / Independent Consultant"
                     className="w-full bg-[#11100E] border border-[#3A3429] focus:border-[#C9A24B] rounded px-3.5 py-2.5 text-sm text-[#F2EBDD] placeholder:text-[#A9A092]/50 focus:outline-none"
                   />
                   {errors.businessName && (
@@ -238,7 +250,7 @@ export function EnquirePage() {
                   htmlFor="enquiry-email"
                   className="block font-mono text-xs text-[#F2EBDD] mb-2"
                 >
-                  Work or Direct Email *
+                  Your Email Address *
                 </label>
                 <input
                   id="enquiry-email"
@@ -259,7 +271,7 @@ export function EnquirePage() {
 
               <div className="border-t border-[#3A3429] pt-6">
                 <h2 className="font-display text-2xl text-[#F2EBDD] mb-4">
-                  02. Problem, Data & Desired Outcome
+                  02. Your Problem & Available Information
                 </h2>
 
                 <div className="space-y-5">
@@ -268,7 +280,7 @@ export function EnquirePage() {
                       htmlFor="enquiry-problem"
                       className="block font-mono text-xs text-[#F2EBDD] mb-2"
                     >
-                      What best describes your project problem? *
+                      What best describes what you need help with? *
                     </label>
                     <select
                       id="enquiry-problem"
@@ -283,9 +295,6 @@ export function EnquirePage() {
                         </option>
                       ))}
                     </select>
-                    {errors.problemCategory && (
-                      <p className="text-xs text-[#E08A1E] mt-1.5">{errors.problemCategory}</p>
-                    )}
                   </div>
 
                   <div>
@@ -293,7 +302,7 @@ export function EnquirePage() {
                       htmlFor="enquiry-outcome"
                       className="block font-mono text-xs text-[#F2EBDD] mb-2"
                     >
-                      Desired Outcome (What should be easier, clearer, or automated?) *
+                      What result do you want? (Explain in everyday words) *
                     </label>
                     <textarea
                       id="enquiry-outcome"
@@ -302,7 +311,7 @@ export function EnquirePage() {
                       onChange={(e) => handleFieldChange('desiredOutcome', e.target.value)}
                       aria-invalid={Boolean(errors.desiredOutcome)}
                       aria-describedby={errors.desiredOutcome ? 'err-outcome' : undefined}
-                      placeholder="e.g. We have 18 months of order records and want to see which customer segments return without discount codes, plus a clean Power BI dashboard."
+                      placeholder="e.g. We want to see which customer groups come back without discount codes, plus an easy Power BI dashboard."
                       className="w-full bg-[#11100E] border border-[#3A3429] focus:border-[#C9A24B] rounded px-3.5 py-2.5 text-sm text-[#F2EBDD] placeholder:text-[#A9A092]/50 focus:outline-none"
                     />
                     {errors.desiredOutcome && (
@@ -317,7 +326,7 @@ export function EnquirePage() {
                       htmlFor="enquiry-material"
                       className="block font-mono text-xs text-[#F2EBDD] mb-2"
                     >
-                      Available Material or Data (Spreadsheets, PDFs, existing tools) *
+                      What spreadsheets, documents, or notes do you already have? *
                     </label>
                     <textarea
                       id="enquiry-material"
@@ -326,7 +335,7 @@ export function EnquirePage() {
                       onChange={(e) => handleFieldChange('availableMaterial', e.target.value)}
                       aria-invalid={Boolean(errors.availableMaterial)}
                       aria-describedby={errors.availableMaterial ? 'err-material' : undefined}
-                      placeholder="e.g. Excel / CSV exports from Tally or Shopify, sample PDF circulars, or notes on our current manual workflow."
+                      placeholder="e.g. Excel / CSV order sheets, sample PDF circulars, or notes on how we do the task today."
                       className="w-full bg-[#11100E] border border-[#3A3429] focus:border-[#C9A24B] rounded px-3.5 py-2.5 text-sm text-[#F2EBDD] placeholder:text-[#A9A092]/50 focus:outline-none"
                     />
                     {errors.availableMaterial && (
@@ -343,9 +352,8 @@ export function EnquirePage() {
                   03. Approximate INR Budget & Timeline
                 </h2>
                 <p className="text-xs text-[#A9A092] mb-4">
-                  Selecting a budget range helps right-size the initial recommendation (for example,
-                  suggesting a focused analysis or small paid pilot vs. a full custom tool). It
-                  never automatically generates a fixed final price.
+                  Choosing a budget range helps me suggest a realistic size (such as a small paid
+                  pilot vs. a full web tool). It never locks you into an automatic price.
                 </p>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
@@ -369,9 +377,6 @@ export function EnquirePage() {
                         </option>
                       ))}
                     </select>
-                    {errors.budgetRange && (
-                      <p className="text-xs text-[#E08A1E] mt-1.5">{errors.budgetRange}</p>
-                    )}
                   </div>
 
                   <div>
@@ -402,46 +407,52 @@ export function EnquirePage() {
                     htmlFor="enquiry-additional"
                     className="block font-mono text-xs text-[#F2EBDD] mb-2"
                   >
-                    Additional Details or Questions (Optional)
+                    Anything else you want to mention? (Optional)
                   </label>
                   <textarea
                     id="enquiry-additional"
                     rows={2}
                     value={form.additionalDetails}
                     onChange={(e) => handleFieldChange('additionalDetails', e.target.value)}
-                    placeholder="Any specific constraints, preferred format, or questions about starting with a small pilot."
+                    placeholder="Questions about starting with a small pilot or specific requirements."
                     className="w-full bg-[#11100E] border border-[#3A3429] focus:border-[#C9A24B] rounded px-3.5 py-2.5 text-sm text-[#F2EBDD] placeholder:text-[#A9A092]/50 focus:outline-none"
                   />
                 </div>
               </div>
 
-              <div className="pt-4 border-t border-[#3A3429] flex flex-wrap items-center justify-between gap-4">
-                <button
-                  type="submit"
-                  className="px-6 py-3 text-sm font-medium text-[#11100E] bg-[#C9A24B] hover:bg-[#E8D5A8] rounded transition-colors cursor-pointer"
-                >
-                  Prepare & Validate Project Enquiry
-                </button>
+              <div className="pt-4 border-t border-[#3A3429] space-y-3">
+                <div className="flex flex-wrap items-center justify-between gap-4">
+                  <button
+                    type="submit"
+                    className="px-6 py-3 text-sm font-medium text-[#11100E] bg-[#C9A24B] hover:bg-[#E8D5A8] rounded transition-colors cursor-pointer"
+                  >
+                    Prepare & Validate Project Enquiry
+                  </button>
 
-                <button
-                  type="button"
-                  onClick={() => {
-                    setForm(INITIAL_FORM);
-                    setErrors({});
-                    setSubmittedBrief(null);
-                  }}
-                  className="inline-flex items-center gap-1.5 px-4 py-2.5 text-xs font-mono text-[#A9A092] hover:text-[#F2EBDD] border border-[#3A3429] rounded transition-colors cursor-pointer"
-                >
-                  <RotateCcw className="w-3.5 h-3.5" />
-                  <span>Reset Form</span>
-                </button>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setForm(INITIAL_FORM);
+                      setErrors({});
+                      setSubmittedBrief(null);
+                    }}
+                    className="inline-flex items-center gap-1.5 px-4 py-2.5 text-xs font-mono text-[#A9A092] hover:text-[#F2EBDD] border border-[#3A3429] rounded transition-colors cursor-pointer"
+                  >
+                    <RotateCcw className="w-3.5 h-3.5" />
+                    <span>Reset Form</span>
+                  </button>
+                </div>
+                <p className="text-[11px] text-[#A9A092]">
+                  Note: Clicking this button validates your inputs and prepares a formatted Project
+                  Brief on this page so you can copy it, download it, or open it in your email app.
+                  Nothing is sent to an external server without your action.
+                </p>
               </div>
             </form>
           </div>
 
-          {/* Right Column: Live Project Summary Preview & Honest Dispatch Controls */}
+          {/* Right Column: Live Project Brief & Honest Sharing Actions */}
           <div className="lg:col-span-5 space-y-6">
-            {/* Validated Confirmation Banner when Submitted */}
             {submittedBrief && (
               <div
                 role="status"
@@ -450,17 +461,16 @@ export function EnquirePage() {
               >
                 <div className="flex items-center justify-between">
                   <p className="font-mono text-xs text-[#8FBF7A]">
-                    Enquiry Validated & Ready to Share
+                    Brief Created Locally · Ready to Copy or Email
                   </p>
-                  <span className="font-mono text-xs text-[#E8D5A8]">No Server Pretension</span>
+                  <span className="font-mono text-xs text-[#E8D5A8]">Local Brief Builder</span>
                 </div>
                 <h3 className="font-display text-2xl text-[#F2EBDD]">
-                  Your Project Summary Is Ready
+                  Your Project Brief Is Ready
                 </h3>
                 <p className="text-xs text-[#A9A092] leading-relaxed">
-                  To keep your inquiry completely transparent and private without relying on a
-                  third-party background database, copy the structured brief below, download it as a
-                  text file, or open it directly in your email client.
+                  This website does not secretly send your form to a third-party database. Choose
+                  how you would like to share or save your prepared brief below:
                 </p>
 
                 <div className="flex flex-wrap items-center gap-3 pt-1">
@@ -470,7 +480,7 @@ export function EnquirePage() {
                     className="inline-flex items-center gap-2 px-4 py-2.5 text-xs font-medium text-[#11100E] bg-[#C9A24B] hover:bg-[#E8D5A8] rounded transition-colors cursor-pointer"
                   >
                     {copied ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
-                    <span>{copied ? 'Copied Brief to Clipboard' : 'Copy Enquiry Brief'}</span>
+                    <span>{copied ? 'Copied Brief to Clipboard' : 'Copy Brief Text'}</span>
                   </button>
 
                   <a
@@ -478,7 +488,7 @@ export function EnquirePage() {
                     className="inline-flex items-center gap-2 px-4 py-2.5 text-xs font-medium text-[#F2EBDD] bg-[#11100E] border border-[#3A3429] hover:border-[#C9A24B] rounded transition-colors"
                   >
                     <Mail className="w-4 h-4 text-[#C9A24B]" />
-                    <span>Open in Email Client</span>
+                    <span>Open in Email App</span>
                   </a>
 
                   <button
@@ -493,15 +503,14 @@ export function EnquirePage() {
               </div>
             )}
 
-            {/* Live Project Summary Before & After Submission */}
             <div className="bg-[#1A1814] border border-[#3A3429] rounded-lg p-6 space-y-4">
               <div className="flex items-center justify-between border-b border-[#3A3429] pb-3">
                 <div>
                   <p className="font-mono text-xs text-[#C9A24B]">
-                    Live Project Summary Before Submission
+                    Live Project Summary Preview
                   </p>
                   <h2 className="font-display text-2xl text-[#F2EBDD] mt-0.5">
-                    Structured Scope Preview
+                    Your Project Brief
                   </h2>
                 </div>
                 <button
@@ -509,21 +518,25 @@ export function EnquirePage() {
                   onClick={handleCopyBrief}
                   className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-mono text-[#E8D5A8] bg-[#11100E] border border-[#3A3429] hover:border-[#C9A24B] rounded transition-colors cursor-pointer"
                 >
-                  {copied ? <Check className="w-3.5 h-3.5 text-[#8FBF7A]" /> : <Copy className="w-3.5 h-3.5" />}
+                  {copied ? (
+                    <Check className="w-3.5 h-3.5 text-[#8FBF7A]" />
+                  ) : (
+                    <Copy className="w-3.5 h-3.5" />
+                  )}
                   <span>{copied ? 'Copied' : 'Copy'}</span>
                 </button>
               </div>
 
               <div className="bg-[#11100E] border border-[#3A3429] rounded p-4 space-y-2 text-xs">
                 <p className="font-mono text-[#C9A24B]">
-                  Aligned Service: {matchedRecommendation.recommendedService.number}.{' '}
+                  Recommended Service: {matchedRecommendation.recommendedService.number}.{' '}
                   {matchedRecommendation.recommendedService.title}
                 </p>
                 <p className="text-[#A9A092] leading-relaxed">
                   {matchedRecommendation.rationale}
                 </p>
                 <p className="text-[#E8D5A8] pt-1 border-t border-[#3A3429]/60">
-                  Suggested Pilot Option: {matchedRecommendation.suggestedPilotIdea}
+                  Pilot Idea: {matchedRecommendation.suggestedPilotIdea}
                 </p>
               </div>
 
@@ -532,9 +545,9 @@ export function EnquirePage() {
               </pre>
 
               <p className="text-xs text-[#A9A092] leading-relaxed">
-                Want to review how scope and proposals work first?{' '}
-                <Link to="/process" className="text-[#C9A24B] hover:underline">
-                  Read the 6-stage client process →
+                Want to test different scope options first?{' '}
+                <Link to="/solutions" className="text-[#C9A24B] hover:underline">
+                  Use the 4-Step Project Scope Estimator →
                 </Link>
               </p>
             </div>

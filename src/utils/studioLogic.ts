@@ -8,6 +8,32 @@ import {
   type ServiceCategory,
 } from '../data/studioData';
 
+export type EvidenceFilterType = 'all' | 'live-demo' | 'github-code' | 'report-or-study';
+
+export interface PortfolioFilterOptions {
+  domain?: CapabilityDomain | 'all';
+  tier?: 'all' | 'primary' | 'secondary';
+  technology?: string;
+  evidenceType?: EvidenceFilterType;
+}
+
+export interface ScopeEstimatorInput {
+  problemCategory: string;
+  availableInformation: string;
+  desiredOutcomeType: string;
+  timelinePreference: string;
+}
+
+export interface ScopeEstimateResult {
+  recommendedService: ServiceCategory;
+  scopeTitle: string;
+  plainExplanation: string;
+  suggestedStartingDeliverables: string[];
+  pilotRecommendation: string;
+  matchingProjects: ProjectData[];
+  scopeDisclaimer: string;
+}
+
 export interface EnquiryFormInput {
   name: string;
   businessName: string;
@@ -25,18 +51,35 @@ export interface EnquiryValidationResult {
   errors: Partial<Record<keyof EnquiryFormInput, string>>;
 }
 
+export const AVAILABLE_INFO_OPTIONS = [
+  'Spreadsheets or CSV exports (Excel, Tally, Shopify, billing logs)',
+  'PDF documents, circulars, notices, or standard contracts',
+  'Separate output files (XML / CSV) from multiple tools',
+  'Early-stage product idea or notes on our current manual steps',
+] as const;
+
+export const DESIRED_OUTCOME_OPTIONS = [
+  'Clear visual dashboard and a plain-English action guide',
+  'Automatic date, deadline, or rule checking from documents',
+  'A working web tool or internal dashboard for our team',
+  'One-click automated PDF report generation',
+  'Start with a small paid pilot to test what works best',
+] as const;
+
 /**
- * Filters projects by capability domain or tier while strictly preserving
- * the mandatory priority order:
- * 1. Notice Decoder (Flagship 01)
- * 2. SentinelX (Flagship 02)
- * 3. Decoding Customer Value (Featured 03)
- * 4. Contract Risk Governance Engine (Secondary 04)
- * 5. Lureline (Secondary 05)
+ * Filters projects by capability domain, tier, technology, and evidence type
+ * while strictly preserving the mandatory 1-5 priority hierarchy:
+ * 1. Notice Decoder
+ * 2. SentinelX
+ * 3. Decoding Customer Value
+ * 4. Contract Risk Governance Engine
+ * 5. Lureline
  */
 export function filterAndSortProjects(
   domainFilter: CapabilityDomain | 'all' = 'all',
-  tierFilter: 'all' | 'primary' | 'secondary' = 'all'
+  tierFilter: 'all' | 'primary' | 'secondary' = 'all',
+  technologyFilter: string = 'all',
+  evidenceTypeFilter: EvidenceFilterType = 'all'
 ): ProjectData[] {
   return [...PROJECTS]
     .filter((project) => {
@@ -49,6 +92,28 @@ export function filterAndSortProjects(
       if (tierFilter === 'secondary' && project.tier !== 'secondary') {
         return false;
       }
+      if (technologyFilter && technologyFilter !== 'all') {
+        const needle = technologyFilter.toLowerCase();
+        const matchesTech = project.verifiedStack.some((t) =>
+          t.toLowerCase().includes(needle)
+        );
+        if (!matchesTech) return false;
+      }
+      if (evidenceTypeFilter !== 'all') {
+        if (evidenceTypeFilter === 'live-demo' && !project.liveDemoUrl) {
+          return false;
+        }
+        if (evidenceTypeFilter === 'github-code' && !project.githubUrl) {
+          return false;
+        }
+        if (
+          evidenceTypeFilter === 'report-or-study' &&
+          project.slug !== 'sentinelx' &&
+          project.slug !== 'decoding-customer-value'
+        ) {
+          return false;
+        }
+      }
       return true;
     })
     .sort((a, b) => a.priorityOrder - b.priorityOrder);
@@ -60,7 +125,7 @@ export function getProjectBySlug(slug: string): ProjectData | undefined {
 
 /**
  * Matches a client's selected problem category to the most relevant service
- * and portfolio evidence without requiring technical jargon from the client.
+ * and portfolio evidence in everyday English.
  */
 export function matchProblemToService(problemCategory: string): {
   recommendedService: ServiceCategory;
@@ -72,42 +137,89 @@ export function matchProblemToService(problemCategory: string): {
       return {
         recommendedService: SERVICES[0],
         rationale:
-          'Starts with cleaning and validating your existing sales, customer, or operational records to uncover actionable patterns before building any software.',
+          'We start by cleaning and checking your existing sales, customer, or operational spreadsheets to show clear patterns before building any software.',
         suggestedPilotIdea:
-          'A focused audit and segmentation of a sample historical spreadsheet or transaction export.',
+          'A focused check and customer breakdown of one sample spreadsheet or order export.',
       };
     case 'Automate a repetitive workflow':
     case 'Develop an AI-assisted solution':
       return {
         recommendedService: SERVICES[1],
         rationale:
-          'Pairs deterministic validation rules with AI-assisted document or text extraction to eliminate repetitive manual processing safely.',
+          'Combines AI text reading with fixed computer rules so routine documents, dates, and checklists are processed quickly and reliably.',
         suggestedPilotIdea:
-          'A small proof-of-concept extraction or rule-validation script tested on 10–20 real sample documents.',
+          'A small pilot script tested on 10–20 real sample PDFs or notices from your workflow.',
       };
     case 'Build a dashboard or internal tool':
     case 'Prototype a product idea':
       return {
         recommendedService: SERVICES[2],
         rationale:
-          'Designs and builds a working web interface, data ingestion tool, or automated PDF reporting pipeline around your specific operational workflow.',
+          'Designs and builds a working web tool, data merger, or one-click PDF report generator around how your team works.',
         suggestedPilotIdea:
-          'A clickable functional prototype or single-workflow internal tool to validate the core use case.',
+          'A focused clickable prototype or single-workflow tool to validate the main idea first.',
       };
     default:
       return {
         recommendedService: SERVICES[0],
         rationale:
-          'When the right approach is not yet obvious, we review your current workflow or data first and recommend the simplest effective deliverable.',
+          'When you are not sure which path fits best, we look at your current data or manual steps together and pick the simplest useful solution.',
         suggestedPilotIdea:
-          'An initial requirements and data review to define a right-sized scope.',
+          'A short review of your sample data or workflow to define a practical scope.',
       };
   }
 }
 
 /**
+ * Genuine 4-step project scope estimator.
+ * Never invents prices or guarantees delivery dates.
+ */
+export function estimateProjectScope(input: ScopeEstimatorInput): ScopeEstimateResult {
+  const baseMatch = matchProblemToService(input.problemCategory);
+  let recommendedService = baseMatch.recommendedService;
+
+  if (
+    input.desiredOutcomeType.includes('PDF report') ||
+    input.desiredOutcomeType.includes('working web tool') ||
+    input.availableInformation.includes('Separate output files')
+  ) {
+    recommendedService = SERVICES[2];
+  } else if (
+    input.desiredOutcomeType.includes('Automatic date') ||
+    input.availableInformation.includes('PDF documents')
+  ) {
+    recommendedService = SERVICES[1];
+  } else if (
+    input.desiredOutcomeType.includes('Clear visual dashboard') ||
+    input.availableInformation.includes('Spreadsheets')
+  ) {
+    recommendedService = SERVICES[0];
+  }
+
+  const matchingProjects = PROJECTS.filter((p) =>
+    recommendedService.portfolioProof.some((proof) => proof.slug === p.slug)
+  );
+
+  const pilotRecommendation =
+    input.timelinePreference.includes('1–2 weeks') ||
+    input.desiredOutcomeType.includes('small paid pilot')
+      ? 'Recommended Starting Step: Begin with a small paid pilot on a sample of your files or data so you can verify the result before committing to a larger scope.'
+      : `Recommended Starting Step: ${baseMatch.suggestedPilotIdea}`;
+
+  return {
+    recommendedService,
+    scopeTitle: `${recommendedService.number}. ${recommendedService.title}`,
+    plainExplanation: `Based on your problem ("${input.problemCategory}") and your available material ("${input.availableInformation}"), the most practical path is ${recommendedService.title}. ${recommendedService.plainBenefitSummary}`,
+    suggestedStartingDeliverables: recommendedService.deliverables.slice(0, 4),
+    pilotRecommendation,
+    matchingProjects,
+    scopeDisclaimer:
+      'No instant price or guaranteed date is generated here. Final INR pricing and timeline are shared in a written proposal after reviewing a sample of your actual data or workflow.',
+  };
+}
+
+/**
  * Validates the problem-first project enquiry form.
- * Never bypasses empty or invalid required inputs.
  */
 export function validateEnquiryForm(input: EnquiryFormInput): EnquiryValidationResult {
   const errors: Partial<Record<keyof EnquiryFormInput, string>> = {};
@@ -134,12 +246,12 @@ export function validateEnquiryForm(input: EnquiryFormInput): EnquiryValidationR
 
   if (!input.desiredOutcome || input.desiredOutcome.trim().length < 15) {
     errors.desiredOutcome =
-      'Please describe the outcome you want in at least a short sentence (15+ characters).';
+      'Please describe the outcome you want in a short sentence (at least 15 characters).';
   }
 
   if (!input.availableMaterial || input.availableMaterial.trim().length < 5) {
     errors.availableMaterial =
-      'Please mention what data, spreadsheets, documents, or workflow steps are currently available.';
+      'Please mention what spreadsheets, PDFs, or workflow notes you currently have.';
   }
 
   if (
@@ -160,8 +272,8 @@ export function validateEnquiryForm(input: EnquiryFormInput): EnquiryValidationR
 }
 
 /**
- * Formats a structured, transparent project enquiry summary.
- * Explicitly notes that the budget indication does not auto-generate a final price.
+ * Formats a clear, everyday-English project enquiry brief.
+ * Explicitly notes that creating the brief prepares text to copy, download, or email.
  */
 export function formatEnquiryBrief(input: EnquiryFormInput): string {
   const match = matchProblemToService(input.problemCategory);
@@ -188,12 +300,12 @@ export function formatEnquiryBrief(input: EnquiryFormInput): string {
   ];
 
   if (input.additionalDetails && input.additionalDetails.trim().length > 0) {
-    lines.push('', 'ADDITIONAL CONTEXT / CONSTRAINTS:', input.additionalDetails.trim());
+    lines.push('', 'ADDITIONAL CONTEXT / QUESTIONS:', input.additionalDetails.trim());
   }
 
   lines.push(
     divider,
-    'NEXT STEP: Review material -> Define realistic scope -> Share customised INR proposal.',
+    'NEXT STEP: Review sample material -> Agree on realistic scope -> Share written INR proposal.',
     headerRule
   );
 

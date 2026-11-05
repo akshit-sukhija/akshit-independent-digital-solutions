@@ -14,12 +14,12 @@ interface CtaSectionProps {
 }
 
 export function CtaSection({
-  kicker = 'Customised Scope-Based Engagements · India (INR)',
+  kicker = 'Simple, Scope-Based Work · India (INR)',
   headline = "Have a specific business problem? Let's define the right solution around it.",
-  supportingCopy = 'You do not need to select programming languages or technical frameworks. Describe the operational bottleneck, messy dataset, or product idea—and I will recommend a realistic scope and deliverable.',
+  supportingCopy = 'You do not need to know programming languages or pick technical tools. Explain what is slowing down your team, what spreadsheet feels unclear, or what product idea you want to build—and I will suggest a practical plan.',
   primaryLabel = 'Discuss Your Project',
   primaryTo = '/enquire',
-  secondaryLabel = 'Explore Services & Scope',
+  secondaryLabel = 'See Services & Scope Estimator',
   secondaryTo = '/solutions',
   variant = 'ivory',
 }: CtaSectionProps) {
