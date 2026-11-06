@@ -2,6 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {
   filterAndSortProjects,
+  filterPortfolioInventory,
   getProjectBySlug,
   matchProblemToService,
   estimateProjectScope,
@@ -23,16 +24,20 @@ import {
   INSIGHT_NOTES,
   TECHNOLOGY_EXPLORER_ITEMS,
   STUDIO_FAQS,
+  COMPLETE_PORTFOLIO_INVENTORY,
+  RECONCILIATION_AUDIT_SUMMARY,
+  GROUNDING_VERIFICATION_REGISTER,
 } from '../data/studioData';
 
-test('strict project hierarchy preserves Notice Decoder, SentinelX, Decoding Customer Value, Contract Risk Governance, and Lureline with full productThinking flow', () => {
+test('strict flagship case study hierarchy preserves all 6 dedicated case studies including Clarity Redemption AI with full productThinking flow', () => {
   const all = filterAndSortProjects('all', 'all');
-  assert.equal(all.length, 5);
+  assert.equal(all.length, 6);
   assert.equal(all[0].slug, 'notice-decoder');
   assert.equal(all[1].slug, 'sentinelx');
   assert.equal(all[2].slug, 'decoding-customer-value');
   assert.equal(all[3].slug, 'contract-risk-governance');
   assert.equal(all[4].slug, 'lureline');
+  assert.equal(all[5].slug, 'clarity-redemption-ai');
 
   for (const project of all) {
     assert.ok(project.productThinking.researchContext.length > 20);
@@ -43,7 +48,7 @@ test('strict project hierarchy preserves Notice Decoder, SentinelX, Decoding Cus
   }
 });
 
-test('Portfolio Explorer filters by category, technology, and evidence type accurately', () => {
+test('Portfolio Explorer filters flagship projects and searches all 29 NotebookLM inventory entries accurately', () => {
   const liveApps = filterAndSortProjects('all', 'all', 'all', 'live-demo');
   assert.deepEqual(
     liveApps.map((p) => p.slug),
@@ -61,6 +66,39 @@ test('Portfolio Explorer filters by category, technology, and evidence type accu
     reportOrStudy.map((p) => p.slug),
     ['sentinelx', 'decoding-customer-value']
   );
+
+  // Verify complete 29-project inventory partitioning (6 flagship + 18 library + 5 restricted = 29)
+  assert.equal(COMPLETE_PORTFOLIO_INVENTORY.length, 29);
+  assert.equal(RECONCILIATION_AUDIT_SUMMARY.length, 29);
+  assert.equal(GROUNDING_VERIFICATION_REGISTER.length, 9);
+
+  const flagshipItems = filterPortfolioInventory({ tierCategory: 'flagship' });
+  const libraryItems = filterPortfolioInventory({ tierCategory: 'library' });
+  const restrictedItems = filterPortfolioInventory({ tierCategory: 'restricted' });
+
+  assert.equal(flagshipItems.length, 6);
+  assert.equal(libraryItems.length, 18);
+  assert.equal(restrictedItems.length, 5);
+
+  // Verify keyword search finds UIDAI Colab study and excludes duplicate unverified Drive ID
+  const uidaiSearch = filterPortfolioInventory({ searchQuery: 'UIDAI' });
+  assert.equal(uidaiSearch.length, 1);
+  assert.equal(uidaiSearch[0].inventoryNumber, 8);
+  assert.ok(uidaiSearch[0].links.colabUrl?.includes('17bSIIzpAwQZnbobBpOfM6El0EARxvHka'));
+
+  // Verify mandatory disclaimers and redactions on #10, #11, #13, #17, #21
+  const dmi = COMPLETE_PORTFOLIO_INVENTORY.find((i) => i.inventoryNumber === 10);
+  const siksha = COMPLETE_PORTFOLIO_INVENTORY.find((i) => i.inventoryNumber === 11);
+  const omvia = COMPLETE_PORTFOLIO_INVENTORY.find((i) => i.inventoryNumber === 13);
+  const nykaa = COMPLETE_PORTFOLIO_INVENTORY.find((i) => i.inventoryNumber === 17);
+  const clensta = COMPLETE_PORTFOLIO_INVENTORY.find((i) => i.inventoryNumber === 21);
+
+  assert.equal(dmi?.tierCategory, 'restricted');
+  assert.ok(dmi?.mandatoryLabel?.includes('Borrower PII'));
+  assert.equal(siksha?.tierCategory, 'restricted');
+  assert.ok(omvia?.mandatoryLabel?.includes('Not a Deployed Model'));
+  assert.ok(nykaa?.mandatoryLabel?.includes('Independent Concept; Not commissioned by Nykaa'));
+  assert.ok(clensta?.mandatoryLabel?.includes('Internship Pitch; Not proof of owning accounts'));
 });
 
 test('factual accuracy guardrails on project, academic, internship, and central profile records', () => {
@@ -76,7 +114,7 @@ test('factual accuracy guardrails on project, academic, internship, and central 
 
   // Verify internships include ResolX.ai and CareerWithDishani and exclude MatchBest Group
   const orgNames = VERIFIED_EXPERIENCE.map((e) => e.organisation);
-  assert.deepEqual(orgNames, ['ResolX.ai', 'CareerWithDishani']);
+  assert.deepEqual(orgNames, ['ResolX.ai (One Point One Technology Labs)', 'CareerWithDishani']);
   assert.ok(!JSON.stringify(VERIFIED_EXPERIENCE).toLowerCase().includes('matchbest'));
 
   // Verify academic record, verified contact config, and 5-step signature methodology

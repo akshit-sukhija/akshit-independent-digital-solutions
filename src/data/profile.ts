@@ -130,22 +130,32 @@ export const PROFILE_CONFIG = {
 export const TECHNOLOGY_EXPLORER_ITEMS: TechExplorerItem[] = [
   {
     id: 'python-data',
-    tool: 'Python (Pandas & NumPy)',
+    tool: 'Python (Pandas, NumPy, Scikit-learn & Colab)',
     category: 'Data & BI',
     whatIUseItFor:
-      'Cleaning raw CSV/Excel exports, checking missing values, and preparing structured customer and operational datasets.',
+      'Cleaning raw CSV/Excel exports, analyzing large public/retail datasets, training ML classifiers, and preparing structured analytical reports.',
     demonstratedUseCases: [
       {
         projectTitle: 'Decoding Customer Value',
         projectSlug: 'decoding-customer-value',
         howItWasUsed:
-          'Cleaned and standardized 3,900 customer shopping records to compare order spend against promo-code usage.',
+          'Cleaned 3,900 customer shopping records and engineered Promo_Dependency_Score (identifying 43.0% Discount Survivors vs 36.4% Premium Loyalists).',
       },
       {
-        projectTitle: 'SentinelX',
+        projectTitle: 'UIDAI Demographic Update Intelligence',
+        howItWasUsed:
+          'Analyzed 500,000+ aggregated UIDAI records across 956 districts and 19,607 pincodes in Google Colab, uncovering an 11% youth update participation gap.',
+      },
+      {
+        projectTitle: 'OTT Viewer Retention Analysis',
+        howItWasUsed:
+          'Evaluated N = 33,171 streaming episodes across Netflix, Prime Video, Hulu, and Crunchyroll, diagnosing the Episodes 4–8 mid-season drop-off spike (16.7%).',
+      },
+      {
+        projectTitle: 'SentinelX / DSARS',
         projectSlug: 'sentinelx',
         howItWasUsed:
-          'Parsed multi-tool Nmap XML and OWASP ZAP CSV files concurrently using ThreadPoolExecutor.',
+          'Parsed multi-tool Nmap XML and OWASP ZAP CSV files concurrently using Python ThreadPoolExecutor (max 11 workers).',
       },
     ],
   },
@@ -154,16 +164,16 @@ export const TECHNOLOGY_EXPLORER_ITEMS: TechExplorerItem[] = [
     tool: 'SQL & Relational Queries',
     category: 'Data & BI',
     whatIUseItFor:
-      'Writing cohort, segmentation, and discount-dependency queries and structuring local SQLite databases.',
+      'Writing cohort, CASE-statement segmentation, window-function queries, and structuring local SQLite databases.',
     demonstratedUseCases: [
       {
         projectTitle: 'Decoding Customer Value',
         projectSlug: 'decoding-customer-value',
         howItWasUsed:
-          'Ran aggregation queries separating high-value loyal buyers from discount-dependent shoppers.',
+          'Executed SQL CASE and window-function segmentation queries separating full-price loyalists from promo-dependent buyers.',
       },
       {
-        projectTitle: 'SentinelX',
+        projectTitle: 'SentinelX / DSARS',
         projectSlug: 'sentinelx',
         howItWasUsed:
           'Stored deduplicated, 5-level normalized security findings in SQLite via SQLAlchemy ORM.',
@@ -172,7 +182,7 @@ export const TECHNOLOGY_EXPLORER_ITEMS: TechExplorerItem[] = [
   },
   {
     id: 'power-bi',
-    tool: 'Power BI (.pbix)',
+    tool: 'Power BI (.pbix) & Visual Analytics',
     category: 'Data & BI',
     whatIUseItFor:
       'Building interactive visual dashboards so founders and teams can filter customer segments, revenue, and retention metrics without touching code.',
@@ -181,96 +191,122 @@ export const TECHNOLOGY_EXPLORER_ITEMS: TechExplorerItem[] = [
         projectTitle: 'Decoding Customer Value',
         projectSlug: 'decoding-customer-value',
         howItWasUsed:
-          'Built the interactive Customer Value & Retention dashboard accompanying the written playbook.',
+          'Built Deliverable-3_PowerBI_Dashboard.pbix accompanying the Retention Playbook and Executive Summary.',
+      },
+      {
+        projectTitle: 'OTT Viewer Retention Analysis',
+        howItWasUsed:
+          'Visualized episode-by-episode continuation rates, narrative complexity correlations (r ≈ +0.57), and cliffhanger hook retention impact.',
       },
     ],
   },
   {
     id: 'react-typescript',
-    tool: 'React 19, TypeScript & Tailwind CSS',
+    tool: 'React 19, TypeScript & Deterministic Math Engines',
     category: 'Software & Web',
     whatIUseItFor:
-      'Designing and building responsive web applications, interactive schedules, and analyst workbenches.',
+      'Designing and building responsive web applications, deterministic financial/schedule calculators, and analyst workbenches.',
     demonstratedUseCases: [
+      {
+        projectTitle: 'Clarity Redemption AI',
+        projectSlug: 'clarity-redemption-ai',
+        howItWasUsed:
+          'Built a TypeScript (98.7%) & React mutual fund consequence engine passing 15/15 unit tests on FIFO lot consumption, exit loads, and STT deductions.',
+      },
       {
         projectTitle: 'Notice Decoder',
         projectSlug: 'notice-decoder',
         howItWasUsed:
-          'Built the interactive schedule planner, clash warning view, and Notice Change Radar UI.',
+          'Built the interactive schedule planner, 30-minute overlap detector, and Notice Change Radar UI.',
       },
       {
         projectTitle: 'Lureline',
         projectSlug: 'lureline',
         howItWasUsed:
-          'Built the alert triage filter bar and connected timeline workbench deployed on Vercel.',
-      },
-      {
-        projectTitle: 'SentinelX',
-        projectSlug: 'sentinelx',
-        howItWasUsed:
-          'Built the React + Recharts severity breakdown interface.',
+          'Built the 6-node cyber deception investigation workbench with 100% npm test pass rate and GitHub Actions CI.',
       },
     ],
   },
   {
     id: 'applied-ai-rules',
-    tool: 'Applied AI (LLMs, ONNX & FAISS) + Fixed Rules',
+    tool: 'Applied AI (LLMs, ONNX, FAISS & Prompt Systems) + Fixed Rules',
     category: 'AI & Rules',
     whatIUseItFor:
-      'Reading unstructured documents and generating plain-English explanations while keeping dates, math, and pass/fail checks under fixed code rules.',
+      'Reading unstructured documents and generating plain-English explanations while keeping dates, financial math, and pass/fail checks under fixed code rules.',
     demonstratedUseCases: [
-      {
-        projectTitle: 'Notice Decoder',
-        projectSlug: 'notice-decoder',
-        howItWasUsed:
-          'Paired Qwen2.5-7B-Instruct (Featherless API) text structuring with deterministic interval clash logic and RFC 5545 (.ics) export.',
-      },
       {
         projectTitle: 'Contract Risk Governance Engine',
         projectSlug: 'contract-risk-governance',
         howItWasUsed:
-          'Combined FAISS clause retrieval and deterministic Python compliance rules with local ONNX Runtime / DirectML explanations (~420ms on AMD Ryzen AI).',
+          'Combined FAISS clause retrieval and deterministic CPU compliance locking with AMD Ryzen AI NPU DirectML explanations (~420ms latency, CPU 85–95% → 25–35%).',
+      },
+      {
+        projectTitle: 'Clarity Redemption AI',
+        projectSlug: 'clarity-redemption-ai',
+        howItWasUsed:
+          'Constrained the "Ask Clarity" LLM layer strictly to explaining deterministic FIFO math figures while blocking investment advice.',
+      },
+      {
+        projectTitle: 'SIGNAL (Delta Detector)',
+        howItWasUsed:
+          'Designed Locked V2.1 System Prompt Architecture achieving 95.0% accuracy (38/40 cases) on a frozen adversarial test set.',
+      },
+      {
+        projectTitle: 'Notice Decoder',
+        projectSlug: 'notice-decoder',
+        howItWasUsed:
+          'Paired Qwen2.5-7B-Instruct (Featherless API) semantic structuring with deterministic interval clash logic and RFC 5545 (.ics) export.',
       },
     ],
   },
   {
     id: 'backend-pdf',
-    tool: 'FastAPI, Express & ReportLab PDF',
+    tool: 'FastAPI, Express, Flask & ReportLab PDF',
     category: 'Software & Web',
     whatIUseItFor:
-      'Building backend APIs, file ingestion pipelines, SHA-256 verification, and one-click formatted PDF generators.',
+      'Building backend APIs, multithreaded file ingestion pipelines, SHA-256 verification, and one-click formatted PDF generators.',
     demonstratedUseCases: [
       {
-        projectTitle: 'SentinelX',
+        projectTitle: 'SentinelX / DSARS',
         projectSlug: 'sentinelx',
         howItWasUsed:
-          'Built the FastAPI ingestion backend, SHA-256 file integrity checks, and ReportLab executive PDF compiler.',
+          'Built the FastAPI ingestion backend, 11-worker ThreadPoolExecutor orchestrator, SHA-256 file integrity checks, and ReportLab PDF compiler.',
       },
       {
-        projectTitle: 'Notice Decoder',
-        projectSlug: 'notice-decoder',
+        projectTitle: 'Contract Risk Governance Engine',
+        projectSlug: 'contract-risk-governance',
         howItWasUsed:
-          'Built the Express backend handling notice parsing and calendar file generation on Render.',
+          'Built FastAPI (/evaluate, /health) endpoints and immutable SHA-256 + JSONL decision trace logging across 57 commits.',
+      },
+      {
+        projectTitle: 'Tweet Sentiment Analysis',
+        howItWasUsed:
+          'Integrated serialized TF-IDF vectorizer (vectorizer.pkl) and trained classifier (sentiment_model.pkl) into a Flask web endpoint (app.py).',
       },
     ],
   },
   {
     id: 'product-market-research',
-    tool: 'Product Discovery, UX Flows & Market Research',
+    tool: 'Product Discovery, UX Teardowns & Software QA',
     category: 'Product & Research',
     whatIUseItFor:
-      'Framing messy business problems, studying user needs and alternatives, and synthesising research into actionable briefs before writing code.',
+      'Framing messy business problems, studying user needs and alternatives, executing structured QA test matrices, and synthesising research before writing code.',
     demonstratedUseCases: [
       {
         projectTitle: 'ResolX.ai & CareerWithDishani Internships',
         howItWasUsed:
-          'Translated operational bottlenecks into AI solution blueprints and synthesised multi-source research into clear decision guides.',
+          'Authored multimodal speech-call sentiment solutioning specifications (research/spec deliverable) and synthesised multi-source research briefs.',
       },
       {
         projectTitle: 'Decoding Customer Value',
         projectSlug: 'decoding-customer-value',
         howItWasUsed:
-          'Authored the segment-by-segment Retention Playbook translating SQL findings into commercial actions.',
+          'Authored Deliverable-4_Retention_Playbook.pdf and Deliverable-5_Executive_Summary.pdf translating SQL findings into commercial actions.',
+      },
+      {
+        projectTitle: 'Software QA & Audit Methodology',
+        howItWasUsed:
+          'Designed 40+ functional QA test cases (ECP & Boundary Value Analysis) and 22-parameter Total Value Audit (TVA) quality frameworks.',
       },
     ],
   },

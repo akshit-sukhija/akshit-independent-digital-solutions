@@ -139,10 +139,34 @@ import {
   TECHNOLOGY_EXPLORER_ITEMS as CENTRAL_TECH_EXPLORER,
   STUDIO_FAQS as CENTRAL_STUDIO_FAQS,
 } from './profile';
+import {
+  COMPLETE_PORTFOLIO_INVENTORY,
+  RECONCILIATION_AUDIT_SUMMARY,
+  GROUNDING_VERIFICATION_REGISTER,
+  CONSOLIDATED_MATRIX_PDF_URL,
+  type PortfolioInventoryItem,
+  type InventoryTierCategory,
+  type EvidenceTierBadge,
+  type LibraryDomain,
+  type ReconciliationEntry,
+  type GroundingVerificationItem,
+} from './portfolioInventory';
 
 export const PROFILE_CONFIG = CENTRAL_PROFILE_CONFIG;
 export const TECHNOLOGY_EXPLORER_ITEMS = CENTRAL_TECH_EXPLORER;
 export const STUDIO_FAQS = CENTRAL_STUDIO_FAQS;
+export {
+  COMPLETE_PORTFOLIO_INVENTORY,
+  RECONCILIATION_AUDIT_SUMMARY,
+  GROUNDING_VERIFICATION_REGISTER,
+  CONSOLIDATED_MATRIX_PDF_URL,
+  type PortfolioInventoryItem,
+  type InventoryTierCategory,
+  type EvidenceTierBadge,
+  type LibraryDomain,
+  type ReconciliationEntry,
+  type GroundingVerificationItem,
+};
 
 export const BRAND_IDENTITY = {
   name: 'AKSHIT SUKHIJA',
@@ -218,19 +242,19 @@ export const PROJECTS: ProjectData[] = [
     evidenceTypeLabel: 'Live Web App + Public GitHub',
     visualAccent: '#C9A24B',
     documentedRole: 'Team Leader and System Architect',
-    collaborators: 'Co-created with Tanya Garg',
+    collaborators: 'Team Signal Forge (Tanya Garg — Co-Creator & Repository Host)',
     attributionNote:
-      'The code repository is hosted under co-creator Tanya Garg’s GitHub account. My documented role was Team Leader and System Architect, designing the system structure, date-checking rules, schedule clash finder, and calendar file export.',
+      'Built for SETU 2026 (Problem Statement PS-02) with Team Signal Forge. The code repository is hosted under co-creator Tanya Garg’s GitHub account (Tanya-garg10). My documented role was Team Leader and System Architect, shaping the system architecture, local deterministic parser design, conflict detection logic, and calendar export.',
     problemSummary:
-      'Colleges and teams share important dates inside long PDF circulars and chat messages. People miss deadlines or double-book themselves because nobody has time to cross-check every notice by hand.',
+      'Colleges and teams share important dates inside long PDF circulars and WhatsApp forwards. People miss deadlines or double-book themselves because nobody has time to cross-check every notice by hand.',
     businessContext:
       'Any organisation that sends frequent circulars, policy updates, or schedule changes faces this same problem: critical dates stay trapped inside paragraphs of text.',
     approachSummary:
-      'Use AI to read and summarise the notice text, but rely on fixed computer rules to extract dates, spot schedule clashes, compare updated notices, and create a standard calendar file.',
+      'Use AI to read and summarise the notice text, but rely on local deterministic parsing rules to extract dates, spot schedule clashes, compare updated notices, and create a standard calendar file.',
     solutionSummary:
       'A live web application that reads unstructured notices, pulls out dates and deadlines, warns you when two events overlap, highlights changes when a revised notice arrives, and exports a calendar file you can open in Google, Apple, or Outlook Calendar.',
     resultSummary:
-      'Deployed as a working web app on Render. Users can paste or upload notice text, see schedule conflicts immediately, compare revised circulars, and download ready-to-use calendar files.',
+      'Deployed live on Render. In SETU 2026 evaluation, it flagged a 30-minute interval overlap between Internal Test 2 (10:00–11:30 AM) and Guest Lecture (11:00 AM–12:30 PM) on 13 Nov 2026, while accurately identifying a 12:00 PM lab submission deadline.',
     productThinking: {
       researchContext:
         'Examined how college circulars, exam notices, and departmental updates actually arrive: multi-paragraph PDFs and forwarded messages where dates, venues, and revised timings are buried inside dense text.',
@@ -446,19 +470,20 @@ export const PROJECTS: ProjectData[] = [
     evidenceTypeLabel: '100+ Page Technical Report (Academic System)',
     visualAccent: '#E08A1E',
     documentedRole: 'Co-Developer and System Architect',
-    collaborators: 'Co-developed with Adyot Ohri',
+    collaborators:
+      'Co-developed with Adyot Ohri (IITM Summer Training Capstone; 100-Hour Cybersecurity Certificate from SSSAM Academy)',
     attributionNote:
-      'Co-developed with Adyot Ohri as Co-Developer and System Architect. Documented in a formal academic technical project report exceeding 100 pages. No public GitHub repository or live web link is claimed.',
+      'Co-developed with Adyot Ohri as Co-Developer and System Architect (also titled DSARS — Digital Security Assessment & Reporting Platform). Documented in a formal academic technical project report exceeding 100 pages (FINAL COMPLETE SENTINEL PROJECT REPORT-merged.pdf). No public GitHub repository or live web link is claimed.',
     problemSummary:
       'Security testing tools produce separate, technical XML and CSV files. Analysts waste hours checking files by hand, removing duplicate warnings, and formatting summary PDF reports for management.',
     businessContext:
       'Many technical and consulting teams face this exact bottleneck: multiple tools generate messy data files that someone has to manually clean and turn into a client report.',
     approachSummary:
-      'Build a central system that checks each uploaded file was not tampered with, processes multiple files at the same time, merges findings into a single 5-level priority scale, and generates a clean PDF report automatically.',
+      'Build a central system that checks each uploaded file was not tampered with, processes multiple files at the same time using an 11-worker ThreadPoolExecutor, merges findings into a single 5-level priority scale, and generates a clean PDF report automatically.',
     solutionSummary:
-      'A full-stack Python and React system that reads Nmap and OWASP ZAP scan files, verifies file integrity, removes duplicate findings, organises issues into five clear severity levels, displays charts in a browser dashboard, and exports an executive PDF report.',
+      'A full-stack Python (FastAPI) and React 19 system that reads Nmap XML and OWASP ZAP XML/CSV scan files, verifies SHA-256 file integrity, removes duplicate findings, organises issues into five clear severity levels in SQLite, displays charts in a browser dashboard, and exports a ReportLab executive PDF report.',
     resultSummary:
-      'Documented in a 100+ page technical project report covering system architecture, database design, concurrent file processing, and automated PDF generation.',
+      'Documented in a 100+ page formal academic project report (FINAL COMPLETE SENTINEL PROJECT REPORT-merged.pdf) covering multithreaded orchestration (api/security.py), SQLite ORM models, and automated PDF generation.',
     productThinking: {
       researchContext:
         'Analysed how security and audit practitioners work with outputs from Nmap and OWASP ZAP: each tool exports different XML or CSV structures with inconsistent severity scales and overlapping host alerts.',
@@ -676,19 +701,19 @@ export const PROJECTS: ProjectData[] = [
     evidenceTypeLabel: 'Data & Power BI Case Study + Public GitHub',
     visualAccent: '#8FBF7A',
     documentedRole: 'Lead Product Analyst',
-    collaborators: 'Co-authored with Bhumika Singhal',
+    collaborators: 'Co-authored with Bhumika Singhal (IIT Guwahati Summer Analytics)',
     attributionNote:
-      'Co-authored with Bhumika Singhal as Lead Product Analyst. Full Python notebooks, SQL queries, Power BI dashboard files, and Retention Playbook are published on GitHub.',
+      'Co-authored with Bhumika Singhal as Lead Product Analyst. Full 5-part deliverable suite—cleaned dataset CSV, Python Jupyter notebook (.ipynb), SQL analysis report PDF, Power BI dashboard (.pbix), Retention Playbook PDF, and Executive Summary PDF—is published on GitHub.',
     problemSummary:
-      'Many businesses assume their biggest spenders are their most loyal customers. In reality, some high-spending segments only buy when given a discount or promo code.',
+      'Many D2C retail brands assume their biggest spenders are their most loyal customers. In reality, some high-spending segments only buy when given a discount or promo code.',
     businessContext:
       'For Indian D2C, retail, and e-commerce brands, sending blanket discount coupons to everyone wastes profit margin on customers who would have bought anyway, while failing to retain price-sensitive buyers.',
     approachSummary:
-      'Clean and study 3,900 customer shopping records using Python and SQL, compare purchase spend against how often customers used discounts, build an interactive Power BI dashboard, and write a practical retention playbook.',
+      'Clean and study 3,900 customer shopping records using Python and SQL, engineer Promo_Dependency_Score and Loyalty_Score metrics, build an interactive Power BI dashboard, and write a practical promotional sunsetting and retention playbook.',
     solutionSummary:
-      'A complete data analytics case study (using Python, SQL, and Power BI across 3,900 customer records) that separates genuinely loyal buyers from discount-dependent shoppers and provides a step-by-step Retention Playbook.',
+      'A complete 5-part data analytics case study (using Python, SQL, and Power BI across N = 3,900 customer records) that separates genuinely loyal buyers (36.4% Premium Loyalists) from discount-dependent shoppers (43.0% Discount Survivors) and provides a step-by-step Retention Playbook.',
     resultSummary:
-      'Delivered cleaned datasets, SQL analysis scripts, an interactive Power BI dashboard, an Executive Summary, and a segment-by-segment Retention Playbook.',
+      'Identified that 43.0% of customers in the dataset were "Discount Survivors" (1.00 promo dependency) versus 36.4% "Premium Loyalists" (0.00 promo dependency), proving spend tier alone fails to indicate organic loyalty.',
     productThinking: {
       researchContext:
         'Investigated 3,900 customer transaction records across product categories, purchase frequencies, subscription flags, and promotional code usage to test whether high spend equated to organic customer loyalty.',
@@ -889,42 +914,45 @@ ORDER BY avg_purchase_value DESC;`,
   {
     slug: 'contract-risk-governance',
     priorityOrder: 4,
-    tier: 'secondary',
-    tierLabel: 'Project 04 · Applied AI Prototype',
+    tier: 'flagship',
+    tierLabel: 'Flagship Project 04 · Applied AI & Risk Governance',
     indexNumber: '04',
     title: 'Contract Risk Governance Engine',
-    subtitle: 'Checks Contract Rules Using Fixed Logic, Then Uses AI to Explain the Result in Plain English',
+    subtitle:
+      'Nexus Governance OS: Separates Deterministic CPU Compliance Logic From NPU-Accelerated AI Explanations',
     plainSubtitle:
-      'A prototype showing how to check contract compliance safely: fixed rules make the pass/fail decision, while AI writes a clear explanation.',
-    category: 'Rule-Backed AI & Document Compliance',
+      'A zero-hallucination, audit-grade contract intelligence system where fixed rules make the pass/fail decision on CPU first, and AI writes a clear explanation.',
+    category: 'Applied AI & Risk Governance',
     domain: 'ai-automation',
-    projectClassification: 'Applied AI Architecture Prototype · Public GitHub',
-    evidenceTypeLabel: 'Technical Prototype + Public GitHub',
+    projectClassification: 'AMD Slingshot Hackathon 2026 · 57 Commits (MIT License)',
+    evidenceTypeLabel: 'Public GitHub Codebase + NPU Benchmark',
     visualAccent: '#E8D5A8',
     documentedRole: 'System Architecture Lead',
-    collaborators: 'System Architecture Lead',
-    attributionNote: 'Documented role: System Architecture Lead. Public source code available on GitHub.',
+    collaborators:
+      'Team Nexus Architects (Tanishq Khanna — Full-Stack Engineering; Tanish Sabharwal — AI Optimization)',
+    attributionNote:
+      'Documented role: System Architecture Lead (designed the 5-layer decision-first pipeline and compliance locking) with Team Nexus Architects (Tanishq Khanna and Tanish Sabharwal) for AMD Slingshot Hackathon 2026. Completed open-source codebase (57 commits, MIT License) on GitHub.',
     problemSummary:
       'If you ask AI alone to decide whether a contract follows company rules, it can guess or give different answers each time. Businesses need reliable rule checks they can trust, plus simple explanations.',
     businessContext:
       'Useful for teams reviewing standard agreements or compliance checklists who want AI speed without letting AI make up business rules.',
     approachSummary:
-      'Let fixed, pre-written rules decide whether a clause passes or fails, seal the result with a digital fingerprint, and use AI only to explain the finding in everyday language.',
+      'Let fixed policy rules on CPU decide whether a clause passes or fails, record immutable SHA-256 fingerprints and JSONL decision traces, and constrain AI strictly to explaining the rule outcome.',
     solutionSummary:
-      'A Python, FastAPI, and Streamlit prototype (also titled Nexus Governance OS) where fixed rules evaluate contract compliance and local AI assists strictly with writing clear explanations.',
+      'A Python 3.10+, FastAPI (/evaluate, /health), and Streamlit system (Nexus Governance OS) where fixed rules evaluate contract compliance on CPU and local AI assists strictly with writing clear explanations via ONNX Runtime and DirectML.',
     resultSummary:
-      'Published as an open-source technical prototype on GitHub demonstrating rule-first compliance checks paired with hardware-accelerated AI explanations.',
+      'Completed codebase (57 commits, MIT License) on GitHub. Offloading narrative generation to AMD Ryzen AI NPU via DirectML achieved ~420ms latency per explanation (~4x speedup vs CPU) on a 120-page test contract under Windows 11, reducing CPU utilization from 85–95% down to 25–35%.',
     productThinking: {
       researchContext:
         'Studied why compliance and operations teams hesitate to adopt AI document reviewers: generative models alone can hallucinate policy thresholds or flip pass/fail verdicts across runs.',
       userNeeds:
-        'Reviewers need 100% repeatable pass/fail policy checks paired with a fast, plain-English explanation they can share with stakeholders.',
+        'Reviewers need 100% repeatable pass/fail policy checks with immutable audit logs paired with a fast, plain-English explanation they can share with stakeholders.',
       alternativesConsidered:
         'Compared pure prompt-based LLM contract review against keyword-only regex scripts. Prompt-only review lacked audit predictability; keyword scripts gave no human-readable explanation.',
       productDecision:
-        'Separated decision authority from explanation: FAISS retrieves clauses, deterministic Python rules lock the pass/fail verdict with a SHA-256 hash, and ONNX Runtime + DirectML generates the narrative explanation.',
+        'Designed a 5-layer decision-first pipeline: FAISS retrieves clauses, deterministic Python rules lock the pass/fail verdict on CPU with a SHA-256 hash and JSONL trace, and ONNX Runtime + DirectML generates the narrative explanation.',
       prototypeEvolution:
-        'Built as a FastAPI + Streamlit technical prototype benchmarked on AMD Ryzen AI hardware (~420ms explanation latency via DirectML).',
+        'Built across 57 commits (MIT License) with FastAPI (/evaluate, /health) and Streamlit UI, benchmarked on a 120-page test contract using AMD Ryzen AI NPU hardware (~420ms explanation latency via DirectML).',
     },
     plainFeatures: [
       {
@@ -1220,26 +1248,228 @@ ORDER BY avg_purchase_value DESC;`,
     ],
     evidenceArtifacts: [
       {
-        title: 'Workbench Scope & Sample Data Disclosure',
+        title: 'Workbench Scope, Automated CI & Sample Data Disclosure',
         type: 'interactive-preview',
-        caption: 'Technical note on Lureline’s stack and simulated demo data.',
-        datasetOrHardwareCondition: 'Data note: Live demo streams use synthetic sample fixtures.',
+        caption: 'Technical note on Lureline’s 6-node architecture, CI validation, and simulated demo data.',
+        datasetOrHardwareCondition: 'Data note: Live demo streams use synthetic 6-node telemetry fixtures.',
         codeOrSpec: `Lureline Workbench Summary:
-├── Role             : Solo Developer (Orcathon 2026)
-├── Technical Stack  : TypeScript · Vite · Express · Vercel
-├── Demo Data Source : Synthetic event stream fixtures (safe public demo)
-└── Focus            : Fast alert filtering, timeline view & investigation UI`,
+├── Role             : 100% Solo Candidate (Orcathon 2026)
+├── Technical Stack  : TypeScript (90%) · Vite · Express · Node.js · Vercel
+├── Network Model    : 6-Node Simulated Topology (4 ordinary assets, 2 decoy assets)
+├── Verification     : 100% pass on automated test suite (npm test) + GitHub Actions CI (.github/workflows/lureline-validation.yml)
+└── Demo Data Source : Synthetic event stream fixtures (safe public demo without unobserved hop fabrication)`,
+      },
+    ],
+  },
+  {
+    slug: 'clarity-redemption-ai',
+    priorityOrder: 6,
+    tier: 'flagship',
+    tierLabel: 'Flagship Project 06 · FinTech Math & Compliance UX',
+    indexNumber: '06',
+    title: 'Clarity Redemption AI',
+    subtitle:
+      'Mutual Fund Consequence Engine: Deterministic FIFO Lot Math + Bounded Plain-English AI Explainer',
+    plainSubtitle:
+      'Shows mutual fund investors the exact FIFO unit lot consumption, exit load, STT deductions, and remaining holding value before they confirm a redemption.',
+    category: 'Applied AI & FinTech Math Engine',
+    domain: 'custom-systems',
+    projectClassification: 'Produscope 2026 (E-Cell IIT Guwahati) · 15/15 Unit Tests Pass',
+    evidenceTypeLabel: 'Public GitHub Codebase + 15/15 Unit Tests',
+    visualAccent: '#7AD992',
+    documentedRole: 'Co-Developer and Product Analyst',
+    collaborators: 'Team Leader: Devanshi Pandey; Team Member: Akshit Sukhija',
+    attributionNote:
+      'Built for Produscope 2026 (E-Cell IIT Guwahati) as Co-Developer and Product Analyst alongside Team Leader Devanshi Pandey. Open-source TypeScript (98.7%) codebase published on GitHub with 15/15 passing unit tests.',
+    problemSummary:
+      'Indian retail mutual fund investors often redeem units blindly because exit-load timers, FIFO lot consumption rules, and STT deductions are buried inside complex Scheme Information Documents (SIDs).',
+    businessContext:
+      'Applicable to any financial, billing, or operations product where users need to preview the exact mathematical consequences of an action before clicking confirm.',
+    approachSummary:
+      'Run all financial calculations—FIFO unit lot matching, 365-day holding period checks, exit loads, and STT deductions—through a strict deterministic math engine, and restrict AI ("Ask Clarity") strictly to explaining those verified figures.',
+    solutionSummary:
+      'A TypeScript and React redemption consequence workspace where a deterministic FIFO calculation engine computes exact lot-by-lot deductions and remaining portfolio value, paired with a bounded AI explanation layer that never invents numbers or gives buy/sell advice.',
+    resultSummary:
+      'Passed 15/15 automated unit tests (npm test) verifying FIFO boundaries, full liquidation, 365-day holding period logic, and mathematical invariants with 0 TypeScript linter errors (tsc --noEmit).',
+    productThinking: {
+      researchContext:
+        'Examined the redemption flow in retail investment apps during Produscope 2026 (E-Cell IIT Guwahati): investors see only the total redemption amount requested, while exit-load penalties on recent SIP lots remain hidden in PDF SID documents.',
+      userNeeds:
+        'Investors need a clear pre-redemption consequence preview showing which specific unit lots will be consumed first (FIFO), whether any lots trigger an exit load, and what net payout and holding value remain.',
+      alternativesConsidered:
+        'Compared static PDF exit-load calculators against a conversational AI financial bot. Static tables required manual lot entry, while an unconstrained chatbot risked miscalculating FIFO tax/exit-load boundaries or offering unauthorized investment advice.',
+      productDecision:
+        'Architected a single-source-of-truth Deterministic FIFO Math Engine in TypeScript that owns 100% of calculations, while bounding the "Ask Clarity" LLM layer strictly to explaining the computed scenario numbers and blocking buy/sell/hold advice.',
+      prototypeEvolution:
+        'Developed as a clean TypeScript (98.7%) + React + Vite workspace verified by a 15-test automated suite covering boundary conditions, 365-day holding thresholds, and full liquidation invariants.',
+    },
+    plainFeatures: [
+      {
+        plain: 'Shows exactly which unit lots are sold first (First-In, First-Out) before you confirm.',
+        technical:
+          'Deterministic FIFO lot-consumption engine iterates chronological purchase lots and splits partial boundary lots accurately.',
+      },
+      {
+        plain: 'Calculates exit loads and STT deductions using fixed math rules—never an AI guess.',
+        technical:
+          'Evaluates exact holding-period days (e.g., 365-day exit-load cliff) and applies scheme rules verified by 15/15 automated unit tests.',
+      },
+      {
+        plain: 'Includes an "Ask Clarity" assistant that explains the math in simple English without giving financial advice.',
+        technical:
+          'Context-bounded explainer layer reads only the deterministic engine output and enforces guardrails blocking buy/sell/hold recommendations.',
+      },
+    ],
+    verifiedStack: [
+      'TypeScript',
+      'React',
+      'Vite',
+      'Deterministic FIFO Math Engine',
+      'Ask Clarity Explainer',
+    ],
+    plainToolsSummary: [
+      {
+        tool: 'TypeScript (98.7%) & React',
+        whatItDoes: 'Powers the interactive redemption consequence workspace and lot breakdown UI.',
+      },
+      {
+        tool: 'Deterministic FIFO Math Engine',
+        whatItDoes: 'Calculates exact unit lot consumption, holding days, exit loads, and STT deductions.',
+      },
+      {
+        tool: 'Automated Unit Test Suite (15/15)',
+        whatItDoes: 'Verifies mathematical invariants, 365-day holding boundaries, and full liquidation edge cases.',
+      },
+      {
+        tool: 'Bounded "Ask Clarity" Layer',
+        whatItDoes: 'Explains the computed numbers in plain language while blocking investment advice.',
+      },
+    ],
+    verifiedElements: [
+      'TypeScript (98.7%), Vite, and React workspace architecture',
+      'Deterministic FIFO unit lot consumption engine',
+      '365-day holding period and exit-load boundary calculation',
+      '15/15 passing automated unit tests (npm test) and 0 tsc --noEmit errors',
+      'Bounded "Ask Clarity" explanation layer that blocks buy/sell/hold advice',
+      'Public GitHub repository and Produscope 2026 report documentation',
+    ],
+    deliverables: [
+      'Interactive Mutual Fund Consequence Workspace (React + TypeScript)',
+      'Deterministic FIFO Math & Exit-Load Engine',
+      '15-Test Automated Verification Suite',
+      'Bounded "Ask Clarity" Scenario Explainer',
+      'Produscope 2026 (E-Cell IIT Guwahati) Case Study Report',
+    ],
+    githubUrl: 'https://github.com/akshit-sukhija/Clarity-Redemption-AI',
+    evidenceNote:
+      'Public source code on GitHub (15/15 automated unit tests passing) and Produscope 2026 (E-Cell IIT Guwahati) documentation.',
+    architectureSummary:
+      'When a user enters a redemption amount, the Deterministic FIFO Math Engine calculates exact unit lot consumption, 365-day exit-load triggers, and STT deductions first. The UI and "Ask Clarity" layer then explain those locked figures.',
+    plainHowItWorksSummary:
+      'Enter redemption amount → fixed FIFO math engine calculates lots, exit load & STT → preview net payout & plain-English explanation.',
+    architectureNodes: [
+      {
+        id: 'cra-1',
+        label: '1. Redemption Request',
+        sublabel: 'Portfolio lots + SID rules',
+        plainTitle: 'Enter Redemption Scenario',
+        plainDescription: 'Select a mutual fund holding and enter the amount or units to redeem.',
+        layer: 'input',
+      },
+      {
+        id: 'cra-2',
+        label: '2. FIFO Math Engine',
+        sublabel: '15/15 unit-tested rules',
+        plainTitle: 'Calculate Lots & Exit Loads',
+        plainDescription: 'Fixed code rules match oldest lots first (FIFO) and check the 365-day exit-load timer.',
+        layer: 'verification',
+      },
+      {
+        id: 'cra-3',
+        label: '3. Ask Clarity Explainer',
+        sublabel: 'Bounded to exact figures',
+        plainTitle: 'Explain Without Advice',
+        plainDescription: 'Translates the lot breakdown into simple English while blocking buy/sell advice.',
+        layer: 'processing',
+      },
+      {
+        id: 'cra-4',
+        label: '4. Consequence View',
+        sublabel: 'Pre-confirmation summary',
+        plainTitle: 'Review Net Payout Clearly',
+        plainDescription: 'Shows exact deductions and remaining holding value before confirmation.',
+        layer: 'output',
+      },
+    ],
+    workflowSteps: [
+      {
+        step: '01',
+        title: 'Load Unit Lots & Scheme Exit-Load Rules',
+        detail: 'The workspace loads chronological purchase lots along with the scheme’s holding-period threshold and exit-load percentage.',
+        technicalDetail: 'Uses structured sample SID parameters and unit lot arrays in TypeScript.',
+      },
+      {
+        step: '02',
+        title: 'Execute Deterministic FIFO Lot Consumption',
+        detail: 'Fixed math rules consume the oldest unit lots first, checking whether each lot has crossed the 365-day exit-load-free window.',
+        technicalDetail: 'Verified by 15/15 automated unit tests covering boundary splits and full liquidation.',
+      },
+      {
+        step: '03',
+        title: 'Display Consequence Breakdown & Bounded Explanation',
+        detail: 'Users inspect net payout, exit load, STT, and remaining units—and can ask the bounded explainer questions about the scenario.',
+        technicalDetail: 'AI layer is strictly grounded in deterministic engine outputs and blocks buy/sell/hold advice.',
+      },
+    ],
+    technicalDecisions: [
+      {
+        decision: 'Never let an LLM perform FIFO lot or exit-load arithmetic',
+        rationale:
+          'Financial deductions and holding-period cliffs require 100% mathematical precision. Fixed TypeScript rules calculate every rupee and unit.',
+        tradeoff:
+          'Requires codifying scheme exit-load rules into structured TypeScript parameters.',
+      },
+      {
+        decision: 'Enforce strict non-advisory guardrails on the AI explanation layer',
+        rationale:
+          'The tool exists to explain redemption consequences transparently, never to recommend buying, selling, or holding securities.',
+        tradeoff:
+          'Restricts open-ended financial chat in favour of safe, scenario-grounded explanations.',
+      },
+    ],
+    limitationsAndScope: [
+      'Built as a competition product prototype for Produscope 2026 (E-Cell IIT Guwahati) using illustrative NAVs and sample fund SID data.',
+      'Not connected to live AMC or registrar order-routing APIs.',
+      'Co-developed with Team Leader Devanshi Pandey.',
+    ],
+    keyLessons: [
+      'When building financial or pricing tools, deterministic math engines and unit tests come first; AI should only explain the verified numbers.',
+    ],
+    evidenceArtifacts: [
+      {
+        title: 'Deterministic FIFO Consequence Engine & 15/15 Test Suite Specification',
+        type: 'interactive-preview',
+        caption: 'Summary of the verified FIFO math invariants and non-advisory AI boundary.',
+        datasetOrHardwareCondition:
+          'Prototype scope: Uses illustrative NAVs and sample fund SID data (15/15 npm unit tests passing).',
+        codeOrSpec: `Clarity Redemption AI — Verification & Architecture:
+├── Role            : Co-Developer & Product Analyst (Team Leader: Devanshi Pandey)
+├── Competition     : Produscope 2026 (E-Cell IIT Guwahati)
+├── Codebase        : TypeScript (98.7%), Vite, React
+├── Math Engine     : Deterministic FIFO unit lot consumption + 365-day exit-load boundary + STT
+├── Quality Gate    : 15/15 automated unit tests passing (npm test) · 0 linter errors (tsc --noEmit)
+└── AI Guardrail    : "Ask Clarity" bounded strictly to scenario figures; blocks buy/sell/hold advice`,
       },
     ],
   },
 ];
 
 export const ADDITIONAL_ANALYTICAL_PROOF = {
-  title: 'OTT Viewer Retention Analysis',
-  category: 'Customer & Viewer Retention Study',
+  title: 'OTT Viewer Retention Analysis (N = 33,171 Episodes) & UIDAI Demographic Intelligence (500,000+ Records)',
+  category: 'Evaluated Data & Public Policy / Media Retention Studies',
   summary:
-    'An additional data study looking at when and why streaming viewers stop watching, helping explain what keeps subscribers engaged over time.',
-  connectionToService: 'Service 01: Business Data & Insights',
+    'Alongside Decoding Customer Value, the full Project Library includes a 33,171-episode streaming retention capstone (identifying the Episodes 4–8 mid-season drop-off spike at 16.7%) and a 500,000+ record Google Colab analysis of official UIDAI demographic updates across 956 districts.',
+  connectionToService: 'Service 01: Data & Business Intelligence',
 };
 
 export const SERVICES: ServiceCategory[] = [
@@ -1863,18 +2093,18 @@ export const VERIFIED_EXPERIENCE = [
   {
     id: 'resolx-ai',
     role: 'AI Solutioning Intern',
-    organisation: 'ResolX.ai',
-    category: 'Applied AI & Solution Design',
+    organisation: 'ResolX.ai (One Point One Technology Labs)',
+    category: 'Applied AI & Multimodal Solution Architecture',
     periodLabel: 'Verified Internship Experience',
     plainSummary:
-      'Worked on translating practical business and operational problems into structured AI-assisted workflows and solution architectures.',
+      'Researched requirements, reviewed Omvia UI mockups, and authored a formal solutioning report on combining acoustic voice signals (tone, speech rate, dead air) with call transcripts for customer-support sentiment analysis.',
     keyContributions: [
-      'Researched and structured practical AI solution blueprints around real operational bottlenecks.',
-      'Focused on combining language models with clear business logic so outputs remain reliable and useful for end users.',
-      'Prepared clear technical and functional documentation to bridge product ideas and engineering execution.',
+      'Authored the formal internship solutioning specification (ResolX_Omvia_Speech_Call_Sentiment_Analysis_Report.pdf) defining multimodal sentiment guidelines.',
+      'Audited Omvia UI workflow requirements, defined "Not Clear" escalation boundaries, and designed human-in-the-loop quality review loops.',
+      'Mandatory Scope Disclosure: This work was a research and solutioning specification deliverable only—explicitly NOT a trained or deployed production model.',
     ],
     privacyNote:
-      'Presented at a high level in accordance with professional confidentiality; no proprietary client or internal documents are published.',
+      'Mandatory Confidentiality & Scope Notice: Research/specification deliverable only (not a deployed production model). Internal product UI screenshots are withheld.',
   },
   {
     id: 'career-with-dishani',
@@ -1883,10 +2113,10 @@ export const VERIFIED_EXPERIENCE = [
     category: 'Research, Analysis & Content Systems',
     periodLabel: 'Verified Internship Experience',
     plainSummary:
-      'Conducted structured research and distilled complex educational and career information into clear, actionable insights and guides.',
+      'Conducted structured multi-source research, explored AI-assisted research synthesis workflows (InsightForge), and distilled complex information into actionable decision briefs.',
     keyContributions: [
-      'Researched multi-source information and synthesised findings into clear, easy-to-scan decision guides.',
-      'Developed repeatable research templates and structured summaries for non-technical readers.',
+      'Researched multi-source information and synthesised findings into clear, easy-to-scan decision guides (documented in Akshit_Sukhija_CareerWithDishani_Research_Intern.pdf).',
+      'Developed repeatable 5-stage research synthesis workflows (Extract claims → Compare & analyze → Verify with sources → Synthesize output).',
       'Strengthened the habit of turning dense, scattered material into plain-English recommendations.',
     ],
     privacyNote:
@@ -1896,8 +2126,8 @@ export const VERIFIED_EXPERIENCE = [
 
 export const VERIFIED_ACADEMIC_RECORD = {
   degree: 'Bachelor of Computer Applications (BCA)',
-  institution: 'Institute of Information Technology & Management (IITM)',
-  affiliation: 'Affiliated with Guru Gobind Singh Indraprastha University (GGSIPU), New Delhi',
+  institution: 'Institute of Information Technology & Management (IITM, Janakpuri)',
+  affiliation: 'Affiliated with Guru Gobind Singh Indraprastha University (GGSIPU), New Delhi · Batch 2024–2027',
   cgpa: '9.10 / 10',
   aggregatePercentage: '85.026%',
   semesterSgpas: [
@@ -1907,13 +2137,15 @@ export const VERIFIED_ACADEMIC_RECORD = {
     { semester: 'Semester IV', sgpa: '8.96' },
   ],
   certificationsAndHighlights: [
-    'Team Leader & System Architect — Notice Decoder (Live Full-Stack AI Web App)',
-    'Co-Developer & System Architect — SentinelX (100+ Page Academic Technical Report)',
-    'Lead Product Analyst — Decoding Customer Value (IITG Study across 3,900 Records)',
-    'Solo Developer — Lureline (Orcathon 2026 Competition Prototype)',
+    'System Architecture Lead — Contract Risk Governance Engine (AMD Slingshot Hackathon 2026 · 57 Commits)',
+    'Team Leader & System Architect — Notice Decoder (SETU 2026 PS-02 · Live Full-Stack AI Web App)',
+    'Co-Developer & Product Analyst — Clarity Redemption AI (Produscope 2026 · 15/15 Unit Tests Pass)',
+    'Lead Product Analyst — Decoding Customer Value (IIT Guwahati Summer Analytics · 3,900 Records)',
+    'Co-Developer & System Architect — SentinelX / DSARS (100+ Page Report & 100-Hr SSSAM Cybersecurity Certificate)',
+    'Solo Candidate — Lureline (Orcathon 2026), UIDAI Data Hackathon 2026 (500k+ Records), SIGNAL (PromptForge #1)',
   ],
   contextNote:
-    'Included as supporting credibility showing consistent analytical and engineering discipline alongside real software and data projects.',
+    'Verified from official GGSIPU marksheet records (SGPAs: 9.50, 8.81, 9.10, 8.96; CGPA: 9.10; Overall Aggregate: 85.026%).',
 };
 
 export const PROBLEM_CATEGORIES = [

@@ -238,27 +238,27 @@ export function HomePage() {
         </div>
       </section>
 
-      {/* 3. Selected Work — Product-Thinking Case Studies */}
+      {/* 3. Selected Work — Product-Thinking Case Studies & 29-Project Reconciled Library */}
       <section className="bg-[#0E0F14] border-b border-[#2C2F42] py-20 px-6">
         <div className="max-w-[1200px] mx-auto space-y-12">
           <MotionReveal className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-6 border-b border-[#2C2F42]">
             <div className="space-y-2 max-w-2xl">
               <p className="font-mono text-xs text-[#D4AE5C] uppercase tracking-wide">
-                Selected Work
+                Selected Work · 6 Flagship Case Studies + 29-Project Library
               </p>
               <h2 className="font-display text-3xl sm:text-4xl md:text-5xl text-[#F4F0E8]">
                 Projects Built Around Real Problems &amp; Evidence
               </h2>
               <p className="text-sm sm:text-base text-[#A6A9B8]">
-                Each case study documents the problem, research context, user needs, alternatives
-                considered, system design, and verified evidence.
+                Each flagship case study documents the problem, research context, user needs,
+                alternatives considered, system design, and verified source evidence.
               </p>
             </div>
             <Link
               to="/work"
               className="inline-flex items-center gap-2 font-mono text-xs text-[#D4AE5C] hover:text-[#F4F0E8] transition-colors whitespace-nowrap shrink-0"
             >
-              <span>View All 5 Case Studies</span>
+              <span>Explore All 6 Case Studies &amp; 29-Project Library</span>
               <ArrowRight className="w-4 h-4" />
             </Link>
           </MotionReveal>
@@ -271,25 +271,25 @@ export function HomePage() {
             ))}
           </div>
 
-          {/* Supporting Prototypes */}
+          {/* Supporting Flagship Systems (04–06) */}
           <div className="pt-8 border-t border-[#2C2F42] space-y-6">
             <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3">
               <div>
                 <p className="font-mono text-xs text-[#A6A9B8]">
-                  Additional Technical Prototypes
+                  Additional Flagship Case Studies (04–06)
                 </p>
                 <h3 className="font-display text-2xl sm:text-3xl text-[#F4F0E8] mt-1">
-                  Rule-Backed AI Compliance &amp; Investigation Workbench UI
+                  Deterministic AI Governance, Deception Telemetry &amp; FinTech FIFO Engine
                 </h3>
               </div>
               <Link
                 to="/work"
                 className="font-mono text-xs text-[#D4AE5C] hover:underline"
               >
-                Filter by stack or evidence type →
+                Search all 29 reconciled projects →
               </Link>
             </div>
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-stretch">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-stretch">
               {secondaryProjects.map((project, index) => (
                 <MotionReveal key={project.slug} delay={index * 0.05} className="flex">
                   <ProjectCard project={project} compact />

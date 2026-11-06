@@ -35,7 +35,8 @@ export function CaseStudyPage() {
           </h1>
           <p className="text-sm text-[#A9A092] leading-relaxed">
             The project URL <code className="text-[#E8D5A8]">{slug}</code> does not match any of
-            the five projects in this portfolio.
+            the six dedicated flagship case studies in this portfolio. You can browse all 29
+            reconciled projects in the Portfolio Explorer.
           </p>
           <div className="flex flex-wrap items-center gap-4 pt-2">
             <Link

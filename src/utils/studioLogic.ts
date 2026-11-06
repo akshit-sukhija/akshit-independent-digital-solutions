@@ -4,18 +4,34 @@ import {
   SUPPORTING_CAPABILITIES,
   PROBLEM_CATEGORIES,
   BUDGET_CHOICES_INR,
+  COMPLETE_PORTFOLIO_INVENTORY,
   type CapabilityDomain,
   type ProjectData,
   type ServiceCategory,
+  type PortfolioInventoryItem,
+  type InventoryTierCategory,
+  type EvidenceTierBadge,
+  type LibraryDomain,
 } from '../data/studioData';
 
 export type EvidenceFilterType = 'all' | 'live-demo' | 'github-code' | 'report-or-study';
+
+export type LibraryLinkFilter = 'all' | 'has-github' | 'has-live-demo' | 'has-colab-or-pdf';
 
 export interface PortfolioFilterOptions {
   domain?: CapabilityDomain | 'all';
   tier?: 'all' | 'primary' | 'secondary';
   technology?: string;
   evidenceType?: EvidenceFilterType;
+}
+
+export interface InventoryFilterInput {
+  searchQuery?: string;
+  tierCategory?: InventoryTierCategory | 'all';
+  domain?: LibraryDomain | 'all';
+  evidenceTier?: EvidenceTierBadge | 'all';
+  technology?: string;
+  linkFilter?: LibraryLinkFilter;
 }
 
 export interface ScopeEstimatorInput {
@@ -108,13 +124,14 @@ export const DESIRED_OUTCOME_OPTIONS = [
 ] as const;
 
 /**
- * Filters projects by capability domain, tier, technology, and evidence type
- * while strictly preserving the mandatory 1-5 priority hierarchy:
+ * Filters flagship case study projects by capability domain, tier, technology, and evidence type
+ * while preserving the priority hierarchy:
  * 1. Notice Decoder
- * 2. SentinelX
+ * 2. SentinelX / DSARS
  * 3. Decoding Customer Value
  * 4. Contract Risk Governance Engine
  * 5. Lureline
+ * 6. Clarity Redemption AI
  */
 export function filterAndSortProjects(
   domainFilter: CapabilityDomain | 'all' = 'all',
@@ -158,6 +175,79 @@ export function filterAndSortProjects(
       return true;
     })
     .sort((a, b) => a.priorityOrder - b.priorityOrder);
+}
+
+/**
+ * Searches and filters the complete 29-project NotebookLM portfolio inventory
+ * across flagship case studies, secondary project-library entries, and restricted work.
+ */
+export function filterPortfolioInventory(
+  input: InventoryFilterInput = {}
+): PortfolioInventoryItem[] {
+  const {
+    searchQuery = '',
+    tierCategory = 'all',
+    domain = 'all',
+    evidenceTier = 'all',
+    technology = 'all',
+    linkFilter = 'all',
+  } = input;
+
+  const query = searchQuery.trim().toLowerCase();
+  const techNeedle = technology && technology !== 'all' ? technology.toLowerCase() : '';
+
+  return COMPLETE_PORTFOLIO_INVENTORY.filter((item) => {
+    if (tierCategory !== 'all' && item.tierCategory !== tierCategory) {
+      return false;
+    }
+    if (domain !== 'all' && item.domain !== domain) {
+      return false;
+    }
+    if (evidenceTier !== 'all' && item.evidenceTier !== evidenceTier) {
+      return false;
+    }
+    if (techNeedle) {
+      const hasTech = item.technologies.some((t) => t.toLowerCase().includes(techNeedle));
+      if (!hasTech) return false;
+    }
+    if (linkFilter !== 'all') {
+      if (linkFilter === 'has-github' && !item.links.githubUrl) return false;
+      if (linkFilter === 'has-live-demo' && !item.links.liveDemoUrl) return false;
+      if (
+        linkFilter === 'has-colab-or-pdf' &&
+        !item.links.colabUrl &&
+        !item.links.evidenceMatrixPdfUrl &&
+        item.documentedArtifacts.length === 0
+      ) {
+        return false;
+      }
+    }
+    if (query.length > 0) {
+      const searchableText = [
+        `#${item.inventoryNumber}`,
+        item.title,
+        item.subtitle,
+        item.category,
+        item.projectType,
+        item.documentedRole,
+        item.collaborators,
+        item.problem,
+        item.methodology,
+        item.results,
+        item.status,
+        item.mandatoryLabel ?? '',
+        ...item.technologies,
+        ...item.documentedArtifacts,
+      ]
+        .join(' ')
+        .toLowerCase();
+
+      if (!searchableText.includes(query)) {
+        return false;
+      }
+    }
+    return true;
+  });
 }
 
 export function getProjectBySlug(slug: string): ProjectData | undefined {

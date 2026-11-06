@@ -467,6 +467,65 @@ export function ProjectVisual({ slug, mode = 'full' }: ProjectVisualProps) {
     );
   }
 
+  if (slug === 'clarity-redemption-ai') {
+    return (
+      <div className="bg-[#0E0F14] border border-[#2C2F42] rounded-xl p-5 md:p-6 space-y-5">
+        <div className="flex flex-wrap items-center justify-between gap-2 pb-3 border-b border-[#2C2F42]">
+          <div className="flex items-center gap-2">
+            <span className="w-2 h-2 rounded-full bg-[#7AD992]" />
+            <span className="font-mono text-xs text-[#E6D3A7]">
+              Clarity Redemption AI · Deterministic FIFO &amp; Exit-Load Engine
+            </span>
+          </div>
+          <span className="font-mono text-[11px] text-[#8B75FF]">
+            15/15 Unit Tests Passed · Zero AI Calculation Authority
+          </span>
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 items-stretch">
+          <div className="lg:col-span-4 bg-[#161822] border border-[#2C2F42] rounded-lg p-4 space-y-2">
+            <div className="flex items-center justify-between">
+              <span className="font-mono text-[11px] text-[#A6A9B8]">01 · LOT &amp; SID INPUTS</span>
+              <FileSpreadsheet className="w-4 h-4 text-[#D4AE5C]" />
+            </div>
+            <p className="text-xs font-semibold text-[#F4F0E8]">
+              Multi-Tranche Lots &amp; Scheme Rules
+            </p>
+            <p className="text-[11px] text-[#A6A9B8]">
+              Ingests purchase dates, NAVs, STCG/LTCG thresholds, and Scheme Information Document exit-load tiers.
+            </p>
+          </div>
+
+          <div className="lg:col-span-4 bg-[#161822] border border-[#8B75FF]/50 rounded-lg p-4 space-y-2">
+            <div className="flex items-center justify-between">
+              <span className="font-mono text-[11px] text-[#8B75FF]">02 · DETERMINISTIC FIFO</span>
+              <ShieldCheck className="w-4 h-4 text-[#8B75FF]" />
+            </div>
+            <p className="text-xs font-semibold text-[#F4F0E8]">
+              100% Rule-Based Tax &amp; Penalty Math
+            </p>
+            <p className="text-[11px] text-[#A6A9B8]">
+              Calculates exact holding days, exit load, and tax category per lot without relying on LLM math.
+            </p>
+          </div>
+
+          <div className="lg:col-span-4 bg-[#161822] border border-[#7AD992]/40 rounded-lg p-4 space-y-2">
+            <div className="flex items-center justify-between">
+              <span className="font-mono text-[11px] text-[#7AD992]">03 · CONSEQUENCE VIEW</span>
+              <CheckCircle2 className="w-4 h-4 text-[#7AD992]" />
+            </div>
+            <p className="text-xs font-semibold text-[#F4F0E8]">
+              Net Payout + Wait-Window Nudge
+            </p>
+            <p className="text-[11px] text-[#A6A9B8]">
+              Shows exact net proceeds and whether waiting a few days avoids an exit load or STCG bracket.
+            </p>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   // Default / Lureline
   return (
     <div className="bg-[#0E0F14] border border-[#2C2F42] rounded-xl p-5 md:p-6 space-y-5">
@@ -474,25 +533,25 @@ export function ProjectVisual({ slug, mode = 'full' }: ProjectVisualProps) {
         <div className="flex items-center gap-2">
           <span className="w-2 h-2 rounded-full bg-[#7AD992]" />
           <span className="font-mono text-xs text-[#E6D3A7]">
-            Lureline · Interactive Alert Triage &amp; Timeline Workbench
+            Lureline · 6-Node Deception Topology &amp; Alert Triage Workbench
           </span>
         </div>
         <span className="font-mono text-[11px] text-[#8B75FF]">
-          Live Vercel Prototype · Synthetic Telemetry Fixtures
+          Live Vercel Prototype · 4 Ordinary + 2 Decoy Assets · 100% Test Pass
         </span>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 items-stretch">
         <div className="lg:col-span-4 bg-[#161822] border border-[#2C2F42] rounded-lg p-4 space-y-2">
           <div className="flex items-center justify-between">
-            <span className="font-mono text-[11px] text-[#A6A9B8]">01 · SAMPLE STREAMS</span>
+            <span className="font-mono text-[11px] text-[#A6A9B8]">01 · 6-NODE TOPOLOGY</span>
             <Terminal className="w-4 h-4 text-[#D4AE5C]" />
           </div>
           <p className="text-xs font-semibold text-[#F4F0E8]">
-            Simulated Security Event Streams
+            4 Ordinary Assets + 2 Decoy Assets
           </p>
           <p className="text-[11px] text-[#A6A9B8]">
-            Loads safe synthetic event fixtures so anyone can test the live workbench immediately.
+            Models realistic lateral movement and decoy interaction fixtures so reviewers can test the live workbench immediately.
           </p>
         </div>
 
