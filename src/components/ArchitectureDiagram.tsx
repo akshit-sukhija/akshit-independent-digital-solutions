@@ -351,28 +351,30 @@ export function AiRulesHumanDiagram() {
 }
 
 /**
- * 3. Visual Diagram: The 5-Step Working Process
+ * 3. Signature 5-Step Working Methodology:
+ * RESEARCH → ANALYSIS → AI & LOGIC → SOFTWARE → DELIVERY
  */
 export function FiveStepProcessDiagram() {
   const [activeStep, setActiveStep] = useState<number>(0);
   const current = ENGAGEMENT_STEPS[activeStep];
 
   return (
-    <div className="bg-[#1A1814] border border-[#3A3429] rounded-lg p-6 md:p-8 bg-blueprint-grid space-y-6">
-      <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-[#3A3429] pb-4">
+    <div className="bg-[#161822] border border-[#2C2F42] rounded-2xl p-6 md:p-8 bg-blueprint-grid space-y-6">
+      <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-[#2C2F42] pb-4">
         <div>
-          <p className="font-mono text-xs text-[#C9A24B]">
-            Five-Step Working Journey · Simple & Transparent
+          <p className="font-mono text-xs text-[#8B75FF]">
+            Signature 5-Step Methodology · RESEARCH → ANALYSIS → AI &amp; LOGIC → SOFTWARE → DELIVERY
           </p>
-          <h3 className="font-display text-2xl sm:text-3xl text-[#F2EBDD] mt-1">
-            How We Work Together From First Chat to Final Handover
+          <h3 className="font-display text-2xl sm:text-3xl text-[#F4F0E8] mt-1">
+            How a Raw Idea or Messy Problem Becomes Working Software
           </h3>
         </div>
-        <span className="font-mono text-xs text-[#A9A092]">
-          Click any step to see details
+        <span className="font-mono text-xs text-[#E6D3A7]">
+          Click any stage to inspect
         </span>
       </div>
 
+      {/* Connected 5-Stage Selector */}
       <div className="grid grid-cols-1 md:grid-cols-5 gap-3">
         {ENGAGEMENT_STEPS.map((item, idx) => {
           const isSelected = idx === activeStep;
@@ -381,39 +383,54 @@ export function FiveStepProcessDiagram() {
               key={item.step}
               type="button"
               onClick={() => setActiveStep(idx)}
-              className={`text-left p-4 rounded-lg border transition-colors flex flex-col justify-between gap-3 cursor-pointer ${
+              className={`text-left p-4 rounded-xl border transition-all flex flex-col justify-between gap-3 cursor-pointer ${
                 isSelected
-                  ? 'bg-[#232019] border-[#C9A24B]'
-                  : 'bg-[#11100E] border-[#3A3429] hover:border-[#A9A092]'
+                  ? 'bg-[#1E202E] border-[#8B75FF] shadow-md'
+                  : 'bg-[#0E0F14] border-[#2C2F42] hover:border-[#8B75FF]/60'
               }`}
             >
               <div className="flex items-center justify-between w-full">
-                <span className="font-mono text-xs text-[#C9A24B]">Step {item.step}</span>
-                {idx < 4 && <span className="font-mono text-xs text-[#A9A092]">→</span>}
+                <span className="font-mono text-xs text-[#8B75FF] font-semibold">
+                  {item.step} · {item.stageKey}
+                </span>
+                {idx < 4 && <span className="font-mono text-xs text-[#D4AE5C]">→</span>}
               </div>
               <div className="space-y-1">
-                <p className="text-sm font-semibold text-[#F2EBDD] leading-snug">{item.title}</p>
-                <p className="font-mono text-[11px] text-[#E8D5A8]/80">{item.shortLabel}</p>
+                <p className="text-sm font-semibold text-[#F4F0E8] leading-snug">{item.title}</p>
+                <p className="font-mono text-[11px] text-[#E6D3A7]">{item.shortLabel}</p>
               </div>
             </button>
           );
         })}
       </div>
 
-      <div className="bg-[#11100E] border border-[#3A3429] rounded-lg p-5 flex flex-col md:flex-row md:items-center justify-between gap-4">
-        <div className="space-y-1">
-          <p className="font-mono text-xs text-[#C9A24B]">
-            Step {current.step} · {current.title}
+      {/* 3-Column Stage Breakdown: What Happens · What I Contribute · What You Receive */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div className="bg-[#0E0F14] border border-[#2C2F42] rounded-xl p-5 space-y-2">
+          <p className="font-mono text-xs text-[#8B75FF]">
+            01 · What Happens at Stage {current.step} ({current.stageKey})
           </p>
-          <p className="text-sm text-[#F2EBDD] leading-relaxed">{current.description}</p>
+          <p className="text-sm text-[#F4F0E8] leading-relaxed">{current.description}</p>
         </div>
-        <Link
-          to="/enquire"
-          className="inline-flex items-center gap-1.5 px-4 py-2 text-xs font-medium text-[#11100E] bg-[#C9A24B] hover:bg-[#E8D5A8] rounded transition-colors whitespace-nowrap shrink-0"
-        >
-          <span>Start Step 01</span>
-          <ArrowRight className="w-3.5 h-3.5" />
-        </Link>
+
+        <div className="bg-[#0E0F14] border border-[#2C2F42] rounded-xl p-5 space-y-2">
+          <p className="font-mono text-xs text-[#D4AE5C]">02 · What I Contribute</p>
+          <p className="text-sm text-[#F4F0E8] leading-relaxed">{current.whatIContribute}</p>
+        </div>
+
+        <div className="bg-[#0E0F14] border border-[#7AD992]/40 rounded-xl p-5 flex flex-col justify-between gap-3">
+          <div className="space-y-2">
+            <p className="font-mono text-xs text-[#7AD992]">03 · What You Receive</p>
+            <p className="text-sm text-[#F4F0E8] leading-relaxed">{current.whatYouReceive}</p>
+          </div>
+          <Link
+            to="/enquire"
+            className="inline-flex items-center gap-1.5 text-xs font-mono text-[#D4AE5C] hover:text-[#8B75FF] pt-1 transition-colors"
+          >
+            <span>Start a project at Stage 01</span>
+            <ArrowRight className="w-3.5 h-3.5" />
+          </Link>
+        </div>
       </div>
     </div>
   );

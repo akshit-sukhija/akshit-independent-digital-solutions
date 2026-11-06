@@ -1,214 +1,241 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, ArrowUpRight, Code2, UserCheck } from 'lucide-react';
+import {
+  ArrowRight,
+  ArrowUpRight,
+  Code2,
+  ExternalLink,
+  Mail,
+  MessageSquare,
+  Phone,
+} from 'lucide-react';
 import { PageMeta } from '../components/PageMeta';
 import { MotionReveal } from '../components/MotionReveal';
+import { StudioPortrait } from '../components/StudioPortrait';
 import { CtaSection } from '../components/CtaSection';
 import {
   BRAND_IDENTITY,
+  PROFILE_CONFIG,
   SKILLS_MATRIX,
+  VERIFIED_EXPERIENCE,
   VERIFIED_ACADEMIC_RECORD,
   PROJECTS,
 } from '../data/studioData';
 
 export function AboutPage() {
   const [showCodeCard, setShowCodeCard] = useState(false);
-  const [photoLoaded, setPhotoLoaded] = useState(false);
 
   return (
     <div>
       <PageMeta
-        title="About Akshit — Independent Digital Solutions"
-        description="Meet Akshit—an independent solo operator in India helping startups and small businesses with data analysis, AI automation, and custom digital tools."
+        title="About Akshit — Personal Studio, Experience & Credentials"
+        description="Learn how Akshit works across research, data analysis, AI workflows, and custom software—backed by verified internships, academic credentials, and real projects."
       />
 
-      {/* Personal Introduction + Profile Card */}
-      <section className="bg-[#11100E] bg-lamplit-glow border-b border-[#3A3429] pt-14 pb-20 px-6">
-        <div className="max-w-[1200px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
-          {/* Left Column: Simple-English Story */}
-          <MotionReveal className="lg:col-span-7 space-y-6">
-            <p className="font-mono text-xs text-[#C9A24B]">
-              About Me · Independent Solo Operator · India
-            </p>
-            <h1
-              className="font-display text-[#F2EBDD] leading-tight"
-              style={{ fontSize: 'clamp(2.25rem, 4vw, 3.75rem)' }}
-            >
-              Helping Businesses Turn Messy Data and Manual Work Into Clear Digital Tools
-            </h1>
-            <p className="text-lg text-[#E8D5A8] leading-relaxed">
-              {BRAND_IDENTITY.positioningStatement}
-            </p>
-            <div className="space-y-4 text-base text-[#A9A092] leading-relaxed">
-              <p>
-                Hi, I’m Akshit. I work independently at the intersection of{' '}
-                <strong className="text-[#F2EBDD] font-normal">business data analysis</strong>,{' '}
-                <strong className="text-[#F2EBDD] font-normal">AI workflow automation</strong>, and{' '}
-                <strong className="text-[#F2EBDD] font-normal">custom web software</strong>.
+      {/* 1. Personal Story, Prominent Portrait & Verified Contact Channels */}
+      <section className="bg-[#0E0F14] bg-lamplit-glow border-b border-[#2C2F42] pt-14 pb-20 px-6">
+        <div className="max-w-[1200px] mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+            <MotionReveal className="lg:col-span-7 space-y-6">
+              <p className="font-mono text-xs text-[#8B75FF]">
+                About the Studio · {PROFILE_CONFIG.fullName}
               </p>
-              <p>
-                Most growing businesses do not need complicated tech buzzwords. They need someone
-                who can look at a confusing sales spreadsheet, a pile of routine PDF circulars, or
-                an idea for an internal tool—understand the business problem behind it—and build a
-                clean, working solution.
-              </p>
-              <p>
-                Because I handle the data cleaning, rule logic, and web interface myself, you work
-                directly with one person from our first conversation to final handover.
-              </p>
-            </div>
-
-            <div className="pt-2 flex flex-wrap items-center gap-4">
-              <button
-                type="button"
-                onClick={() => setShowCodeCard((prev) => !prev)}
-                className="inline-flex items-center gap-2 px-4 py-2.5 text-xs font-mono text-[#E8D5A8] bg-[#1A1814] border border-[#3A3429] hover:border-[#C9A24B] rounded transition-colors cursor-pointer"
+              <h1
+                className="font-display text-[#F4F0E8] leading-[1.08]"
+                style={{ fontSize: 'clamp(2.4rem, 4.2vw, 3.85rem)' }}
               >
-                <Code2 className="w-4 h-4 text-[#C9A24B]" />
-                <span>
-                  {showCodeCard
-                    ? 'Switch to Standard Profile Card'
-                    : 'View Optional Code-Style Profile Card'}
-                </span>
-              </button>
+                One person who researches the problem, analyses the data, and builds the working solution.
+              </h1>
+              <p className="text-lg text-[#E6D3A7] leading-relaxed">
+                {BRAND_IDENTITY.positioningStatement}
+              </p>
+              <p className="text-base text-[#A6A9B8] leading-relaxed">
+                {PROFILE_CONFIG.extendedBio}
+              </p>
 
-              <Link
-                to="/work"
-                className="inline-flex items-center gap-2 px-5 py-2.5 text-xs font-medium text-[#11100E] bg-[#C9A24B] hover:bg-[#E8D5A8] rounded transition-colors"
-              >
-                <span>See My 5 Projects</span>
-                <ArrowRight className="w-3.5 h-3.5" />
-              </Link>
-            </div>
-          </MotionReveal>
+              {/* Verified Direct Contact Bar on About Page */}
+              <div className="bg-[#161822] border border-[#2C2F42] rounded-xl p-5 space-y-4">
+                <div className="flex flex-wrap items-center justify-between gap-2 border-b border-[#2C2F42] pb-3">
+                  <span className="font-mono text-xs text-[#8B75FF]">
+                    Verified Contact &amp; Profiles
+                  </span>
+                  <span className="font-mono text-xs text-[#7AD992]">
+                    {PROFILE_CONFIG.location}
+                  </span>
+                </div>
 
-          {/* Right Column: Profile Portrait Card + Optional Interactive Code-Style Profile View */}
-          <MotionReveal
-            delay={0.06}
-            className="lg:col-span-5 bg-[#1A1814] border border-[#3A3429] rounded-lg p-6 md:p-8 space-y-6"
-          >
-            {/* Profile Photo Frame with Resilient Studio Monogram Fallback */}
-            <div className="flex items-center gap-5 border-b border-[#3A3429] pb-6">
-              <div className="relative w-20 h-20 rounded-lg bg-[#11100E] border border-[#C9A24B]/60 flex items-center justify-center overflow-hidden shrink-0">
-                <img
-                  src="/profile.jpg"
-                  alt="Akshit — Independent Digital Solutions"
-                  referrerPolicy="no-referrer"
-                  onLoad={() => setPhotoLoaded(true)}
-                  onError={(e) => {
-                    e.currentTarget.style.display = 'none';
-                  }}
-                  className={`w-full h-full object-cover ${photoLoaded ? 'block' : 'hidden'}`}
-                />
-                {!photoLoaded && (
-                  <div className="text-center select-none">
-                    <span className="font-display text-3xl text-[#C9A24B] block leading-none">
-                      A
-                    </span>
-                    <span className="font-mono text-[9px] text-[#E8D5A8] tracking-widest uppercase">
-                      Studio
-                    </span>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs font-mono">
+                  <a
+                    href={PROFILE_CONFIG.contact.emailPrimary.mailto}
+                    className="flex items-center gap-2.5 p-3 rounded-lg bg-[#0E0F14] border border-[#2C2F42] hover:border-[#8B75FF] text-[#F4F0E8] transition-colors"
+                  >
+                    <Mail className="w-4 h-4 text-[#8B75FF] shrink-0" />
+                    <span className="truncate">{PROFILE_CONFIG.contact.emailPrimary.address}</span>
+                  </a>
+
+                  <a
+                    href={PROFILE_CONFIG.contact.emailSecondary.mailto}
+                    className="flex items-center gap-2.5 p-3 rounded-lg bg-[#0E0F14] border border-[#2C2F42] hover:border-[#8B75FF] text-[#E6D3A7] transition-colors"
+                  >
+                    <Mail className="w-4 h-4 text-[#D4AE5C] shrink-0" />
+                    <span className="truncate">{PROFILE_CONFIG.contact.emailSecondary.address}</span>
+                  </a>
+
+                  <a
+                    href={PROFILE_CONFIG.contact.phone.telHref}
+                    className="flex items-center gap-2.5 p-3 rounded-lg bg-[#0E0F14] border border-[#2C2F42] hover:border-[#D4AE5C] text-[#F4F0E8] transition-colors"
+                  >
+                    <Phone className="w-4 h-4 text-[#D4AE5C] shrink-0" />
+                    <span>Call {PROFILE_CONFIG.contact.phone.displayNumber}</span>
+                  </a>
+
+                  <a
+                    href={PROFILE_CONFIG.contact.phone.whatsappHref}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2.5 p-3 rounded-lg bg-[#0E0F14] border border-[#2C2F42] hover:border-[#7AD992] text-[#7AD992] transition-colors"
+                  >
+                    <MessageSquare className="w-4 h-4 shrink-0" />
+                    <span>WhatsApp {PROFILE_CONFIG.contact.phone.displayNumber}</span>
+                  </a>
+
+                  <a
+                    href={PROFILE_CONFIG.contact.linkedin.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center justify-between p-3 rounded-lg bg-[#0E0F14] border border-[#2C2F42] hover:border-[#8B75FF] text-[#F4F0E8] transition-colors"
+                  >
+                    <span>LinkedIn ({PROFILE_CONFIG.contact.linkedin.handle})</span>
+                    <ExternalLink className="w-3.5 h-3.5 text-[#8B75FF]" />
+                  </a>
+
+                  <a
+                    href={PROFILE_CONFIG.contact.github.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center justify-between p-3 rounded-lg bg-[#0E0F14] border border-[#2C2F42] hover:border-[#D4AE5C] text-[#E6D3A7] transition-colors"
+                  >
+                    <span>GitHub ({PROFILE_CONFIG.contact.github.handle})</span>
+                    <ExternalLink className="w-3.5 h-3.5 text-[#D4AE5C]" />
+                  </a>
+                </div>
+              </div>
+
+              <div className="pt-1 flex flex-wrap items-center gap-4">
+                <Link
+                  to="/enquire"
+                  className="inline-flex items-center gap-2 px-5 py-3 text-xs font-medium text-[#0E0F14] bg-[#D4AE5C] hover:bg-[#E6D3A7] rounded-lg transition-colors"
+                >
+                  <span>Discuss a Project</span>
+                  <ArrowRight className="w-3.5 h-3.5" />
+                </Link>
+
+                <button
+                  type="button"
+                  onClick={() => setShowCodeCard((prev) => !prev)}
+                  className="inline-flex items-center gap-2 px-4 py-3 text-xs font-mono text-[#E6D3A7] bg-[#161822] border border-[#2C2F42] hover:border-[#8B75FF] rounded-lg cursor-pointer transition-colors"
+                >
+                  <Code2 className="w-4 h-4 text-[#8B75FF]" />
+                  <span>
+                    {showCodeCard
+                      ? 'Hide Code-Style Profile Card'
+                      : 'Optional: Show Code-Style Profile Card'}
+                  </span>
+                </button>
+              </div>
+
+              {showCodeCard && (
+                <div className="bg-[#161822] border border-[#2C2F42] rounded-xl p-5 font-mono text-xs overflow-x-auto">
+                  <div className="flex items-center justify-between pb-2.5 mb-2.5 border-b border-[#2C2F42] text-[#8B75FF]">
+                    <span>akshit.config.ts</span>
+                    <span>Solo Studio Operator</span>
                   </div>
-                )}
-              </div>
+                  <pre className="leading-relaxed text-[#F4F0E8]">{`export const operatorProfile = {
+  name: "Akshit Sukhija",
+  education: "BCA at IITM, affiliated with GGSIPU (CGPA: 9.10/10 · 85.026%)",
+  internships: [
+    "ResolX.ai — AI Solutioning Internship",
+    "CareerWithDishani — Research & Insight Synthesis Internship"
+  ],
+  practiceAreas: [
+    "Data & Intelligence (Python, SQL, Power BI)",
+    "AI & Automation (LLMs + Fixed Validation Rules)",
+    "Digital Products (React, TypeScript, FastAPI, ReportLab PDF)"
+  ]
+};`}</pre>
+                </div>
+              )}
+            </MotionReveal>
 
-              <div className="space-y-1">
-                <div className="inline-flex items-center gap-1.5 font-mono text-xs text-[#C9A24B]">
-                  <UserCheck className="w-3.5 h-3.5" />
-                  <span>Independent Operator</span>
-                </div>
-                <h2 className="font-display text-2xl text-[#F2EBDD]">Akshit</h2>
-                <p className="text-xs text-[#A9A092]">
-                  AI Automation · Data Analysis · Custom Web Tools
-                </p>
-              </div>
-            </div>
-
-            {showCodeCard ? (
-              <div className="space-y-2">
-                <p className="font-mono text-xs text-[#C9A24B]">
-                  Interactive Code-Style Profile Card
-                </p>
-                <pre className="bg-[#11100E] border border-[#3A3429] rounded p-4 font-mono text-xs text-[#E8D5A8] overflow-x-auto leading-relaxed">
-                  <code>{`{
-  "name": "Akshit",
-  "studio": "Independent Digital Solutions",
-  "location": "India (INR Scope-Based Work)",
-  "coreCapabilities": {
-    "data": ["Python", "SQL", "Pandas", "NumPy", "Power BI"],
-    "ai": ["Applied AI", "NLP", "Prompt Design", "Rule-Backed Automation"],
-    "web": ["React 19", "TypeScript", "FastAPI", "Streamlit", "SQLite"],
-    "product": ["Research", "Prototyping", "Workflows", "Documentation"]
-  },
-  "verifiedAcademicRecord": {
-    "cgpa": "9.10 / 10",
-    "aggregate": "85.026%",
-    "sgpas": [9.50, 8.81, 9.10, 8.96]
-  },
-  "github": "https://github.com/akshit-sukhija"
-}`}</code>
-                </pre>
-              </div>
-            ) : (
-              <div className="space-y-4 text-sm">
-                <div>
-                  <p className="font-mono text-xs text-[#E8D5A8]">How I Work With Clients</p>
-                  <p className="text-[#A9A092] mt-1 leading-relaxed">
-                    Solo independent operator—not a multi-person agency. You talk directly with me
-                    throughout the entire project.
-                  </p>
-                </div>
-                <div>
-                  <p className="font-mono text-xs text-[#E8D5A8]">Who I Help Most</p>
-                  <p className="text-[#A9A092] mt-1 leading-relaxed">
-                    Indian startup founders, small and medium businesses, D2C brands, consultants,
-                    and operational teams.
-                  </p>
-                </div>
-                <div>
-                  <p className="font-mono text-xs text-[#E8D5A8]">What Makes My Work Different</p>
-                  <p className="text-[#A9A092] mt-1 leading-relaxed">
-                    {BRAND_IDENTITY.differentiation}
-                  </p>
-                </div>
-              </div>
-            )}
-
-            <div className="pt-4 border-t border-[#3A3429] flex flex-wrap items-center justify-between gap-4">
-              <a
-                href="https://github.com/akshit-sukhija"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 font-mono text-xs text-[#E8D5A8] hover:text-[#C9A24B]"
-              >
-                <span>GitHub (@akshit-sukhija)</span>
-                <ArrowUpRight className="w-3.5 h-3.5" />
-              </a>
-              <Link
-                to="/enquire"
-                className="inline-flex items-center gap-1.5 font-mono text-xs text-[#C9A24B] hover:text-[#E8D5A8]"
-              >
-                <span>Discuss a Project</span>
-                <ArrowRight className="w-3.5 h-3.5" />
-              </Link>
-            </div>
-          </MotionReveal>
+            {/* Right: Prominent StudioPortrait */}
+            <MotionReveal delay={0.08} className="lg:col-span-5">
+              <StudioPortrait variant="about" showQuickContacts={true} />
+            </MotionReveal>
+          </div>
         </div>
       </section>
 
-      {/* Skills Section: Simple English First + Technical Tools */}
-      <section className="bg-[#1A1814] py-20 px-6 border-b border-[#3A3429]">
-        <div className="max-w-[1200px] mx-auto space-y-12">
-          <MotionReveal className="max-w-3xl space-y-2">
-            <p className="font-mono text-xs text-[#C9A24B]">
-              Skills & Capabilities · Plain English + Technical Stack
+      {/* 2. Verified Internship Experience (ResolX.ai & CareerWithDishani) */}
+      <section className="bg-[#F5F1E8] text-[#0E0F14] border-b border-[#D4CBB8] py-20 px-6 bg-ivory-grid">
+        <div className="max-w-[1200px] mx-auto space-y-10">
+          <MotionReveal className="max-w-3xl space-y-3">
+            <p className="font-mono text-xs text-[#4A32C4] font-medium">
+              01 · Professional &amp; Internship Experience
             </p>
-            <h2 className="font-display text-3xl sm:text-4xl text-[#F2EBDD]">
-              What I Bring to Your Project
+            <h2 className="font-display text-3xl sm:text-4xl text-[#0E0F14]">
+              Where Research Discipline Meets Practical AI Solutioning
             </h2>
-            <p className="text-base text-[#A9A092] leading-relaxed">
-              Grouped into four clear areas, showing both the practical business benefit and the
-              technical tools used under the hood.
+            <p className="text-base text-[#1E202E] leading-relaxed">
+              My approach combines structured research synthesis with hands-on AI workflow and
+              software engineering.
+            </p>
+          </MotionReveal>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {VERIFIED_EXPERIENCE.map((exp, idx) => (
+              <MotionReveal
+                key={exp.id}
+                delay={idx * 0.05}
+                className="bg-[#EAE3D5] border border-[#D4CBB8] rounded-2xl p-7 flex flex-col justify-between gap-5"
+              >
+                <div className="space-y-4">
+                  <div className="flex items-center justify-between font-mono text-xs">
+                    <span className="text-[#4A32C4] font-semibold">{exp.organisation}</span>
+                    <span className="text-[#7A5B14]">{exp.periodLabel}</span>
+                  </div>
+                  <h3 className="font-display text-3xl text-[#0E0F14]">{exp.role}</h3>
+                  <p className="text-sm text-[#1E202E] leading-relaxed">{exp.plainSummary}</p>
+                  <ul className="space-y-2 text-xs text-[#1E202E] pt-2 border-t border-[#D4CBB8]">
+                    {exp.keyContributions.map((item) => (
+                      <li key={item} className="flex items-start gap-2 leading-relaxed">
+                        <span className="font-mono text-[#4A32C4]">—</span>
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                <p className="font-mono text-[11px] text-[#7A5B14] pt-3 border-t border-[#D4CBB8]">
+                  {exp.privacyNote}
+                </p>
+              </MotionReveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 3. Capabilities & Skills Explained in Plain English */}
+      <section className="bg-[#0E0F14] border-b border-[#2C2F42] py-20 px-6">
+        <div className="max-w-[1200px] mx-auto space-y-12">
+          <MotionReveal className="max-w-3xl space-y-3">
+            <p className="font-mono text-xs text-[#8B75FF]">
+              02 · Capabilities &amp; Technical Toolkit
+            </p>
+            <h2 className="font-display text-3xl sm:text-4xl text-[#F4F0E8]">
+              What My Skills Mean for Your Project
+            </h2>
+            <p className="text-sm sm:text-base text-[#A6A9B8] leading-relaxed">
+              Every tool I use is chosen to solve a practical business problem— explained below in
+              everyday words first, with the technical stack listed alongside.
             </p>
           </MotionReveal>
 
@@ -217,137 +244,136 @@ export function AboutPage() {
               <MotionReveal
                 key={group.category}
                 delay={idx * 0.05}
-                className="bg-[#11100E] border border-[#3A3429] rounded-lg p-6 md:p-8 flex flex-col justify-between gap-6"
+                className="bg-[#161822] border border-[#2C2F42] rounded-2xl p-6 flex flex-col justify-between gap-5"
               >
-                <div className="space-y-4">
-                  <div className="flex items-center justify-between border-b border-[#3A3429] pb-3">
-                    <span className="font-mono text-xs text-[#C9A24B]">
-                      0{idx + 1} · {group.category}
-                    </span>
-                    <span className="font-mono text-xs text-[#A9A092]">
+                <div className="space-y-3">
+                  <div className="flex items-center justify-between">
+                    <p className="font-mono text-xs text-[#8B75FF]">{group.category}</p>
+                    <span className="font-mono text-[11px] text-[#E6D3A7]">
                       {group.skills.join(' · ')}
                     </span>
                   </div>
+                  <h3 className="font-display text-2xl text-[#F4F0E8]">{group.plainTitle}</h3>
+                  <p className="text-sm text-[#A6A9B8] leading-relaxed">{group.summary}</p>
 
-                  <h3 className="font-display text-2xl sm:text-3xl text-[#F2EBDD]">
-                    {group.plainTitle}
-                  </h3>
-
-                  <p className="text-sm text-[#A9A092] leading-relaxed">{group.summary}</p>
-
-                  <ul className="space-y-2 text-xs text-[#F2EBDD]/90 pt-1">
-                    {group.plainOutcomes.map((outcome) => (
-                      <li key={outcome} className="flex items-start gap-2">
-                        <span className="font-mono text-[#C9A24B]">—</span>
-                        <span>{outcome}</span>
-                      </li>
-                    ))}
-                  </ul>
+                  <div className="pt-2">
+                    <p className="font-mono text-xs text-[#D4AE5C] mb-2">
+                      What This Helps You Do:
+                    </p>
+                    <ul className="space-y-1.5 text-xs text-[#F4F0E8]">
+                      {group.plainOutcomes.map((outcome) => (
+                        <li key={outcome} className="flex items-start gap-2">
+                          <span className="font-mono text-[#8B75FF]">—</span>
+                          <span>{outcome}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
                 </div>
 
-                <p className="text-xs text-[#A9A092] pt-3 border-t border-[#3A3429]">
-                  <strong className="text-[#E8D5A8] font-normal">Proven in: </strong>
-                  {group.appliedIn}
-                </p>
+                <div className="pt-3 border-t border-[#2C2F42]">
+                  <p className="font-mono text-[11px] text-[#A6A9B8]">
+                    Proven in: <span className="text-[#E6D3A7]">{group.appliedIn}</span>
+                  </p>
+                </div>
               </MotionReveal>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Supporting Credibility: Verified Academic Record & Collaborator Credits */}
-      <section className="bg-[#11100E] py-16 px-6">
-        <div className="max-w-[1200px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-          {/* Verified Academic Record */}
-          <MotionReveal className="lg:col-span-6 bg-[#1A1814] border border-[#3A3429] rounded-lg p-6 md:p-8 space-y-6">
-            <div className="border-b border-[#3A3429] pb-4">
-              <p className="font-mono text-xs text-[#A9A092]">
-                Supporting Credibility · Verified Academic Record
+      {/* 4. Verified Academic Record & Collaborator Credits */}
+      <section className="bg-[#0E0F14] border-b border-[#2C2F42] py-20 px-6">
+        <div className="max-w-[1200px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+          {/* Academic Record */}
+          <MotionReveal className="lg:col-span-6 bg-[#161822] border border-[#2C2F42] rounded-2xl p-7 space-y-6">
+            <div className="space-y-2 border-b border-[#2C2F42] pb-4">
+              <p className="font-mono text-xs text-[#8B75FF]">
+                03 · Verified Academic Credentials
               </p>
-              <h2 className="font-display text-2xl text-[#F2EBDD] mt-1">
-                Academic Consistency
+              <h2 className="font-display text-3xl text-[#F4F0E8]">
+                {VERIFIED_ACADEMIC_RECORD.degree}
               </h2>
+              <p className="text-xs text-[#E6D3A7]">
+                {VERIFIED_ACADEMIC_RECORD.institution} · {VERIFIED_ACADEMIC_RECORD.affiliation}
+              </p>
             </div>
 
-            <p className="text-xs text-[#A9A092] leading-relaxed">
-              {VERIFIED_ACADEMIC_RECORD.contextNote}
-            </p>
-
             <div className="grid grid-cols-2 gap-4">
-              <div className="bg-[#11100E] border border-[#3A3429] rounded p-4">
-                <p className="font-mono text-xs text-[#A9A092]">Cumulative GPA</p>
-                <p className="font-display text-3xl text-[#C9A24B] tabular-nums mt-1">
+              <div className="bg-[#0E0F14] border border-[#2C2F42] rounded-xl p-4">
+                <p className="font-mono text-xs text-[#A6A9B8]">Official CGPA</p>
+                <p className="font-display text-3xl text-[#D4AE5C] tabular-nums mt-1">
                   {VERIFIED_ACADEMIC_RECORD.cgpa}
                 </p>
               </div>
-              <div className="bg-[#11100E] border border-[#3A3429] rounded p-4">
-                <p className="font-mono text-xs text-[#A9A092]">Aggregate Score</p>
-                <p className="font-display text-3xl text-[#E8D5A8] tabular-nums mt-1">
+              <div className="bg-[#0E0F14] border border-[#2C2F42] rounded-xl p-4">
+                <p className="font-mono text-xs text-[#A6A9B8]">Overall Aggregate</p>
+                <p className="font-display text-3xl text-[#F4F0E8] tabular-nums mt-1">
                   {VERIFIED_ACADEMIC_RECORD.aggregatePercentage}
                 </p>
               </div>
             </div>
 
-            <div className="bg-[#11100E] border border-[#3A3429] rounded p-4 space-y-2">
-              <p className="font-mono text-xs text-[#A9A092]">Semester SGPAs</p>
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-1">
-                {VERIFIED_ACADEMIC_RECORD.semesterSgpas.map((sem) => (
-                  <div
-                    key={sem.semester}
-                    className="border-r last:border-r-0 border-[#3A3429] pr-2"
-                  >
-                    <p className="font-mono text-[11px] text-[#A9A092]">{sem.semester}</p>
-                    <p className="font-mono text-sm font-semibold text-[#F2EBDD] tabular-nums">
-                      SGPA {sem.sgpa}
-                    </p>
-                  </div>
-                ))}
-              </div>
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
+              {VERIFIED_ACADEMIC_RECORD.semesterSgpas.map((sem) => (
+                <div
+                  key={sem.semester}
+                  className="bg-[#0E0F14] border border-[#2C2F42] rounded-lg p-3 text-center"
+                >
+                  <p className="font-mono text-[11px] text-[#A6A9B8]">{sem.semester}</p>
+                  <p className="font-mono text-sm font-semibold text-[#F4F0E8] tabular-nums mt-1">
+                    {sem.sgpa}
+                  </p>
+                </div>
+              ))}
             </div>
+
+            <p className="text-xs text-[#A6A9B8] leading-relaxed">
+              {VERIFIED_ACADEMIC_RECORD.contextNote}
+            </p>
           </MotionReveal>
 
-          {/* Honest Project Attribution & Co-Creator Credits */}
-          <MotionReveal
-            delay={0.06}
-            className="lg:col-span-6 bg-[#1A1814] border border-[#3A3429] rounded-lg p-6 md:p-8 space-y-6"
-          >
-            <div className="border-b border-[#3A3429] pb-4">
-              <p className="font-mono text-xs text-[#C9A24B]">
-                Honest Attribution & Co-Creator Credits
+          {/* Collaborator Credits */}
+          <MotionReveal delay={0.08} className="lg:col-span-6 space-y-5">
+            <div className="space-y-2">
+              <p className="font-mono text-xs text-[#D4AE5C]">
+                04 · Project Roles &amp; Co-Creator Credits
               </p>
-              <h2 className="font-display text-2xl text-[#F2EBDD] mt-1">
-                My Role on Each Project
+              <h2 className="font-display text-3xl text-[#F4F0E8]">
+                Honest Attribution Across Every Project
               </h2>
+              <p className="text-xs text-[#A6A9B8] leading-relaxed">
+                Where a project was built with a co-creator, I state my exact role and credit my
+                collaborators clearly.
+              </p>
             </div>
 
-            <p className="text-xs text-[#A9A092] leading-relaxed">
-              Every project clearly states whether it was built solo or with a co-creator, along
-              with my exact documented role.
-            </p>
-
-            <ul className="space-y-3 text-xs">
-              {PROJECTS.map((proj) => (
-                <li
-                  key={proj.slug}
-                  className="bg-[#11100E] border border-[#3A3429] rounded p-3.5 flex flex-col sm:flex-row sm:items-center justify-between gap-2"
+            <div className="space-y-3">
+              {PROJECTS.map((project) => (
+                <div
+                  key={project.slug}
+                  className="bg-[#161822] border border-[#2C2F42] rounded-xl p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3"
                 >
-                  <div>
-                    <Link
-                      to={`/work/${proj.slug}`}
-                      className="font-semibold text-[#F2EBDD] hover:text-[#C9A24B]"
-                    >
-                      {proj.indexNumber}. {proj.title}
-                    </Link>
-                    <p className="text-[#A9A092] mt-0.5">
-                      My Role: <span className="text-[#E8D5A8]">{proj.documentedRole}</span>
-                    </p>
+                  <div className="space-y-1">
+                    <div className="flex items-center gap-2 font-mono text-xs">
+                      <span className="text-[#8B75FF]">
+                        {project.indexNumber}. {project.title}
+                      </span>
+                      <span>·</span>
+                      <span className="text-[#E6D3A7]">{project.documentedRole}</span>
+                    </div>
+                    <p className="text-xs text-[#A6A9B8]">{project.collaborators}</p>
                   </div>
-                  <span className="font-mono text-[11px] text-[#A9A092] shrink-0">
-                    {proj.collaborators}
-                  </span>
-                </li>
+                  <Link
+                    to={`/work/${project.slug}`}
+                    className="inline-flex items-center gap-1 font-mono text-xs text-[#D4AE5C] hover:text-[#8B75FF] shrink-0"
+                  >
+                    <span>Case Study</span>
+                    <ArrowUpRight className="w-3.5 h-3.5" />
+                  </Link>
+                </div>
               ))}
-            </ul>
+            </div>
           </MotionReveal>
         </div>
       </section>

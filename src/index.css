@@ -4,19 +4,25 @@
 
 @layer base {
   :root {
-    --color-warm-ink: #11100E;
-    --color-midnight: #0F1320;
-    --color-surface: #1A1814;
-    --color-raised: #232019;
-    --color-hairline: #3A3429;
-    --color-ivory: #F4EFE6;
-    --color-text-primary: #F2EBDD;
-    --color-text-secondary: #A9A092;
-    --color-champagne: #E8D5A8;
-    --color-gold: #C9A24B;
+    /* PERSONAL STUDIO / EDITORIAL TECHNOLOGY DESIGN TOKENS */
+    --color-warm-ink: #0E0F14;
+    --color-midnight: #131520;
+    --color-surface: #161822;
+    --color-raised: #1E202E;
+    --color-hairline: #2C2F42;
+    --color-ivory: #F5F1E8;
+    --color-ivory-surface: #EAE3D5;
+    --color-ivory-hairline: #D4CBB8;
+    --color-text-primary: #F4F0E8;
+    --color-text-secondary: #A6A9B8;
+    --color-violet: #8B75FF;
+    --color-violet-deep: #5B43D6;
+    --color-violet-ivory: #4A32C4;
+    --color-champagne: #E6D3A7;
+    --color-gold: #D4AE5C;
     --color-gold-ivory: #7A5B14;
     --color-amber: #E08A1E;
-    --color-live: #8FBF7A;
+    --color-live: #7AD992;
 
     --font-serif: 'Instrument Serif', Georgia, serif;
     --font-sans: 'Instrument Sans', -apple-system, BlinkMacSystemFont, sans-serif;
@@ -25,9 +31,10 @@
 
   html {
     font-family: var(--font-sans);
-    background-color: #11100E;
-    color: #F2EBDD;
+    background-color: #0E0F14;
+    color: #F4F0E8;
     text-rendering: optimizeLegibility;
+    scroll-behavior: smooth;
   }
 
   h1, h2, .font-display {
@@ -39,22 +46,39 @@
     font-family: var(--font-mono);
     font-variant-numeric: tabular-nums;
   }
+
+  /* Accessible keyboard focus ring across dark and ivory surfaces */
+  :focus-visible {
+    outline: 2px solid #8B75FF;
+    outline-offset: 3px;
+  }
 }
 
 .tabular-nums {
   font-variant-numeric: tabular-nums;
 }
 
-/* Subtle architectural blueprint grid background */
+/* Subtle editorial studio grid background */
 .bg-blueprint-grid {
   background-size: 48px 48px;
   background-image:
-    linear-gradient(to right, rgba(201, 162, 75, 0.045) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(201, 162, 75, 0.045) 1px, transparent 1px);
+    linear-gradient(to right, rgba(139, 117, 255, 0.055) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(212, 174, 92, 0.04) 1px, transparent 1px);
 }
 
+/* Editorial ivory grid texture */
+.bg-ivory-grid {
+  background-size: 48px 48px;
+  background-image:
+    linear-gradient(to right, rgba(17, 16, 14, 0.045) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(17, 16, 14, 0.045) 1px, transparent 1px);
+}
+
+/* Atmospheric top studio glow combining electric violet and restrained champagne */
 .bg-lamplit-glow {
-  background: radial-gradient(circle at 50% 0%, rgba(201, 162, 75, 0.11) 0%, rgba(17, 16, 14, 0) 68%);
+  background:
+    radial-gradient(circle at 18% 0%, rgba(139, 117, 255, 0.14) 0%, rgba(14, 15, 20, 0) 55%),
+    radial-gradient(circle at 82% 8%, rgba(212, 174, 92, 0.10) 0%, rgba(14, 15, 20, 0) 55%);
 }
 
 /* Reduced motion accessibility compliance */

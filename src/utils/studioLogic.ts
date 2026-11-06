@@ -1,6 +1,7 @@
 import {
   PROJECTS,
   SERVICES,
+  SUPPORTING_CAPABILITIES,
   PROBLEM_CATEGORIES,
   BUDGET_CHOICES_INR,
   type CapabilityDomain,
@@ -32,6 +33,46 @@ export interface ScopeEstimateResult {
   pilotRecommendation: string;
   matchingProjects: ProjectData[];
   scopeDisclaimer: string;
+}
+
+export const SOLUTION_FINDER_PROBLEMS = [
+  'Understand business performance and customers.',
+  'Automate repetitive work.',
+  'Build a digital product or application.',
+  'Improve software quality and reporting.',
+  'Research an opportunity or business problem.',
+] as const;
+
+export const SOLUTION_FINDER_BUSINESS_TYPES = [
+  'Startup or SaaS.',
+  'D2C or e-commerce.',
+  'Small business.',
+  'Product or technology team.',
+  'Other.',
+] as const;
+
+export const SOLUTION_FINDER_HELP_TYPES = [
+  'Dashboard or analysis.',
+  'Automation workflow.',
+  'Working prototype.',
+  'Custom software.',
+  'Research and recommendations.',
+] as const;
+
+export interface SolutionFinderInput {
+  problem: string;
+  businessType: string;
+  helpNeeded: string;
+}
+
+export interface SolutionFinderRecommendation {
+  recommendedService: ServiceCategory;
+  supportingCapabilityNote?: string;
+  whyItMatches: string;
+  relevantProject: ProjectData;
+  suggestedNextStep: string;
+  mappedProblemCategory: string;
+  matchingMethodNote: string;
 }
 
 export interface EnquiryFormInput {
@@ -124,6 +165,99 @@ export function getProjectBySlug(slug: string): ProjectData | undefined {
 }
 
 /**
+ * Transparent rule-based matching for the 3-Question SolutionFinder component.
+ * Maps visitor answers to the three core commercial services (Data & Intelligence,
+ * AI & Automation, Digital Products) and highlights relevant supporting capabilities.
+ */
+export function recommendSolutionFromFinder(
+  input: SolutionFinderInput
+): SolutionFinderRecommendation {
+  const { problem, businessType, helpNeeded } = input;
+
+  // Score each of the 3 core services using explicit, transparent rules
+  let dataScore = 0;
+  let aiScore = 0;
+  let productScore = 0;
+  let supportingCapabilityNote: string | undefined;
+
+  if (problem.includes('Understand business performance')) {
+    dataScore += 3;
+  } else if (problem.includes('Automate repetitive work')) {
+    aiScore += 3;
+  } else if (problem.includes('Build a digital product')) {
+    productScore += 3;
+  } else if (problem.includes('Improve software quality and reporting')) {
+    productScore += 2;
+    aiScore += 1;
+    supportingCapabilityNote = `Supporting Capability Included: ${SUPPORTING_CAPABILITIES[0].title} — ${SUPPORTING_CAPABILITIES[0].tagline}`;
+  } else if (problem.includes('Research an opportunity')) {
+    dataScore += 2;
+    productScore += 1;
+    supportingCapabilityNote = `Supporting Capability Included: ${SUPPORTING_CAPABILITIES[1].title} — ${SUPPORTING_CAPABILITIES[1].tagline}`;
+  }
+
+  if (helpNeeded.includes('Dashboard or analysis')) {
+    dataScore += 2;
+  } else if (helpNeeded.includes('Automation workflow')) {
+    aiScore += 2;
+  } else if (helpNeeded.includes('Working prototype') || helpNeeded.includes('Custom software')) {
+    productScore += 2;
+  } else if (helpNeeded.includes('Research and recommendations')) {
+    dataScore += 1;
+    if (!supportingCapabilityNote) {
+      supportingCapabilityNote = `Supporting Capability Included: ${SUPPORTING_CAPABILITIES[1].title} — ${SUPPORTING_CAPABILITIES[1].tagline}`;
+    }
+  }
+
+  let recommendedService = SERVICES[0]; // 01. Data & Intelligence
+  let relevantProject = PROJECTS[2]; // Decoding Customer Value
+  let mappedProblemCategory: string = PROBLEM_CATEGORIES[0];
+
+  if (aiScore >= dataScore && aiScore >= productScore) {
+    recommendedService = SERVICES[1]; // 02. AI & Automation
+    relevantProject =
+      businessType.includes('Product or technology') || problem.includes('quality')
+        ? PROJECTS[3] // Contract Risk Governance Engine
+        : PROJECTS[0]; // Notice Decoder
+    mappedProblemCategory = PROBLEM_CATEGORIES[1];
+  } else if (productScore > dataScore && productScore > aiScore) {
+    recommendedService = SERVICES[2]; // 03. Digital Products
+    relevantProject =
+      problem.includes('quality and reporting') || helpNeeded.includes('Custom software')
+        ? PROJECTS[1] // SentinelX
+        : businessType.includes('Product or technology')
+          ? PROJECTS[4] // Lureline
+          : PROJECTS[0]; // Notice Decoder
+    mappedProblemCategory = PROBLEM_CATEGORIES[2];
+  } else {
+    recommendedService = SERVICES[0]; // 01. Data & Intelligence
+    relevantProject = PROJECTS[2]; // Decoding Customer Value
+    mappedProblemCategory = PROBLEM_CATEGORIES[0];
+  }
+
+  const cleanBusiness = businessType.replace(/\.$/, '');
+  const cleanHelp = helpNeeded.replace(/\.$/, '').toLowerCase();
+
+  const whyItMatches = `For a ${cleanBusiness} looking to "${problem.replace(/\.$/, '')}", ${recommendedService.title} provides ${cleanHelp} without unnecessary complexity. ${recommendedService.plainBenefitSummary}`;
+
+  const suggestedNextStep =
+    helpNeeded.includes('Working prototype') || helpNeeded.includes('Research')
+      ? 'Start with a short Fixed-Scope Pilot or Research Assessment using a small sample of your workflow or data.'
+      : `Share a sample file or brief description of your current workflow on the Enquiry page so I can outline a realistic scope and INR proposal.`;
+
+  return {
+    recommendedService,
+    supportingCapabilityNote,
+    whyItMatches,
+    relevantProject,
+    suggestedNextStep,
+    mappedProblemCategory,
+    matchingMethodNote:
+      'Transparent rule-based matching: maps your problem, organisation type, and desired deliverable directly to verified studio services and project evidence.',
+  };
+}
+
+/**
  * Matches a client's selected problem category to the most relevant service
  * and portfolio evidence in everyday English.
  */
@@ -148,24 +282,24 @@ export function matchProblemToService(problemCategory: string): {
         rationale:
           'Combines AI text reading with fixed computer rules so routine documents, dates, and checklists are processed quickly and reliably.',
         suggestedPilotIdea:
-          'A small pilot script tested on 10–20 real sample PDFs or notices from your workflow.',
+          'A small fixed-scope pilot tested on 10–20 real sample PDFs or notices from your workflow.',
       };
     case 'Build a dashboard or internal tool':
     case 'Prototype a product idea':
       return {
         recommendedService: SERVICES[2],
         rationale:
-          'Designs and builds a working web tool, data merger, or one-click PDF report generator around how your team works.',
+          'Designs and builds a working web application, data merger, or one-click PDF report generator around how your team works.',
         suggestedPilotIdea:
-          'A focused clickable prototype or single-workflow tool to validate the main idea first.',
+          'A focused clickable prototype or single-workflow web tool to validate the core idea first.',
       };
     default:
       return {
         recommendedService: SERVICES[0],
         rationale:
-          'When you are not sure which path fits best, we look at your current data or manual steps together and pick the simplest useful solution.',
+          'When you are not sure which path fits best, we inspect your current data or manual steps together and pick the simplest useful solution.',
         suggestedPilotIdea:
-          'A short review of your sample data or workflow to define a practical scope.',
+          'A short Research & Technical Assessment of your sample data or workflow.',
       };
   }
 }
@@ -203,7 +337,7 @@ export function estimateProjectScope(input: ScopeEstimatorInput): ScopeEstimateR
   const pilotRecommendation =
     input.timelinePreference.includes('1–2 weeks') ||
     input.desiredOutcomeType.includes('small paid pilot')
-      ? 'Recommended Starting Step: Begin with a small paid pilot on a sample of your files or data so you can verify the result before committing to a larger scope.'
+      ? 'Recommended Starting Step: Begin with a Fixed-Scope Pilot on a sample of your files or data so you can verify the result before committing to a larger scope.'
       : `Recommended Starting Step: ${baseMatch.suggestedPilotIdea}`;
 
   return {

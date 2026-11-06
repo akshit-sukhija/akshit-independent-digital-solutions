@@ -125,60 +125,123 @@ export interface InsightNote {
   technicalBreakdown: string[];
 }
 
+export const PROFILE_CONFIG = {
+  name: 'Akshit',
+  fullName: 'Akshit Sukhija',
+  studioTitle: 'Akshit | Independent Digital Solutions',
+  designDirection: 'Personal Studio / Editorial Technology',
+  tagline: 'Good ideas deserve to become useful solutions.',
+  shortBio:
+    'I research problems, work with data and build practical digital solutions using AI and technology.',
+  extendedBio:
+    'I work as an independent one-person digital studio. When a startup founder, small business owner, or product team comes to me with messy spreadsheets, repetitive document work, or an early product idea, I handle the entire journey myself—from researching the problem and analysing the data to designing the logic and building the working software.',
+  location: 'New Delhi / NCR, India · Independent Solo Studio',
+  availability: {
+    isAvailable: true,
+    statusText: 'Available for selected projects, fixed-scope pilots & custom tools',
+    responseWindow: 'Direct 1-on-1 collaboration · Scope-based INR proposals',
+  },
+  photo: {
+    src: '/profile.jpg',
+    fallbackFileName: 'LINKEDIN PROFILE PHOTO.jpeg',
+    alt: 'Akshit Sukhija — Independent Digital Solutions Studio',
+    caption: 'Akshit Sukhija · Independent Digital Solutions',
+    roleBadge: 'Research · Data · AI · Software',
+    slotNotice:
+      'Upload LINKEDIN PROFILE PHOTO.jpeg using the button below to preview immediately, or place it at public/profile.jpg in the repository.',
+  },
+  contact: {
+    emailPrimary: {
+      label: 'Primary Email',
+      address: 'akshithere075@gmail.com',
+      mailto: 'mailto:akshithere075@gmail.com',
+      verified: true,
+    },
+    emailSecondary: {
+      label: 'Secondary Email',
+      address: 'akshitsukhija4@gmail.com',
+      rawProvided: 'akshitsukhija4gmail.com',
+      mailto: 'mailto:akshitsukhija4@gmail.com',
+      verified: true,
+    },
+    phone: {
+      label: 'Phone & WhatsApp',
+      displayNumber: '+91 9873865213',
+      rawDigits: '919873865213',
+      telHref: 'tel:+919873865213',
+      whatsappHref:
+        'https://wa.me/919873865213?text=Hi%20Akshit%2C%20I%20visited%20your%20studio%20website%20and%20would%20like%20to%20discuss%20a%20project.',
+      verified: true,
+    },
+    linkedin: {
+      label: 'LinkedIn',
+      handle: 'in/akshit-sukhija-',
+      url: 'https://www.linkedin.com/in/akshit-sukhija-/',
+      verified: true,
+    },
+    github: {
+      label: 'GitHub',
+      handle: '@akshit-sukhija',
+      url: 'https://github.com/akshit-sukhija',
+      verified: true,
+    },
+  },
+};
+
 export const BRAND_IDENTITY = {
   name: 'Akshit',
   studioTitle: 'Akshit | Independent Digital Solutions',
   positioningStatement:
     'I help startups and small businesses turn messy data, repetitive workflows and early-stage product ideas into useful digital solutions.',
-  heroHeadline: 'Turning complex problems into clear digital solutions.',
+  heroHeadline: 'Good ideas deserve to become useful solutions.',
   heroSupportingCopy:
-    'Independent work across AI automation, data analysis and custom digital tools for Indian businesses.',
-  operatorStatus: 'Independent solo operator · India (INR scope-based work)',
+    'I research problems, work with data and build practical digital solutions using AI and technology.',
+  operatorStatus: 'Independent solo studio · India · Direct 1-on-1 collaboration',
   differentiation:
-    'You explain the business problem in plain language. I study the data or workflow behind it, design a practical approach, and build the working tool or report myself.',
+    'You explain the business problem in everyday words. I research the context, analyse the data, combine AI with reliable rules, and build the working software or dashboard myself.',
   targetAudienceList: [
-    'Indian startup founders',
+    'Startup founders & early-stage SaaS teams',
     'Small and medium-sized businesses (SMBs)',
-    'D2C and online retail brands',
-    'Early-stage SaaS teams',
+    'D2C and e-commerce brands',
+    'Product and technology teams',
     'Consultants and independent operators',
-    'Educational and operational teams',
+    'Educational and operational organisations',
   ],
 };
 
 export const CAPABILITY_PILLARS = [
   {
-    id: 'ai-automation' as CapabilityDomain,
+    id: 'data-intelligence' as CapabilityDomain,
     number: '01',
-    title: 'AI & Workflow Automation',
+    title: 'Data & Intelligence',
     shortSummary:
-      'Turn long PDFs, notices, and repetitive manual checks into organised schedules, alerts, and clean records.',
+      'Business analytics, interactive dashboards, customer insights, and research-driven decisions from your existing spreadsheets.',
     technicalNote:
-      'Combines large language models (LLMs) for reading unstructured text with fixed code rules for dates, math, and policy checks.',
-    outcomeFocus: 'Save hours of manual reading and prevent missed deadlines.',
-    proofSlugs: ['notice-decoder', 'contract-risk-governance'],
+      'Uses Python (Pandas, NumPy), SQL cohort & retention queries, and interactive Power BI data models.',
+    outcomeFocus: 'See what truly drives repeat customers and profit without guessing from raw sheets.',
+    proofSlugs: ['decoding-customer-value'],
   },
   {
-    id: 'data-intelligence' as CapabilityDomain,
+    id: 'ai-automation' as CapabilityDomain,
     number: '02',
-    title: 'Business Data & Insights',
+    title: 'AI & Automation',
     shortSummary:
-      'Clean up messy sales spreadsheets and customer logs so you can see what actually drives repeat business.',
+      'Document processing, practical AI workflows, schedule clash detection, and rule-backed automation systems.',
     technicalNote:
-      'Uses Python (Pandas, NumPy), SQL queries, and interactive Power BI dashboards to validate patterns.',
-    outcomeFocus: 'Make confident pricing, marketing, and retention decisions from your own data.',
-    proofSlugs: ['decoding-customer-value'],
+      'Combines LLMs for reading unstructured text with fixed deterministic rules for dates, math, and policy checks.',
+    outcomeFocus: 'Stop spending hours reading routine PDFs, notices, and checklists by hand.',
+    proofSlugs: ['notice-decoder', 'contract-risk-governance'],
   },
   {
     id: 'custom-systems' as CapabilityDomain,
     number: '03',
-    title: 'Custom Digital Tools & Prototypes',
+    title: 'Digital Products',
     shortSummary:
-      'Build focused web apps, internal dashboards, and one-click PDF report generators around how your team works.',
+      'Product research, interactive prototypes, web applications, and custom internal tools built around how your team works.',
     technicalNote:
-      'Full-stack web engineering using React, TypeScript, Python (FastAPI), SQLite, and automated ReportLab PDF engines.',
-    outcomeFocus: 'Test a new product idea or replace slow manual report formatting with a working tool.',
-    proofSlugs: ['sentinelx', 'lureline', 'notice-decoder'],
+      'Full-stack engineering using React 19, TypeScript, Python (FastAPI), SQLite, and automated ReportLab PDF engines.',
+    outcomeFocus: 'Turn an early product idea or slow manual reporting workflow into working software.',
+    proofSlugs: ['notice-decoder', 'sentinelx', 'lureline'],
   },
 ];
 
@@ -1165,254 +1228,374 @@ export const ADDITIONAL_ANALYTICAL_PROOF = {
 
 export const SERVICES: ServiceCategory[] = [
   {
-    id: 'business-data-insights',
+    id: 'data-intelligence',
     number: '01',
-    title: 'Business Data & Insights',
-    plainTagline: 'Turn messy spreadsheets into clear answers and visual dashboards.',
+    title: 'Data & Intelligence',
+    plainTagline: 'Business analytics, dashboards, customer insights and research-driven decisions.',
     domain: 'data-intelligence',
-    targetAudience: 'For businesses that have sales, customer, or operational data in spreadsheets—but want clear answers.',
+    targetAudience:
+      'For founders, D2C brands, and small businesses with sales or customer spreadsheets that need clear answers.',
     problemStatement:
-      'Many growing Indian businesses have thousands of rows of orders, invoices, or customer records sitting in Excel, Tally, or Shopify exports. Yet it is still hard to see which customers truly come back on their own, which products drive real profit, or where money is leaking.',
+      'Many growing businesses have thousands of rows of orders, invoices, or customer logs sitting in Excel, Tally, or Shopify exports. Yet it is still hard to see which customers truly come back at full price, which products drive real margin, or where revenue is leaking.',
     description:
-      'I take your raw spreadsheets or database exports, clean up errors and missing values, analyse the patterns, and hand back an easy-to-use Power BI dashboard plus a short written guide your team can use immediately.',
+      'I take your raw spreadsheets or exports, clean up errors and missing fields, study the customer and revenue patterns, and hand back an interactive Power BI dashboard plus a clear action guide.',
     plainBenefitSummary:
-      'Stop guessing from raw Excel sheets. See your best customer groups, repeat buying habits, and key numbers clearly.',
+      'Stop guessing from raw spreadsheets. See your best customer groups, repeat buying habits, and key numbers in one clear view.',
     deliverables: [
-      'Cleaned and checked spreadsheets / datasets',
-      'Customer grouping (who buys full-price vs. only on discount)',
+      'Cleaned and verified datasets (Python & SQL data preparation)',
+      'Customer behaviour & discount-sensitivity breakdowns',
       'Interactive Power BI visual dashboards',
-      'Clear monthly or campaign performance summaries',
-      'Plain-English action guide based on your numbers',
+      'Monthly or campaign performance summaries',
+      'Plain-English action guide & retention recommendations',
     ],
     technicalUnderTheHood: [
       'Data cleaning and schema validation in Python (Pandas, NumPy)',
-      'Cohort, retention, and segment analysis in SQL',
+      'Cohort, retention, and segment aggregation queries in SQL',
       'Interactive Power BI (.pbix) data modelling and DAX measures',
     ],
     exampleScenarios: [
       {
-        businessType: 'D2C & Online Brand',
-        challenge: 'Sales spike during discount sales, but you are unsure which buyers actually stay loyal without coupon codes.',
-        practicalSolution: 'A customer breakdown and Power BI dashboard showing true repeat buyers vs. discount hunters.',
+        businessType: 'D2C & E-Commerce Brand',
+        challenge:
+          'Sales jump during discount campaigns, but you cannot tell which buyers stay loyal without promo codes.',
+        practicalSolution:
+          'A customer segmentation study and Power BI dashboard separating loyal full-price buyers from discount-dependent shoppers.',
       },
       {
-        businessType: 'Growing Small Business / Operations Team',
-        challenge: 'Every month someone spends days combining three different Excel sheets just to check business performance.',
-        practicalSolution: 'A clean data script and a ready-to-view dashboard that updates your key numbers in one place.',
+        businessType: 'Small Business or Operations Team',
+        challenge:
+          'Someone spends days every month combining three different Excel sheets just to check performance.',
+        practicalSolution:
+          'A repeatable cleaning script and a visual dashboard that organises your core metrics automatically.',
       },
     ],
     portfolioProof: [
       {
         title: 'Decoding Customer Value',
         slug: 'decoding-customer-value',
-        summary: 'Analysed 3,900 customer records using Python, SQL, and Power BI to separate loyal buyers from discount-dependent shoppers.',
+        summary:
+          'Analysed 3,900 customer shopping records using Python, SQL, and Power BI to separate loyal buyers from discount-triggered shoppers.',
       },
       {
         title: 'OTT Viewer Retention Analysis',
-        summary: 'Studied viewer drop-off and engagement patterns to understand subscriber retention.',
+        summary:
+          'Studied streaming viewer drop-off and engagement cohorts to explain what keeps subscribers active.',
       },
     ],
   },
   {
-    id: 'ai-workflow-automation',
+    id: 'ai-automation',
     number: '02',
-    title: 'AI & Workflow Automation',
-    plainTagline: 'Stop wasting hours reading routine PDFs, notices, and checklists by hand.',
+    title: 'AI & Automation',
+    plainTagline: 'Document processing, practical AI workflows, automation and rule-backed systems.',
     domain: 'ai-automation',
-    targetAudience: 'For teams that spend too much time reading routine documents, copying dates, or repeating manual checks.',
+    targetAudience:
+      'For teams that spend too many hours reading routine PDFs, circulars, contracts, or checklists by hand.',
     problemStatement:
-      'Teams lose hours every week reading PDFs, circulars, invoices, or standard agreements—copying dates into calendars, checking rules by hand, and worrying about missing an important update.',
+      'Teams lose hours every week reading unstructured PDFs, notices, or standard agreements—copying dates into calendars, checking policy rules manually, and worrying about missing an important change.',
     description:
-      'I build practical automations where AI reads and organises messy text, while fixed computer rules check dates, clashes, and business policies reliably. You get clean schedules, alerts, or structured tables without surrendering control to AI guesswork.',
+      'I build practical workflows where AI reads and organises messy text, while fixed computer rules verify dates, schedule overlaps, and compliance checklists reliably.',
     plainBenefitSummary:
-      'Let software handle repetitive reading and rule-checking so your team can focus on real work.',
+      'Automate repetitive document reading and rule-checking while keeping critical dates and decisions under strict rules.',
     deliverables: [
-      'Automatic date, task, and key-detail extraction from PDFs or text',
-      'Schedule clash and deadline warning tools',
-      'Fixed-rule policy or checklist verification with plain-English summaries',
-      'Change trackers that highlight what shifted in a revised document',
-      'Ready-to-import calendar files (.ics) or clean spreadsheet outputs',
+      'Automatic date, deadline, and action-item extraction from PDFs or text',
+      'Automated schedule clash detection and calendar (.ics) exports',
+      'Document revision trackers that highlight what changed',
+      'Rule-backed compliance or checklist evaluation with plain-English summaries',
+      'Structured outputs ready for your team’s daily tools',
     ],
     technicalUnderTheHood: [
-      'LLM text structuring (such as Qwen2.5-7B-Instruct via API or local ONNX/DirectML models)',
-      'Deterministic regex and interval math for dates, times, and compliance rules',
-      'FAISS clause retrieval, SHA-256 verification, and RFC 5545 calendar export',
+      'LLM semantic text structuring (Qwen2.5-7B-Instruct via API or local ONNX/DirectML models)',
+      'Deterministic regex and interval collision math: (StartA < EndB) && (StartB < EndA)',
+      'FAISS vector clause retrieval, SHA-256 verification, and RFC 5545 iCalendar generation',
     ],
     exampleScenarios: [
       {
-        businessType: 'Educational Institute or Operations Team',
-        challenge: 'Important dates and schedule updates arrive inside long PDF circulars, causing missed deadlines and double-bookings.',
-        practicalSolution: 'An automated notice reader that pulls out dates, flags clashes, and creates calendar files.',
+        businessType: 'Educational or Operations Team',
+        challenge:
+          'Important deadlines arrive inside long PDF circulars, causing missed dates and overlapping events.',
+        practicalSolution:
+          'An automated notice reader that pulls out dates, warns of clashes, tracks revisions, and exports calendar files.',
       },
       {
-        businessType: 'Consulting or Compliance-Heavy Business',
-        challenge: 'Reviewing routine documents against a company checklist takes hours of repetitive reading.',
-        practicalSolution: 'A rule-backed checker that flags missing items using fixed rules and writes a short summary.',
+        businessType: 'Consulting or Compliance Workflow',
+        challenge:
+          'Reviewing routine agreements against a standard company checklist takes hours of manual reading.',
+        practicalSolution:
+          'A rule-backed review tool that checks clauses using fixed rules and uses AI to write a clear summary.',
       },
     ],
     portfolioProof: [
       {
         title: 'Notice Decoder',
         slug: 'notice-decoder',
-        summary: 'Live web app that reads notices, detects schedule clashes using fixed rules, tracks changes, and exports calendar files.',
+        summary:
+          'Live web app that reads unstructured notices, automatically finds overlapping schedules, tracks changes, and exports calendar files.',
       },
       {
         title: 'Contract Risk Governance Engine',
         slug: 'contract-risk-governance',
-        summary: 'Prototype where fixed rules check contract compliance and AI writes a clear explanation of the result.',
+        summary:
+          'Applied AI prototype where fixed rules lock compliance decisions and AI writes a clear explanation for reviewers.',
       },
     ],
   },
   {
-    id: 'custom-digital-tools',
+    id: 'digital-products',
     number: '03',
-    title: 'Custom Digital Tools & Prototypes',
-    plainTagline: 'Build a focused web tool, internal dashboard, or automated PDF generator.',
+    title: 'Digital Products',
+    plainTagline: 'Product research, prototypes, web applications and custom digital tools.',
     domain: 'custom-systems',
-    targetAudience: 'For founders and businesses that need a working digital tool to solve a specific problem or test a new product idea.',
+    targetAudience:
+      'For founders, startups, and product teams that need a working web application, prototype, or custom internal tool.',
     problemStatement:
-      'Off-the-shelf software often forces you to change how you work, while hiring a big software agency costs too much when you just need one focused internal tool or a working prototype to show customers.',
+      'Off-the-shelf software often forces you into clunky workarounds, while hiring a large agency is overkill when you need a focused web application, an interactive prototype for early users, or a custom reporting tool.',
     description:
-      'I design and build clean web applications, internal team tools, multi-file data processors, and one-click PDF report generators tailored to your exact workflow.',
+      'I research the user flow, design the interface and system architecture, and code clean web applications, multi-file ingestion engines, and one-click PDF report generators.',
     plainBenefitSummary:
-      'Go from an idea or manual bottleneck to a working web tool you can actually use and demonstrate.',
+      'Turn an early product concept or a slow internal workflow into a fast, working web application you own.',
     deliverables: [
-      'Interactive web application prototypes for early-stage ideas',
-      'Internal dashboards and investigation workbenches',
-      'Systems that combine multiple XML/CSV files into one clean database',
-      'One-click automated PDF report generators',
-      'Clean source code and simple handover instructions',
+      'Interactive web application prototypes for startups and product teams',
+      'Custom internal dashboards and investigation workbenches',
+      'Multi-file XML/CSV ingestion and deduplication pipelines',
+      'One-click automated executive PDF report generators',
+      'Clean, documented React/TypeScript & Python source code',
     ],
     technicalUnderTheHood: [
-      'Frontend interfaces built in React 19, TypeScript, Vite, Tailwind CSS, and Recharts',
+      'Modern web interfaces built with React 19, TypeScript, Vite, Tailwind CSS, and Recharts',
       'Backend APIs and parallel workers in Python (FastAPI, ThreadPoolExecutor) or Node/Express',
-      'SQLite / SQLAlchemy databases and programmatic ReportLab PDF compilation',
+      'SQLite / SQLAlchemy persistence and programmatic ReportLab PDF generation',
     ],
     exampleScenarios: [
       {
-        businessType: 'Technical Consultancy or Assessment Team',
-        challenge: 'Combining outputs from multiple diagnostic tools into a formatted client PDF report takes hours every week.',
-        practicalSolution: 'A custom web tool that reads the raw files, removes duplicates, and generates the finished PDF report.',
+        businessType: 'Startup Founder or Product Team',
+        challenge:
+          'You have a product idea and need a working web prototype to test with real users or demonstrate to partners.',
+        practicalSolution:
+          'A thoughtfully designed, functional web application focused on your core user workflow.',
       },
       {
-        businessType: 'Startup Founder',
-        challenge: 'You have a clear product idea and need a working prototype to test with real users or early partners.',
-        practicalSolution: 'A focused, working web application built around your core user flow.',
+        businessType: 'Technical Consultancy or Assessment Practice',
+        challenge:
+          'Merging outputs from multiple tools into a formatted client PDF report takes hours of manual copy-pasting.',
+        practicalSolution:
+          'A custom web system that ingests raw files, removes duplicates, and compiles the finished PDF report in one click.',
       },
     ],
     portfolioProof: [
       {
         title: 'SentinelX',
         slug: 'sentinelx',
-        summary: 'Full-stack Python & React system that merges multi-tool XML/CSV scans and generates executive PDF reports.',
+        summary:
+          'Full-stack Python & React platform that merges multi-tool XML/CSV scans and generates executive PDF reports.',
       },
       {
         title: 'Lureline',
         slug: 'lureline',
-        summary: 'Live interactive workbench on Vercel for filtering and exploring event timelines.',
+        summary:
+          'Live interactive workbench deployed on Vercel for filtering alerts and exploring connected timelines.',
       },
       {
         title: 'Notice Decoder',
         slug: 'notice-decoder',
-        summary: 'Complete React + Express web application deployed live on Render.',
+        summary:
+          'End-to-end React + Express web application deployed live on Render.',
       },
     ],
+  },
+];
+
+export const SUPPORTING_CAPABILITIES = [
+  {
+    id: 'software-quality-engineering',
+    number: 'S1',
+    title: 'Software Quality & Engineering',
+    tagline: 'Reliable rules, clean data pipelines, and automated reporting accuracy.',
+    problem:
+      'Prototypes and internal tools often break when given messy files, duplicate records, or edge-case dates.',
+    whatIDo:
+      'I build fixed validation rules, SHA-256 file integrity checks, deduplication logic, and structured PDF/calendar exports so software behaves predictably.',
+    whatYouReceive:
+      'Clean, maintainable TypeScript/Python codebases with automated checks and clear technical handover documentation.',
+    evidenceProjects: ['SentinelX (SHA-256 & 5-level normalization)', 'Notice Decoder (Fixed interval clash rules)'],
+  },
+  {
+    id: 'research-strategy',
+    number: 'S2',
+    title: 'Research & Strategy',
+    tagline: 'Structured problem discovery, insight synthesis, and practical scoping before building.',
+    problem:
+      'Jumping straight into coding without researching the workflow or data often leads to expensive tools nobody uses.',
+    whatIDo:
+      'I study your existing process, synthesise market or customer findings into clear briefs, and map out the simplest digital solution before writing code.',
+    whatYouReceive:
+      'Written research synthesis, system flow diagrams, and an honest recommendation on what to build first.',
+    evidenceProjects: [
+      'CareerWithDishani Research & Insight Synthesis Internship',
+      'ResolX.ai AI Solutioning Internship',
+      'Decoding Customer Value Retention Playbook',
+    ],
+  },
+];
+
+export const ENGAGEMENT_MODELS = [
+  {
+    id: 'fixed-scope-pilot',
+    number: '01',
+    title: 'Fixed-Scope Pilot',
+    bestFor: 'Testing a solution on one dataset, document type, or core workflow first.',
+    plainDescription:
+      'Start with a small, clearly defined pilot—such as analysing one sample spreadsheet or automating one document check—before committing to a larger build.',
+    whatYouGet: 'A working proof of value, clear deliverables, and zero long-term lock-in.',
+  },
+  {
+    id: 'custom-project',
+    number: '02',
+    title: 'Custom Project',
+    bestFor: 'End-to-end dashboards, workflow automations, or full-stack web tools.',
+    plainDescription:
+      'Once we agree on the exact deliverables and milestones, I design, build, test, and hand over the complete solution tailored to your business.',
+    whatYouGet: 'Complete working software or dashboard, source files, and a plain-English user guide.',
+  },
+  {
+    id: 'research-technical-assessment',
+    number: '03',
+    title: 'Research & Technical Assessment',
+    bestFor: 'Founders and teams exploring how to turn a rough idea or messy process into a system.',
+    plainDescription:
+      'I audit your sample data or manual workflow, research the technical options, and design a clear architecture blueprint and implementation plan.',
+    whatYouGet: 'A structured feasibility report, visual workflow diagram, and practical build roadmap.',
+  },
+  {
+    id: 'ongoing-improvement',
+    number: '04',
+    title: 'Ongoing Improvement',
+    bestFor: 'Refining dashboards, adding new rules, or extending a tool after launch.',
+    plainDescription:
+      'Where appropriate after delivering a project, we can schedule focused follow-up iterations as your data grows or your team requests new features.',
+    whatYouGet: 'Direct support and iterative upgrades from the original builder.',
   },
 ];
 
 export const ENGAGEMENT_STEPS = [
   {
     step: '01',
-    title: 'Explain Your Problem',
-    shortLabel: 'Plain-language chat',
+    stageKey: 'RESEARCH',
+    title: 'Research the Problem',
+    shortLabel: 'Problem & Context',
     description:
-      'Tell me what is slowing down your team, what spreadsheet feels confusing, or what tool you want to build—in everyday business language.',
+      'You explain what is slowing down your team or what idea you want to build. I study the real workflow and business goal before suggesting any tool.',
+    whatIContribute: 'Problem framing, workflow audit, and identifying the simplest high-impact solution.',
+    whatYouReceive: 'A clear summary of the problem and an honest recommendation on what to build.',
   },
   {
     step: '02',
-    title: 'Review Sample Data or Workflow',
-    shortLabel: 'Check existing material',
+    stageKey: 'ANALYSIS',
+    title: 'Analyse Data & Material',
+    shortLabel: 'Data & Edge Cases',
     description:
-      'We look at a sample spreadsheet, document, or current manual process so I can see what is needed and suggest the simplest approach.',
+      'We inspect a sample spreadsheet, PDF circular, or current manual process to uncover missing fields, edge cases, and key patterns.',
+    whatIContribute: 'Data cleaning, SQL/Python exploration, and document structure analysis.',
+    whatYouReceive: 'A realistic scope, clear milestone plan, and a customized INR proposal.',
   },
   {
     step: '03',
-    title: 'Agree on Scope & INR Quote',
-    shortLabel: 'Clear plan & price',
+    stageKey: 'AI & LOGIC',
+    title: 'Design AI & Fixed Rules',
+    shortLabel: 'Rules + AI Design',
     description:
-      'You get a clear written plan listing what I will deliver and a straightforward INR quote (including small paid pilot options if you want to start small).',
+      'I separate what requires AI (reading messy text or writing summaries) from what requires fixed rules (dates, numbers, clashes, and policy checks).',
+    whatIContribute: 'System architecture, prompt & model selection, and deterministic rule engines.',
+    whatYouReceive: 'A reliable logic design where AI never guesses your critical dates or numbers.',
   },
   {
     step: '04',
-    title: 'Build & Review Together',
-    shortLabel: 'Direct progress updates',
+    stageKey: 'SOFTWARE',
+    title: 'Build Working Software',
+    shortLabel: 'Code & Visuals',
     description:
-      'I clean the data, build the automation, or code the web tool myself—sharing working previews with you so we can refine details early.',
+      'I build the interactive Power BI dashboard, automation pipeline, or full-stack web application—sharing working previews directly with you.',
+    whatIContribute: 'End-to-end development in React, TypeScript, Python, SQL, or Power BI.',
+    whatYouReceive: 'Working previews you can test and refine before final completion.',
   },
   {
     step: '05',
-    title: 'Handover & Simple Guide',
-    shortLabel: 'Ready-to-use delivery',
+    stageKey: 'DELIVERY',
+    title: 'Deliver & Hand Over',
+    shortLabel: 'Handover & Guide',
     description:
-      'You receive the finished dashboard, report, or working tool along with a clear, plain-English guide so your team can use it confidently.',
+      'You receive the finished dashboard, report engine, or web app along with clean source files and a plain-English guide for your team.',
+    whatIContribute: 'Quality checks, deployment or file packaging, and clear documentation.',
+    whatYouReceive: 'Complete ownership of the deliverable and a straightforward guide to run it.',
   },
 ];
 
 export const PROCESS_STAGES: ProcessStage[] = [
   {
     stepNumber: '01',
-    title: 'Explain Your Problem in Plain English',
-    shortLabel: 'Understand the Problem',
+    title: 'RESEARCH — Understand the Problem & Workflow',
+    shortLabel: '01 · RESEARCH',
     clientExperience:
-      'We start with a simple conversation about your business—what is taking too much manual time, what question your sales data is not answering, or what product idea you want to test.',
-    whatYouProvide: 'A short description of the problem and what a helpful result looks like for your business.',
-    whatYouReceive: 'An honest recommendation on whether you need data analysis, a workflow automation, a custom web tool, or a small paid pilot.',
-    keyPrinciple: 'No technical jargon needed. You never have to pick programming languages.',
-    technicalNote: 'Initial problem framing, feasibility check, and deciding between analytical vs. software deliverables.',
+      'We begin with a plain-English conversation about what is taking too much manual time, what question your numbers are not answering, or what product idea you want to prototype.',
+    whatYouProvide: 'A short explanation of your problem and what a useful outcome looks like for your team.',
+    whatYouReceive:
+      'A clear assessment of whether your problem is best solved with data analysis, workflow automation, a custom web tool, or a small fixed-scope pilot.',
+    keyPrinciple: 'Start with the human and business problem, never with technical jargon.',
+    technicalNote:
+      'Problem discovery, workflow mapping, and deciding between analytical vs. full-stack software deliverables.',
   },
   {
     stepNumber: '02',
-    title: 'Review Available Data, Documents or Workflow',
-    shortLabel: 'Review Material',
+    title: 'ANALYSIS — Inspect Sample Data, Documents & Edge Cases',
+    shortLabel: '02 · ANALYSIS',
     clientExperience:
-      'Before quoting a price or timeline, I look at a small sample of your spreadsheets, PDFs, or current manual steps so there are no surprises later.',
-    whatYouProvide: 'A sample Excel/CSV file (with private details removed if needed), example PDFs, or a quick walkthrough of how you do the task today.',
-    whatYouReceive: 'Clear feedback on data quality, edge cases, and the simplest way to solve the problem without over-building.',
-    keyPrinciple: 'I never push a big software build when a clean dashboard or small script will solve the problem.',
-    technicalNote: 'Auditing data completeness, document structure, and automation edge cases.',
+      'Before locking scope, I examine a sample spreadsheet, PDF document, or manual checklist so we catch messy formatting or edge cases early.',
+    whatYouProvide:
+      'A sample Excel/CSV export (with sensitive fields masked if needed), sample PDFs, or a walkthrough of your current steps.',
+    whatYouReceive:
+      'Clear feedback on data readiness plus a written scope and customised INR proposal.',
+    keyPrinciple: 'Inspect the real material first so the scope and timeline are grounded in reality.',
+    technicalNote:
+      'Exploratory data profiling in Python/SQL, schema auditing, and identifying document parsing edge cases.',
   },
   {
     stepNumber: '03',
-    title: 'Define Realistic Scope & Customised INR Quote',
-    shortLabel: 'Scope & INR Proposal',
+    title: 'AI & LOGIC — Combine Smart Reading With Fixed Rules',
+    shortLabel: '03 · AI & LOGIC',
     clientExperience:
-      'We agree on exactly what will be delivered, how it will work, and what it costs in INR.',
-    whatYouProvide: 'Confirmation of the deliverables that matter most to you.',
-    whatYouReceive: 'A clear written proposal with specific deliverables, realistic milestones, and a scope-based INR quote (with the option to start with a small paid pilot).',
-    keyPrinciple: 'Fair, scope-based INR pricing based on the actual work—no bloated fixed agency packages.',
-    technicalNote: 'Defining explicit acceptance criteria, data schemas, and milestone boundaries.',
+      'I design the brain of the solution: AI handles messy text and plain-English summaries, while fixed computer rules handle dates, schedule clashes, calculations, and compliance checks.',
+    whatYouProvide: 'Confirmation of the business rules, priorities, or checklist criteria your team follows.',
+    whatYouReceive:
+      'A visual system flow showing exactly how inputs are processed, verified, and turned into outputs.',
+    keyPrinciple: 'AI reads and explains; fixed rules verify dates, numbers, and policy decisions.',
+    technicalNote:
+      'Hybrid architecture combining LLM extraction/narration with deterministic validation, regex/interval math, and SHA-256 integrity checks.',
   },
   {
     stepNumber: '04',
-    title: 'Build, Test & Review Directly With Me',
-    shortLabel: 'Build & Review',
+    title: 'SOFTWARE — Build the Dashboard, Automation or Web Tool',
+    shortLabel: '04 · SOFTWARE',
     clientExperience:
-      'I do the data analysis, automation setup, or software building myself and show you working checkpoints along the way.',
-    whatYouProvide: 'Quick feedback when I share a draft dashboard or working preview.',
-    whatYouReceive: 'Direct communication with the person actually doing the work—no middlemen or account managers.',
-    keyPrinciple: 'Fixed rules handle critical dates and numbers; AI is used carefully where it saves real effort.',
-    technicalNote: 'Iterative implementation across Python/SQL/Power BI or React/TypeScript/FastAPI with validation checks.',
+      'I build the solution myself—whether that is an interactive Power BI dashboard, a Python processing pipeline, or a React & TypeScript web application—and share working checkpoints.',
+    whatYouProvide: 'Direct feedback on working previews so we can adjust labels, filters, or report layouts.',
+    whatYouReceive:
+      'Direct 1-on-1 collaboration with the builder and a clean, responsive tool tailored to your workflow.',
+    keyPrinciple: 'Every screen, chart, and report is built to be clear and immediately usable.',
+    technicalNote:
+      'Full-stack implementation across React 19, TypeScript, FastAPI, Express, SQLite, Power BI, and ReportLab PDF engines.',
   },
   {
     stepNumber: '05',
-    title: 'Final Handover & Easy-to-Follow Guide',
-    shortLabel: 'Handover & Guide',
+    title: 'DELIVERY — Handover, Documentation & Next Steps',
+    shortLabel: '05 · DELIVERY',
     clientExperience:
-      'Once we review the finished solution together and make any agreed adjustments, I hand over all files, code, or dashboards with a clear guide.',
-    whatYouProvide: 'Final walkthrough check against the agreed scope.',
-    whatYouReceive: 'The completed deliverable, source files, and straightforward documentation so your team owns and understands everything.',
-    keyPrinciple: 'You are never left with a confusing black box.',
-    technicalNote: 'Complete repository/file delivery, environment setup notes, and user documentation.',
+      'Once we review the finished deliverable against the agreed scope, I hand over the live app, code repository, or dashboard files along with a simple guide.',
+    whatYouProvide: 'Final review walkthrough against the agreed deliverables.',
+    whatYouReceive:
+      'The complete working solution, source code or dashboard files, and a plain-English guide so your team can use it confidently.',
+    keyPrinciple: 'No black boxes—you receive a transparent system you can understand and use.',
+    technicalNote:
+      'Repository handover, environment & deployment instructions, and structured user documentation.',
   },
 ];
 
@@ -1586,7 +1769,45 @@ export const SKILLS_MATRIX = [
   },
 ];
 
+export const VERIFIED_EXPERIENCE = [
+  {
+    id: 'resolx-ai',
+    role: 'AI Solutioning Intern',
+    organisation: 'ResolX.ai',
+    category: 'Applied AI & Solution Design',
+    periodLabel: 'Verified Internship Experience',
+    plainSummary:
+      'Worked on translating practical business and operational problems into structured AI-assisted workflows and solution architectures.',
+    keyContributions: [
+      'Researched and structured practical AI solution blueprints around real operational bottlenecks.',
+      'Focused on combining language models with clear business logic so outputs remain reliable and useful for end users.',
+      'Prepared clear technical and functional documentation to bridge product ideas and engineering execution.',
+    ],
+    privacyNote:
+      'Presented at a high level in accordance with professional confidentiality; no proprietary client or internal documents are published.',
+  },
+  {
+    id: 'career-with-dishani',
+    role: 'Research & Insight Synthesis Intern',
+    organisation: 'CareerWithDishani',
+    category: 'Research, Analysis & Content Systems',
+    periodLabel: 'Verified Internship Experience',
+    plainSummary:
+      'Conducted structured research and distilled complex educational and career information into clear, actionable insights and guides.',
+    keyContributions: [
+      'Researched multi-source information and synthesised findings into clear, easy-to-scan decision guides.',
+      'Developed repeatable research templates and structured summaries for non-technical readers.',
+      'Strengthened the habit of turning dense, scattered material into plain-English recommendations.',
+    ],
+    privacyNote:
+      'Summarised from verified internship records without exposing internal working drafts.',
+  },
+];
+
 export const VERIFIED_ACADEMIC_RECORD = {
+  degree: 'Bachelor of Computer Applications (BCA)',
+  institution: 'Institute of Information Technology & Management (IITM)',
+  affiliation: 'Affiliated with Guru Gobind Singh Indraprastha University (GGSIPU), New Delhi',
   cgpa: '9.10 / 10',
   aggregatePercentage: '85.026%',
   semesterSgpas: [
@@ -1595,8 +1816,14 @@ export const VERIFIED_ACADEMIC_RECORD = {
     { semester: 'Semester III', sgpa: '9.10' },
     { semester: 'Semester IV', sgpa: '8.96' },
   ],
+  certificationsAndHighlights: [
+    'Team Leader & System Architect — Notice Decoder (Live Full-Stack AI Web App)',
+    'Co-Developer & System Architect — SentinelX (100+ Page Academic Technical Report)',
+    'Lead Product Analyst — Decoding Customer Value (IITG Study across 3,900 Records)',
+    'Solo Developer — Lureline (Orcathon 2026 Competition Prototype)',
+  ],
   contextNote:
-    'Shared as verified proof of consistent analytical discipline. For clients, my focus is turning that discipline into practical, working solutions for your business.',
+    'Included as supporting credibility showing consistent analytical and engineering discipline alongside real software and data projects.',
 };
 
 export const PROBLEM_CATEGORIES = [

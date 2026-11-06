@@ -5,12 +5,22 @@ import {
   getProjectBySlug,
   matchProblemToService,
   estimateProjectScope,
+  recommendSolutionFromFinder,
   validateEnquiryForm,
   formatEnquiryBrief,
   AVAILABLE_INFO_OPTIONS,
   DESIRED_OUTCOME_OPTIONS,
+  SOLUTION_FINDER_PROBLEMS,
+  SOLUTION_FINDER_BUSINESS_TYPES,
+  SOLUTION_FINDER_HELP_TYPES,
   type EnquiryFormInput,
 } from './studioLogic';
+import {
+  PROFILE_CONFIG,
+  VERIFIED_EXPERIENCE,
+  VERIFIED_ACADEMIC_RECORD,
+  ENGAGEMENT_STEPS,
+} from '../data/studioData';
 
 test('strict project hierarchy preserves Notice Decoder, SentinelX, Decoding Customer Value, Contract Risk Governance, and Lureline', () => {
   const all = filterAndSortProjects('all', 'all');
@@ -42,7 +52,7 @@ test('Portfolio Explorer filters by category, technology, and evidence type accu
   );
 });
 
-test('factual accuracy guardrails on project records', () => {
+test('factual accuracy guardrails on project, academic, and internship records', () => {
   const sentinelx = getProjectBySlug('sentinelx');
   assert.ok(sentinelx);
   assert.equal(sentinelx.liveDemoUrl, undefined);
@@ -52,6 +62,52 @@ test('factual accuracy guardrails on project records', () => {
   assert.ok(dcv);
   assert.equal(dcv.liveDemoUrl, undefined);
   assert.ok(dcv.githubUrl?.includes('IITG_Decoding_Customer_Value_Akshit_Bhumika'));
+
+  // Verify internships include ResolX.ai and CareerWithDishani and exclude MatchBest Group
+  const orgNames = VERIFIED_EXPERIENCE.map((e) => e.organisation);
+  assert.deepEqual(orgNames, ['ResolX.ai', 'CareerWithDishani']);
+  assert.ok(!JSON.stringify(VERIFIED_EXPERIENCE).toLowerCase().includes('matchbest'));
+
+  // Verify academic record, verified contact config, and 5-step signature methodology
+  assert.equal(VERIFIED_ACADEMIC_RECORD.cgpa, '9.10 / 10');
+  assert.equal(VERIFIED_ACADEMIC_RECORD.aggregatePercentage, '85.026%');
+  assert.equal(PROFILE_CONFIG.contact.github.url, 'https://github.com/akshit-sukhija');
+  assert.equal(PROFILE_CONFIG.contact.linkedin.url, 'https://www.linkedin.com/in/akshit-sukhija-/');
+  assert.equal(PROFILE_CONFIG.contact.emailPrimary.address, 'akshithere075@gmail.com');
+  assert.equal(PROFILE_CONFIG.contact.emailSecondary.address, 'akshitsukhija4@gmail.com');
+  assert.equal(PROFILE_CONFIG.contact.phone.displayNumber, '+91 9873865213');
+  assert.deepEqual(
+    ENGAGEMENT_STEPS.map((s) => s.stageKey),
+    ['RESEARCH', 'ANALYSIS', 'AI & LOGIC', 'SOFTWARE', 'DELIVERY']
+  );
+});
+
+test('three-question SolutionFinder rule-based matching recommends appropriate service and project evidence', () => {
+  const dataRec = recommendSolutionFromFinder({
+    problem: SOLUTION_FINDER_PROBLEMS[0], // Understand business performance and customers.
+    businessType: SOLUTION_FINDER_BUSINESS_TYPES[1], // D2C or e-commerce.
+    helpNeeded: SOLUTION_FINDER_HELP_TYPES[0], // Dashboard or analysis.
+  });
+  assert.equal(dataRec.recommendedService.id, 'data-intelligence');
+  assert.equal(dataRec.relevantProject.slug, 'decoding-customer-value');
+  assert.ok(dataRec.matchingMethodNote.includes('Transparent rule-based matching'));
+
+  const aiRec = recommendSolutionFromFinder({
+    problem: SOLUTION_FINDER_PROBLEMS[1], // Automate repetitive work.
+    businessType: SOLUTION_FINDER_BUSINESS_TYPES[2], // Small business.
+    helpNeeded: SOLUTION_FINDER_HELP_TYPES[1], // Automation workflow.
+  });
+  assert.equal(aiRec.recommendedService.id, 'ai-automation');
+  assert.equal(aiRec.relevantProject.slug, 'notice-decoder');
+
+  const productRec = recommendSolutionFromFinder({
+    problem: SOLUTION_FINDER_PROBLEMS[3], // Improve software quality and reporting.
+    businessType: SOLUTION_FINDER_BUSINESS_TYPES[3], // Product or technology team.
+    helpNeeded: SOLUTION_FINDER_HELP_TYPES[3], // Custom software.
+  });
+  assert.equal(productRec.recommendedService.id, 'digital-products');
+  assert.equal(productRec.relevantProject.slug, 'sentinelx');
+  assert.ok(productRec.supportingCapabilityNote?.includes('Software Quality & Engineering'));
 });
 
 test('four-step estimateProjectScope recommends appropriate service without inventing prices', () => {
@@ -62,7 +118,7 @@ test('four-step estimateProjectScope recommends appropriate service without inve
     timelinePreference: 'Within 1–2 weeks (Focused analysis / small pilot)',
   });
 
-  assert.equal(estimate.recommendedService.id, 'ai-workflow-automation');
+  assert.equal(estimate.recommendedService.id, 'ai-automation');
   assert.ok(estimate.scopeDisclaimer.includes('No instant price or guaranteed date'));
   assert.ok(estimate.matchingProjects.some((p) => p.slug === 'notice-decoder'));
 });
@@ -102,17 +158,17 @@ test('validateEnquiryForm rejects empty or invalid inputs and accepts valid Indi
 
   const brief = formatEnquiryBrief(validInput);
   assert.ok(brief.includes('Mehta Retail & D2C'));
-  assert.ok(brief.includes('01. Business Data & Insights'));
+  assert.ok(brief.includes('01. Data & Intelligence'));
   assert.ok(brief.includes('Indicative only; final quote depends on scope review'));
 });
 
 test('matchProblemToService maps plain business problems to the three core services', () => {
   const dataMatch = matchProblemToService('Understand my business data');
-  assert.equal(dataMatch.recommendedService.id, 'business-data-insights');
+  assert.equal(dataMatch.recommendedService.id, 'data-intelligence');
 
   const autoMatch = matchProblemToService('Automate a repetitive workflow');
-  assert.equal(autoMatch.recommendedService.id, 'ai-workflow-automation');
+  assert.equal(autoMatch.recommendedService.id, 'ai-automation');
 
   const toolMatch = matchProblemToService('Build a dashboard or internal tool');
-  assert.equal(toolMatch.recommendedService.id, 'custom-digital-tools');
+  assert.equal(toolMatch.recommendedService.id, 'digital-products');
 });

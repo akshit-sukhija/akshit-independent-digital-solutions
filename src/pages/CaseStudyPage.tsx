@@ -11,6 +11,7 @@ import {
 import { PageMeta } from '../components/PageMeta';
 import { MotionReveal } from '../components/MotionReveal';
 import { ProjectPipelineDiagram } from '../components/ArchitectureDiagram';
+import { ProjectVisual } from '../components/ProjectVisual';
 import { CtaSection } from '../components/CtaSection';
 import { PROJECTS } from '../data/studioData';
 import { getProjectBySlug } from '../utils/studioLogic';
@@ -194,7 +195,11 @@ export function CaseStudyPage() {
             </MotionReveal>
           </div>
 
-          {/* Section 3: How It Works Visual Flowchart */}
+          {/* Section 3: Bespoke ProjectVisual Architecture + Interactive Step Flowchart */}
+          <MotionReveal>
+            <ProjectVisual slug={project.slug} mode="full" />
+          </MotionReveal>
+
           <MotionReveal>
             <ProjectPipelineDiagram
               projectTitle={project.title}
