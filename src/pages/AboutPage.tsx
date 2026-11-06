@@ -20,16 +20,21 @@ import {
   VERIFIED_EXPERIENCE,
   VERIFIED_ACADEMIC_RECORD,
   PROJECTS,
+  TECHNOLOGY_EXPLORER_ITEMS,
 } from '../data/studioData';
 
 export function AboutPage() {
   const [showCodeCard, setShowCodeCard] = useState(false);
+  const [selectedToolId, setSelectedToolId] = useState<string>(TECHNOLOGY_EXPLORER_ITEMS[0].id);
+  const activeTool =
+    TECHNOLOGY_EXPLORER_ITEMS.find((t) => t.id === selectedToolId) ??
+    TECHNOLOGY_EXPLORER_ITEMS[0];
 
   return (
     <div>
       <PageMeta
-        title="About Akshit — Personal Studio, Experience & Credentials"
-        description="Learn how Akshit works across research, data analysis, AI workflows, and custom software—backed by verified internships, academic credentials, and real projects."
+        title="About Akshit Sukhija — Independent Digital & Product Solutions"
+        description="Learn how Akshit Sukhija works across research, data analysis, AI workflows, and custom software—backed by verified internships, academic credentials, and real projects."
       />
 
       {/* 1. Personal Story, Prominent Portrait & Verified Contact Channels */}
@@ -37,8 +42,8 @@ export function AboutPage() {
         <div className="max-w-[1200px] mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
             <MotionReveal className="lg:col-span-7 space-y-6">
-              <p className="font-mono text-xs text-[#8B75FF]">
-                About the Studio · {PROFILE_CONFIG.fullName}
+              <p className="font-mono text-xs text-[#D4AE5C] tracking-wider uppercase">
+                {PROFILE_CONFIG.name} · {PROFILE_CONFIG.roleSubtitle}
               </p>
               <h1
                 className="font-display text-[#F4F0E8] leading-[1.08]"
@@ -56,7 +61,7 @@ export function AboutPage() {
               {/* Verified Direct Contact Bar on About Page */}
               <div className="bg-[#161822] border border-[#2C2F42] rounded-xl p-5 space-y-4">
                 <div className="flex flex-wrap items-center justify-between gap-2 border-b border-[#2C2F42] pb-3">
-                  <span className="font-mono text-xs text-[#8B75FF]">
+                  <span className="font-mono text-xs text-[#D4AE5C]">
                     Verified Contact &amp; Profiles
                   </span>
                   <span className="font-mono text-xs text-[#7AD992]">
@@ -67,7 +72,7 @@ export function AboutPage() {
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs font-mono">
                   <a
                     href={PROFILE_CONFIG.contact.emailPrimary.mailto}
-                    className="flex items-center gap-2.5 p-3 rounded-lg bg-[#0E0F14] border border-[#2C2F42] hover:border-[#8B75FF] text-[#F4F0E8] transition-colors"
+                    className="flex items-center gap-2.5 p-3 rounded-lg bg-[#0E0F14] border border-[#2C2F42] hover:border-[#D4AE5C] text-[#F4F0E8] transition-colors"
                   >
                     <Mail className="w-4 h-4 text-[#8B75FF] shrink-0" />
                     <span className="truncate">{PROFILE_CONFIG.contact.emailPrimary.address}</span>
@@ -75,7 +80,7 @@ export function AboutPage() {
 
                   <a
                     href={PROFILE_CONFIG.contact.emailSecondary.mailto}
-                    className="flex items-center gap-2.5 p-3 rounded-lg bg-[#0E0F14] border border-[#2C2F42] hover:border-[#8B75FF] text-[#E6D3A7] transition-colors"
+                    className="flex items-center gap-2.5 p-3 rounded-lg bg-[#0E0F14] border border-[#2C2F42] hover:border-[#D4AE5C] text-[#E6D3A7] transition-colors"
                   >
                     <Mail className="w-4 h-4 text-[#D4AE5C] shrink-0" />
                     <span className="truncate">{PROFILE_CONFIG.contact.emailSecondary.address}</span>
@@ -126,7 +131,7 @@ export function AboutPage() {
                   to="/enquire"
                   className="inline-flex items-center gap-2 px-5 py-3 text-xs font-medium text-[#0E0F14] bg-[#D4AE5C] hover:bg-[#E6D3A7] rounded-lg transition-colors"
                 >
-                  <span>Discuss a Project</span>
+                  <span>Start a Conversation</span>
                   <ArrowRight className="w-3.5 h-3.5" />
                 </Link>
 
@@ -151,16 +156,22 @@ export function AboutPage() {
                     <span>Solo Studio Operator</span>
                   </div>
                   <pre className="leading-relaxed text-[#F4F0E8]">{`export const operatorProfile = {
-  name: "Akshit Sukhija",
+  name: "AKSHIT SUKHIJA",
+  practice: "Independent Digital & Product Solutions",
   education: "BCA at IITM, affiliated with GGSIPU (CGPA: 9.10/10 · 85.026%)",
   internships: [
     "ResolX.ai — AI Solutioning Internship",
     "CareerWithDishani — Research & Insight Synthesis Internship"
   ],
-  practiceAreas: [
-    "Data & Intelligence (Python, SQL, Power BI)",
-    "AI & Automation (LLMs + Fixed Validation Rules)",
-    "Digital Products (React, TypeScript, FastAPI, ReportLab PDF)"
+  coreCapabilities: [
+    "Data & Business Intelligence",
+    "AI & Workflow Automation",
+    "Digital Products & Prototyping"
+  ],
+  supportingCapabilities: [
+    "Product Strategy & UX",
+    "Brand & Market Research",
+    "Software Quality"
   ]
 };`}</pre>
                 </div>
@@ -179,8 +190,8 @@ export function AboutPage() {
       <section className="bg-[#F5F1E8] text-[#0E0F14] border-b border-[#D4CBB8] py-20 px-6 bg-ivory-grid">
         <div className="max-w-[1200px] mx-auto space-y-10">
           <MotionReveal className="max-w-3xl space-y-3">
-            <p className="font-mono text-xs text-[#4A32C4] font-medium">
-              01 · Professional &amp; Internship Experience
+            <p className="font-mono text-xs text-[#4A32C4] font-medium uppercase tracking-wide">
+              Professional &amp; Internship Experience
             </p>
             <h2 className="font-display text-3xl sm:text-4xl text-[#0E0F14]">
               Where Research Discipline Meets Practical AI Solutioning
@@ -223,23 +234,96 @@ export function AboutPage() {
         </div>
       </section>
 
-      {/* 3. Capabilities & Skills Explained in Plain English */}
+      {/* 3. Interactive Technology Explorer (Demonstrated Project Use Cases — Zero Fake Percentages) */}
       <section className="bg-[#0E0F14] border-b border-[#2C2F42] py-20 px-6">
         <div className="max-w-[1200px] mx-auto space-y-12">
           <MotionReveal className="max-w-3xl space-y-3">
-            <p className="font-mono text-xs text-[#8B75FF]">
-              02 · Capabilities &amp; Technical Toolkit
+            <p className="font-mono text-xs text-[#D4AE5C] uppercase tracking-wide">
+              Interactive Technology Explorer
             </p>
             <h2 className="font-display text-3xl sm:text-4xl text-[#F4F0E8]">
-              What My Skills Mean for Your Project
+              Tools I Use &amp; Where They Are Proven in Real Projects
             </h2>
             <p className="text-sm sm:text-base text-[#A6A9B8] leading-relaxed">
-              Every tool I use is chosen to solve a practical business problem— explained below in
-              everyday words first, with the technical stack listed alongside.
+              Instead of arbitrary skill-bar percentages, click any technology below to inspect how
+              I actually use it and which portfolio projects demonstrate it.
             </p>
           </MotionReveal>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+            {/* Left: Selectable Technology Pills */}
+            <div className="lg:col-span-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-2.5">
+              {TECHNOLOGY_EXPLORER_ITEMS.map((item) => {
+                const isSelected = item.id === activeTool.id;
+                return (
+                  <button
+                    key={item.id}
+                    type="button"
+                    onClick={() => setSelectedToolId(item.id)}
+                    className={`w-full text-left px-4 py-3.5 rounded-xl border transition-colors cursor-pointer flex items-center justify-between gap-3 ${
+                      isSelected
+                        ? 'bg-[#161822] border-[#D4AE5C] text-[#F4F0E8]'
+                        : 'bg-[#161822]/50 border-[#2C2F42] text-[#A6A9B8] hover:text-[#F4F0E8] hover:border-[#A6A9B8]'
+                    }`}
+                  >
+                    <div>
+                      <p className="text-sm font-semibold text-[#F4F0E8]">{item.tool}</p>
+                      <p className="font-mono text-[11px] text-[#D4AE5C]">{item.category}</p>
+                    </div>
+                    <ArrowRight
+                      className={`w-4 h-4 shrink-0 transition-transform ${
+                        isSelected ? 'text-[#D4AE5C] translate-x-0.5' : 'text-[#A6A9B8]'
+                      }`}
+                    />
+                  </button>
+                );
+              })}
+            </div>
+
+            {/* Right: Demonstrated Use Cases & Connected Projects */}
+            <div className="lg:col-span-7 bg-[#161822] border border-[#2C2F42] rounded-2xl p-6 md:p-8 space-y-6">
+              <div className="border-b border-[#2C2F42] pb-4 space-y-1.5">
+                <p className="font-mono text-xs text-[#D4AE5C]">{activeTool.category}</p>
+                <h3 className="font-display text-3xl text-[#F4F0E8]">{activeTool.tool}</h3>
+                <p className="text-sm text-[#E6D3A7] leading-relaxed">{activeTool.whatIUseItFor}</p>
+              </div>
+
+              <div className="space-y-3">
+                <p className="font-mono text-xs text-[#8B75FF] uppercase tracking-wide">
+                  Demonstrated Project Use Cases
+                </p>
+                <ul className="space-y-3 text-sm text-[#F4F0E8]/90">
+                  {activeTool.demonstratedUseCases.map((useCase) => (
+                    <li
+                      key={`${useCase.projectTitle}-${useCase.howItWasUsed}`}
+                      className="bg-[#0E0F14] border border-[#2C2F42] rounded-xl p-4 space-y-1.5"
+                    >
+                      <div className="flex items-center justify-between gap-2">
+                        <span className="font-mono text-xs text-[#D4AE5C]">
+                          {useCase.projectTitle}
+                        </span>
+                        {useCase.projectSlug && (
+                          <Link
+                            to={`/work/${useCase.projectSlug}`}
+                            className="inline-flex items-center gap-1 font-mono text-xs text-[#8B75FF] hover:underline"
+                          >
+                            <span>Inspect Case Study</span>
+                            <ArrowUpRight className="w-3.5 h-3.5" />
+                          </Link>
+                        )}
+                      </div>
+                      <p className="text-xs sm:text-sm text-[#A6A9B8] leading-relaxed">
+                        {useCase.howItWasUsed}
+                      </p>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          {/* Summary of Core Capability Groups */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-6 border-t border-[#2C2F42]">
             {SKILLS_MATRIX.map((group, idx) => (
               <MotionReveal
                 key={group.category}
@@ -255,20 +339,6 @@ export function AboutPage() {
                   </div>
                   <h3 className="font-display text-2xl text-[#F4F0E8]">{group.plainTitle}</h3>
                   <p className="text-sm text-[#A6A9B8] leading-relaxed">{group.summary}</p>
-
-                  <div className="pt-2">
-                    <p className="font-mono text-xs text-[#D4AE5C] mb-2">
-                      What This Helps You Do:
-                    </p>
-                    <ul className="space-y-1.5 text-xs text-[#F4F0E8]">
-                      {group.plainOutcomes.map((outcome) => (
-                        <li key={outcome} className="flex items-start gap-2">
-                          <span className="font-mono text-[#8B75FF]">—</span>
-                          <span>{outcome}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
                 </div>
 
                 <div className="pt-3 border-t border-[#2C2F42]">

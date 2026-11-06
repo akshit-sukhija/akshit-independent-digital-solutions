@@ -189,7 +189,7 @@ export function recommendSolutionFromFinder(
   } else if (problem.includes('Improve software quality and reporting')) {
     productScore += 2;
     aiScore += 1;
-    supportingCapabilityNote = `Supporting Capability Included: ${SUPPORTING_CAPABILITIES[0].title} — ${SUPPORTING_CAPABILITIES[0].tagline}`;
+    supportingCapabilityNote = `Supporting Capability Included: ${SUPPORTING_CAPABILITIES[2].title} — ${SUPPORTING_CAPABILITIES[2].tagline}`;
   } else if (problem.includes('Research an opportunity')) {
     dataScore += 2;
     productScore += 1;
@@ -202,6 +202,9 @@ export function recommendSolutionFromFinder(
     aiScore += 2;
   } else if (helpNeeded.includes('Working prototype') || helpNeeded.includes('Custom software')) {
     productScore += 2;
+    if (!supportingCapabilityNote && helpNeeded.includes('Working prototype')) {
+      supportingCapabilityNote = `Supporting Capability Included: ${SUPPORTING_CAPABILITIES[0].title} — ${SUPPORTING_CAPABILITIES[0].tagline}`;
+    }
   } else if (helpNeeded.includes('Research and recommendations')) {
     dataScore += 1;
     if (!supportingCapabilityNote) {

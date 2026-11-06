@@ -12,6 +12,7 @@ import {
 } from 'lucide-react';
 import { PageMeta } from '../components/PageMeta';
 import { MotionReveal } from '../components/MotionReveal';
+import { StudioFaqSection } from '../components/StudioFaqSection';
 import {
   PROFILE_CONFIG,
   PROBLEM_CATEGORIES,
@@ -667,6 +668,9 @@ export function EnquirePage() {
           </div>
         </div>
       </section>
+
+      {/* 3. Expectations & Working Together FAQ (Scope, Project Stages, Collaboration Models & Delivery Timelines) */}
+      <StudioFaqSection variant="ivory" showCtaLink={false} />
     </div>
   );
 }

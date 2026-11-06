@@ -22,6 +22,14 @@ export interface PlainFeatureExplanation {
   technical: string;
 }
 
+export interface ProductThinkingFlow {
+  researchContext: string;
+  userNeeds: string;
+  alternativesConsidered: string;
+  productDecision: string;
+  prototypeEvolution: string;
+}
+
 export interface ProjectData {
   slug: string;
   priorityOrder: number;
@@ -44,6 +52,7 @@ export interface ProjectData {
   approachSummary: string;
   solutionSummary: string;
   resultSummary: string;
+  productThinking: ProductThinkingFlow;
   plainFeatures: PlainFeatureExplanation[];
   verifiedStack: string[];
   plainToolsSummary: {
@@ -125,80 +134,27 @@ export interface InsightNote {
   technicalBreakdown: string[];
 }
 
-export const PROFILE_CONFIG = {
-  name: 'Akshit',
-  fullName: 'Akshit Sukhija',
-  studioTitle: 'Akshit | Independent Digital Solutions',
-  designDirection: 'Personal Studio / Editorial Technology',
-  tagline: 'Good ideas deserve to become useful solutions.',
-  shortBio:
-    'I research problems, work with data and build practical digital solutions using AI and technology.',
-  extendedBio:
-    'I work as an independent one-person digital studio. When a startup founder, small business owner, or product team comes to me with messy spreadsheets, repetitive document work, or an early product idea, I handle the entire journey myself—from researching the problem and analysing the data to designing the logic and building the working software.',
-  location: 'New Delhi / NCR, India · Independent Solo Studio',
-  availability: {
-    isAvailable: true,
-    statusText: 'Available for selected projects, fixed-scope pilots & custom tools',
-    responseWindow: 'Direct 1-on-1 collaboration · Scope-based INR proposals',
-  },
-  photo: {
-    src: '/profile.jpg',
-    fallbackFileName: 'LINKEDIN PROFILE PHOTO.jpeg',
-    alt: 'Akshit Sukhija — Independent Digital Solutions Studio',
-    caption: 'Akshit Sukhija · Independent Digital Solutions',
-    roleBadge: 'Research · Data · AI · Software',
-    slotNotice:
-      'Upload LINKEDIN PROFILE PHOTO.jpeg using the button below to preview immediately, or place it at public/profile.jpg in the repository.',
-  },
-  contact: {
-    emailPrimary: {
-      label: 'Primary Email',
-      address: 'akshithere075@gmail.com',
-      mailto: 'mailto:akshithere075@gmail.com',
-      verified: true,
-    },
-    emailSecondary: {
-      label: 'Secondary Email',
-      address: 'akshitsukhija4@gmail.com',
-      rawProvided: 'akshitsukhija4gmail.com',
-      mailto: 'mailto:akshitsukhija4@gmail.com',
-      verified: true,
-    },
-    phone: {
-      label: 'Phone & WhatsApp',
-      displayNumber: '+91 9873865213',
-      rawDigits: '919873865213',
-      telHref: 'tel:+919873865213',
-      whatsappHref:
-        'https://wa.me/919873865213?text=Hi%20Akshit%2C%20I%20visited%20your%20studio%20website%20and%20would%20like%20to%20discuss%20a%20project.',
-      verified: true,
-    },
-    linkedin: {
-      label: 'LinkedIn',
-      handle: 'in/akshit-sukhija-',
-      url: 'https://www.linkedin.com/in/akshit-sukhija-/',
-      verified: true,
-    },
-    github: {
-      label: 'GitHub',
-      handle: '@akshit-sukhija',
-      url: 'https://github.com/akshit-sukhija',
-      verified: true,
-    },
-  },
-};
+import {
+  PROFILE_CONFIG as CENTRAL_PROFILE_CONFIG,
+  TECHNOLOGY_EXPLORER_ITEMS as CENTRAL_TECH_EXPLORER,
+  STUDIO_FAQS as CENTRAL_STUDIO_FAQS,
+} from './profile';
+
+export const PROFILE_CONFIG = CENTRAL_PROFILE_CONFIG;
+export const TECHNOLOGY_EXPLORER_ITEMS = CENTRAL_TECH_EXPLORER;
+export const STUDIO_FAQS = CENTRAL_STUDIO_FAQS;
 
 export const BRAND_IDENTITY = {
-  name: 'Akshit',
-  studioTitle: 'Akshit | Independent Digital Solutions',
+  name: 'AKSHIT SUKHIJA',
+  studioTitle: 'AKSHIT SUKHIJA | Independent Digital & Product Solutions',
   positioningStatement:
-    'I help startups and small businesses turn messy data, repetitive workflows and early-stage product ideas into useful digital solutions.',
+    'I turn business problems and early ideas into useful digital solutions through research, data, AI and technology.',
   heroHeadline: 'Good ideas deserve to become useful solutions.',
   heroSupportingCopy:
-    'I research problems, work with data and build practical digital solutions using AI and technology.',
-  operatorStatus: 'Independent solo studio · India · Direct 1-on-1 collaboration',
+    'I turn business problems and early ideas into useful digital solutions through research, data, AI and technology.',
+  operatorStatus: 'Independent solo studio · New Delhi / NCR, India · Direct 1-on-1 collaboration',
   differentiation:
-    'You explain the business problem in everyday words. I research the context, analyse the data, combine AI with reliable rules, and build the working software or dashboard myself.',
+    'You explain the problem in plain English. I research the context, study the data, combine AI with reliable rules, and build the working software or dashboard myself.',
   targetAudienceList: [
     'Startup founders & early-stage SaaS teams',
     'Small and medium-sized businesses (SMBs)',
@@ -213,7 +169,7 @@ export const CAPABILITY_PILLARS = [
   {
     id: 'data-intelligence' as CapabilityDomain,
     number: '01',
-    title: 'Data & Intelligence',
+    title: 'Data & Business Intelligence',
     shortSummary:
       'Business analytics, interactive dashboards, customer insights, and research-driven decisions from your existing spreadsheets.',
     technicalNote:
@@ -224,7 +180,7 @@ export const CAPABILITY_PILLARS = [
   {
     id: 'ai-automation' as CapabilityDomain,
     number: '02',
-    title: 'AI & Automation',
+    title: 'AI & Workflow Automation',
     shortSummary:
       'Document processing, practical AI workflows, schedule clash detection, and rule-backed automation systems.',
     technicalNote:
@@ -235,7 +191,7 @@ export const CAPABILITY_PILLARS = [
   {
     id: 'custom-systems' as CapabilityDomain,
     number: '03',
-    title: 'Digital Products',
+    title: 'Digital Products & Prototyping',
     shortSummary:
       'Product research, interactive prototypes, web applications, and custom internal tools built around how your team works.',
     technicalNote:
@@ -275,6 +231,18 @@ export const PROJECTS: ProjectData[] = [
       'A live web application that reads unstructured notices, pulls out dates and deadlines, warns you when two events overlap, highlights changes when a revised notice arrives, and exports a calendar file you can open in Google, Apple, or Outlook Calendar.',
     resultSummary:
       'Deployed as a working web app on Render. Users can paste or upload notice text, see schedule conflicts immediately, compare revised circulars, and download ready-to-use calendar files.',
+    productThinking: {
+      researchContext:
+        'Examined how college circulars, exam notices, and departmental updates actually arrive: multi-paragraph PDFs and forwarded messages where dates, venues, and revised timings are buried inside dense text.',
+      userNeeds:
+        'Students and operations coordinators do not just need a text summary—they need to know whether a newly announced event clashes with an existing commitment, what changed when a corrigendum is issued, and how to save the event to their calendar immediately.',
+      alternativesConsidered:
+        'Considered (1) manual calendar entry, (2) a pure LLM chatbot prompt, and (3) a rigid form-only scheduler. Pure LLM prompts occasionally miscalculated overlapping time slots or relative dates, while manual forms defeated the purpose of pasting raw circulars.',
+      productDecision:
+        'Designed a hybrid architecture: use Qwen2.5-7B-Instruct for semantic structuring of titles, categories, and action items, while delegating all date extraction, interval overlap math, and revision diffs (Notice Change Radar) to deterministic code.',
+      prototypeEvolution:
+        'Started with a basic notice-to-event parser and evolved it into a full-stack React + Express planner featuring automatic conflict warnings, the Notice Change Radar for amended circulars, and one-click RFC 5545 (.ics) export.',
+    },
     plainFeatures: [
       {
         plain: 'Finds overlapping events automatically and warns you before a schedule clash happens.',
@@ -491,6 +459,18 @@ export const PROJECTS: ProjectData[] = [
       'A full-stack Python and React system that reads Nmap and OWASP ZAP scan files, verifies file integrity, removes duplicate findings, organises issues into five clear severity levels, displays charts in a browser dashboard, and exports an executive PDF report.',
     resultSummary:
       'Documented in a 100+ page technical project report covering system architecture, database design, concurrent file processing, and automated PDF generation.',
+    productThinking: {
+      researchContext:
+        'Analysed how security and audit practitioners work with outputs from Nmap and OWASP ZAP: each tool exports different XML or CSV structures with inconsistent severity scales and overlapping host alerts.',
+      userNeeds:
+        'Practitioners needed a single workbench to upload multi-tool scan files, verify that raw evidence files were not altered, eliminate duplicate warnings, and generate a clean executive PDF report without hours of manual formatting.',
+      alternativesConsidered:
+        'Evaluated manual spreadsheet merging, browser print-to-PDF stylesheets, and heavy enterprise SIEM deployments. Browser print-to-PDF broke table pagination, while enterprise platforms were too heavy for portable assessment batches.',
+      productDecision:
+        'Built a self-contained Python (FastAPI + ThreadPoolExecutor + SQLite) and React 19 workbench that records SHA-256 file hashes on upload, normalizes findings into 5 severity tiers, and compiles paginated PDFs via ReportLab.',
+      prototypeEvolution:
+        'Evolved from single-file XML parsing scripts into a concurrent multi-file ingestion pipeline paired with an interactive Recharts dashboard and an automated ReportLab executive report generator.',
+    },
     plainFeatures: [
       {
         plain: 'Reads different report formats (XML and CSV) from popular security scanners in one place.',
@@ -709,6 +689,18 @@ export const PROJECTS: ProjectData[] = [
       'A complete data analytics case study (using Python, SQL, and Power BI across 3,900 customer records) that separates genuinely loyal buyers from discount-dependent shoppers and provides a step-by-step Retention Playbook.',
     resultSummary:
       'Delivered cleaned datasets, SQL analysis scripts, an interactive Power BI dashboard, an Executive Summary, and a segment-by-segment Retention Playbook.',
+    productThinking: {
+      researchContext:
+        'Investigated 3,900 customer transaction records across product categories, purchase frequencies, subscription flags, and promotional code usage to test whether high spend equated to organic customer loyalty.',
+      userNeeds:
+        'Retail and D2C decision-makers needed a clear way to distinguish full-price repeat buyers from promo-triggered shoppers so marketing campaigns could protect profit margins.',
+      alternativesConsidered:
+        'Compared simple single-metric sorting (ranking customers by total spend alone) against multi-dimensional behavioural segmentation combining spend, order frequency, and discount dependency.',
+      productDecision:
+        'Paired SQL cohort verification and Python feature engineering with an interactive Power BI dashboard and a written Retention Playbook so non-technical business owners receive both visual filters and concrete campaign actions.',
+      prototypeEvolution:
+        'Moved from exploratory Jupyter notebooks in Python to validated SQL segment queries, an interactive Power BI (.pbix) model, and a commercial Retention Playbook.',
+    },
     plainFeatures: [
       {
         plain: 'Cleans and checks 3,900 customer shopping records so numbers are reliable.',
@@ -922,6 +914,18 @@ ORDER BY avg_purchase_value DESC;`,
       'A Python, FastAPI, and Streamlit prototype (also titled Nexus Governance OS) where fixed rules evaluate contract compliance and local AI assists strictly with writing clear explanations.',
     resultSummary:
       'Published as an open-source technical prototype on GitHub demonstrating rule-first compliance checks paired with hardware-accelerated AI explanations.',
+    productThinking: {
+      researchContext:
+        'Studied why compliance and operations teams hesitate to adopt AI document reviewers: generative models alone can hallucinate policy thresholds or flip pass/fail verdicts across runs.',
+      userNeeds:
+        'Reviewers need 100% repeatable pass/fail policy checks paired with a fast, plain-English explanation they can share with stakeholders.',
+      alternativesConsidered:
+        'Compared pure prompt-based LLM contract review against keyword-only regex scripts. Prompt-only review lacked audit predictability; keyword scripts gave no human-readable explanation.',
+      productDecision:
+        'Separated decision authority from explanation: FAISS retrieves clauses, deterministic Python rules lock the pass/fail verdict with a SHA-256 hash, and ONNX Runtime + DirectML generates the narrative explanation.',
+      prototypeEvolution:
+        'Built as a FastAPI + Streamlit technical prototype benchmarked on AMD Ryzen AI hardware (~420ms explanation latency via DirectML).',
+    },
     plainFeatures: [
       {
         plain: 'Fixed business rules make the compliance pass/fail decision—never an AI guess.',
@@ -1101,6 +1105,18 @@ ORDER BY avg_purchase_value DESC;`,
       'A solo-built investigation workbench (TypeScript, Vite, Express, deployed on Vercel) that lets users filter event streams, inspect alert details, and trace timelines using synthetic demonstration data.',
     resultSummary:
       'Deployed live on Vercel with full source code on GitHub, demonstrating custom workbench UI design and interactive filtering.',
+    productThinking: {
+      researchContext:
+        'Explored how operational and security analysts triage dense alert logs under time pressure during the Orcathon 2026 competition.',
+      userNeeds:
+        'Analysts needed fast signal filtering, clear severity badges, and a connected timeline view without spinning up live infrastructure.',
+      alternativesConsidered:
+        'Considered static table logs versus an interactive timeline workbench powered by deterministic synthetic fixtures.',
+      productDecision:
+        'Built a responsive TypeScript + Vite + Express workbench deployed on Vercel using safe synthetic event fixtures so anyone can test the investigation flow immediately.',
+      prototypeEvolution:
+        'Designed and shipped solo during Orcathon 2026 as a live interactive investigation interface.',
+    },
     plainFeatures: [
       {
         plain: 'Filters noisy event lists quickly so you can focus on specific alerts or time windows.',
@@ -1230,7 +1246,7 @@ export const SERVICES: ServiceCategory[] = [
   {
     id: 'data-intelligence',
     number: '01',
-    title: 'Data & Intelligence',
+    title: 'Data & Business Intelligence',
     plainTagline: 'Business analytics, dashboards, customer insights and research-driven decisions.',
     domain: 'data-intelligence',
     targetAudience:
@@ -1286,7 +1302,7 @@ export const SERVICES: ServiceCategory[] = [
   {
     id: 'ai-automation',
     number: '02',
-    title: 'AI & Automation',
+    title: 'AI & Workflow Automation',
     plainTagline: 'Document processing, practical AI workflows, automation and rule-backed systems.',
     domain: 'ai-automation',
     targetAudience:
@@ -1343,7 +1359,7 @@ export const SERVICES: ServiceCategory[] = [
   {
     id: 'digital-products',
     number: '03',
-    title: 'Digital Products',
+    title: 'Digital Products & Prototyping',
     plainTagline: 'Product research, prototypes, web applications and custom digital tools.',
     domain: 'custom-systems',
     targetAudience:
@@ -1407,33 +1423,52 @@ export const SERVICES: ServiceCategory[] = [
 
 export const SUPPORTING_CAPABILITIES = [
   {
-    id: 'software-quality-engineering',
+    id: 'product-strategy-ux',
     number: 'S1',
-    title: 'Software Quality & Engineering',
-    tagline: 'Reliable rules, clean data pipelines, and automated reporting accuracy.',
+    title: 'Product Strategy & UX',
+    tagline: 'Problem discovery, user workflows, and clear interface design before coding.',
+    problem:
+      'Jumping straight into code without understanding how people actually work often leads to cluttered software nobody wants to use.',
+    whatIDo:
+      'I map out user needs, evaluate simpler alternatives first, and design clean, readable interfaces before writing production code.',
+    whatYouReceive:
+      'Clear workflow diagrams, thoughtful screen layouts, and software that feels straightforward to use.',
+    evidenceProjects: [
+      'Notice Decoder (Schedule planner & Change Radar UX)',
+      'Lureline (Interactive investigation timeline workbench)',
+      'ResolX.ai AI Solutioning Internship',
+    ],
+  },
+  {
+    id: 'brand-market-research',
+    number: 'S2',
+    title: 'Brand & Market Research',
+    tagline: 'Customer segmentation, competitor research, and insight synthesis grounded in data.',
+    problem:
+      'Many businesses confuse paid ads, brand positioning, and customer retention—or launch features without studying competitor and customer patterns.',
+    whatIDo:
+      'I study customer transaction behaviour, synthesise market and competitor information into plain-English briefs, and connect research directly to product and retention decisions.',
+    whatYouReceive:
+      'Structured research briefs, customer segmentation playbooks, and clear positioning recommendations.',
+    evidenceProjects: [
+      'Decoding Customer Value (3,900-record loyalty vs. discount study)',
+      'CareerWithDishani Research & Insight Synthesis Internship',
+    ],
+  },
+  {
+    id: 'software-quality',
+    number: 'S3',
+    title: 'Software Quality',
+    tagline: 'Reliable rules, cryptographic file checks, deduplication, and automated reporting accuracy.',
     problem:
       'Prototypes and internal tools often break when given messy files, duplicate records, or edge-case dates.',
     whatIDo:
       'I build fixed validation rules, SHA-256 file integrity checks, deduplication logic, and structured PDF/calendar exports so software behaves predictably.',
     whatYouReceive:
       'Clean, maintainable TypeScript/Python codebases with automated checks and clear technical handover documentation.',
-    evidenceProjects: ['SentinelX (SHA-256 & 5-level normalization)', 'Notice Decoder (Fixed interval clash rules)'],
-  },
-  {
-    id: 'research-strategy',
-    number: 'S2',
-    title: 'Research & Strategy',
-    tagline: 'Structured problem discovery, insight synthesis, and practical scoping before building.',
-    problem:
-      'Jumping straight into coding without researching the workflow or data often leads to expensive tools nobody uses.',
-    whatIDo:
-      'I study your existing process, synthesise market or customer findings into clear briefs, and map out the simplest digital solution before writing code.',
-    whatYouReceive:
-      'Written research synthesis, system flow diagrams, and an honest recommendation on what to build first.',
     evidenceProjects: [
-      'CareerWithDishani Research & Insight Synthesis Internship',
-      'ResolX.ai AI Solutioning Internship',
-      'Decoding Customer Value Retention Playbook',
+      'SentinelX (SHA-256 integrity & 5-level normalization)',
+      'Contract Risk Governance Engine (Deterministic rule engine + SHA-256 audit hash)',
     ],
   },
 ];
@@ -1601,38 +1636,121 @@ export const PROCESS_STAGES: ProcessStage[] = [
 
 export const INSIGHT_NOTES: InsightNote[] = [
   {
-    id: 'revenue-vs-customer-loyalty',
+    id: 'marketing-vs-branding-vs-advertising',
     number: '01',
-    title: 'Why Your Biggest Spenders Aren’t Always Your Most Loyal Customers',
-    category: 'Business Data & Retention',
-    readTime: '3 min read',
+    title: 'Marketing vs. Branding vs. Advertising: How They Actually Fit Together',
+    category: 'Marketing & Brand Research',
+    readTime: '4 min read',
+    groundedInProject: 'Educational Research Article & Decoding Customer Value',
+    groundedProjectSlug: 'decoding-customer-value',
+    thesis:
+      'Marketing, branding, and advertising are related, but they are not the same job: marketing is the broader business growth system, branding is the identity and trust a business builds, and advertising is paid promotion inside that system.',
+    plainSummary: [
+      'Founders and small business owners often use the words marketing, branding, and advertising as if they mean the exact same thing. When a business treats them as interchangeable, it usually ends up paying for ads before fixing its product positioning or customer retention.',
+      'Marketing is the complete system for understanding customer needs, designing the right offer, choosing pricing and channels, and keeping buyers coming back. Advertising is just one paid lever inside marketing—renting attention through search ads, social campaigns, or sponsorships.',
+      'Branding is what remains when the paid ad stops running: the reputation, clarity, and trust a customer associates with your name. In my work, I approach these through research and customer data analysis rather than claiming to run a full-service ad agency.',
+    ],
+    keyTakeaways: [
+      'Marketing (The Growth System): How you research the market, price your offer, distribute it, and retain customers over time.',
+      'Branding (Identity & Perception): Why a customer trusts you, remembers you, and buys at full price without waiting for a coupon.',
+      'Advertising (Paid Promotion): Paid campaigns used to amplify a message once your offer and audience are already clear.',
+    ],
+    practicalImplicationForSMBs:
+      'Before increasing your paid advertising budget, check your customer data first: if buyers only purchase when given a heavy discount, more ads will only amplify margin leakage.',
+    technicalBreakdown: [
+      'Educational synthesis connecting brand perception directly to measurable repeat-purchase metrics.',
+      'Grounded in our 3,900-record Decoding Customer Value study, where we measured organic repeat purchases against promo-code dependency.',
+      'Clarifies where data analysis and product thinking support a founder’s growth strategy.',
+    ],
+  },
+  {
+    id: 'brand-strategy-customer-journeys-loyalty',
+    number: '02',
+    title: 'Consumer Behaviour & Customer Journeys: Why High Spend Isn’t Always Brand Loyalty',
+    category: 'Marketing & Brand Research',
+    readTime: '4 min read',
     groundedInProject: 'Decoding Customer Value (3,900-record study)',
     groundedProjectSlug: 'decoding-customer-value',
     thesis:
-      'If you only sort customers by total money spent, you can easily confuse discount hunters with genuinely loyal buyers.',
+      'True brand positioning shows up in customer behaviour: if a high-spending customer segment only buys when a promo code is active, they are loyal to the discount, not the brand.',
     plainSummary: [
-      'When businesses look at their sales sheets, they usually reward the customers who spent the most money.',
-      'However, in our study of 3,900 shopping records, we found that some high-spending customer groups almost always used a discount or promo code to buy.',
-      'If you send those discount-hunters the same offers as customers who happily pay full price, you give away profit margin unnecessarily.',
+      'When businesses map their customer journey, they often group buyers simply by total money spent and assume top spenders are brand advocates.',
+      'In our analysis of 3,900 customer shopping records, we cross-checked purchase spend against how frequently each segment relied on discounts and promo codes.',
+      'Separating full-price repeat buyers from discount-triggered buyers lets a business design smarter integrated campaigns—rewarding genuine loyalty with early access while keeping promotional discounts targeted.',
     ],
     keyTakeaways: [
-      'Always check how often a customer used a coupon code alongside how much they spent.',
-      'Create two different plans: reward full-price repeat buyers with early access or perks, and use targeted promos carefully for price-sensitive buyers.',
-      'Note: These findings come specifically from the 3,900-record dataset studied, so every store should check this pattern on its own order history.',
+      'Track promo-code usage alongside order value at every stage of the customer journey.',
+      'Align integrated marketing campaigns with margin reality: do not train full-price loyalists to wait for seasonal coupon codes.',
+      'Dataset scope note: These behavioural patterns are specific to the 3,900-record dataset studied and should be tested on your own order logs.',
     ],
     practicalImplicationForSMBs:
-      'Before running your next blanket discount sale, ask a simple question of your order spreadsheet: which customers come back without a coupon code?',
+      'Ask one question of your sales export this week: which customer segments return for a second and third order without a discount code?',
     technicalBreakdown: [
       'Cleaned and validated 3,900 customer rows in Python (Pandas and NumPy).',
-      'Ran SQL aggregation queries comparing average purchase value against the percentage of orders with discount_applied or promo_code_used.',
-      'Built an interactive Power BI dashboard and segment-by-segment Retention Playbook.',
+      'Wrote SQL cohort and segment queries comparing average purchase value against promo_dependency_pct.',
+      'Delivered an interactive Power BI dashboard and a segment-by-segment Retention Playbook.',
+    ],
+  },
+  {
+    id: 'product-discovery-problem-validation',
+    number: '03',
+    title: 'Product Discovery & Problem Validation: Defining the Real Bottleneck Before Writing Code',
+    category: 'Product Thinking',
+    readTime: '4 min read',
+    groundedInProject: 'Notice Decoder & SentinelX',
+    groundedProjectSlug: 'notice-decoder',
+    thesis:
+      'Good product engineering starts by questioning the problem first: before choosing a framework or AI model, map what users actually struggle with and test why simpler alternatives fall short.',
+    plainSummary: [
+      'It is easy to jump straight into building a dashboard or AI chatbot the moment someone describes an idea. Without product discovery, you risk building a polished interface that misses the real operational pain.',
+      'When designing Notice Decoder, the real problem was not "summarise a college circular"—students can skim a paragraph themselves. The real pain was missing a deadline clash or failing to notice that a revised circular shifted an exam date.',
+      'Similarly, in SentinelX, security analysts did not need another scanner; they needed a way to merge messy XML/CSV outputs from Nmap and OWASP ZAP, remove duplicate alerts, and export a clean executive PDF in one click.',
+    ],
+    keyTakeaways: [
+      'Separate the surface request ("build an AI notice reader") from the real user need ("warn me before two events clash").',
+      'Compare low-code or manual alternatives honestly before committing to custom software.',
+      'Prototype the highest-risk workflow step first so users can test real inputs early.',
+    ],
+    practicalImplicationForSMBs:
+      'When scoping a new digital tool, spend the first few days inspecting real sample documents or spreadsheets—it saves weeks of unnecessary coding later.',
+    technicalBreakdown: [
+      'Applied structured product thinking (Problem → Research → User Needs → Alternatives → Decision → Prototype) across Notice Decoder and SentinelX.',
+      'Built Notice Change Radar and deterministic interval clash checks in React + Express.',
+      'Designed multi-tool XML/CSV deduplication and ReportLab PDF generation in Python + FastAPI.',
+    ],
+  },
+  {
+    id: 'competitor-research-market-analysis',
+    number: '04',
+    title: 'Competitor Research & Market Analysis: Finding Practical Gaps for New Digital Tools',
+    category: 'Product Thinking',
+    readTime: '3 min read',
+    groundedInProject: 'CareerWithDishani & ResolX.ai Internship Research + Lureline',
+    groundedProjectSlug: 'lureline',
+    thesis:
+      'Useful market and competitor research is not about copying feature checklists—it is about spotting where existing tools are too complex, too expensive, or too rigid for everyday teams.',
+    plainSummary: [
+      'When founders study competitors, they often collect a giant spreadsheet of twenty features and try to build all of them at once.',
+      'Through my research and solution-design work—both in internship synthesis projects and when building focused tools like Lureline—I found that small businesses and operational teams rarely want more buttons.',
+      'Instead, the strongest product opportunity usually lies in removing friction: turning a cluttered, multi-step workflow into one clear screen that works reliably on the team’s existing files.',
+    ],
+    keyTakeaways: [
+      'Look for workflow friction in existing tools rather than trying to match big-company feature lists.',
+      'Synthesise scattered market research into a one-page decision brief that anyone on the team can read in five minutes.',
+      'Validate the gap with a fast, working prototype using realistic sample data.',
+    ],
+    practicalImplicationForSMBs:
+      'If off-the-shelf software feels too bloated for your team, a small custom web tool focused on your exact 3-step workflow is often faster to adopt.',
+    technicalBreakdown: [
+      'Synthesised multi-source research into structured decision guides during internship work at CareerWithDishani and ResolX.ai.',
+      'Designed Lureline in TypeScript, Vite, and Express using deterministic synthetic fixtures so reviewers can test timeline filtering immediately.',
     ],
   },
   {
     id: 'deterministic-extraction-document-automation',
-    number: '02',
+    number: '05',
     title: 'How to Automate Document Reading Without Letting AI Guess Dates',
-    category: 'AI & Workflow Automation',
+    category: 'Applied AI & Data',
     readTime: '4 min read',
     groundedInProject: 'Notice Decoder',
     groundedProjectSlug: 'notice-decoder',
@@ -1657,38 +1775,10 @@ export const INSIGHT_NOTES: InsightNote[] = [
     ],
   },
   {
-    id: 'evidence-backed-reporting-systems',
-    number: '03',
-    title: 'Turning Scattered Technical Files Into One-Click PDF Reports',
-    category: 'Custom Digital Tools',
-    readTime: '4 min read',
-    groundedInProject: 'SentinelX (100+ page technical report)',
-    groundedProjectSlug: 'sentinelx',
-    thesis:
-      'If your team spends hours copying data from different tools into a client report, a custom ingestion and PDF pipeline can do it reliably in minutes.',
-    plainSummary: [
-      'Technical teams often use two or three different diagnostic tools that each export their own messy XML or CSV file.',
-      'Someone then has to open every file, remove duplicate warnings, standardise the priority labels, and format a PDF report for management.',
-      'In SentinelX, we built a Python and React system that reads the raw files, checks their digital fingerprint so nothing is altered, removes duplicates, and generates a clean executive PDF report automatically.',
-    ],
-    keyTakeaways: [
-      'Recording a digital fingerprint (SHA-256) when a file is uploaded proves the final report came from unaltered data.',
-      'Translating different tool outputs into a single 5-level priority scale makes dashboards easy for non-technical managers to read.',
-      'Generating PDFs directly from code avoids broken page layouts and manual copy-paste mistakes.',
-    ],
-    practicalImplicationForSMBs:
-      'If your team prepares the same style of PDF or summary report every week from raw CSV/XML exports, that workflow is a prime candidate for a custom internal tool.',
-    technicalBreakdown: [
-      'Ingests Nmap XML and OWASP ZAP XML/CSV files in Python (FastAPI) using ThreadPoolExecutor for parallel parsing.',
-      'Computes SHA-256 hashes, deduplicates findings, and stores normalized 5-severity records in SQLite via SQLAlchemy.',
-      'Renders interactive charts in React 19 (Recharts) and compiles executive PDFs with ReportLab.',
-    ],
-  },
-  {
     id: 'ai-without-surrendering-business-logic',
-    number: '04',
-    title: 'Using AI for Plain-English Explanations While Rules Make the Decisions',
-    category: 'Applied AI & Compliance',
+    number: '06',
+    title: 'Rule-Backed AI: Keeping Compliance Decisions in Fixed Code While AI Writes the Explanation',
+    category: 'Applied AI & Data',
     readTime: '3 min read',
     groundedInProject: 'Contract Risk Governance Engine',
     groundedProjectSlug: 'contract-risk-governance',
@@ -1697,7 +1787,7 @@ export const INSIGHT_NOTES: InsightNote[] = [
     plainSummary: [
       'Business owners often worry that adding AI to a review process means losing control over company policies.',
       'In the Contract Risk Governance Engine prototype, the AI never decides whether a contract clause is compliant.',
-      'Instead, fixed rules check the clause first. Once the pass/fail result is locked, the AI writes a short, easy-to-read explanation for the human reviewer.',
+      'Instead, fixed rules check the clause first. Once the pass/fail result is locked and sealed with a SHA-256 fingerprint, the AI writes a short, easy-to-read explanation for the human reviewer.',
     ],
     keyTakeaways: [
       'Keep your business rules, thresholds, and compliance checks in fixed, predictable code.',

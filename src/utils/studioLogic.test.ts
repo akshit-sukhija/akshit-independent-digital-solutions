@@ -20,9 +20,12 @@ import {
   VERIFIED_EXPERIENCE,
   VERIFIED_ACADEMIC_RECORD,
   ENGAGEMENT_STEPS,
+  INSIGHT_NOTES,
+  TECHNOLOGY_EXPLORER_ITEMS,
+  STUDIO_FAQS,
 } from '../data/studioData';
 
-test('strict project hierarchy preserves Notice Decoder, SentinelX, Decoding Customer Value, Contract Risk Governance, and Lureline', () => {
+test('strict project hierarchy preserves Notice Decoder, SentinelX, Decoding Customer Value, Contract Risk Governance, and Lureline with full productThinking flow', () => {
   const all = filterAndSortProjects('all', 'all');
   assert.equal(all.length, 5);
   assert.equal(all[0].slug, 'notice-decoder');
@@ -30,6 +33,14 @@ test('strict project hierarchy preserves Notice Decoder, SentinelX, Decoding Cus
   assert.equal(all[2].slug, 'decoding-customer-value');
   assert.equal(all[3].slug, 'contract-risk-governance');
   assert.equal(all[4].slug, 'lureline');
+
+  for (const project of all) {
+    assert.ok(project.productThinking.researchContext.length > 20);
+    assert.ok(project.productThinking.userNeeds.length > 20);
+    assert.ok(project.productThinking.alternativesConsidered.length > 20);
+    assert.ok(project.productThinking.productDecision.length > 20);
+    assert.ok(project.productThinking.prototypeEvolution.length > 20);
+  }
 });
 
 test('Portfolio Explorer filters by category, technology, and evidence type accurately', () => {
@@ -52,7 +63,7 @@ test('Portfolio Explorer filters by category, technology, and evidence type accu
   );
 });
 
-test('factual accuracy guardrails on project, academic, and internship records', () => {
+test('factual accuracy guardrails on project, academic, internship, and central profile records', () => {
   const sentinelx = getProjectBySlug('sentinelx');
   assert.ok(sentinelx);
   assert.equal(sentinelx.liveDemoUrl, undefined);
@@ -71,6 +82,12 @@ test('factual accuracy guardrails on project, academic, and internship records',
   // Verify academic record, verified contact config, and 5-step signature methodology
   assert.equal(VERIFIED_ACADEMIC_RECORD.cgpa, '9.10 / 10');
   assert.equal(VERIFIED_ACADEMIC_RECORD.aggregatePercentage, '85.026%');
+  assert.equal(PROFILE_CONFIG.name, 'AKSHIT SUKHIJA');
+  assert.equal(PROFILE_CONFIG.roleSubtitle, 'Independent Digital & Product Solutions');
+  assert.equal(
+    PROFILE_CONFIG.shortBio,
+    'I turn business problems and early ideas into useful digital solutions through research, data, AI and technology.'
+  );
   assert.equal(PROFILE_CONFIG.contact.github.url, 'https://github.com/akshit-sukhija');
   assert.equal(PROFILE_CONFIG.contact.linkedin.url, 'https://www.linkedin.com/in/akshit-sukhija-/');
   assert.equal(PROFILE_CONFIG.contact.emailPrimary.address, 'akshithere075@gmail.com');
@@ -80,6 +97,20 @@ test('factual accuracy guardrails on project, academic, and internship records',
     ENGAGEMENT_STEPS.map((s) => s.stageKey),
     ['RESEARCH', 'ANALYSIS', 'AI & LOGIC', 'SOFTWARE', 'DELIVERY']
   );
+
+  // Verify Insights includes Marketing vs Branding vs Advertising research article
+  assert.equal(INSIGHT_NOTES[0].id, 'marketing-vs-branding-vs-advertising');
+  assert.ok(TECHNOLOGY_EXPLORER_ITEMS.length >= 6);
+  assert.equal(STUDIO_FAQS.length, 5);
+  assert.deepEqual(
+    STUDIO_FAQS.map((f) => f.category),
+    ['Scope', 'Project Stages', 'Collaboration Models', 'Delivery Timelines', 'Handover']
+  );
+  for (const faq of STUDIO_FAQS) {
+    assert.ok(faq.id.length > 3);
+    assert.ok(faq.question.length > 10);
+    assert.ok(faq.answer.length > 40);
+  }
 });
 
 test('three-question SolutionFinder rule-based matching recommends appropriate service and project evidence', () => {
@@ -107,7 +138,7 @@ test('three-question SolutionFinder rule-based matching recommends appropriate s
   });
   assert.equal(productRec.recommendedService.id, 'digital-products');
   assert.equal(productRec.relevantProject.slug, 'sentinelx');
-  assert.ok(productRec.supportingCapabilityNote?.includes('Software Quality & Engineering'));
+  assert.ok(productRec.supportingCapabilityNote?.includes('Software Quality'));
 });
 
 test('four-step estimateProjectScope recommends appropriate service without inventing prices', () => {
@@ -158,7 +189,7 @@ test('validateEnquiryForm rejects empty or invalid inputs and accepts valid Indi
 
   const brief = formatEnquiryBrief(validInput);
   assert.ok(brief.includes('Mehta Retail & D2C'));
-  assert.ok(brief.includes('01. Data & Intelligence'));
+  assert.ok(brief.includes('01. Data & Business Intelligence'));
   assert.ok(brief.includes('Indicative only; final quote depends on scope review'));
 });
 

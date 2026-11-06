@@ -9,6 +9,7 @@ import {
   FiveStepProcessDiagram,
 } from '../components/ArchitectureDiagram';
 import { CtaSection } from '../components/CtaSection';
+import { StudioFaqSection } from '../components/StudioFaqSection';
 import {
   SERVICES,
   SUPPORTING_CAPABILITIES,
@@ -25,16 +26,16 @@ export function SolutionsPage() {
   return (
     <div>
       <PageMeta
-        title="Solutions & Service Categories — Data, AI & Digital Products"
-        description="Explore Data & Intelligence, AI & Automation, and Digital Products—plus the 3-Question Solution Finder and flexible engagement models."
+        title="Solutions & Capabilities — Data, AI & Digital Products"
+        description="Explore Data & Business Intelligence, AI & Workflow Automation, and Digital Products & Prototyping—plus the 3-Question Solution Finder and FAQ."
       />
 
       {/* 1. Header */}
       <section className="bg-[#0E0F14] bg-lamplit-glow border-b border-[#2C2F42] pt-14 pb-16 px-6">
         <div className="max-w-[1200px] mx-auto">
           <MotionReveal className="max-w-3xl space-y-5">
-            <p className="font-mono text-xs text-[#8B75FF]">
-              Services &amp; Capabilities · Personal Studio / Editorial Technology
+            <p className="font-mono text-xs text-[#D4AE5C] uppercase tracking-wider">
+              Solutions &amp; Capabilities · AKSHIT SUKHIJA
             </p>
             <h1
               className="font-display text-[#F4F0E8] leading-[1.08]"
@@ -44,14 +45,14 @@ export function SolutionsPage() {
             </h1>
             <p className="text-base sm:text-lg text-[#A6A9B8] leading-relaxed">
               You never need to pick programming languages or technical frameworks yourself. Use
-              the 3-question Solution Finder below or browse the three core service categories to
-              see how I can help.
+              the 3-question Solution Finder below or browse the three core capabilities to see how
+              we can work together.
             </p>
           </MotionReveal>
         </div>
       </section>
 
-      {/* 2. Reusable 3-Question SolutionFinder (Section 6A) */}
+      {/* 2. Reusable 3-Question SolutionFinder */}
       <section className="bg-[#0E0F14] border-b border-[#2C2F42] py-16 px-6">
         <div className="max-w-[1200px] mx-auto">
           <MotionReveal>
@@ -60,15 +61,15 @@ export function SolutionsPage() {
         </div>
       </section>
 
-      {/* 3. Three Core Commercial Service Categories (Problem -> What I Do -> What You Receive -> Project Evidence) */}
+      {/* 3. Three Core Capabilities */}
       <section className="bg-[#0E0F14] border-b border-[#2C2F42] py-20 px-6">
         <div className="max-w-[1200px] mx-auto space-y-12">
           <MotionReveal className="max-w-3xl space-y-2">
-            <p className="font-mono text-xs text-[#8B75FF]">
-              01 · Core Commercial Categories
+            <p className="font-mono text-xs text-[#D4AE5C] uppercase tracking-wide">
+              Core Capabilities
             </p>
             <h2 className="font-display text-3xl sm:text-4xl text-[#F4F0E8]">
-              1. Data &amp; Intelligence · 2. AI &amp; Automation · 3. Digital Products
+              Data &amp; Business Intelligence · AI &amp; Workflow Automation · Digital Products &amp; Prototyping
             </h2>
           </MotionReveal>
 
@@ -84,7 +85,7 @@ export function SolutionsPage() {
                   <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-4 pb-6 border-b border-[#2C2F42]">
                     <div className="space-y-2 max-w-2xl">
                       <p className="font-mono text-xs text-[#8B75FF]">
-                        Core Category {service.number} · {service.targetAudience}
+                        Core Capability {service.number} · {service.targetAudience}
                       </p>
                       <h3 className="font-display text-3xl sm:text-4xl text-[#F4F0E8]">
                         {service.number}. {service.title}
@@ -111,13 +112,13 @@ export function SolutionsPage() {
                     <div className="lg:col-span-7 space-y-6">
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div className="bg-[#0E0F14] border border-[#2C2F42] rounded-xl p-5 space-y-2">
-                          <p className="font-mono text-xs text-[#A6A9B8]">01 · The Problem</p>
+                          <p className="font-mono text-xs text-[#A6A9B8]">The Problem</p>
                           <p className="text-sm text-[#F4F0E8] leading-relaxed">
                             {service.problemStatement}
                           </p>
                         </div>
                         <div className="bg-[#0E0F14] border border-[#8B75FF]/40 rounded-xl p-5 space-y-2">
-                          <p className="font-mono text-xs text-[#8B75FF]">02 · What I Do</p>
+                          <p className="font-mono text-xs text-[#8B75FF]">What I Do</p>
                           <p className="text-sm text-[#F4F0E8] leading-relaxed">
                             {service.description}
                           </p>
@@ -155,7 +156,7 @@ export function SolutionsPage() {
                     <div className="lg:col-span-5 bg-[#0E0F14] border border-[#2C2F42] rounded-xl p-6 space-y-6">
                       <div>
                         <p className="font-mono text-xs text-[#D4AE5C] pb-3 border-b border-[#2C2F42]">
-                          03 · What You Receive
+                          What You Receive
                         </p>
                         <ul className="space-y-2.5 text-xs text-[#F4F0E8] pt-3">
                           {service.deliverables.map((item) => (
@@ -198,7 +199,7 @@ export function SolutionsPage() {
 
                       <div className="pt-4 border-t border-[#2C2F42] space-y-3">
                         <p className="font-mono text-xs text-[#8B75FF]">
-                          04 · Relevant Project Evidence
+                          Relevant Project Evidence
                         </p>
                         {service.portfolioProof.map((proof) => (
                           <div
@@ -231,68 +232,66 @@ export function SolutionsPage() {
         </div>
       </section>
 
-      {/* 4. Two Supporting Capabilities (Section 7) */}
+      {/* 4. Three Supporting Capabilities (Warm Ivory Section) */}
       <section className="bg-[#F5F1E8] text-[#0E0F14] border-b border-[#D4CBB8] py-16 px-6 bg-ivory-grid">
         <div className="max-w-[1200px] mx-auto space-y-8">
           <MotionReveal className="max-w-3xl space-y-2">
-            <p className="font-mono text-xs text-[#4A32C4] font-medium">
-              02 · Supporting Capabilities
+            <p className="font-mono text-xs text-[#4A32C4] font-medium uppercase tracking-wide">
+              Supporting Capabilities
             </p>
             <h2 className="font-display text-3xl sm:text-4xl text-[#0E0F14]">
-              Software Quality &amp; Engineering + Research &amp; Strategy
+              Product Strategy &amp; UX · Brand &amp; Market Research · Software Quality
             </h2>
             <p className="text-sm sm:text-base text-[#1E202E]">
-              Every project is backed by structured research before coding and strict quality
-              checks during delivery.
+              Every project is backed by structured problem discovery before coding and strict
+              quality checks during delivery.
             </p>
           </MotionReveal>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {SUPPORTING_CAPABILITIES.map((cap) => (
               <div
                 key={cap.id}
-                className="bg-[#EAE3D5] border border-[#D4CBB8] rounded-2xl p-7 space-y-4"
+                className="bg-[#EAE3D5] border border-[#D4CBB8] rounded-2xl p-6 space-y-4 flex flex-col justify-between"
               >
-                <div className="flex items-center justify-between font-mono text-xs">
-                  <span className="text-[#4A32C4] font-semibold inline-flex items-center gap-1.5">
-                    <Sparkles className="w-3.5 h-3.5" />
-                    Supporting Capability {cap.number}
-                  </span>
-                  <span className="text-[#7A5B14]">Included Where Needed</span>
-                </div>
-                <h3 className="font-display text-3xl text-[#0E0F14]">{cap.title}</h3>
-                <p className="text-sm font-medium text-[#4A32C4]">{cap.tagline}</p>
+                <div className="space-y-3">
+                  <div className="flex items-center justify-between font-mono text-xs">
+                    <span className="text-[#4A32C4] font-semibold inline-flex items-center gap-1.5">
+                      <Sparkles className="w-3.5 h-3.5" />
+                      {cap.number}
+                    </span>
+                    <span className="text-[#7A5B14]">Supporting</span>
+                  </div>
+                  <h3 className="font-display text-2xl text-[#0E0F14]">{cap.title}</h3>
+                  <p className="text-xs font-medium text-[#4A32C4]">{cap.tagline}</p>
 
-                <div className="space-y-2 text-xs text-[#1E202E] pt-2 border-t border-[#D4CBB8]">
-                  <p>
-                    <strong>Problem: </strong>
-                    {cap.problem}
-                  </p>
-                  <p>
-                    <strong>What I Do: </strong>
-                    {cap.whatIDo}
-                  </p>
-                  <p>
-                    <strong>What You Receive: </strong>
-                    {cap.whatYouReceive}
-                  </p>
-                  <p className="font-mono text-[11px] text-[#7A5B14] pt-1">
-                    Proven in: {cap.evidenceProjects.join(' · ')}
-                  </p>
+                  <div className="space-y-2 text-xs text-[#1E202E] pt-2 border-t border-[#D4CBB8]">
+                    <p>
+                      <strong>What I Do: </strong>
+                      {cap.whatIDo}
+                    </p>
+                    <p>
+                      <strong>What You Receive: </strong>
+                      {cap.whatYouReceive}
+                    </p>
+                  </div>
                 </div>
+                <p className="font-mono text-[11px] text-[#7A5B14] pt-3 border-t border-[#D4CBB8]">
+                  Proven in: {cap.evidenceProjects.join(' · ')}
+                </p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* 5. Flexible Engagement Models & 4-Step Scope Estimator */}
+      {/* 5. Flexible Engagement Models, 4-Step Scope Estimator & Working Process */}
       <section className="bg-[#0E0F14] border-b border-[#2C2F42] py-20 px-6">
         <div className="max-w-[1200px] mx-auto space-y-14">
           <div className="space-y-8">
             <MotionReveal className="max-w-3xl space-y-2">
-              <p className="font-mono text-xs text-[#8B75FF]">
-                03 · Flexible Engagement Models (INR)
+              <p className="font-mono text-xs text-[#D4AE5C] uppercase tracking-wide">
+                Flexible Engagement Models (INR)
               </p>
               <h2 className="font-display text-3xl sm:text-4xl text-[#F4F0E8]">
                 Start Small With a Pilot or Scope a Full Custom Build
@@ -336,6 +335,8 @@ export function SolutionsPage() {
           </MotionReveal>
         </div>
       </section>
+
+      <StudioFaqSection variant="dark" showCtaLink={true} />
 
       <CtaSection
         variant="ivory"

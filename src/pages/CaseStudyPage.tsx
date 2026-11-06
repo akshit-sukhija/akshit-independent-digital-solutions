@@ -155,39 +155,90 @@ export function CaseStudyPage() {
         </div>
       </section>
 
-      {/* Section 1 & 2: Problem -> Approach -> Result */}
-      <section className="bg-[#11100E] py-16 px-6 border-b border-[#3A3429]">
+      {/* Section 1: Product-Thinking Case Study Flow (Problem -> Research -> User Needs -> Alternatives -> Decision -> Prototype -> Implementation -> Evidence) */}
+      <section className="bg-[#0E0F14] py-16 px-6 border-b border-[#2C2F42]">
         <div className="max-w-[1200px] mx-auto space-y-12">
+          <MotionReveal className="space-y-2 max-w-3xl">
+            <p className="font-mono text-xs text-[#D4AE5C] uppercase tracking-wide">
+              Product-Thinking Narrative
+            </p>
+            <h2 className="font-display text-3xl sm:text-4xl text-[#F4F0E8]">
+              From Problem Discovery &amp; Alternatives to Working Implementation
+            </h2>
+            <p className="text-sm text-[#A6A9B8]">
+              How this project progressed from initial problem framing and user research to
+              evaluating alternatives, making the key architectural decision, and shipping the
+              verified deliverable.
+            </p>
+          </MotionReveal>
+
+          {/* Top Row: Problem -> Research -> User Needs */}
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-            <MotionReveal className="bg-[#1A1814] border border-[#3A3429] rounded-lg p-6 space-y-3">
-              <p className="font-mono text-xs text-[#C9A24B]">01 · The Problem</p>
-              <h2 className="font-display text-2xl text-[#F2EBDD]">What Was Going Wrong</h2>
-              <p className="text-sm text-[#F2EBDD]/90 leading-relaxed">{project.problemSummary}</p>
-              <p className="text-xs text-[#A9A092] leading-relaxed pt-2 border-t border-[#3A3429]">
+            <MotionReveal className="bg-[#161822] border border-[#2C2F42] rounded-xl p-6 space-y-3">
+              <p className="font-mono text-xs text-[#D4AE5C]">01 · Problem</p>
+              <h3 className="font-display text-2xl text-[#F4F0E8]">What Was Going Wrong</h3>
+              <p className="text-sm text-[#F4F0E8]/90 leading-relaxed">{project.problemSummary}</p>
+              <p className="text-xs text-[#A6A9B8] leading-relaxed pt-2 border-t border-[#2C2F42]">
                 {project.businessContext}
               </p>
             </MotionReveal>
 
             <MotionReveal
-              delay={0.05}
-              className="bg-[#1A1814] border border-[#3A3429] rounded-lg p-6 space-y-3"
+              delay={0.04}
+              className="bg-[#161822] border border-[#2C2F42] rounded-xl p-6 space-y-3"
             >
-              <p className="font-mono text-xs text-[#C9A24B]">02 · The Approach</p>
-              <h2 className="font-display text-2xl text-[#F2EBDD]">How We Solved It</h2>
-              <p className="text-sm text-[#F2EBDD]/90 leading-relaxed">{project.approachSummary}</p>
-              <p className="text-xs text-[#A9A092] leading-relaxed pt-2 border-t border-[#3A3429]">
-                {project.solutionSummary}
+              <p className="font-mono text-xs text-[#8B75FF]">02 · Research Context</p>
+              <h3 className="font-display text-2xl text-[#F4F0E8]">What We Observed</h3>
+              <p className="text-sm text-[#F4F0E8]/90 leading-relaxed">
+                {project.productThinking.researchContext}
               </p>
             </MotionReveal>
 
             <MotionReveal
-              delay={0.1}
-              className="bg-[#232019] border border-[#C9A24B]/70 rounded-lg p-6 space-y-3"
+              delay={0.08}
+              className="bg-[#161822] border border-[#2C2F42] rounded-xl p-6 space-y-3"
             >
-              <p className="font-mono text-xs text-[#C9A24B]">03 · The Result</p>
-              <h2 className="font-display text-2xl text-[#F2EBDD]">What Was Delivered</h2>
-              <p className="text-sm text-[#F2EBDD] leading-relaxed">{project.resultSummary}</p>
-              <ul className="space-y-1 text-xs text-[#E8D5A8] pt-2 border-t border-[#3A3429]">
+              <p className="font-mono text-xs text-[#7AD992]">03 · User Needs</p>
+              <h3 className="font-display text-2xl text-[#F4F0E8]">What Users Actually Needed</h3>
+              <p className="text-sm text-[#F4F0E8]/90 leading-relaxed">
+                {project.productThinking.userNeeds}
+              </p>
+            </MotionReveal>
+          </div>
+
+          {/* Second Row: Alternatives -> Decision -> Prototype & Evidence */}
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <MotionReveal className="bg-[#161822] border border-[#2C2F42] rounded-xl p-6 space-y-3">
+              <p className="font-mono text-xs text-[#E6D3A7]">04 · Alternatives Considered</p>
+              <h3 className="font-display text-2xl text-[#F4F0E8]">Why Simpler Options Fell Short</h3>
+              <p className="text-sm text-[#A6A9B8] leading-relaxed">
+                {project.productThinking.alternativesConsidered}
+              </p>
+            </MotionReveal>
+
+            <MotionReveal
+              delay={0.04}
+              className="bg-[#161822] border border-[#2C2F42] rounded-xl p-6 space-y-3"
+            >
+              <p className="font-mono text-xs text-[#D4AE5C]">05 · Product &amp; System Decision</p>
+              <h3 className="font-display text-2xl text-[#F4F0E8]">The Chosen Architecture</h3>
+              <p className="text-sm text-[#F4F0E8]/90 leading-relaxed">
+                {project.productThinking.productDecision}
+              </p>
+            </MotionReveal>
+
+            <MotionReveal
+              delay={0.08}
+              className="bg-[#161822] border border-[#D4AE5C]/70 rounded-xl p-6 space-y-3"
+            >
+              <p className="font-mono text-xs text-[#D4AE5C]">
+                06 · Prototype → Implementation &amp; Evidence
+              </p>
+              <h3 className="font-display text-2xl text-[#F4F0E8]">What Was Delivered</h3>
+              <p className="text-xs text-[#E6D3A7] leading-relaxed">
+                {project.productThinking.prototypeEvolution}
+              </p>
+              <ul className="space-y-1 text-xs text-[#F4F0E8] pt-2 border-t border-[#2C2F42]">
                 {project.deliverables.map((del) => (
                   <li key={del}>· {del}</li>
                 ))}
