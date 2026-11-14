@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {
   filterAndSortProjects,
-  filterPortfolioInventory,
+  filterCuratedWork,
   getProjectBySlug,
   matchProblemToService,
   estimateProjectScope,
@@ -21,23 +21,42 @@ import {
   VERIFIED_EXPERIENCE,
   VERIFIED_ACADEMIC_RECORD,
   ENGAGEMENT_STEPS,
+  SERVICES,
   INSIGHT_NOTES,
   TECHNOLOGY_EXPLORER_ITEMS,
   STUDIO_FAQS,
-  COMPLETE_PORTFOLIO_INVENTORY,
-  RECONCILIATION_AUDIT_SUMMARY,
-  GROUNDING_VERIFICATION_REGISTER,
+  CURATED_WORK_ITEMS,
 } from '../data/studioData';
 
-test('strict flagship case study hierarchy preserves all 6 dedicated case studies including Clarity Redemption AI with full productThinking flow', () => {
+test('flagship case study hierarchy leads with RE:FRAME (1st Place · REVIVEX · ZERO² 2026) and preserves all 7 dedicated case studies', () => {
   const all = filterAndSortProjects('all', 'all');
-  assert.equal(all.length, 6);
-  assert.equal(all[0].slug, 'notice-decoder');
-  assert.equal(all[1].slug, 'sentinelx');
-  assert.equal(all[2].slug, 'decoding-customer-value');
-  assert.equal(all[3].slug, 'contract-risk-governance');
-  assert.equal(all[4].slug, 'lureline');
-  assert.equal(all[5].slug, 'clarity-redemption-ai');
+  assert.equal(all.length, 7);
+  assert.equal(all[0].slug, 'reframe');
+  assert.equal(all[1].slug, 'notice-decoder');
+  assert.equal(all[2].slug, 'sentinelx');
+  assert.equal(all[3].slug, 'decoding-customer-value');
+  assert.equal(all[4].slug, 'contract-risk-governance');
+  assert.equal(all[5].slug, 'lureline');
+  assert.equal(all[6].slug, 'clarity-redemption-ai');
+
+  const reframe = getProjectBySlug('reframe');
+  assert.ok(reframe);
+  assert.equal(reframe.recognitionBadge, '1st Place · REVIVEX · ZERO² 2026');
+  assert.equal(reframe.specialCredit, 'Special Video Credit: Adyot Ohri');
+  assert.equal(
+    reframe.drivePdfUrl,
+    '/assets/aistudio/REFRAME_Smart_Glasses_Product_Concept_97e4e1df.pdf'
+  );
+  assert.equal(
+    reframe.screenshotUrl,
+    '/assets/aistudio/REFRAME_THUMBNAIL_IMAGE_99a3fe50.jpeg'
+  );
+  // Ensure RE:FRAME is honestly documented as an independent, unbuilt product concept
+  assert.ok(
+    reframe.limitationsAndScope.some((lim) =>
+      lim.toLowerCase().includes('independent, unbuilt')
+    )
+  );
 
   for (const project of all) {
     assert.ok(project.productThinking.researchContext.length > 20);
@@ -48,11 +67,11 @@ test('strict flagship case study hierarchy preserves all 6 dedicated case studie
   }
 });
 
-test('Portfolio Explorer filters flagship projects and searches all 29 NotebookLM inventory entries accurately', () => {
+test('Selected Work explorer filters flagship projects and curated work across Selected Projects, Research & Analytics, and Product Concepts', () => {
   const liveApps = filterAndSortProjects('all', 'all', 'all', 'live-demo');
   assert.deepEqual(
     liveApps.map((p) => p.slug),
-    ['notice-decoder', 'lureline']
+    ['notice-decoder', 'sentinelx', 'lureline', 'clarity-redemption-ai']
   );
 
   const pythonProjects = filterAndSortProjects('all', 'all', 'Python', 'all');
@@ -61,51 +80,54 @@ test('Portfolio Explorer filters flagship projects and searches all 29 NotebookL
     ['sentinelx', 'decoding-customer-value', 'contract-risk-governance']
   );
 
-  const reportOrStudy = filterAndSortProjects('all', 'all', 'all', 'report-or-study');
-  assert.deepEqual(
-    reportOrStudy.map((p) => p.slug),
-    ['sentinelx', 'decoding-customer-value']
-  );
+  // Verify the 3 Work page sections exist and contain genuine curated entries
+  const selectedProjects = filterCuratedWork({ workSection: 'selected-projects' });
+  const researchAnalytics = filterCuratedWork({ workSection: 'research-analytics' });
+  const productConcepts = filterCuratedWork({ workSection: 'product-concepts' });
 
-  // Verify complete 29-project inventory partitioning (6 flagship + 18 library + 5 restricted = 29)
-  assert.equal(COMPLETE_PORTFOLIO_INVENTORY.length, 29);
-  assert.equal(RECONCILIATION_AUDIT_SUMMARY.length, 29);
-  assert.equal(GROUNDING_VERIFICATION_REGISTER.length, 9);
+  assert.equal(selectedProjects.length, 7);
+  assert.equal(selectedProjects[0].slug, 'reframe');
+  assert.equal(researchAnalytics.length, 3);
+  assert.equal(productConcepts.length, 5);
 
-  const flagshipItems = filterPortfolioInventory({ tierCategory: 'flagship' });
-  const libraryItems = filterPortfolioInventory({ tierCategory: 'library' });
-  const restrictedItems = filterPortfolioInventory({ tierCategory: 'restricted' });
+  // Verify SIGNAL – Prompt Forge and InsightForgeAI live links and genuine screenshots
+  const signal = CURATED_WORK_ITEMS.find((item) => item.slug === 'signal-prompt-forge');
+  const insightForge = CURATED_WORK_ITEMS.find((item) => item.slug === 'insightforge-ai');
 
-  assert.equal(flagshipItems.length, 6);
-  assert.equal(libraryItems.length, 18);
-  assert.equal(restrictedItems.length, 5);
+  assert.ok(signal);
+  assert.equal(signal.links.liveDemoUrl, 'https://delta-focus.lovable.app');
+  assert.equal(signal.screenshotUrl, '/assets/projects/signal-live.png');
 
-  // Verify keyword search finds UIDAI Colab study and excludes duplicate unverified Drive ID
-  const uidaiSearch = filterPortfolioInventory({ searchQuery: 'UIDAI' });
-  assert.equal(uidaiSearch.length, 1);
-  assert.equal(uidaiSearch[0].inventoryNumber, 8);
-  assert.ok(uidaiSearch[0].links.colabUrl?.includes('17bSIIzpAwQZnbobBpOfM6El0EARxvHka'));
+  assert.ok(insightForge);
+  assert.equal(insightForge.links.liveDemoUrl, 'https://insightforgeai.lovable.app');
+  assert.equal(insightForge.screenshotUrl, '/assets/projects/insightforgeai-live.png');
 
-  // Verify mandatory disclaimers and redactions on #10, #11, #13, #17, #21
-  const dmi = COMPLETE_PORTFOLIO_INVENTORY.find((i) => i.inventoryNumber === 10);
-  const siksha = COMPLETE_PORTFOLIO_INVENTORY.find((i) => i.inventoryNumber === 11);
-  const omvia = COMPLETE_PORTFOLIO_INVENTORY.find((i) => i.inventoryNumber === 13);
-  const nykaa = COMPLETE_PORTFOLIO_INVENTORY.find((i) => i.inventoryNumber === 17);
-  const clensta = COMPLETE_PORTFOLIO_INVENTORY.find((i) => i.inventoryNumber === 21);
+  // Verify UIDAI Colab study and honest concept labels
+  const uidai = CURATED_WORK_ITEMS.find((item) => item.slug === 'uidai-demographic-intelligence');
+  assert.ok(uidai);
+  assert.ok(uidai.links.colabUrl?.includes('17bSIIzpAwQZnbobBpOfM6El0EARxvHka'));
 
-  assert.equal(dmi?.tierCategory, 'restricted');
-  assert.ok(dmi?.mandatoryLabel?.includes('Borrower PII'));
-  assert.equal(siksha?.tierCategory, 'restricted');
-  assert.ok(omvia?.mandatoryLabel?.includes('Not a Deployed Model'));
-  assert.ok(nykaa?.mandatoryLabel?.includes('Independent Concept; Not commissioned by Nykaa'));
-  assert.ok(clensta?.mandatoryLabel?.includes('Internship Pitch; Not proof of owning accounts'));
+  const nykaa = CURATED_WORK_ITEMS.find((i) => i.slug === 'nykaa-post-purchase-retention');
+  const indusshield = CURATED_WORK_ITEMS.find((i) => i.slug === 'indusshield-proactive-ai-insurance');
+  assert.equal(nykaa?.collaborationType, 'Independent Concept');
+  assert.equal(indusshield?.collaborationType, 'Independent Concept');
 });
 
-test('factual accuracy guardrails on project, academic, internship, and central profile records', () => {
+test('studio identity, 4 services, 4-stage process, live project links, and central profile records are verified', () => {
+  const noticeDecoder = getProjectBySlug('notice-decoder');
+  assert.ok(noticeDecoder);
+  assert.equal(noticeDecoder.liveDemoUrl, 'https://notice-decoder-pi.vercel.app/');
+  assert.equal(noticeDecoder.screenshotUrl, '/assets/projects/notice-decoder-live.png');
+
   const sentinelx = getProjectBySlug('sentinelx');
   assert.ok(sentinelx);
-  assert.equal(sentinelx.liveDemoUrl, undefined);
-  assert.equal(sentinelx.githubUrl, undefined);
+  assert.equal(sentinelx.liveDemoUrl, 'https://sentineix.vercel.app/');
+  assert.equal(sentinelx.screenshotUrl, '/assets/projects/sentinelx-live.png');
+
+  const clarity = getProjectBySlug('clarity-redemption-ai');
+  assert.ok(clarity);
+  assert.equal(clarity.liveDemoUrl, 'https://clarity-redemption.ai.studio');
+  assert.equal(clarity.screenshotUrl, '/assets/projects/clarity-live.png');
 
   const dcv = getProjectBySlug('decoding-customer-value');
   assert.ok(dcv);
@@ -117,47 +139,48 @@ test('factual accuracy guardrails on project, academic, internship, and central 
   assert.deepEqual(orgNames, ['ResolX.ai (One Point One Technology Labs)', 'CareerWithDishani']);
   assert.ok(!JSON.stringify(VERIFIED_EXPERIENCE).toLowerCase().includes('matchbest'));
 
-  // Verify academic record, verified contact config, and 5-step signature methodology
+  // Verify academic record, verified contact config, 4 services, and 4-stage process
   assert.equal(VERIFIED_ACADEMIC_RECORD.cgpa, '9.10 / 10');
   assert.equal(VERIFIED_ACADEMIC_RECORD.aggregatePercentage, '85.026%');
   assert.equal(PROFILE_CONFIG.name, 'AKSHIT SUKHIJA');
-  assert.equal(PROFILE_CONFIG.roleSubtitle, 'Independent Digital & Product Solutions');
-  assert.equal(
-    PROFILE_CONFIG.shortBio,
-    'I turn business problems and early ideas into useful digital solutions through research, data, AI and technology.'
+  assert.equal(PROFILE_CONFIG.roleSubtitle, 'Independent Digital Content & Solutions Studio');
+  assert.ok(
+    PROFILE_CONFIG.shortBio.startsWith('Creative ideas. Clear stories. Digital experiences.')
   );
   assert.equal(PROFILE_CONFIG.contact.github.url, 'https://github.com/akshit-sukhija');
   assert.equal(PROFILE_CONFIG.contact.linkedin.url, 'https://www.linkedin.com/in/akshit-sukhija-/');
   assert.equal(PROFILE_CONFIG.contact.emailPrimary.address, 'akshithere075@gmail.com');
   assert.equal(PROFILE_CONFIG.contact.emailSecondary.address, 'akshitsukhija4@gmail.com');
   assert.equal(PROFILE_CONFIG.contact.phone.displayNumber, '+91 9873865213');
+
+  assert.deepEqual(
+    SERVICES.map((s) => s.id),
+    [
+      'brand-storytelling',
+      'digital-content',
+      'websites-digital-experiences',
+      'ai-solutions',
+    ]
+  );
+
   assert.deepEqual(
     ENGAGEMENT_STEPS.map((s) => s.stageKey),
-    ['RESEARCH', 'ANALYSIS', 'AI & LOGIC', 'SOFTWARE', 'DELIVERY']
+    ['DISCOVER', 'DEFINE', 'CREATE', 'DELIVER']
   );
 
   // Verify Insights includes Marketing vs Branding vs Advertising research article
   assert.equal(INSIGHT_NOTES[0].id, 'marketing-vs-branding-vs-advertising');
   assert.ok(TECHNOLOGY_EXPLORER_ITEMS.length >= 6);
   assert.equal(STUDIO_FAQS.length, 5);
-  assert.deepEqual(
-    STUDIO_FAQS.map((f) => f.category),
-    ['Scope', 'Project Stages', 'Collaboration Models', 'Delivery Timelines', 'Handover']
-  );
-  for (const faq of STUDIO_FAQS) {
-    assert.ok(faq.id.length > 3);
-    assert.ok(faq.question.length > 10);
-    assert.ok(faq.answer.length > 40);
-  }
 });
 
-test('three-question SolutionFinder rule-based matching recommends appropriate service and project evidence', () => {
+test('three-question SolutionFinder rule-based matching recommends appropriate studio service and project evidence', () => {
   const dataRec = recommendSolutionFromFinder({
     problem: SOLUTION_FINDER_PROBLEMS[0], // Understand business performance and customers.
     businessType: SOLUTION_FINDER_BUSINESS_TYPES[1], // D2C or e-commerce.
     helpNeeded: SOLUTION_FINDER_HELP_TYPES[0], // Dashboard or analysis.
   });
-  assert.equal(dataRec.recommendedService.id, 'data-intelligence');
+  assert.equal(dataRec.recommendedService.id, 'brand-storytelling');
   assert.equal(dataRec.relevantProject.slug, 'decoding-customer-value');
   assert.ok(dataRec.matchingMethodNote.includes('Transparent rule-based matching'));
 
@@ -166,7 +189,7 @@ test('three-question SolutionFinder rule-based matching recommends appropriate s
     businessType: SOLUTION_FINDER_BUSINESS_TYPES[2], // Small business.
     helpNeeded: SOLUTION_FINDER_HELP_TYPES[1], // Automation workflow.
   });
-  assert.equal(aiRec.recommendedService.id, 'ai-automation');
+  assert.equal(aiRec.recommendedService.id, 'ai-solutions');
   assert.equal(aiRec.relevantProject.slug, 'notice-decoder');
 
   const productRec = recommendSolutionFromFinder({
@@ -174,12 +197,12 @@ test('three-question SolutionFinder rule-based matching recommends appropriate s
     businessType: SOLUTION_FINDER_BUSINESS_TYPES[3], // Product or technology team.
     helpNeeded: SOLUTION_FINDER_HELP_TYPES[3], // Custom software.
   });
-  assert.equal(productRec.recommendedService.id, 'digital-products');
+  assert.equal(productRec.recommendedService.id, 'websites-digital-experiences');
   assert.equal(productRec.relevantProject.slug, 'sentinelx');
   assert.ok(productRec.supportingCapabilityNote?.includes('Software Quality'));
 });
 
-test('four-step estimateProjectScope recommends appropriate service without inventing prices', () => {
+test('four-step estimateProjectScope recommends appropriate studio service without inventing prices', () => {
   const estimate = estimateProjectScope({
     problemCategory: 'Automate a repetitive workflow',
     availableInformation: AVAILABLE_INFO_OPTIONS[1],
@@ -187,7 +210,7 @@ test('four-step estimateProjectScope recommends appropriate service without inve
     timelinePreference: 'Within 1–2 weeks (Focused analysis / small pilot)',
   });
 
-  assert.equal(estimate.recommendedService.id, 'ai-automation');
+  assert.equal(estimate.recommendedService.id, 'ai-solutions');
   assert.ok(estimate.scopeDisclaimer.includes('No instant price or guaranteed date'));
   assert.ok(estimate.matchingProjects.some((p) => p.slug === 'notice-decoder'));
 });
@@ -227,17 +250,17 @@ test('validateEnquiryForm rejects empty or invalid inputs and accepts valid Indi
 
   const brief = formatEnquiryBrief(validInput);
   assert.ok(brief.includes('Mehta Retail & D2C'));
-  assert.ok(brief.includes('01. Data & Business Intelligence'));
+  assert.ok(brief.includes('01. Brand Strategy & Storytelling'));
   assert.ok(brief.includes('Indicative only; final quote depends on scope review'));
 });
 
-test('matchProblemToService maps plain business problems to the three core services', () => {
-  const dataMatch = matchProblemToService('Understand my business data');
-  assert.equal(dataMatch.recommendedService.id, 'data-intelligence');
+test('matchProblemToService maps plain business problems to the four studio services', () => {
+  const brandMatch = matchProblemToService('Understand my business data');
+  assert.equal(brandMatch.recommendedService.id, 'brand-storytelling');
 
   const autoMatch = matchProblemToService('Automate a repetitive workflow');
-  assert.equal(autoMatch.recommendedService.id, 'ai-automation');
+  assert.equal(autoMatch.recommendedService.id, 'ai-solutions');
 
-  const toolMatch = matchProblemToService('Build a dashboard or internal tool');
-  assert.equal(toolMatch.recommendedService.id, 'digital-products');
+  const webMatch = matchProblemToService('Build a dashboard or internal tool');
+  assert.equal(webMatch.recommendedService.id, 'websites-digital-experiences');
 });

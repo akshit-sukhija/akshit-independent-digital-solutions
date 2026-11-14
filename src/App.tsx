@@ -34,6 +34,7 @@ export default function App() {
             <Route path="/work" element={<WorkPage />} />
             <Route path="/work/:slug" element={<CaseStudyPage />} />
             <Route path="/solutions" element={<SolutionsPage />} />
+            <Route path="/services" element={<SolutionsPage />} />
             <Route path="/process" element={<ProcessPage />} />
             <Route path="/insights" element={<InsightsPage />} />
             <Route path="/enquire" element={<EnquirePage />} />

@@ -63,6 +63,12 @@ export interface ProjectData {
   deliverables: string[];
   liveDemoUrl?: string;
   githubUrl?: string;
+  drivePdfUrl?: string;
+  drivePdfPlaceholder?: string;
+  recognitionBadge?: string;
+  specialCredit?: string;
+  screenshotUrl?: string;
+  screenshotCaption?: string;
   evidenceNote: string;
   architectureSummary: string;
   plainHowItWorksSummary: string;
@@ -140,52 +146,41 @@ import {
   STUDIO_FAQS as CENTRAL_STUDIO_FAQS,
 } from './profile';
 import {
-  COMPLETE_PORTFOLIO_INVENTORY,
-  RECONCILIATION_AUDIT_SUMMARY,
-  GROUNDING_VERIFICATION_REGISTER,
-  CONSOLIDATED_MATRIX_PDF_URL,
-  type PortfolioInventoryItem,
-  type InventoryTierCategory,
-  type EvidenceTierBadge,
-  type LibraryDomain,
-  type ReconciliationEntry,
-  type GroundingVerificationItem,
+  CURATED_WORK_ITEMS,
+  type CuratedWorkItem,
+  type CuratedWorkSection,
+  type WorkCollaborationType,
+  type CuratedDomain,
 } from './portfolioInventory';
 
 export const PROFILE_CONFIG = CENTRAL_PROFILE_CONFIG;
 export const TECHNOLOGY_EXPLORER_ITEMS = CENTRAL_TECH_EXPLORER;
 export const STUDIO_FAQS = CENTRAL_STUDIO_FAQS;
 export {
-  COMPLETE_PORTFOLIO_INVENTORY,
-  RECONCILIATION_AUDIT_SUMMARY,
-  GROUNDING_VERIFICATION_REGISTER,
-  CONSOLIDATED_MATRIX_PDF_URL,
-  type PortfolioInventoryItem,
-  type InventoryTierCategory,
-  type EvidenceTierBadge,
-  type LibraryDomain,
-  type ReconciliationEntry,
-  type GroundingVerificationItem,
+  CURATED_WORK_ITEMS,
+  type CuratedWorkItem,
+  type CuratedWorkSection,
+  type WorkCollaborationType,
+  type CuratedDomain,
 };
 
 export const BRAND_IDENTITY = {
   name: 'AKSHIT SUKHIJA',
-  studioTitle: 'AKSHIT SUKHIJA | Independent Digital & Product Solutions',
-  positioningStatement:
-    'I turn business problems and early ideas into useful digital solutions through research, data, AI and technology.',
-  heroHeadline: 'Good ideas deserve to become useful solutions.',
+  studioTitle: 'AKSHIT SUKHIJA | Independent Digital Content & Solutions Studio',
+  positioningStatement: 'Creative ideas. Clear stories. Digital experiences.',
+  heroHeadline: 'Ideas worth noticing. Stories worth remembering. Digital experiences that work.',
   heroSupportingCopy:
-    'I turn business problems and early ideas into useful digital solutions through research, data, AI and technology.',
-  operatorStatus: 'Independent solo studio · New Delhi / NCR, India · Direct 1-on-1 collaboration',
+    'Creative ideas. Clear stories. Digital experiences. I combine brand storytelling, digital content production, custom websites, and AI-powered digital solutions to help founders and teams turn ambitious concepts into work that stands out.',
+  operatorStatus: 'Independent Digital Content & Solutions Studio · New Delhi / NCR, India',
   differentiation:
-    'You explain the problem in plain English. I research the context, study the data, combine AI with reliable rules, and build the working software or dashboard myself.',
+    'You work directly with the strategist, story designer, and software engineer—connecting narrative clarity with working websites and AI-powered solutions.',
   targetAudienceList: [
-    'Startup founders & early-stage SaaS teams',
+    'Startup founders & early-stage product teams',
+    'D2C and consumer brands seeking clearer storytelling',
     'Small and medium-sized businesses (SMBs)',
-    'D2C and e-commerce brands',
-    'Product and technology teams',
-    'Consultants and independent operators',
-    'Educational and operational organisations',
+    'Product and marketing teams launching new initiatives',
+    'Consultants and operators needing custom web & AI tools',
+    'Educational and institutional teams',
   ],
 };
 
@@ -193,39 +188,267 @@ export const CAPABILITY_PILLARS = [
   {
     id: 'data-intelligence' as CapabilityDomain,
     number: '01',
-    title: 'Data & Business Intelligence',
+    title: 'Brand Strategy, Storytelling & Research',
     shortSummary:
-      'Business analytics, interactive dashboards, customer insights, and research-driven decisions from your existing spreadsheets.',
+      'Product positioning, visual pitch systems, market research, and customer behaviour insights grounded in real evidence.',
     technicalNote:
-      'Uses Python (Pandas, NumPy), SQL cohort & retention queries, and interactive Power BI data models.',
-    outcomeFocus: 'See what truly drives repeat customers and profit without guessing from raw sheets.',
-    proofSlugs: ['decoding-customer-value'],
-  },
-  {
-    id: 'ai-automation' as CapabilityDomain,
-    number: '02',
-    title: 'AI & Workflow Automation',
-    shortSummary:
-      'Document processing, practical AI workflows, schedule clash detection, and rule-backed automation systems.',
-    technicalNote:
-      'Combines LLMs for reading unstructured text with fixed deterministic rules for dates, math, and policy checks.',
-    outcomeFocus: 'Stop spending hours reading routine PDFs, notices, and checklists by hand.',
-    proofSlugs: ['notice-decoder', 'contract-risk-governance'],
+      'Combines narrative architecture and visual storytelling with Python, SQL, and Power BI customer segmentation.',
+    outcomeFocus: 'Turn complex product ideas or raw market data into clear, memorable stories and decisions.',
+    proofSlugs: ['reframe', 'decoding-customer-value'],
   },
   {
     id: 'custom-systems' as CapabilityDomain,
-    number: '03',
-    title: 'Digital Products & Prototyping',
+    number: '02',
+    title: 'Websites & Digital Experiences',
     shortSummary:
-      'Product research, interactive prototypes, web applications, and custom internal tools built around how your team works.',
+      'Custom web applications, interactive prototypes, product showcases, and internal workbenches built with modern engineering.',
     technicalNote:
-      'Full-stack engineering using React 19, TypeScript, Python (FastAPI), SQLite, and automated ReportLab PDF engines.',
-    outcomeFocus: 'Turn an early product idea or slow manual reporting workflow into working software.',
-    proofSlugs: ['notice-decoder', 'sentinelx', 'lureline'],
+      'Full-stack engineering using React 19, TypeScript, Vite, Tailwind CSS, Python (FastAPI), and ReportLab PDF engines.',
+    outcomeFocus: 'Launch responsive websites, interactive prototypes, and custom web applications that work.',
+    proofSlugs: ['notice-decoder', 'sentinelx', 'lureline', 'clarity-redemption-ai'],
+  },
+  {
+    id: 'ai-automation' as CapabilityDomain,
+    number: '03',
+    title: 'AI-Powered Digital Solutions',
+    shortSummary:
+      'Document processing, prompt systems, schedule clash detection, and rule-backed AI workflows.',
+    technicalNote:
+      'Pairs LLMs for unstructured text understanding with deterministic code rules for dates, math, and policy checks.',
+    outcomeFocus: 'Automate repetitive document reading and synthesis without sacrificing accuracy.',
+    proofSlugs: ['notice-decoder', 'contract-risk-governance'],
   },
 ];
 
 export const PROJECTS: ProjectData[] = [
+  {
+    slug: 'reframe',
+    priorityOrder: 0,
+    tier: 'flagship',
+    tierLabel: '1st Place · REVIVEX · ZERO² 2026',
+    indexNumber: '00',
+    title: 'RE:FRAME',
+    subtitle: 'Smart Glasses, A More Focused You — Reimagining Google Glass for Mindful Everyday Utility',
+    plainSubtitle:
+      'Award-winning product revival concept, Focus Engine UX architecture, companion-app ecosystem, and 15-slide visual presentation developed for REVIVEX at ZERO² 2026.',
+    category: 'Brand Storytelling, Product Strategy & Visual Concept',
+    domain: 'custom-systems',
+    projectClassification: 'Independent Hardware/Product Concept · 1st Place Winner',
+    evidenceTypeLabel: '1st Place Award + 15-Slide Presentation PDF',
+    visualAccent: '#38BDF8',
+    recognitionBadge: '1st Place · REVIVEX · ZERO² 2026',
+    documentedRole:
+      'Lead Product Strategist, Concept Architect & Co-Presenter',
+    collaborators:
+      'Presented by Akshit Sukhija & Adyot Ohri (Team Selfish Gods · REVIVEX at ZERO² 2026, IITM Janakpuri)',
+    specialCredit: 'Special Video Credit: Adyot Ohri',
+    attributionNote:
+      'Presented by Akshit Sukhija and Adyot Ohri at ZERO² — The Innovator’s Convention (September 21–22, 2026, organized by InternWare, IITM Janakpuri), securing 1st Position in REVIVEX. Akshit Sukhija led product research, competitive analysis, concept development, product architecture, the Focus Engine, companion-app ecosystem, product strategy, pricing proposal (₹39,999), and slide presentation. Adyot Ohri contributed as teammate and co-presenter, with Special Video Credit.',
+    problemSummary:
+      'Smartphones brought the world into our hands, but constant notifications ("One quick check. Many distractions.") pull us out of real life. Meanwhile, original 2014 Google Glass failed mainstream adoption due to its high price, unconventional cyborg aesthetic, privacy concerns, and unclear daily use case.',
+    businessContext:
+      'Demonstrates how our studio approaches product positioning, competitive teardown, UX ecosystem architecture, and high-impact visual storytelling to revive a challenging technology category.',
+    approachSummary:
+      'Diagnose the four structural failure modes of 2014 Google Glass, re-anchor the product around reducing screen distraction ("Look Up and Live It"), offload heavy compute to the user’s smartphone, and introduce a context-aware Focus Engine that filters notification noise.',
+    solutionSummary:
+      'A comprehensive product concept and 15-slide visual strategy encompassing modular eyewear hardware (Micro-OLED HUD, Ultra-Wide Camera, Touch Pad, Modular Arms, Charging Case), the RE:FRAME Companion App Ecosystem, the 4-stage Focus Engine, four core everyday utilities (Translate, Navigate, Compare, Summarize), privacy-by-design hardware controls, and a ₹39,999 Indian market positioning strategy.',
+    resultSummary:
+      'Awarded 1st Position in REVIVEX at ZERO² 2026 (September 21–22, 2026 · InternWare, IITM Janakpuri). Important Note: RE:FRAME is an independent, unbuilt hardware/product concept—not an official Google product or a commercially deployed device.',
+    productThinking: {
+      researchContext:
+        'Studied the history of Google Glass (Consumer Explorer Program ended January 2015) alongside modern smartphone notification overload. Identified four core barriers that stopped original Google Glass: prohibitive pricing, awkward industrial design, bystander privacy anxiety, and lack of a daily problem-solving loop.',
+      userNeeds:
+        'Everyday users (students, professionals, creators, explorers) do not want a cluttered smartphone screen strapped to their face. They want heads-up access to time-critical information—navigation turns, live translation, urgent meeting alerts—while filtering out low-priority social and delivery spam.',
+      alternativesConsidered:
+        'Evaluated (1) standalone heavy AR headsets with high battery drain and bulk, (2) audio-only smart glasses lacking visual context for navigation or translation, and (3) mirroring all phone notifications unfiltered onto a heads-up display.',
+      productDecision:
+        'Designed a 3-tier Glasses–Phone–Cloud architecture where the glasses stay lightweight for capture and Micro-OLED heads-up display, the paired smartphone handles AI processing and Focus Engine filtering, and physical privacy switches/LEDs guarantee user and bystander trust.',
+      prototypeEvolution:
+        'Synthesised the research, hardware callouts, companion mobile UI mockups, Focus Engine priority pipeline, 4 real-world use cases, and 5-pillar Revival Strategy into a cohesive 15-slide visual keynote deck.',
+    },
+    plainFeatures: [
+      {
+        plain: 'Focus Engine blocks low-priority notification noise and surfaces only time-critical context.',
+        technical:
+          '4-stage contextual pipeline: Captures All Input → Analyzes Context (time, place, activity, habits) → Filters & Prioritizes → Delivers in Your View.',
+      },
+      {
+        plain: 'Everyday eyewear aesthetic with modular arms, custom nose pads, and a portable charging case.',
+        technical:
+          'Hardware concept specifies 01 Micro-OLED Display, 02 Ultra-Wide Camera, 03 Gesture Touch Pad, and 04 Lightweight Frame with replaceable modular arms.',
+      },
+      {
+        plain: 'Four clear real-world utilities: Translate signs, Navigate streets, Compare products, and Summarize documents.',
+        technical:
+          'Heads-up AR overlays designed around "Look. Understand. Act."—making the world itself the interface rather than adding another screen.',
+      },
+      {
+        plain: 'Privacy by design with a physical camera switch, visible recording LED, and phone-tethered compute.',
+        technical:
+          'Glasses–Phone–Cloud sync architecture via Bluetooth and USB-C charging case, keeping personal data controls inside the RE:FRAME companion app.',
+      },
+    ],
+    verifiedStack: [
+      'Product Strategy & Positioning',
+      'Competitive Research & Teardown',
+      'Focus Engine UX Design',
+      'Companion App UI Architecture',
+      'Visual Storytelling & Keynote Design',
+    ],
+    plainToolsSummary: [
+      {
+        tool: 'Product Teardown & Revival Strategy',
+        whatItDoes: 'Diagnoses why 2014 Google Glass stalled and defines the 5-pillar revival roadmap.',
+      },
+      {
+        tool: 'Focus Engine UX Architecture',
+        whatItDoes: 'Designs the contextual notification filter separating urgent tasks from social clutter.',
+      },
+      {
+        tool: 'Companion App & Ecosystem Design',
+        whatItDoes: 'Maps the mobile interface for Capture, Manage, Customize, Sync, Control, and Insights.',
+      },
+      {
+        tool: 'Visual Storytelling & Presentation System',
+        whatItDoes: 'Translates hardware, software, and pricing strategy (₹39,999) into a 15-slide visual narrative.',
+      },
+    ],
+    verifiedElements: [
+      '1st Position Award in REVIVEX at ZERO² 2026 (IITM Janakpuri · September 21–22, 2026)',
+      '15-slide RE:FRAME visual product concept presentation (PDF)',
+      'Focus Engine contextual notification filtering architecture',
+      'RE:FRAME App Ecosystem mobile UI concept & Multi-Device Sync diagram',
+      'Four real-world HUD use cases: Translate, Navigate, Compare, Summarize',
+      'Five-pillar Revival Strategy & ₹39,999 target market pricing proposal',
+    ],
+    deliverables: [
+      '15-Slide Visual Product Concept & Revival Strategy Deck (PDF)',
+      'Hardware Modular Concept Callouts & Charging Case Specification',
+      'RE:FRAME Companion App UI & Focus Engine Workflow Design',
+      'Target Audience Segmentation & ₹39,999 Pricing Proposal',
+      '1st Place Recognition at REVIVEX · ZERO² 2026',
+    ],
+    drivePdfUrl: '/assets/aistudio/REFRAME_Smart_Glasses_Product_Concept_97e4e1df.pdf',
+    screenshotUrl: '/assets/aistudio/REFRAME_THUMBNAIL_IMAGE_99a3fe50.jpeg',
+    screenshotCaption:
+      'RE:FRAME — Smart Glasses, A More Focused You (1st Place · REVIVEX · ZERO² 2026)',
+    evidenceNote:
+      'Verified by 1st Position Certificate & Trophy at ZERO² 2026 (InternWare, IITM Janakpuri) and the complete 15-slide presentation deck. Independent, unbuilt product concept.',
+    architectureSummary:
+      'RE:FRAME avoids bulky onboard processors by splitting work across three tiers: lightweight glasses capture POV input and project minimal Micro-OLED overlays, the paired smartphone runs the AI Focus Engine and companion control app, and cloud sync keeps media accessible across devices.',
+    plainHowItWorksSummary:
+      'Capture on Glasses (Camera, Mic & Touch Pad) → AI Processing & Focus Engine on Phone → Minimal Priority HUD in Your Line of Sight.',
+    architectureNodes: [
+      {
+        id: 'rf-1',
+        label: '1. Capture on Glasses',
+        sublabel: 'Camera, Voice & Touch Pad',
+        plainTitle: 'Lightweight Sensing & Input',
+        plainDescription: 'Ultra-wide POV camera, voice control, and temple touch pad capture context without looking down.',
+        layer: 'input',
+      },
+      {
+        id: 'rf-2',
+        label: '2. Phone Companion AI',
+        sublabel: 'Bluetooth sync + AI compute',
+        plainTitle: 'AI Processing on Your Phone',
+        plainDescription: 'Offloads heavy compute to the paired smartphone via Bluetooth to keep the frame light and comfortable.',
+        layer: 'processing',
+      },
+      {
+        id: 'rf-3',
+        label: '3. Focus Engine Filter',
+        sublabel: 'Time, location & habit rules',
+        plainTitle: 'Filter Noise & Prioritise',
+        plainDescription: 'Blocks low-priority app spam and elevates urgent meetings, traffic alerts, or active tasks.',
+        layer: 'verification',
+      },
+      {
+        id: 'rf-4',
+        label: '4. Micro-OLED HUD',
+        sublabel: 'Translate · Navigate · Act',
+        plainTitle: 'Deliver in Your Line of Sight',
+        plainDescription: 'Displays calm, glanceable directions, translations, or summaries right where you look.',
+        layer: 'output',
+      },
+    ],
+    workflowSteps: [
+      {
+        step: '01',
+        title: 'Diagnose Smartphone Distraction & 2014 Google Glass Limitations',
+        detail: 'Identified why users lose presence to phone notifications and why 2014 Google Glass struggled (High Price, Unconventional Design, Privacy Concerns, Unclear Use Case).',
+        technicalDetail: 'Grounded in historical teardown of the Google Glass Explorer Edition (ended January 2015).',
+      },
+      {
+        step: '02',
+        title: 'Design Everyday Modular Eyewear & Companion App Ecosystem',
+        detail: 'Reimagined the frame to look like regular eyewear with a Micro-OLED display, ultra-wide camera, gesture touch pad, adjustable nose pads, modular arms, and portable charging case.',
+        technicalDetail: 'Paired with the RE:FRAME mobile app for Capture, Manage, Customize, Sync, Privacy Control, and Insights.',
+      },
+      {
+        step: '03',
+        title: 'Architect the Contextual Focus Engine',
+        detail: 'Instead of mirroring every WhatsApp, Swiggy, or Instagram alert into the user’s eyes, the Focus Engine evaluates time, location, and habits to surface only high-priority items.',
+        technicalDetail: '4-step pipeline: Captures All Input → Analyzes Context → Filters & Prioritizes → Delivers in Your View.',
+      },
+      {
+        step: '04',
+        title: 'Define Four High-Utility Real-World Scenarios & Revival Strategy',
+        detail: 'Demonstrated instant sign translation, turn-by-turn street navigation, retail product comparison, and document summarisation—positioned at ₹39,999 across 5 target user groups.',
+        technicalDetail: 'Target segments: Students, Professionals, Creators, Explorers, and Real-World Problem Solvers.',
+      },
+    ],
+    technicalDecisions: [
+      {
+        decision: 'Offload AI compute to the paired smartphone instead of heavy onboard processors',
+        rationale:
+          'Keeping heavy AI processing on the phone allows the glasses frame to remain lightweight, thermally comfortable, and affordable for all-day wear.',
+        tradeoff:
+          'Requires active Bluetooth pairing with the user’s smartphone for full AI and Focus Engine features.',
+      },
+      {
+        decision: 'Make notification filtering (Focus Engine) the core software differentiator',
+        rationale:
+          'Putting unfiltered smartphone notifications in front of a user’s eyes increases distraction. A smart-glasses OS must block noise by default.',
+        tradeoff:
+          'Requires initial user preference setup and context rules in the companion app.',
+      },
+      {
+        decision: 'Enforce visible hardware privacy controls',
+        rationale:
+          'Original Google Glass faced social pushback because bystanders could not tell when the camera was active. Physical switches and clear LED indicators restore trust.',
+        tradeoff:
+          'Prioritises transparent consent over covert recording.',
+      },
+    ],
+    limitationsAndScope: [
+      'RE:FRAME is an independent, unbuilt hardware and product strategy concept developed for the REVIVEX competition at ZERO² 2026 (IITM Janakpuri).',
+      'It is NOT an official Google product, is not affiliated with Google LLC, and is not a commercially manufactured or deployed hardware device.',
+      'The competition concept video contains third-party Google Glass-branded reference footage; therefore, it is withheld from public embedding until usage rights and original source permissions are confirmed, and is never presented as proof of a functioning hardware prototype.',
+    ],
+    keyLessons: [
+      'Strong product storytelling starts with honest research into why earlier attempts failed—and solving the human friction first.',
+      'Visual clarity, structured UX flows, and disciplined positioning turn a complex hardware/AI concept into an award-winning narrative.',
+    ],
+    evidenceArtifacts: [
+      {
+        title: 'RE:FRAME Concept Specification & Competition Attribution Summary',
+        type: 'report-specification',
+        caption: 'Verified competition details, role attribution, and architectural scope.',
+        datasetOrHardwareCondition:
+          'Independent Unbuilt Product Concept · 1st Position in REVIVEX at ZERO² 2026 (September 21–22, 2026)',
+        codeOrSpec: `RE:FRAME — Smart Glasses Product Concept (REVIVEX · ZERO² 2026):
+├── Recognition     : 1st Position in REVIVEX at ZERO² — The Innovator's Convention (IITM Janakpuri)
+├── Primary Lead    : Akshit Sukhija (Product Research, Competitive Analysis, Concept Development,
+│                     Product Architecture, Focus Engine, Companion App Ecosystem, Strategy & Presentation)
+├── Co-Presenter    : Adyot Ohri (Teammate & Co-Presenter · Special Video Credit: Adyot Ohri)
+├── Core Architecture: Capture on Glasses -> AI Processing on Phone -> Focus Engine -> Privacy by Design
+├── Key Utilities   : 01 Translate · 02 Navigate · 03 Compare · 04 Summarize
+├── Market Strategy : ₹39,999 proposed positioning across Students, Professionals, Creators, Explorers & Problem Solvers
+└── Concept Status  : Independent, unbuilt product/hardware concept (Not an official Google product)`,
+      },
+    ],
+  },
   {
     slug: 'notice-decoder',
     priorityOrder: 1,
@@ -332,9 +555,12 @@ export const PROJECTS: ProjectData[] = [
       'Notice Change Radar for comparing revised notices',
       'One-click .ics calendar file export',
     ],
-    liveDemoUrl: 'https://notice-decoder-ai-powered-college-notice-schedule-planner.onrender.com/',
+    liveDemoUrl: 'https://notice-decoder-pi.vercel.app/',
     githubUrl: 'https://github.com/Tanya-garg10/Notice-Decoder-AI-Powered-College-Notice-Schedule-Planner',
-    evidenceNote: 'Live web app hosted on Render and public source code on GitHub.',
+    drivePdfPlaceholder: 'SETU 2026 Project Report PDF (Google Drive link placeholder)',
+    screenshotUrl: '/assets/projects/notice-decoder-live.png',
+    screenshotCaption: 'Live Notice Decoder application running at notice-decoder-pi.vercel.app',
+    evidenceNote: 'Live web app deployed at notice-decoder-pi.vercel.app and public source code on GitHub.',
     architectureSummary:
       'Instead of asking AI to guess whether two events clash, Notice Decoder splits the job in two: AI organises the notice text, while fixed code rules extract the exact dates, check for time overlaps, spot changes from older notices, and create the calendar file.',
     plainHowItWorksSummary:
@@ -466,14 +692,14 @@ export const PROJECTS: ProjectData[] = [
       'Takes raw output files from different security tools, removes duplicates, organises issues by severity, and creates a ready-to-share PDF report.',
     category: 'Data Processing & Automated PDF Reporting System',
     domain: 'custom-systems',
-    projectClassification: 'Collaborative Full-Stack System · 100+ Page Technical Report',
-    evidenceTypeLabel: '100+ Page Technical Report (Academic System)',
+    projectClassification: 'Collaborative Full-Stack System · Live App & 100+ Page Report',
+    evidenceTypeLabel: 'Live Web App + 100+ Page Technical Report',
     visualAccent: '#E08A1E',
     documentedRole: 'Co-Developer and System Architect',
     collaborators:
       'Co-developed with Adyot Ohri (IITM Summer Training Capstone; 100-Hour Cybersecurity Certificate from SSSAM Academy)',
     attributionNote:
-      'Co-developed with Adyot Ohri as Co-Developer and System Architect (also titled DSARS — Digital Security Assessment & Reporting Platform). Documented in a formal academic technical project report exceeding 100 pages (FINAL COMPLETE SENTINEL PROJECT REPORT-merged.pdf). No public GitHub repository or live web link is claimed.',
+      'Co-developed with Adyot Ohri as Co-Developer and System Architect (also titled DSARS — Digital Security Assessment & Reporting Platform). Deployed live at sentineix.vercel.app and documented in a formal academic technical project report exceeding 100 pages.',
     problemSummary:
       'Security testing tools produce separate, technical XML and CSV files. Analysts waste hours checking files by hand, removing duplicate warnings, and formatting summary PDF reports for management.',
     businessContext:
@@ -483,7 +709,7 @@ export const PROJECTS: ProjectData[] = [
     solutionSummary:
       'A full-stack Python (FastAPI) and React 19 system that reads Nmap XML and OWASP ZAP XML/CSV scan files, verifies SHA-256 file integrity, removes duplicate findings, organises issues into five clear severity levels in SQLite, displays charts in a browser dashboard, and exports a ReportLab executive PDF report.',
     resultSummary:
-      'Documented in a 100+ page formal academic project report (FINAL COMPLETE SENTINEL PROJECT REPORT-merged.pdf) covering multithreaded orchestration (api/security.py), SQLite ORM models, and automated PDF generation.',
+      'Deployed live at sentineix.vercel.app and documented in a 100+ page formal academic project report covering multithreaded orchestration (api/security.py), SQLite ORM models, and automated PDF generation.',
     productThinking: {
       researchContext:
         'Analysed how security and audit practitioners work with outputs from Nmap and OWASP ZAP: each tool exports different XML or CSV structures with inconsistent severity scales and overlapping host alerts.',
@@ -565,8 +791,12 @@ export const PROJECTS: ProjectData[] = [
       'Automated ReportLab PDF report generator',
       '100+ page formal technical project report',
     ],
+    liveDemoUrl: 'https://sentineix.vercel.app/',
+    drivePdfPlaceholder: '100+ Page Technical Project Report PDF (Google Drive link placeholder)',
+    screenshotUrl: '/assets/projects/sentinelx-live.png',
+    screenshotCaption: 'Live SentinelX platform running at sentineix.vercel.app',
     evidenceNote:
-      'Verified by a 100+ page formal academic technical report. No public GitHub link or live hosted demo is claimed.',
+      'Live web platform deployed at sentineix.vercel.app and verified by a 100+ page formal academic technical report.',
     architectureSummary:
       'SentinelX takes raw XML and CSV files from Nmap and OWASP ZAP, records a digital fingerprint (SHA-256) for each file, processes them in parallel, merges them into a unified 5-level priority scale without duplicates, and outputs both live charts and a formatted PDF report.',
     plainHowItWorksSummary:
@@ -661,8 +891,8 @@ export const PROJECTS: ProjectData[] = [
       },
     ],
     limitationsAndScope: [
-      'Documented through a 100+ page formal academic technical report; there is no public GitHub repository or live hosted demo.',
-      'Reads output files exported from Nmap and OWASP ZAP; it does not run live network attacks itself.',
+      'Live assessment interface deployed at sentineix.vercel.app; full backend ingestion and ReportLab PDF pipeline documented in the 100+ page academic technical report.',
+      'Reads output files exported from Nmap and OWASP ZAP; it does not run unauthorized active network exploitation.',
       'Designed as a portable assessment workbench using SQLite rather than a multi-company cloud platform.',
     ],
     keyLessons: [
@@ -791,6 +1021,7 @@ export const PROJECTS: ProjectData[] = [
       'Executive Summary & Retention Playbook',
     ],
     githubUrl: 'https://github.com/akshit-sukhija/IITG_Decoding_Customer_Value_Akshit_Bhumika',
+    drivePdfPlaceholder: 'Executive Summary & Retention Playbook PDF (Google Drive link placeholder)',
     evidenceNote:
       'Complete analytics case study on GitHub. Note: All findings apply specifically to the 3,900-record dataset studied.',
     architectureSummary:
@@ -1013,6 +1244,7 @@ ORDER BY avg_purchase_value DESC;`,
       'FastAPI backend + Streamlit review interface',
     ],
     githubUrl: 'https://github.com/akshit-sukhija/contract-risk-governance',
+    drivePdfPlaceholder: 'AMD Slingshot Architecture & Benchmark Report PDF (Google Drive link placeholder)',
     evidenceNote:
       'Public code on GitHub. Note: The ~420ms explanation speed was recorded specifically on AMD Ryzen AI hardware using DirectML and will vary on other computers.',
     architectureSummary:
@@ -1185,6 +1417,8 @@ ORDER BY avg_purchase_value DESC;`,
     ],
     liveDemoUrl: 'https://lureline-orcathon-2026.vercel.app/',
     githubUrl: 'https://github.com/akshit-sukhija/lureline-orcathon-2026',
+    screenshotUrl: '/assets/projects/lureline-live.png',
+    screenshotCaption: 'Live Lureline investigation workspace running at lureline-orcathon-2026.vercel.app',
     evidenceNote:
       'Live demo on Vercel and public code on GitHub. Note: Uses simulated sample event data for safe public demonstration.',
     architectureSummary:
@@ -1274,8 +1508,8 @@ ORDER BY avg_purchase_value DESC;`,
       'Shows mutual fund investors the exact FIFO unit lot consumption, exit load, STT deductions, and remaining holding value before they confirm a redemption.',
     category: 'Applied AI & FinTech Math Engine',
     domain: 'custom-systems',
-    projectClassification: 'Produscope 2026 (E-Cell IIT Guwahati) · 15/15 Unit Tests Pass',
-    evidenceTypeLabel: 'Public GitHub Codebase + 15/15 Unit Tests',
+    projectClassification: 'Produscope 2026 (E-Cell IIT Guwahati) · Live App & 15/15 Unit Tests',
+    evidenceTypeLabel: 'Live Web App + Public GitHub (15/15 Tests)',
     visualAccent: '#7AD992',
     documentedRole: 'Co-Developer and Product Analyst',
     collaborators: 'Team Leader: Devanshi Pandey; Team Member: Akshit Sukhija',
@@ -1360,9 +1594,13 @@ ORDER BY avg_purchase_value DESC;`,
       'Bounded "Ask Clarity" Scenario Explainer',
       'Produscope 2026 (E-Cell IIT Guwahati) Case Study Report',
     ],
+    liveDemoUrl: 'https://clarity-redemption.ai.studio',
     githubUrl: 'https://github.com/akshit-sukhija/Clarity-Redemption-AI',
+    drivePdfPlaceholder: 'Produscope 2026 Case Study Deck PDF (Google Drive link placeholder)',
+    screenshotUrl: '/assets/projects/clarity-live.png',
+    screenshotCaption: 'Live Clarity Redemption AI workspace running at clarity-redemption.ai.studio',
     evidenceNote:
-      'Public source code on GitHub (15/15 automated unit tests passing) and Produscope 2026 (E-Cell IIT Guwahati) documentation.',
+      'Live web application at clarity-redemption.ai.studio, public source code on GitHub (15/15 automated unit tests passing), and Produscope 2026 (E-Cell IIT Guwahati) documentation.',
     architectureSummary:
       'When a user enters a redemption amount, the Deterministic FIFO Math Engine calculates exact unit lot consumption, 365-day exit-load triggers, and STT deductions first. The UI and "Ask Clarity" layer then explain those locked figures.',
     plainHowItWorksSummary:
@@ -1474,158 +1712,161 @@ export const ADDITIONAL_ANALYTICAL_PROOF = {
 
 export const SERVICES: ServiceCategory[] = [
   {
-    id: 'data-intelligence',
+    id: 'brand-storytelling',
     number: '01',
-    title: 'Data & Business Intelligence',
-    plainTagline: 'Business analytics, dashboards, customer insights and research-driven decisions.',
+    title: 'Brand Strategy & Storytelling',
+    plainTagline:
+      'Positioning, product narratives, competitive research, and customer-grounded strategy.',
     domain: 'data-intelligence',
     targetAudience:
-      'For founders, D2C brands, and small businesses with sales or customer spreadsheets that need clear answers.',
+      'For founders, consumer brands, and product teams that need a clear, memorable story backed by real market and customer research.',
     problemStatement:
-      'Many growing businesses have thousands of rows of orders, invoices, or customer logs sitting in Excel, Tally, or Shopify exports. Yet it is still hard to see which customers truly come back at full price, which products drive real margin, or where revenue is leaking.',
+      'Many promising products and businesses struggle to explain why they matter. Without sharp positioning and research-backed storytelling, pitch decks feel generic and marketing efforts rely on heavy discounting instead of brand trust.',
     description:
-      'I take your raw spreadsheets or exports, clean up errors and missing fields, study the customer and revenue patterns, and hand back an interactive Power BI dashboard plus a clear action guide.',
+      'I research your category, study customer behaviour and competitors, and shape a clear brand narrative—turning complex product concepts or raw customer data into positioning frameworks, pitch stories, and retention playbooks.',
     plainBenefitSummary:
-      'Stop guessing from raw spreadsheets. See your best customer groups, repeat buying habits, and key numbers in one clear view.',
+      'Communicate your value clearly to customers, partners, and investors with strategy grounded in real research.',
     deliverables: [
-      'Cleaned and verified datasets (Python & SQL data preparation)',
-      'Customer behaviour & discount-sensitivity breakdowns',
-      'Interactive Power BI visual dashboards',
-      'Monthly or campaign performance summaries',
-      'Plain-English action guide & retention recommendations',
+      'Brand & product positioning frameworks ("why this, why now")',
+      'Competitive teardowns and market-gap research briefs',
+      'Investor, competition, and product launch narrative architecture',
+      'Customer segmentation & retention playbooks (Python, SQL & Power BI)',
+      'Clear messaging hierarchies for websites and campaigns',
     ],
     technicalUnderTheHood: [
-      'Data cleaning and schema validation in Python (Pandas, NumPy)',
-      'Cohort, retention, and segment aggregation queries in SQL',
-      'Interactive Power BI (.pbix) data modelling and DAX measures',
+      'Competitive teardown & user persona friction mapping',
+      'Customer transaction segmentation in Python (Pandas, NumPy) and SQL',
+      'Interactive Power BI (.pbix) visual exploration and commercial retention playbooks',
     ],
     exampleScenarios: [
       {
-        businessType: 'D2C & E-Commerce Brand',
+        businessType: 'New Product or Category Concept',
         challenge:
-          'Sales jump during discount campaigns, but you cannot tell which buyers stay loyal without promo codes.',
+          'You have an ambitious product idea that needs a sharp positioning strategy, user ecosystem map, and compelling pitch story.',
         practicalSolution:
-          'A customer segmentation study and Power BI dashboard separating loyal full-price buyers from discount-dependent shoppers.',
+          'A structured product strategy and visual narrative—like the 1st-place RE:FRAME smart-glasses revival concept.',
       },
       {
-        businessType: 'Small Business or Operations Team',
+        businessType: 'D2C or Consumer Brand',
         challenge:
-          'Someone spends days every month combining three different Excel sheets just to check performance.',
+          'Sales spike during promotions, but you need to understand which customer segments are truly loyal to your brand versus chasing discounts.',
         practicalSolution:
-          'A repeatable cleaning script and a visual dashboard that organises your core metrics automatically.',
+          'A data-backed customer segmentation study and Retention Playbook separating full-price loyalists from promo-dependent buyers.',
       },
     ],
     portfolioProof: [
+      {
+        title: 'RE:FRAME — Smart Glasses Product Concept',
+        slug: 'reframe',
+        summary:
+          '1st Place winner at REVIVEX · ZERO² 2026. Reimagined Google Glass with a 5-pillar Revival Strategy, Focus Engine UX, and ₹39,999 market positioning.',
+      },
       {
         title: 'Decoding Customer Value',
         slug: 'decoding-customer-value',
         summary:
-          'Analysed 3,900 customer shopping records using Python, SQL, and Power BI to separate loyal buyers from discount-triggered shoppers.',
-      },
-      {
-        title: 'OTT Viewer Retention Analysis',
-        summary:
-          'Studied streaming viewer drop-off and engagement cohorts to explain what keeps subscribers active.',
+          'Segmented 3,900 customer shopping records (43.0% Discount Survivors vs 36.4% Premium Loyalists) into an actionable Retention Playbook.',
       },
     ],
   },
   {
-    id: 'ai-automation',
+    id: 'digital-content',
     number: '02',
-    title: 'AI & Workflow Automation',
-    plainTagline: 'Document processing, practical AI workflows, automation and rule-backed systems.',
-    domain: 'ai-automation',
+    title: 'Digital Content & Creative Production',
+    plainTagline:
+      'Visual presentations, product story decks, interactive showcases, and editorial research content.',
+    domain: 'custom-systems',
     targetAudience:
-      'For teams that spend too many hours reading routine PDFs, circulars, contracts, or checklists by hand.',
+      'For startups, brands, and teams that need high-impact visual presentations, product showcases, and clear digital content.',
     problemStatement:
-      'Teams lose hours every week reading unstructured PDFs, notices, or standard agreements—copying dates into calendars, checking policy rules manually, and worrying about missing an important change.',
+      'Great ideas often lose momentum when presented in cluttered, text-heavy slides or generic templates that fail to capture attention within the first thirty seconds.',
     description:
-      'I build practical workflows where AI reads and organises messy text, while fixed computer rules verify dates, schedule overlaps, and compliance checklists reliably.',
+      'I design and produce visual presentation systems, product concept showcases, UX teardown decks, and research-driven editorial articles that make complex ideas effortless to understand and remember.',
     plainBenefitSummary:
-      'Automate repetitive document reading and rule-checking while keeping critical dates and decisions under strict rules.',
+      'Present your product, research, or brand with editorial polish and visual clarity.',
     deliverables: [
-      'Automatic date, deadline, and action-item extraction from PDFs or text',
-      'Automated schedule clash detection and calendar (.ics) exports',
-      'Document revision trackers that highlight what changed',
-      'Rule-backed compliance or checklist evaluation with plain-English summaries',
-      'Structured outputs ready for your team’s daily tools',
+      'High-impact visual keynote & pitch presentation decks',
+      'Product feature showcases, hardware/UX callout boards, and ecosystem visuals',
+      '12–15 slide product teardown and growth concept presentations',
+      'Research-backed editorial articles and executive decision briefs',
+      'Automated executive PDF report templates (ReportLab / structured layouts)',
     ],
     technicalUnderTheHood: [
-      'LLM semantic text structuring (Qwen2.5-7B-Instruct via API or local ONNX/DirectML models)',
-      'Deterministic regex and interval collision math: (StartA < EndB) && (StartB < EndA)',
-      'FAISS vector clause retrieval, SHA-256 verification, and RFC 5545 iCalendar generation',
+      'Editorial typography, visual hierarchy, and slide narrative systems',
+      'High-contrast product callout diagrams and interactive web galleries',
+      'Programmatic PDF report compilation via Python ReportLab where automated output is needed',
     ],
     exampleScenarios: [
       {
-        businessType: 'Educational or Operations Team',
+        businessType: 'Product Launch or Competition Pitch',
         challenge:
-          'Important deadlines arrive inside long PDF circulars, causing missed dates and overlapping events.',
+          'You need to explain hardware, software, user scenarios, and pricing in a visual deck that judges or stakeholders immediately grasp.',
         practicalSolution:
-          'An automated notice reader that pulls out dates, warns of clashes, tracks revisions, and exports calendar files.',
+          'A cohesive 15-slide visual presentation system with clear feature callouts, scenario boards, and ecosystem diagrams.',
       },
       {
-        businessType: 'Consulting or Compliance Workflow',
+        businessType: 'Growth & Retention Team',
         challenge:
-          'Reviewing routine agreements against a standard company checklist takes hours of manual reading.',
+          'You want to turn customer review insights or retention data into a persuasive internal playbook or teardown deck.',
         practicalSolution:
-          'A rule-backed review tool that checks clauses using fixed rules and uses AI to write a clear summary.',
+          'A structured visual deck mapping friction points, user flows, and concrete UX improvements.',
       },
     ],
     portfolioProof: [
       {
-        title: 'Notice Decoder',
-        slug: 'notice-decoder',
+        title: 'RE:FRAME 15-Slide Visual Presentation',
+        slug: 'reframe',
         summary:
-          'Live web app that reads unstructured notices, automatically finds overlapping schedules, tracks changes, and exports calendar files.',
+          'Complete visual presentation system covering hardware callouts, companion app UI, Focus Engine, and real-world AR overlays.',
       },
       {
-        title: 'Contract Risk Governance Engine',
-        slug: 'contract-risk-governance',
+        title: 'Nykaa & IndusShield Concept Decks',
         summary:
-          'Applied AI prototype where fixed rules lock compliance decisions and AI writes a clear explanation for reviewers.',
+          'Visual UX teardown and fintech product strategy decks featuring mobile wireframes and retention journey maps.',
       },
     ],
   },
   {
-    id: 'digital-products',
+    id: 'websites-digital-experiences',
     number: '03',
-    title: 'Digital Products & Prototyping',
-    plainTagline: 'Product research, prototypes, web applications and custom digital tools.',
+    title: 'Websites & Digital Experiences',
+    plainTagline:
+      'Custom websites, interactive web applications, product prototypes, and digital workbenches.',
     domain: 'custom-systems',
     targetAudience:
-      'For founders, startups, and product teams that need a working web application, prototype, or custom internal tool.',
+      'For founders, studios, and product teams that want a distinctive website, interactive prototype, or custom web application.',
     problemStatement:
-      'Off-the-shelf software often forces you into clunky workarounds, while hiring a large agency is overkill when you need a focused web application, an interactive prototype for early users, or a custom reporting tool.',
+      'Cookie-cutter website templates look alike, while off-the-shelf software rarely fits a custom workflow—leaving teams stuck between generic pages and overpriced agency retainers.',
     description:
-      'I research the user flow, design the interface and system architecture, and code clean web applications, multi-file ingestion engines, and one-click PDF report generators.',
+      'I design and engineer responsive websites, interactive product prototypes, and full-stack web applications using React 19, TypeScript, Tailwind CSS, and Python/Node backends.',
     plainBenefitSummary:
-      'Turn an early product concept or a slow internal workflow into a fast, working web application you own.',
+      'Launch a fast, distinctive website or working web application built around your exact story and user workflow.',
     deliverables: [
+      'Custom brand & studio websites with editorial typography and motion',
       'Interactive web application prototypes for startups and product teams',
-      'Custom internal dashboards and investigation workbenches',
-      'Multi-file XML/CSV ingestion and deduplication pipelines',
-      'One-click automated executive PDF report generators',
-      'Clean, documented React/TypeScript & Python source code',
+      'Custom digital workbenches and interactive data/timeline explorers',
+      'Multi-file ingestion dashboards and one-click PDF/calendar export tools',
+      'Clean, documented React 19 + TypeScript source code and live deployment',
     ],
     technicalUnderTheHood: [
-      'Modern web interfaces built with React 19, TypeScript, Vite, Tailwind CSS, and Recharts',
-      'Backend APIs and parallel workers in Python (FastAPI, ThreadPoolExecutor) or Node/Express',
-      'SQLite / SQLAlchemy persistence and programmatic ReportLab PDF generation',
+      'React 19, TypeScript, Vite, Tailwind CSS, Motion, and Recharts visualisations',
+      'Full-stack APIs in Node/Express and Python (FastAPI, ThreadPoolExecutor)',
+      'Deterministic client/server state machines and automated unit test suites',
     ],
     exampleScenarios: [
       {
-        businessType: 'Startup Founder or Product Team',
+        businessType: 'Founder or Independent Business',
         challenge:
-          'You have a product idea and need a working web prototype to test with real users or demonstrate to partners.',
+          'You need a distinctive, conversion-focused website or interactive product showcase that sets you apart from generic templates.',
         practicalSolution:
-          'A thoughtfully designed, functional web application focused on your core user workflow.',
+          'A custom-designed React & TypeScript web experience with clear storytelling, fast performance, and direct enquiry flows.',
       },
       {
-        businessType: 'Technical Consultancy or Assessment Practice',
+        businessType: 'Product or Operations Team',
         challenge:
-          'Merging outputs from multiple tools into a formatted client PDF report takes hours of manual copy-pasting.',
+          'You need a working web application—such as a financial consequence previewer or multi-tool report dashboard—to test with users.',
         practicalSolution:
-          'A custom web system that ingests raw files, removes duplicates, and compiles the finished PDF report in one click.',
+          'A deployed, unit-tested web application with real interactive workflows.',
       },
     ],
     portfolioProof: [
@@ -1633,19 +1874,82 @@ export const SERVICES: ServiceCategory[] = [
         title: 'SentinelX',
         slug: 'sentinelx',
         summary:
-          'Full-stack Python & React platform that merges multi-tool XML/CSV scans and generates executive PDF reports.',
+          'Live web platform (sentineix.vercel.app) that merges multi-tool XML/CSV scans into an interactive dashboard and executive PDF report.',
+      },
+      {
+        title: 'Clarity Redemption AI',
+        slug: 'clarity-redemption-ai',
+        summary:
+          'Live FinTech web workspace (clarity-redemption.ai.studio) with a 15/15 unit-tested deterministic FIFO math engine.',
       },
       {
         title: 'Lureline',
         slug: 'lureline',
         summary:
-          'Live interactive workbench deployed on Vercel for filtering alerts and exploring connected timelines.',
+          'Live interactive investigation workbench deployed on Vercel with automated CI validation.',
       },
+    ],
+  },
+  {
+    id: 'ai-solutions',
+    number: '04',
+    title: 'AI-Powered Digital Solutions',
+    plainTagline:
+      'Practical AI workflows, prompt architectures, document automation, and rule-backed systems.',
+    domain: 'ai-automation',
+    targetAudience:
+      'For teams that want practical AI tools to read documents, detect changes, or synthesise research without hallucinated numbers or dates.',
+    problemStatement:
+      'Teams lose hours every week reading unstructured PDFs, notices, customer reviews, or contracts by hand—yet pure AI chatbots often guess dates, miscalculate numbers, or miss critical policy changes.',
+    description:
+      'I build hybrid AI systems where language models read and summarise unstructured text, while deterministic computer rules lock in dates, schedule overlaps, compliance checks, and calculations.',
+    plainBenefitSummary:
+      'Save hours of manual reading and synthesis with AI tools that stay grounded in strict rules and verified sources.',
+    deliverables: [
+      'AI + fixed-rule document readers and schedule conflict detectors',
+      'Operational change-detection prompt systems (surfacing only actionable deltas)',
+      'Customer feedback and research synthesis prototypes',
+      'Rule-backed compliance evaluators with SHA-256 audit trails',
+      'Interactive Power BI & Python data intelligence pipelines',
+    ],
+    technicalUnderTheHood: [
+      'LLM semantic structuring (Qwen2.5-7B-Instruct, Gemini, or local ONNX/DirectML models)',
+      'Deterministic interval overlap math, JSON schema guardrails, and RFC 5545 (.ics) exports',
+      'FAISS vector retrieval, SHA-256 state sealing, and adversarial prompt evaluation',
+    ],
+    exampleScenarios: [
+      {
+        businessType: 'Operations or Institutional Team',
+        challenge:
+          'Important dates and policy updates arrive inside long circulars, causing missed deadlines and schedule clashes.',
+        practicalSolution:
+          'An automated web tool like Notice Decoder or SIGNAL that extracts dates, flags clashes, and highlights only what changed.',
+      },
+      {
+        businessType: 'Product or Research Team',
+        challenge:
+          'Hundreds of customer reviews and research notes need to be distilled into prioritized product decisions.',
+        practicalSolution:
+          'A structured AI synthesis workflow like InsightForgeAI that links every recommendation back to source evidence.',
+      },
+    ],
+    portfolioProof: [
       {
         title: 'Notice Decoder',
         slug: 'notice-decoder',
         summary:
-          'End-to-end React + Express web application deployed live on Render.',
+          'Live AI & deterministic schedule planner (notice-decoder-pi.vercel.app) with automatic clash detection and .ics calendar export.',
+      },
+      {
+        title: 'SIGNAL – Prompt Forge & InsightForgeAI',
+        summary:
+          'Live AI prototypes for operational delta detection (95.0% accuracy on 40-case benchmark) and product research synthesis.',
+      },
+      {
+        title: 'Contract Risk Governance Engine',
+        slug: 'contract-risk-governance',
+        summary:
+          'Hybrid FAISS + deterministic compliance engine with AMD Ryzen AI NPU DirectML explanation acceleration (~420ms).',
       },
     ],
   },
@@ -1658,15 +1962,15 @@ export const SUPPORTING_CAPABILITIES = [
     title: 'Product Strategy & UX',
     tagline: 'Problem discovery, user workflows, and clear interface design before coding.',
     problem:
-      'Jumping straight into code without understanding how people actually work often leads to cluttered software nobody wants to use.',
+      'Jumping straight into production without understanding how people actually use a product leads to cluttered screens and weak narratives.',
     whatIDo:
-      'I map out user needs, evaluate simpler alternatives first, and design clean, readable interfaces before writing production code.',
+      'I map out user needs, evaluate simpler alternatives first, and design clean, readable interfaces and story flows before building.',
     whatYouReceive:
-      'Clear workflow diagrams, thoughtful screen layouts, and software that feels straightforward to use.',
+      'Clear workflow diagrams, thoughtful screen layouts, and digital experiences that feel intuitive.',
     evidenceProjects: [
+      'RE:FRAME (1st Place · REVIVEX Smart Glasses UX & Focus Engine)',
       'Notice Decoder (Schedule planner & Change Radar UX)',
       'Lureline (Interactive investigation timeline workbench)',
-      'ResolX.ai AI Solutioning Internship',
     ],
   },
   {
@@ -1677,28 +1981,30 @@ export const SUPPORTING_CAPABILITIES = [
     problem:
       'Many businesses confuse paid ads, brand positioning, and customer retention—or launch features without studying competitor and customer patterns.',
     whatIDo:
-      'I study customer transaction behaviour, synthesise market and competitor information into plain-English briefs, and connect research directly to product and retention decisions.',
+      'I study customer transaction behaviour, synthesise market and competitor information into plain-English briefs, and connect research directly to positioning and product decisions.',
     whatYouReceive:
       'Structured research briefs, customer segmentation playbooks, and clear positioning recommendations.',
     evidenceProjects: [
       'Decoding Customer Value (3,900-record loyalty vs. discount study)',
+      'OTT Viewer Retention Analysis (33,171 episodes)',
       'CareerWithDishani Research & Insight Synthesis Internship',
     ],
   },
   {
     id: 'software-quality',
     number: 'S3',
-    title: 'Software Quality',
-    tagline: 'Reliable rules, cryptographic file checks, deduplication, and automated reporting accuracy.',
+    title: 'Software Quality & Verification',
+    tagline: 'Reliable rules, cryptographic file checks, unit testing, and reporting accuracy.',
     problem:
-      'Prototypes and internal tools often break when given messy files, duplicate records, or edge-case dates.',
+      'Prototypes and internal tools often break when given messy files, duplicate records, or edge-case dates and financial lots.',
     whatIDo:
-      'I build fixed validation rules, SHA-256 file integrity checks, deduplication logic, and structured PDF/calendar exports so software behaves predictably.',
+      'I build fixed validation rules, automated unit test suites, SHA-256 file integrity checks, and structured PDF/calendar exports so software behaves predictably.',
     whatYouReceive:
-      'Clean, maintainable TypeScript/Python codebases with automated checks and clear technical handover documentation.',
+      'Clean, maintainable TypeScript/Python codebases with automated checks and clear handover documentation.',
     evidenceProjects: [
+      'Clarity Redemption AI (15/15 unit tests passing on FIFO math)',
       'SentinelX (SHA-256 integrity & 5-level normalization)',
-      'Contract Risk Governance Engine (Deterministic rule engine + SHA-256 audit hash)',
+      'Contract Risk Governance Engine (Deterministic rules + SHA-256 audit hash)',
     ],
   },
 ];
@@ -1708,159 +2014,138 @@ export const ENGAGEMENT_MODELS = [
     id: 'fixed-scope-pilot',
     number: '01',
     title: 'Fixed-Scope Pilot',
-    bestFor: 'Testing a solution on one dataset, document type, or core workflow first.',
+    bestFor: 'Testing a story deck, web prototype, or single AI/data workflow first.',
     plainDescription:
-      'Start with a small, clearly defined pilot—such as analysing one sample spreadsheet or automating one document check—before committing to a larger build.',
-    whatYouGet: 'A working proof of value, clear deliverables, and zero long-term lock-in.',
+      'Start with a focused, clearly defined pilot—such as a product concept deck, a clickable prototype, or analysing one sample dataset—before committing to a larger engagement.',
+    whatYouGet: 'A tangible proof of value, clear deliverables, and zero long-term lock-in.',
   },
   {
     id: 'custom-project',
     number: '02',
-    title: 'Custom Project',
-    bestFor: 'End-to-end dashboards, workflow automations, or full-stack web tools.',
+    title: 'Custom Studio Project',
+    bestFor: 'End-to-end brand storytelling, custom websites, or full-stack AI applications.',
     plainDescription:
-      'Once we agree on the exact deliverables and milestones, I design, build, test, and hand over the complete solution tailored to your business.',
-    whatYouGet: 'Complete working software or dashboard, source files, and a plain-English user guide.',
+      'Once we agree on deliverables and milestones, I design, write, build, and hand over the complete digital experience or solution tailored to your goals.',
+    whatYouGet: 'Complete live website, presentation system, or working software with source files.',
   },
   {
     id: 'research-technical-assessment',
     number: '03',
-    title: 'Research & Technical Assessment',
-    bestFor: 'Founders and teams exploring how to turn a rough idea or messy process into a system.',
+    title: 'Strategy & Research Sprint',
+    bestFor: 'Founders and teams shaping a new product concept, pitch narrative, or workflow architecture.',
     plainDescription:
-      'I audit your sample data or manual workflow, research the technical options, and design a clear architecture blueprint and implementation plan.',
-    whatYouGet: 'A structured feasibility report, visual workflow diagram, and practical build roadmap.',
+      'I audit your category, customer data, or product concept and deliver a structured positioning strategy, UX blueprint, and implementation roadmap.',
+    whatYouGet: 'A visual strategy deck, workflow blueprint, and actionable build plan.',
   },
   {
     id: 'ongoing-improvement',
     number: '04',
-    title: 'Ongoing Improvement',
-    bestFor: 'Refining dashboards, adding new rules, or extending a tool after launch.',
+    title: 'Iterative Refinement',
+    bestFor: 'Expanding a website, adding new AI workflows, or refining dashboards post-launch.',
     plainDescription:
-      'Where appropriate after delivering a project, we can schedule focused follow-up iterations as your data grows or your team requests new features.',
-    whatYouGet: 'Direct support and iterative upgrades from the original builder.',
+      'After delivering the core project, we can schedule focused follow-up iterations as your product evolves or new content and features are needed.',
+    whatYouGet: 'Direct 1-on-1 support and upgrades from the original creator.',
   },
 ];
 
 export const ENGAGEMENT_STEPS = [
   {
     step: '01',
-    stageKey: 'RESEARCH',
-    title: 'Research the Problem',
-    shortLabel: 'Problem & Context',
+    stageKey: 'DISCOVER',
+    title: 'Discover',
+    shortLabel: 'Context & Research',
     description:
-      'You explain what is slowing down your team or what idea you want to build. I study the real workflow and business goal before suggesting any tool.',
-    whatIContribute: 'Problem framing, workflow audit, and identifying the simplest high-impact solution.',
-    whatYouReceive: 'A clear summary of the problem and an honest recommendation on what to build.',
+      'We start with your business goal, audience, or operational bottleneck. I review your current material, study competitors or sample data, and uncover the real problem worth solving.',
+    whatIContribute: 'Audience & category research, workflow audit, and sample data/content review.',
+    whatYouReceive: 'A clear diagnosis of the opportunity and an honest recommendation on what to create.',
   },
   {
     step: '02',
-    stageKey: 'ANALYSIS',
-    title: 'Analyse Data & Material',
-    shortLabel: 'Data & Edge Cases',
+    stageKey: 'DEFINE',
+    title: 'Define',
+    shortLabel: 'Story & Architecture',
     description:
-      'We inspect a sample spreadsheet, PDF circular, or current manual process to uncover missing fields, edge cases, and key patterns.',
-    whatIContribute: 'Data cleaning, SQL/Python exploration, and document structure analysis.',
-    whatYouReceive: 'A realistic scope, clear milestone plan, and a customized INR proposal.',
+      'Before production begins, we lock in the narrative angle, visual direction, user flow, or hybrid AI/rule architecture—along with a transparent scope and milestone plan.',
+    whatIContribute: 'Positioning strategy, wireframes, system architecture, and written scope in INR.',
+    whatYouReceive: 'A clear blueprint and written scope so expectations, deliverables, and timelines are aligned.',
   },
   {
     step: '03',
-    stageKey: 'AI & LOGIC',
-    title: 'Design AI & Fixed Rules',
-    shortLabel: 'Rules + AI Design',
+    stageKey: 'CREATE',
+    title: 'Create',
+    shortLabel: 'Design & Engineering',
     description:
-      'I separate what requires AI (reading messy text or writing summaries) from what requires fixed rules (dates, numbers, clashes, and policy checks).',
-    whatIContribute: 'System architecture, prompt & model selection, and deterministic rule engines.',
-    whatYouReceive: 'A reliable logic design where AI never guesses your critical dates or numbers.',
+      'I design the visual presentation, craft the story, or engineer the custom website and AI solution myself—sharing live previews so we can refine details together.',
+    whatIContribute: 'Visual storytelling, React/TypeScript web engineering, Python/SQL analytics, and AI integration.',
+    whatYouReceive: 'Working previews and high-craft visuals you can inspect and test directly.',
   },
   {
     step: '04',
-    stageKey: 'SOFTWARE',
-    title: 'Build Working Software',
-    shortLabel: 'Code & Visuals',
+    stageKey: 'DELIVER',
+    title: 'Deliver',
+    shortLabel: 'Launch & Handover',
     description:
-      'I build the interactive Power BI dashboard, automation pipeline, or full-stack web application—sharing working previews directly with you.',
-    whatIContribute: 'End-to-end development in React, TypeScript, Python, SQL, or Power BI.',
-    whatYouReceive: 'Working previews you can test and refine before final completion.',
-  },
-  {
-    step: '05',
-    stageKey: 'DELIVERY',
-    title: 'Deliver & Hand Over',
-    shortLabel: 'Handover & Guide',
-    description:
-      'You receive the finished dashboard, report engine, or web app along with clean source files and a plain-English guide for your team.',
-    whatIContribute: 'Quality checks, deployment or file packaging, and clear documentation.',
-    whatYouReceive: 'Complete ownership of the deliverable and a straightforward guide to run it.',
+      'Once every detail is verified against our agreed scope, I launch the live experience or hand over the final presentation decks, dashboards, and source repositories.',
+    whatIContribute: 'Quality verification, live deployment, source packaging, and plain-English documentation.',
+    whatYouReceive: 'Full ownership of the finished work, clean source files, and a clear guide for your team.',
   },
 ];
 
 export const PROCESS_STAGES: ProcessStage[] = [
   {
     stepNumber: '01',
-    title: 'RESEARCH — Understand the Problem & Workflow',
-    shortLabel: '01 · RESEARCH',
+    title: 'DISCOVER — Research the Audience, Context & Core Problem',
+    shortLabel: '01 · DISCOVER',
     clientExperience:
-      'We begin with a plain-English conversation about what is taking too much manual time, what question your numbers are not answering, or what product idea you want to prototype.',
-    whatYouProvide: 'A short explanation of your problem and what a useful outcome looks like for your team.',
+      'Every project begins with a straightforward conversation about what you are building, who you need to convince, or what workflow is slowing your team down. I study your existing material, category, or sample data before proposing a direction.',
+    whatYouProvide:
+      'Your initial idea, business goal, existing deck/website link, or a small sample of your data or documents.',
     whatYouReceive:
-      'A clear assessment of whether your problem is best solved with data analysis, workflow automation, a custom web tool, or a small fixed-scope pilot.',
-    keyPrinciple: 'Start with the human and business problem, never with technical jargon.',
+      'A clear assessment of whether you need brand storytelling, a visual presentation system, a custom web experience, an AI workflow, or a focused pilot.',
+    keyPrinciple: 'Understand the human story and real friction before designing a single slide or screen.',
     technicalNote:
-      'Problem discovery, workflow mapping, and deciding between analytical vs. full-stack software deliverables.',
+      'Competitive teardown, user journey friction mapping, and exploratory data/document profiling.',
   },
   {
     stepNumber: '02',
-    title: 'ANALYSIS — Inspect Sample Data, Documents & Edge Cases',
-    shortLabel: '02 · ANALYSIS',
+    title: 'DEFINE — Shape the Narrative, Visual System & Architecture',
+    shortLabel: '02 · DEFINE',
     clientExperience:
-      'Before locking scope, I examine a sample spreadsheet, PDF document, or manual checklist so we catch messy formatting or edge cases early.',
+      'We translate research into a concrete plan: defining the core positioning message, mapping the user journey or slide flow, and separating where AI helps from where fixed deterministic rules are required.',
     whatYouProvide:
-      'A sample Excel/CSV export (with sensitive fields masked if needed), sample PDFs, or a walkthrough of your current steps.',
+      'Feedback on the proposed structure, brand priorities, and any specific business rules or constraints.',
     whatYouReceive:
-      'Clear feedback on data readiness plus a written scope and customised INR proposal.',
-    keyPrinciple: 'Inspect the real material first so the scope and timeline are grounded in reality.',
+      'A structured narrative outline or system blueprint, plus a transparent written scope and customised INR proposal.',
+    keyPrinciple: 'Clear structure first—so creative direction and technical logic work together.',
     technicalNote:
-      'Exploratory data profiling in Python/SQL, schema auditing, and identifying document parsing edge cases.',
+      'Information architecture, UX wireframing, and hybrid LLM + deterministic rule specification.',
   },
   {
     stepNumber: '03',
-    title: 'AI & LOGIC — Combine Smart Reading With Fixed Rules',
-    shortLabel: '03 · AI & LOGIC',
+    title: 'CREATE — Design the Story & Build the Digital Experience',
+    shortLabel: '03 · CREATE',
     clientExperience:
-      'I design the brain of the solution: AI handles messy text and plain-English summaries, while fixed computer rules handle dates, schedule clashes, calculations, and compliance checks.',
-    whatYouProvide: 'Confirmation of the business rules, priorities, or checklist criteria your team follows.',
+      'I execute the work 1-on-1—designing the visual presentation deck, building the responsive React & TypeScript website or prototype, or coding the Python/AI pipeline—with regular interactive checkpoints.',
+    whatYouProvide:
+      'Direct feedback on visual drafts or live staging links so we can fine-tune copy, layouts, and interactions.',
     whatYouReceive:
-      'A visual system flow showing exactly how inputs are processed, verified, and turned into outputs.',
-    keyPrinciple: 'AI reads and explains; fixed rules verify dates, numbers, and policy decisions.',
+      'High-craft visual assets, working web applications, or verified analytical dashboards built without agency hand-off delays.',
+    keyPrinciple: 'Combine editorial visual craft with reliable, tested engineering.',
     technicalNote:
-      'Hybrid architecture combining LLM extraction/narration with deterministic validation, regex/interval math, and SHA-256 integrity checks.',
+      'Implementation across React 19, TypeScript, Tailwind CSS, Recharts, FastAPI, SQL, Power BI, and ReportLab.',
   },
   {
     stepNumber: '04',
-    title: 'SOFTWARE — Build the Dashboard, Automation or Web Tool',
-    shortLabel: '04 · SOFTWARE',
+    title: 'DELIVER — Verify, Launch & Hand Over Complete Ownership',
+    shortLabel: '04 · DELIVER',
     clientExperience:
-      'I build the solution myself—whether that is an interactive Power BI dashboard, a Python processing pipeline, or a React & TypeScript web application—and share working checkpoints.',
-    whatYouProvide: 'Direct feedback on working previews so we can adjust labels, filters, or report layouts.',
+      'We review the finished website, presentation deck, or software tool together. Everything is checked for responsiveness, visual polish, and factual accuracy before final handover.',
+    whatYouProvide: 'Final walkthrough approval against the agreed deliverables.',
     whatYouReceive:
-      'Direct 1-on-1 collaboration with the builder and a clean, responsive tool tailored to your workflow.',
-    keyPrinciple: 'Every screen, chart, and report is built to be clear and immediately usable.',
+      'The live deployed website or application, final presentation/dashboard files, clean source code, and a clear guide.',
+    keyPrinciple: 'Zero black boxes—you own the story, the design assets, and the code.',
     technicalNote:
-      'Full-stack implementation across React 19, TypeScript, FastAPI, Express, SQLite, Power BI, and ReportLab PDF engines.',
-  },
-  {
-    stepNumber: '05',
-    title: 'DELIVERY — Handover, Documentation & Next Steps',
-    shortLabel: '05 · DELIVERY',
-    clientExperience:
-      'Once we review the finished deliverable against the agreed scope, I hand over the live app, code repository, or dashboard files along with a simple guide.',
-    whatYouProvide: 'Final review walkthrough against the agreed deliverables.',
-    whatYouReceive:
-      'The complete working solution, source code or dashboard files, and a plain-English guide so your team can use it confidently.',
-    keyPrinciple: 'No black boxes—you receive a transparent system you can understand and use.',
-    technicalNote:
-      'Repository handover, environment & deployment instructions, and structured user documentation.',
+      'Automated build/test verification, production deployment, and structured documentation handover.',
   },
 ];
 
@@ -2137,6 +2422,7 @@ export const VERIFIED_ACADEMIC_RECORD = {
     { semester: 'Semester IV', sgpa: '8.96' },
   ],
   certificationsAndHighlights: [
+    '1st Position — REVIVEX at ZERO² 2026 (RE:FRAME Smart Glasses Product Concept · InternWare, IITM Janakpuri)',
     'System Architecture Lead — Contract Risk Governance Engine (AMD Slingshot Hackathon 2026 · 57 Commits)',
     'Team Leader & System Architect — Notice Decoder (SETU 2026 PS-02 · Live Full-Stack AI Web App)',
     'Co-Developer & Product Analyst — Clarity Redemption AI (Produscope 2026 · 15/15 Unit Tests Pass)',

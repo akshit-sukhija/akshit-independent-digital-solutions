@@ -26,50 +26,41 @@ export function SolutionsPage() {
   return (
     <div>
       <PageMeta
-        title="Solutions & Capabilities — Data, AI & Digital Products"
-        description="Explore Data & Business Intelligence, AI & Workflow Automation, and Digital Products & Prototyping—plus the 3-Question Solution Finder and FAQ."
+        title="Services — Brand Strategy, Digital Content, Websites & AI Solutions"
+        description="Explore Akshit Sukhija’s four studio services: Brand Strategy & Storytelling, Digital Content & Creative Production, Websites & Digital Experiences, and AI-Powered Digital Solutions."
       />
 
       {/* 1. Header */}
       <section className="bg-[#0E0F14] bg-lamplit-glow border-b border-[#2C2F42] pt-14 pb-16 px-6">
         <div className="max-w-[1200px] mx-auto">
           <MotionReveal className="max-w-3xl space-y-5">
-            <p className="font-mono text-xs text-[#D4AE5C] uppercase tracking-wider">
-              Solutions &amp; Capabilities · AKSHIT SUKHIJA
+            <p className="font-mono text-xs text-[#38BDF8] uppercase tracking-wider">
+              Services · AKSHIT SUKHIJA · Independent Digital Content &amp; Solutions Studio
             </p>
             <h1
               className="font-display text-[#F4F0E8] leading-[1.08]"
               style={{ fontSize: 'clamp(2.4rem, 4.2vw, 3.85rem)' }}
             >
-              Practical Digital Solutions Built Around Your Business Problem
+              Services Built Around Brand Clarity, Content &amp; Useful Digital Systems
             </h1>
             <p className="text-base sm:text-lg text-[#A6A9B8] leading-relaxed">
-              You never need to pick programming languages or technical frameworks yourself. Use
-              the 3-question Solution Finder below or browse the three core capabilities to see how
-              we can work together.
+              Creative ideas. Clear stories. Digital experiences. Explore the four studio service
+              categories below or use the interactive Solution Finder to match your brief with the
+              right deliverable.
             </p>
           </MotionReveal>
         </div>
       </section>
 
-      {/* 2. Reusable 3-Question SolutionFinder */}
-      <section className="bg-[#0E0F14] border-b border-[#2C2F42] py-16 px-6">
-        <div className="max-w-[1200px] mx-auto">
-          <MotionReveal>
-            <SolutionFinder />
-          </MotionReveal>
-        </div>
-      </section>
-
-      {/* 3. Three Core Capabilities */}
+      {/* 2. Four Studio Service Categories */}
       <section className="bg-[#0E0F14] border-b border-[#2C2F42] py-20 px-6">
         <div className="max-w-[1200px] mx-auto space-y-12">
           <MotionReveal className="max-w-3xl space-y-2">
             <p className="font-mono text-xs text-[#D4AE5C] uppercase tracking-wide">
-              Core Capabilities
+              Four Studio Service Categories
             </p>
             <h2 className="font-display text-3xl sm:text-4xl text-[#F4F0E8]">
-              Data &amp; Business Intelligence · AI &amp; Workflow Automation · Digital Products &amp; Prototyping
+              01. Brand Strategy &amp; Storytelling · 02. Digital Content · 03. Websites · 04. AI Solutions
             </h2>
           </MotionReveal>
 
@@ -82,10 +73,13 @@ export function SolutionsPage() {
                   delay={index * 0.05}
                   className="bg-[#161822] border border-[#2C2F42] rounded-2xl p-6 md:p-10 space-y-8"
                 >
-                  <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-4 pb-6 border-b border-[#2C2F42]">
+                  <div
+                    id={service.id}
+                    className="flex flex-col lg:flex-row lg:items-end justify-between gap-4 pb-6 border-b border-[#2C2F42] scroll-mt-28"
+                  >
                     <div className="space-y-2 max-w-2xl">
-                      <p className="font-mono text-xs text-[#8B75FF]">
-                        Core Capability {service.number} · {service.targetAudience}
+                      <p className="font-mono text-xs text-[#38BDF8]">
+                        Studio Service {service.number} · {service.targetAudience}
                       </p>
                       <h3 className="font-display text-3xl sm:text-4xl text-[#F4F0E8]">
                         {service.number}. {service.title}
@@ -93,16 +87,10 @@ export function SolutionsPage() {
                       <p className="text-base text-[#E6D3A7]">{service.plainTagline}</p>
                     </div>
                     <Link
-                      to={`/enquire?problem=${encodeURIComponent(
-                        service.id === 'data-intelligence'
-                          ? 'Understand my business data'
-                          : service.id === 'ai-automation'
-                            ? 'Automate a repetitive workflow'
-                            : 'Build a dashboard or internal tool'
-                      )}`}
+                      to={`/enquire?problem=${encodeURIComponent(service.title)}`}
                       className="inline-flex items-center gap-2 px-5 py-2.5 text-xs font-medium text-[#0E0F14] bg-[#D4AE5C] hover:bg-[#E6D3A7] rounded-lg transition-colors whitespace-nowrap shrink-0 self-start lg:self-auto"
                     >
-                      <span>Enquire About {service.title}</span>
+                      <span>Start a {service.title} Project</span>
                       <ArrowRight className="w-3.5 h-3.5" />
                     </Link>
                   </div>
@@ -112,13 +100,13 @@ export function SolutionsPage() {
                     <div className="lg:col-span-7 space-y-6">
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div className="bg-[#0E0F14] border border-[#2C2F42] rounded-xl p-5 space-y-2">
-                          <p className="font-mono text-xs text-[#A6A9B8]">The Problem</p>
+                          <p className="font-mono text-xs text-[#A6A9B8]">The Challenge</p>
                           <p className="text-sm text-[#F4F0E8] leading-relaxed">
                             {service.problemStatement}
                           </p>
                         </div>
-                        <div className="bg-[#0E0F14] border border-[#8B75FF]/40 rounded-xl p-5 space-y-2">
-                          <p className="font-mono text-xs text-[#8B75FF]">What I Do</p>
+                        <div className="bg-[#0E0F14] border border-[#38BDF8]/40 rounded-xl p-5 space-y-2">
+                          <p className="font-mono text-xs text-[#38BDF8]">Studio Approach</p>
                           <p className="text-sm text-[#F4F0E8] leading-relaxed">
                             {service.description}
                           </p>
@@ -128,7 +116,7 @@ export function SolutionsPage() {
                       {/* Real-World Scenarios */}
                       <div className="space-y-3">
                         <p className="font-mono text-xs text-[#E6D3A7]">
-                          Practical Business Examples
+                          Practical Client Scenarios
                         </p>
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                           {service.exampleScenarios.map((scenario) => (
@@ -144,7 +132,7 @@ export function SolutionsPage() {
                                 {scenario.challenge}
                               </p>
                               <p className="text-xs text-[#F4F0E8] leading-relaxed pt-1 border-t border-[#2C2F42]/60">
-                                <strong className="text-[#8B75FF]">Solution: </strong>
+                                <strong className="text-[#38BDF8]">Solution: </strong>
                                 {scenario.practicalSolution}
                               </p>
                             </div>
@@ -161,7 +149,7 @@ export function SolutionsPage() {
                         <ul className="space-y-2.5 text-xs text-[#F4F0E8] pt-3">
                           {service.deliverables.map((item) => (
                             <li key={item} className="flex items-start gap-2.5">
-                              <span className="font-mono text-[#8B75FF]">—</span>
+                              <span className="font-mono text-[#38BDF8]">—</span>
                               <span>{item}</span>
                             </li>
                           ))}
@@ -173,12 +161,12 @@ export function SolutionsPage() {
                         <button
                           type="button"
                           onClick={() => toggleTech(service.id)}
-                          className="w-full flex items-center justify-between font-mono text-xs text-[#E6D3A7] hover:text-[#8B75FF] cursor-pointer"
+                          className="w-full flex items-center justify-between font-mono text-xs text-[#E6D3A7] hover:text-[#38BDF8] cursor-pointer"
                         >
                           <span>
                             {showTech
-                              ? 'Hide technical tools & methods'
-                              : 'Show technical tools & methods (optional)'}
+                              ? 'Hide tools & production workflow'
+                              : 'Show tools & production workflow (optional)'}
                           </span>
                           {showTech ? (
                             <ChevronUp className="w-4 h-4" />
@@ -198,8 +186,8 @@ export function SolutionsPage() {
                       </div>
 
                       <div className="pt-4 border-t border-[#2C2F42] space-y-3">
-                        <p className="font-mono text-xs text-[#8B75FF]">
-                          Relevant Project Evidence
+                        <p className="font-mono text-xs text-[#38BDF8]">
+                          Relevant Studio Proof
                         </p>
                         {service.portfolioProof.map((proof) => (
                           <div
@@ -232,19 +220,28 @@ export function SolutionsPage() {
         </div>
       </section>
 
+      {/* 3. Reusable 3-Question SolutionFinder */}
+      <section className="bg-[#0E0F14] border-b border-[#2C2F42] py-16 px-6">
+        <div className="max-w-[1200px] mx-auto">
+          <MotionReveal>
+            <SolutionFinder />
+          </MotionReveal>
+        </div>
+      </section>
+
       {/* 4. Three Supporting Capabilities (Warm Ivory Section) */}
       <section className="bg-[#F5F1E8] text-[#0E0F14] border-b border-[#D4CBB8] py-16 px-6 bg-ivory-grid">
         <div className="max-w-[1200px] mx-auto space-y-8">
           <MotionReveal className="max-w-3xl space-y-2">
             <p className="font-mono text-xs text-[#4A32C4] font-medium uppercase tracking-wide">
-              Supporting Capabilities
+              Supporting Foundations
             </p>
             <h2 className="font-display text-3xl sm:text-4xl text-[#0E0F14]">
               Product Strategy &amp; UX · Brand &amp; Market Research · Software Quality
             </h2>
             <p className="text-sm sm:text-base text-[#1E202E]">
-              Every project is backed by structured problem discovery before coding and strict
-              quality checks during delivery.
+              Every studio engagement is backed by structured problem discovery before production and
+              rigorous verification before delivery.
             </p>
           </MotionReveal>
 
@@ -294,11 +291,11 @@ export function SolutionsPage() {
                 Flexible Engagement Models (INR)
               </p>
               <h2 className="font-display text-3xl sm:text-4xl text-[#F4F0E8]">
-                Start Small With a Pilot or Scope a Full Custom Build
+                Start Small With a Focused Sprint or Scope a Full Custom Build
               </h2>
               <p className="text-sm text-[#A6A9B8]">
                 No invented package prices or unrealistic delivery promises. Every engagement is
-                quoted transparently in INR after reviewing your actual problem and sample material.
+                quoted transparently in INR after reviewing your brief and sample material.
               </p>
             </MotionReveal>
 
@@ -340,10 +337,10 @@ export function SolutionsPage() {
 
       <CtaSection
         variant="ivory"
-        headline="Ready to scope a pilot or custom project?"
-        primaryLabel="Open Project Scope Builder"
+        headline="Ready to scope a campaign, website, or AI workflow?"
+        primaryLabel="Start a Project"
         primaryTo="/enquire"
-        secondaryLabel="Inspect Project Portfolio"
+        secondaryLabel="Explore Selected Work"
         secondaryTo="/work"
       />
     </div>

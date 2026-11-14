@@ -351,22 +351,22 @@ export function AiRulesHumanDiagram() {
 }
 
 /**
- * 3. Signature 5-Step Working Methodology:
- * RESEARCH → ANALYSIS → AI & LOGIC → SOFTWARE → DELIVERY
+ * 3. Signature 4-Stage Studio Process:
+ * DISCOVER → DEFINE → CREATE → DELIVER
  */
 export function FiveStepProcessDiagram() {
   const [activeStep, setActiveStep] = useState<number>(0);
-  const current = ENGAGEMENT_STEPS[activeStep];
+  const current = ENGAGEMENT_STEPS[activeStep] ?? ENGAGEMENT_STEPS[0];
 
   return (
     <div className="bg-[#161822] border border-[#2C2F42] rounded-2xl p-6 md:p-8 bg-blueprint-grid space-y-6">
       <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-[#2C2F42] pb-4">
         <div>
-          <p className="font-mono text-xs text-[#8B75FF]">
-            Signature 5-Step Methodology · RESEARCH → ANALYSIS → AI &amp; LOGIC → SOFTWARE → DELIVERY
+          <p className="font-mono text-xs text-[#38BDF8]">
+            Studio Process · DISCOVER → DEFINE → CREATE → DELIVER
           </p>
           <h3 className="font-display text-2xl sm:text-3xl text-[#F4F0E8] mt-1">
-            How a Raw Idea or Messy Problem Becomes Working Software
+            How Ideas Become Clear Stories &amp; Working Digital Experiences
           </h3>
         </div>
         <span className="font-mono text-xs text-[#E6D3A7]">
@@ -374,8 +374,8 @@ export function FiveStepProcessDiagram() {
         </span>
       </div>
 
-      {/* Connected 5-Stage Selector */}
-      <div className="grid grid-cols-1 md:grid-cols-5 gap-3">
+      {/* Connected 4-Stage Selector */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
         {ENGAGEMENT_STEPS.map((item, idx) => {
           const isSelected = idx === activeStep;
           return (
@@ -385,15 +385,17 @@ export function FiveStepProcessDiagram() {
               onClick={() => setActiveStep(idx)}
               className={`text-left p-4 rounded-xl border transition-all flex flex-col justify-between gap-3 cursor-pointer ${
                 isSelected
-                  ? 'bg-[#1E202E] border-[#8B75FF] shadow-md'
-                  : 'bg-[#0E0F14] border-[#2C2F42] hover:border-[#8B75FF]/60'
+                  ? 'bg-[#1E202E] border-[#38BDF8] shadow-md'
+                  : 'bg-[#0E0F14] border-[#2C2F42] hover:border-[#38BDF8]/60'
               }`}
             >
               <div className="flex items-center justify-between w-full">
-                <span className="font-mono text-xs text-[#8B75FF] font-semibold">
+                <span className="font-mono text-xs text-[#38BDF8] font-semibold">
                   {item.step} · {item.stageKey}
                 </span>
-                {idx < 4 && <span className="font-mono text-xs text-[#D4AE5C]">→</span>}
+                {idx < ENGAGEMENT_STEPS.length - 1 && (
+                  <span className="font-mono text-xs text-[#D4AE5C]">→</span>
+                )}
               </div>
               <div className="space-y-1">
                 <p className="text-sm font-semibold text-[#F4F0E8] leading-snug">{item.title}</p>
@@ -407,7 +409,7 @@ export function FiveStepProcessDiagram() {
       {/* 3-Column Stage Breakdown: What Happens · What I Contribute · What You Receive */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         <div className="bg-[#0E0F14] border border-[#2C2F42] rounded-xl p-5 space-y-2">
-          <p className="font-mono text-xs text-[#8B75FF]">
+          <p className="font-mono text-xs text-[#38BDF8]">
             01 · What Happens at Stage {current.step} ({current.stageKey})
           </p>
           <p className="text-sm text-[#F4F0E8] leading-relaxed">{current.description}</p>
@@ -425,9 +427,9 @@ export function FiveStepProcessDiagram() {
           </div>
           <Link
             to="/enquire"
-            className="inline-flex items-center gap-1.5 text-xs font-mono text-[#D4AE5C] hover:text-[#8B75FF] pt-1 transition-colors"
+            className="inline-flex items-center gap-1.5 text-xs font-mono text-[#D4AE5C] hover:text-[#38BDF8] pt-1 transition-colors"
           >
-            <span>Start a project at Stage 01</span>
+            <span>Start a project at Stage 01 (Discover)</span>
             <ArrowRight className="w-3.5 h-3.5" />
           </Link>
         </div>

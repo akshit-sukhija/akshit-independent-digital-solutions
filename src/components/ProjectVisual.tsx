@@ -32,6 +32,101 @@ interface ProjectVisualProps {
 export function ProjectVisual({ slug, mode = 'full' }: ProjectVisualProps) {
   const [showTech, setShowTech] = useState(false);
 
+  if (slug === 'reframe') {
+    return (
+      <div className="bg-[#0B0E14] border border-[#252C3D] rounded-xl p-5 md:p-6 space-y-5">
+        <div className="flex flex-wrap items-center justify-between gap-2 pb-3 border-b border-[#252C3D]">
+          <div className="flex items-center gap-2">
+            <span className="w-2 h-2 rounded-full bg-[#38BDF8]" />
+            <span className="font-mono text-xs text-[#F4F0E8]">
+              RE:FRAME · Glasses–Phone–Cloud Ecosystem &amp; Focus Engine Architecture
+            </span>
+          </div>
+          <span className="font-mono text-[11px] text-[#38BDF8]">
+            1st Place · REVIVEX · ZERO² 2026 · Unbuilt Product Concept
+          </span>
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 items-stretch">
+          {/* Stage 1 */}
+          <div className="lg:col-span-4 bg-[#131722] border border-[#252C3D] rounded-lg p-4 flex flex-col justify-between space-y-3">
+            <div className="flex items-center justify-between">
+              <span className="font-mono text-[11px] text-[#38BDF8]">01 · CAPTURE ON GLASSES</span>
+              <Cpu className="w-4 h-4 text-[#38BDF8]" />
+            </div>
+            <div className="space-y-2">
+              <p className="text-xs font-semibold text-[#F4F0E8]">
+                Modular Everyday Eyewear
+              </p>
+              <div className="bg-[#0B0E14] border border-[#252C3D] rounded p-2.5 font-mono text-[11px] text-[#A6A9B8] space-y-1">
+                <p className="text-[#38BDF8]">01 Micro-OLED Display · 02 Ultra-Wide Camera</p>
+                <p>03 Gesture Touch Pad · 04 Modular Arms &amp; Case</p>
+              </div>
+            </div>
+            <p className="text-[11px] text-[#A6A9B8]">
+              Physical camera switch + visible privacy LED ensure bystander trust.
+            </p>
+          </div>
+
+          {/* Stage 2 */}
+          <div className="lg:col-span-4 bg-[#131722] border border-[#38BDF8]/40 rounded-lg p-4 flex flex-col justify-between space-y-3">
+            <div className="flex items-center justify-between">
+              <span className="font-mono text-[11px] text-[#38BDF8]">02 · FOCUS ENGINE ON PHONE</span>
+              <Filter className="w-4 h-4 text-[#38BDF8]" />
+            </div>
+            <div className="space-y-2">
+              <div className="bg-[#0B0E14] border border-[#252C3D] rounded p-2.5 space-y-1">
+                <p className="text-xs font-medium text-[#F4F0E8]">
+                  Companion App + Bluetooth Sync
+                </p>
+                <p className="text-[11px] text-[#A6A9B8]">
+                  Offloads heavy AI processing to the paired smartphone so the frame stays light.
+                </p>
+              </div>
+              <div className="bg-[#0B0E14] border border-[#38BDF8]/30 rounded p-2.5 space-y-1">
+                <p className="text-xs font-medium text-[#38BDF8]">
+                  Contextual Priority Filtering
+                </p>
+                <p className="text-[11px] text-[#A6A9B8]">
+                  Blocks low-priority social/food spam; surfaces urgent meetings &amp; navigation.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* Stage 3 */}
+          <div className="lg:col-span-4 bg-[#131722] border border-[#D4AE5C]/40 rounded-lg p-4 flex flex-col justify-between space-y-3">
+            <div className="flex items-center justify-between">
+              <span className="font-mono text-[11px] text-[#D4AE5C]">03 · LOOK. UNDERSTAND. ACT.</span>
+              <CheckCircle2 className="w-4 h-4 text-[#D4AE5C]" />
+            </div>
+            <div className="grid grid-cols-2 gap-2 font-mono text-[11px]">
+              <div className="bg-[#0B0E14] border border-[#252C3D] rounded p-2">
+                <p className="text-[#38BDF8]">01 Translate</p>
+                <p className="text-[10px] text-[#A6A9B8]">Live sign overlay</p>
+              </div>
+              <div className="bg-[#0B0E14] border border-[#252C3D] rounded p-2">
+                <p className="text-[#38BDF8]">02 Navigate</p>
+                <p className="text-[10px] text-[#A6A9B8]">200m Turn right</p>
+              </div>
+              <div className="bg-[#0B0E14] border border-[#252C3D] rounded p-2">
+                <p className="text-[#D4AE5C]">03 Compare</p>
+                <p className="text-[10px] text-[#A6A9B8]">Price &amp; rating HUD</p>
+              </div>
+              <div className="bg-[#0B0E14] border border-[#252C3D] rounded p-2">
+                <p className="text-[#D4AE5C]">04 Summarize</p>
+                <p className="text-[10px] text-[#A6A9B8]">Instant key points</p>
+              </div>
+            </div>
+            <p className="text-[11px] text-[#A6A9B8]">
+              Making the world itself the interface rather than adding another screen.
+            </p>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   if (slug === 'notice-decoder') {
     return (
       <div className="bg-[#0E0F14] border border-[#2C2F42] rounded-xl p-5 md:p-6 space-y-5">

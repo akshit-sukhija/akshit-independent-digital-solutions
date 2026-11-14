@@ -21,45 +21,53 @@ export const PROFILE_CONFIG = {
   name: 'AKSHIT SUKHIJA',
   fullName: 'Akshit Sukhija',
   brandUppercase: 'AKSHIT SUKHIJA',
-  roleSubtitle: 'Independent Digital & Product Solutions',
-  practiceSubtitle: 'Independent Digital & Product Solutions',
-  studioTitle: 'AKSHIT SUKHIJA | Independent Digital & Product Solutions',
-  designDirection: 'Personal Studio / Editorial Technology',
-  tagline: 'Good ideas deserve to become useful solutions.',
+  roleSubtitle: 'Independent Digital Content & Solutions Studio',
+  practiceSubtitle: 'Independent Digital Content & Solutions Studio',
+  studioTitle: 'AKSHIT SUKHIJA | Independent Digital Content & Solutions Studio',
+  designDirection: 'Editorial Creative & Digital Solutions Studio',
+  tagline: 'Creative ideas. Clear stories. Digital experiences.',
+  heroSubheadline: 'Ideas worth noticing. Stories worth remembering. Digital experiences that work.',
   corePositioning:
-    'I turn business problems and early ideas into useful digital solutions through research, data, AI and technology.',
+    'I help founders, brands, and product teams turn ideas and complex workflows into compelling stories, visual presentations, custom websites, and AI-powered digital solutions.',
   shortBio:
-    'I turn business problems and early ideas into useful digital solutions through research, data, AI and technology.',
+    'Creative ideas. Clear stories. Digital experiences. I work at the intersection of brand storytelling, digital content, web experiences, and applied AI.',
   extendedBio:
-    'I work independently across research, data analysis, product thinking, and software development. Instead of handing your problem to a chain of account managers, I sit with the problem myself—studying how people actually work, inspecting the data, choosing where AI or fixed rules make sense, and building the finished dashboard, prototype, or web application.',
+    'I run an independent digital content and solutions studio combining product storytelling, visual presentation design, research-backed strategy, and full-stack software engineering. Instead of passing your project through layers of account managers, I work with you directly—from shaping the narrative and visual identity to building the live website, prototype, or AI workflow.',
   location: 'New Delhi / NCR, India',
   availability: {
     isAvailable: true,
-    statusText: 'Available for selected projects, fixed-scope pilots & product research',
+    statusText: 'Available for brand storytelling, digital content, web experiences & AI solutions',
     responseWindow: 'Direct 1-on-1 collaboration · Scope-based INR proposals',
   },
   capabilities: {
     core: [
       {
         number: '01',
-        title: 'Data & Business Intelligence',
+        title: 'Brand Strategy & Storytelling',
         summary:
-          'Cleaning messy spreadsheets, analysing customer and revenue patterns in Python and SQL, and building clear Power BI dashboards that support real decisions.',
-        proof: 'Decoding Customer Value (3,900 records) · OTT Retention Study',
+          'Product positioning, narrative architecture, pitch decks, and research-backed brand strategy that make complex ideas immediately memorable.',
+        proof: 'RE:FRAME (1st Place · REVIVEX) · Decoding Customer Value',
       },
       {
         number: '02',
-        title: 'AI & Workflow Automation',
+        title: 'Digital Content & Creative Production',
         summary:
-          'Combining AI text reading with fixed validation rules so routine PDFs, notices, and compliance checklists become structured schedules, alerts, and summaries.',
-        proof: 'Notice Decoder (Live App) · Contract Risk Governance Engine',
+          'High-impact visual presentations, product concept showcases, campaign narratives, and editorial research content.',
+        proof: 'RE:FRAME 15-Slide Visual System · Nykaa & IndusShield Concept Decks',
       },
       {
         number: '03',
-        title: 'Digital Products & Prototyping',
+        title: 'Websites & Digital Experiences',
         summary:
-          'Turning early product concepts and slow internal workflows into functional web applications, investigation workbenches, and automated PDF reporting tools.',
-        proof: 'Notice Decoder · SentinelX · Lureline',
+          'Custom web applications, interactive product prototypes, and responsive digital experiences built with modern React and TypeScript.',
+        proof: 'Notice Decoder · SentinelX · Clarity Redemption AI · Lureline',
+      },
+      {
+        number: '04',
+        title: 'AI-Powered Digital Solutions',
+        summary:
+          'Practical AI workflows, prompt architectures, document automation, and data intelligence systems grounded in deterministic rules.',
+        proof: 'Notice Decoder · SIGNAL – Prompt Forge · InsightForgeAI',
       },
     ],
     supporting: [
@@ -71,7 +79,7 @@ export const PROFILE_CONFIG = {
       {
         title: 'Brand & Market Research',
         summary:
-          'Studying customer journeys, market positioning, and competitor landscapes to ground product and business decisions in evidence.',
+          'Studying customer journeys, market positioning, and competitor landscapes to ground creative and product decisions in evidence.',
       },
       {
         title: 'Software Quality',
@@ -83,9 +91,9 @@ export const PROFILE_CONFIG = {
   photo: {
     src: '/profile.jpg',
     fallbackFileName: 'LINKEDIN PROFILE PHOTO.jpeg',
-    alt: 'Akshit Sukhija — Independent Digital & Product Solutions',
-    caption: 'Akshit Sukhija · Independent Digital & Product Solutions',
-    roleBadge: 'Research · Data · AI · Product',
+    alt: 'Akshit Sukhija — Independent Digital Content & Solutions Studio',
+    caption: 'Akshit Sukhija · Independent Digital Content & Solutions Studio',
+    roleBadge: 'Storytelling · Content · Web · AI',
     slotNotice:
       'Upload LINKEDIN PROFILE PHOTO.jpeg using the button below to preview immediately, or place it at public/profile.jpg in the repository.',
   },
@@ -129,6 +137,85 @@ export const PROFILE_CONFIG = {
 
 export const TECHNOLOGY_EXPLORER_ITEMS: TechExplorerItem[] = [
   {
+    id: 'product-market-research',
+    tool: 'Brand Storytelling, Pitch Architecture & UX Strategy',
+    category: 'Product & Research',
+    whatIUseItFor:
+      'Framing product narratives, designing visual presentation systems, conducting competitive teardowns, and mapping user journeys before engineering begins.',
+    demonstratedUseCases: [
+      {
+        projectTitle: 'RE:FRAME — Smart Glasses Product Concept',
+        projectSlug: 'reframe',
+        howItWasUsed:
+          'Led product research, competitive analysis, Focus Engine concept architecture, companion-app ecosystem design, and the 15-slide visual presentation that won 1st Place in REVIVEX at ZERO² 2026.',
+      },
+      {
+        projectTitle: 'Decoding Customer Value',
+        projectSlug: 'decoding-customer-value',
+        howItWasUsed:
+          'Authored Deliverable-4_Retention_Playbook.pdf and Deliverable-5_Executive_Summary.pdf translating SQL findings into commercial retention actions.',
+      },
+      {
+        projectTitle: 'ResolX.ai & CareerWithDishani Internships',
+        howItWasUsed:
+          'Authored multimodal speech-call sentiment solutioning specifications and synthesised multi-source research briefs.',
+      },
+    ],
+  },
+  {
+    id: 'react-typescript',
+    tool: 'React 19, TypeScript & Interactive Web Experiences',
+    category: 'Software & Web',
+    whatIUseItFor:
+      'Designing and building responsive web applications, interactive product prototypes, deterministic financial/schedule calculators, and analyst workbenches.',
+    demonstratedUseCases: [
+      {
+        projectTitle: 'Clarity Redemption AI',
+        projectSlug: 'clarity-redemption-ai',
+        howItWasUsed:
+          'Built a TypeScript (98.7%) & React mutual fund consequence engine passing 15/15 unit tests on FIFO lot consumption, exit loads, and STT deductions.',
+      },
+      {
+        projectTitle: 'Notice Decoder',
+        projectSlug: 'notice-decoder',
+        howItWasUsed:
+          'Built the interactive schedule planner, 30-minute overlap detector, and Notice Change Radar UI.',
+      },
+      {
+        projectTitle: 'Lureline',
+        projectSlug: 'lureline',
+        howItWasUsed:
+          'Built the 6-node cyber deception investigation workbench with 100% npm test pass rate and GitHub Actions CI.',
+      },
+    ],
+  },
+  {
+    id: 'applied-ai-rules',
+    tool: 'Applied AI (LLMs, ONNX, FAISS & Prompt Systems) + Fixed Rules',
+    category: 'AI & Rules',
+    whatIUseItFor:
+      'Reading unstructured documents and generating plain-English explanations while keeping dates, financial math, and pass/fail checks under fixed code rules.',
+    demonstratedUseCases: [
+      {
+        projectTitle: 'Notice Decoder',
+        projectSlug: 'notice-decoder',
+        howItWasUsed:
+          'Paired Qwen2.5-7B-Instruct (Featherless API) semantic structuring with deterministic interval clash logic and RFC 5545 (.ics) export.',
+      },
+      {
+        projectTitle: 'SIGNAL – Prompt Forge',
+        howItWasUsed:
+          'Designed a 5-stage prompt architecture achieving 95.0% accuracy (38/40 cases) on an adversarial change-detection test set.',
+      },
+      {
+        projectTitle: 'Contract Risk Governance Engine',
+        projectSlug: 'contract-risk-governance',
+        howItWasUsed:
+          'Combined FAISS clause retrieval and deterministic CPU compliance locking with AMD Ryzen AI NPU DirectML explanations (~420ms latency).',
+      },
+    ],
+  },
+  {
     id: 'python-data',
     tool: 'Python (Pandas, NumPy, Scikit-learn & Colab)',
     category: 'Data & BI',
@@ -144,18 +231,12 @@ export const TECHNOLOGY_EXPLORER_ITEMS: TechExplorerItem[] = [
       {
         projectTitle: 'UIDAI Demographic Update Intelligence',
         howItWasUsed:
-          'Analyzed 500,000+ aggregated UIDAI records across 956 districts and 19,607 pincodes in Google Colab, uncovering an 11% youth update participation gap.',
+          'Analyzed 500,000+ aggregated UIDAI records across 956 districts and 19,607 pincodes in Google Colab.',
       },
       {
         projectTitle: 'OTT Viewer Retention Analysis',
         howItWasUsed:
-          'Evaluated N = 33,171 streaming episodes across Netflix, Prime Video, Hulu, and Crunchyroll, diagnosing the Episodes 4–8 mid-season drop-off spike (16.7%).',
-      },
-      {
-        projectTitle: 'SentinelX / DSARS',
-        projectSlug: 'sentinelx',
-        howItWasUsed:
-          'Parsed multi-tool Nmap XML and OWASP ZAP CSV files concurrently using Python ThreadPoolExecutor (max 11 workers).',
+          'Evaluated N = 33,171 streaming episodes across 100 series, diagnosing the Episodes 4–8 mid-season drop-off spike (16.7% vs 11.8% late-season).',
       },
     ],
   },
@@ -196,66 +277,7 @@ export const TECHNOLOGY_EXPLORER_ITEMS: TechExplorerItem[] = [
       {
         projectTitle: 'OTT Viewer Retention Analysis',
         howItWasUsed:
-          'Visualized episode-by-episode continuation rates, narrative complexity correlations (r ≈ +0.57), and cliffhanger hook retention impact.',
-      },
-    ],
-  },
-  {
-    id: 'react-typescript',
-    tool: 'React 19, TypeScript & Deterministic Math Engines',
-    category: 'Software & Web',
-    whatIUseItFor:
-      'Designing and building responsive web applications, deterministic financial/schedule calculators, and analyst workbenches.',
-    demonstratedUseCases: [
-      {
-        projectTitle: 'Clarity Redemption AI',
-        projectSlug: 'clarity-redemption-ai',
-        howItWasUsed:
-          'Built a TypeScript (98.7%) & React mutual fund consequence engine passing 15/15 unit tests on FIFO lot consumption, exit loads, and STT deductions.',
-      },
-      {
-        projectTitle: 'Notice Decoder',
-        projectSlug: 'notice-decoder',
-        howItWasUsed:
-          'Built the interactive schedule planner, 30-minute overlap detector, and Notice Change Radar UI.',
-      },
-      {
-        projectTitle: 'Lureline',
-        projectSlug: 'lureline',
-        howItWasUsed:
-          'Built the 6-node cyber deception investigation workbench with 100% npm test pass rate and GitHub Actions CI.',
-      },
-    ],
-  },
-  {
-    id: 'applied-ai-rules',
-    tool: 'Applied AI (LLMs, ONNX, FAISS & Prompt Systems) + Fixed Rules',
-    category: 'AI & Rules',
-    whatIUseItFor:
-      'Reading unstructured documents and generating plain-English explanations while keeping dates, financial math, and pass/fail checks under fixed code rules.',
-    demonstratedUseCases: [
-      {
-        projectTitle: 'Contract Risk Governance Engine',
-        projectSlug: 'contract-risk-governance',
-        howItWasUsed:
-          'Combined FAISS clause retrieval and deterministic CPU compliance locking with AMD Ryzen AI NPU DirectML explanations (~420ms latency, CPU 85–95% → 25–35%).',
-      },
-      {
-        projectTitle: 'Clarity Redemption AI',
-        projectSlug: 'clarity-redemption-ai',
-        howItWasUsed:
-          'Constrained the "Ask Clarity" LLM layer strictly to explaining deterministic FIFO math figures while blocking investment advice.',
-      },
-      {
-        projectTitle: 'SIGNAL (Delta Detector)',
-        howItWasUsed:
-          'Designed Locked V2.1 System Prompt Architecture achieving 95.0% accuracy (38/40 cases) on a frozen adversarial test set.',
-      },
-      {
-        projectTitle: 'Notice Decoder',
-        projectSlug: 'notice-decoder',
-        howItWasUsed:
-          'Paired Qwen2.5-7B-Instruct (Featherless API) semantic structuring with deterministic interval clash logic and RFC 5545 (.ics) export.',
+          'Visualized episode-by-episode continuation rates and mid-season drop-off cohorts.',
       },
     ],
   },
@@ -278,36 +300,6 @@ export const TECHNOLOGY_EXPLORER_ITEMS: TechExplorerItem[] = [
         howItWasUsed:
           'Built FastAPI (/evaluate, /health) endpoints and immutable SHA-256 + JSONL decision trace logging across 57 commits.',
       },
-      {
-        projectTitle: 'Tweet Sentiment Analysis',
-        howItWasUsed:
-          'Integrated serialized TF-IDF vectorizer (vectorizer.pkl) and trained classifier (sentiment_model.pkl) into a Flask web endpoint (app.py).',
-      },
-    ],
-  },
-  {
-    id: 'product-market-research',
-    tool: 'Product Discovery, UX Teardowns & Software QA',
-    category: 'Product & Research',
-    whatIUseItFor:
-      'Framing messy business problems, studying user needs and alternatives, executing structured QA test matrices, and synthesising research before writing code.',
-    demonstratedUseCases: [
-      {
-        projectTitle: 'ResolX.ai & CareerWithDishani Internships',
-        howItWasUsed:
-          'Authored multimodal speech-call sentiment solutioning specifications (research/spec deliverable) and synthesised multi-source research briefs.',
-      },
-      {
-        projectTitle: 'Decoding Customer Value',
-        projectSlug: 'decoding-customer-value',
-        howItWasUsed:
-          'Authored Deliverable-4_Retention_Playbook.pdf and Deliverable-5_Executive_Summary.pdf translating SQL findings into commercial actions.',
-      },
-      {
-        projectTitle: 'Software QA & Audit Methodology',
-        howItWasUsed:
-          'Designed 40+ functional QA test cases (ECP & Boundary Value Analysis) and 22-parameter Total Value Audit (TVA) quality frameworks.',
-      },
     ],
   },
 ];
@@ -316,36 +308,36 @@ export const STUDIO_FAQS: StudioFaqItem[] = [
   {
     id: 'scope-definition',
     category: 'Scope',
-    question: 'How do we define the scope of a project if I only have a rough business problem?',
+    question: 'How do we define the scope of a project if I only have an early idea or business problem?',
     answer:
-      'You never need a technical specification beforehand. Share what is slowing your team down, what spreadsheet feels unclear, or what product idea you want to test. We inspect a small sample of your data, documents, or workflow together first, and I write a plain-English scope listing exact deliverables and boundaries before any build begins.',
+      'You never need a technical or creative specification beforehand. Share your goal, current brand or product bottleneck, or the workflow you want to improve. We review your existing material first and I prepare a clear, plain-English scope listing exact deliverables and boundaries before any production begins.',
   },
   {
     id: 'project-stages',
     category: 'Project Stages',
-    question: 'What are the exact stages of a project from start to finish?',
+    question: 'What are the stages of working together from start to finish?',
     answer:
-      'Every engagement follows five transparent stages: 01. Research (understand the problem, user needs, and simpler alternatives), 02. Analysis (inspect sample spreadsheets, PDFs, and edge cases), 03. AI & Logic (separate AI reading/summarisation from fixed rules for dates, math, and policy checks), 04. Software (build the dashboard, automation, or web app with live review checkpoints), and 05. Delivery (hand over the finished system, source files, and user guide).',
+      'Every project follows four clear stages: 01. Discover (understand your audience, business context, and core problem), 02. Define (shape the narrative, visual direction, or system architecture with a written scope), 03. Create (design the story deck, build the website, or engineer the AI/data workflow with live review checkpoints), and 04. Deliver (hand over the final assets, live deployment, source files, and documentation).',
   },
   {
     id: 'collaboration-models',
     category: 'Collaboration Models',
     question: 'What collaboration models do you offer, and who actually does the work?',
     answer:
-      'You work 1-on-1 with me directly—there are no account managers or junior hand-offs. Depending on your stage, we can start with a Fixed-Scope Pilot (testing value on one sample dataset or document workflow), a Custom End-to-End Project, a Research & Technical Assessment, or Ongoing Iterative Improvements after launch.',
+      'You work 1-on-1 with me directly—there are no account managers or junior hand-offs. Depending on your stage, we can start with a Fixed-Scope Pilot (testing a concept deck, prototype, or single workflow), a Custom End-to-End Project, a Research & Strategy Assessment, or Ongoing Iterative Improvements after launch.',
   },
   {
     id: 'delivery-timelines',
     category: 'Delivery Timelines',
     question: 'What are typical delivery timelines, and how do you manage schedule expectations?',
     answer:
-      'Timelines depend on the complexity and readiness of your data or workflow rather than arbitrary instant promises. As a realistic guide: focused data audits, research assessments, or small Fixed-Scope Pilots typically take 1–2 weeks; standard interactive Power BI dashboards, document automations, or working web prototypes take 2–4 weeks; and multi-part custom systems take 1–2 months. An exact milestone schedule is shared in writing after reviewing your sample material.',
+      'Timelines depend on project complexity and material readiness rather than arbitrary overnight promises. Focused strategy decks, research audits, or small Fixed-Scope Pilots typically take 1–2 weeks; standard interactive websites, prototypes, or dashboards take 2–4 weeks; and multi-part custom systems take 1–2 months. An exact milestone schedule is agreed in writing upfront.',
   },
   {
     id: 'final-handover',
     category: 'Handover',
     question: 'What do I receive at final delivery, and how are pricing expectations handled?',
     answer:
-      'You receive complete ownership of the agreed deliverable—whether that is an interactive Power BI (.pbix) dashboard and Retention Playbook, a deployed web application, or clean Python/TypeScript source code and automated PDF report scripts—along with a plain-English guide. Every project is quoted transparently in INR based on the reviewed scope, with no hidden retainers.',
+      'You receive complete ownership of the agreed deliverable—whether that is a presentation deck and visual story system, a deployed website or web application, an interactive Power BI dashboard, or clean Python/TypeScript source code—along with a plain-English guide. Every project is quoted transparently in INR based on the reviewed scope.',
   },
 ];
