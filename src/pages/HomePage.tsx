@@ -11,6 +11,7 @@ import { MotionReveal } from '../components/MotionReveal';
 import { ProjectCard } from '../components/ProjectCard';
 import { StudioFaqSection } from '../components/StudioFaqSection';
 import { CtaSection } from '../components/CtaSection';
+import { StudioGuide } from '../components/StudioGuide';
 import {
   PROFILE_CONFIG,
   PROJECTS,
@@ -219,6 +220,58 @@ export function HomePage() {
               </div>
             </MotionReveal>
           </div>
+        </div>
+      </section>
+
+      {/* Studio Guide — a visual companion to the independent studio */}
+      <section
+        aria-labelledby="studio-guide-title"
+        className="bg-[#F5F1E8] text-[#0B0E14] border-b border-[#D4CBB8] py-14 sm:py-16 px-6"
+      >
+        <div className="max-w-[1240px] mx-auto grid grid-cols-1 md:grid-cols-12 gap-8 lg:gap-12 items-center">
+          <MotionReveal className="md:col-span-7 space-y-4">
+            <p className="font-mono text-xs text-[#0284C7] font-semibold tracking-wider uppercase">
+              A visual companion to the studio
+            </p>
+            <h2
+              id="studio-guide-title"
+              className="font-display text-3xl sm:text-4xl md:text-5xl text-[#0B0E14] leading-tight"
+            >
+              Meet the Studio Guide.
+            </h2>
+            <p className="text-sm sm:text-base text-[#1E202E]/85 leading-relaxed max-w-2xl">
+              A small character to make the studio feel a little more human. Explore the work,
+              understand the services, and see how an idea moves from research to a working digital experience.
+            </p>
+            <div className="flex flex-wrap items-center gap-4 pt-2">
+              <Link
+                to="/work"
+                className="inline-flex items-center gap-2 px-5 py-3 text-xs font-mono font-medium text-[#F4F0E8] bg-[#0B0E14] hover:bg-[#1E202E] rounded-lg transition-colors"
+              >
+                <span>Explore the work</span>
+                <ArrowRight className="w-3.5 h-3.5 text-[#38BDF8]" />
+              </Link>
+              <Link
+                to="/process"
+                className="inline-flex items-center gap-1.5 text-xs font-mono font-semibold text-[#7A5B14] hover:text-[#0284C7] transition-colors"
+              >
+                <span>See the process</span>
+                <ArrowUpRight className="w-3.5 h-3.5" />
+              </Link>
+            </div>
+          </MotionReveal>
+          <MotionReveal delay={0.08} className="md:col-span-5">
+            <div className="relative mx-auto w-full max-w-[360px]">
+              <StudioGuide
+                animation="Idle - Gentle Breathing"
+                className="h-[300px] w-full sm:h-[360px]"
+                ariaLabel="Animated illustration of the independent digital studio guide"
+              />
+              <p className="mt-2 text-center font-mono text-[10px] tracking-[0.12em] text-[#7B756B] uppercase">
+                Studio Guide · 3D character
+              </p>
+            </div>
+          </MotionReveal>
         </div>
       </section>
 
