@@ -23,7 +23,7 @@ interface StudioGuideProps {
  */
 export function StudioGuide({
   animation = 'Idle - Gentle Breathing',
-  src = '/assets/3d/studio-guide.glb',
+  src = '/assets/3d/studio-guide.glb.gz',
   fallbackSrc = '/assets/3d/studio-guide-fallback.png',
   className = '',
   ariaLabel = 'Animated digital studio guide',
@@ -185,40 +185,57 @@ export function StudioGuide({
         reduceMotionQuery.addEventListener('change', onMotionPreference);
 
         const loader = new GLTFLoader();
-        loader.load(
-          src,
-          (gltf: any) => {
-            if (disposed || !scene || !renderer) return;
-            model = gltf.scene;
-            const bounds = new THREE.Box3().setFromObject(model);
-            const center = bounds.getCenter(new THREE.Vector3());
-            model.position.x -= center.x;
-            model.position.z -= center.z;
-            model.position.y -= bounds.min.y;
-            scene.add(model);
-
-            mixer = new THREE.AnimationMixer(model);
-            mixerRef.current = mixer;
-            const actions = new Map<string, any>();
-            gltf.animations.forEach((clip: any) => actions.set(clip.name, mixer.clipAction(clip)));
-            actionsRef.current = actions;
-
-            const initial = actions.get(requestedAnimationRef.current)
-              ?? actions.get('Idle - Gentle Breathing');
-            if (initial && !reduceMotionQuery.matches) {
-              initial.play();
-              currentActionRef.current = initial;
+        const loadModel = async () => {
+          const response = await fetch(src, { cache: 'force-cache' });
+          if (!response.ok) throw new Error(`Studio Guide model request failed: ${response.status}`);
+          let modelBytes = await response.arrayBuffer();
+          const signature = new Uint8Array(modelBytes, 0, Math.min(2, modelBytes.byteLength));
+          if (signature[0] === 0x1f && signature[1] === 0x8b) {
+            if (typeof DecompressionStream === 'undefined') {
+              throw new Error('This browser cannot decompress the compressed GLB asset.');
             }
+            const stream = new Blob([modelBytes]).stream().pipeThrough(new DecompressionStream('gzip'));
+            modelBytes = await new Response(stream).arrayBuffer();
+          }
 
-            setReady(true);
-            renderer.domElement.style.opacity = '1';
-            renderOnce();
-          },
-          undefined,
-          (error: unknown) => {
-            console.error('Studio Guide GLB could not be loaded. Showing the static fallback.', error);
-          },
-        );
+          loader.parse(
+            modelBytes,
+            new URL('.', window.location.href).href,
+            (gltf: any) => {
+              if (disposed || !scene || !renderer) return;
+              model = gltf.scene;
+              const bounds = new THREE.Box3().setFromObject(model);
+              const center = bounds.getCenter(new THREE.Vector3());
+              model.position.x -= center.x;
+              model.position.z -= center.z;
+              model.position.y -= bounds.min.y;
+              scene.add(model);
+
+              mixer = new THREE.AnimationMixer(model);
+              mixerRef.current = mixer;
+              const actions = new Map<string, any>();
+              gltf.animations.forEach((clip: any) => actions.set(clip.name, mixer.clipAction(clip)));
+              actionsRef.current = actions;
+
+              const initial = actions.get(requestedAnimationRef.current)
+                ?? actions.get('Idle - Gentle Breathing');
+              if (initial && !reduceMotionQuery.matches) {
+                initial.play();
+                currentActionRef.current = initial;
+              }
+
+              setReady(true);
+              renderer.domElement.style.opacity = '1';
+              renderOnce();
+            },
+            (error: unknown) => {
+              console.error('Studio Guide GLB parsing failed. Showing the static fallback.', error);
+            },
+          );
+        };
+        void loadModel().catch((error) => {
+          console.error('Studio Guide GLB could not be loaded. Showing the static fallback.', error);
+        });
 
         const animate = (time: number) => {
           if (disposed) return;
