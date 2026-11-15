@@ -30,5 +30,8 @@
     "The model uses a hierarchical transform-node rig, not a Mixamo-ready deformable skin.",
     "The static PNG fallback is a separately generated image and is not pixel-identical to the GLB.",
     "Install the three package before rendering StudioGuide.tsx."
-  ]
+  ],
+  "storagePath": "studio-guide.glb.gz",
+  "storageEncoding": "gzip",
+  "runtime": "StudioGuide.tsx decompresses the asset with DecompressionStream before GLTFLoader parsing."
 }
