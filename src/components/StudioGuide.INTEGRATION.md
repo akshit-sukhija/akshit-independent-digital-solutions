@@ -2,14 +2,14 @@
 
 ## Files
 
-- `public/assets/3d/studio-guide.glb` — web-ready GLB with four embedded animation clips.
+- `public/assets/3d/studio-guide.glb.gz` — gzip-compressed GLB with four embedded animation clips. The component decompresses it in the browser before parsing.
 - `public/assets/3d/studio-guide-fallback.png` — transparent static fallback.
 - `src/components/StudioGuide.tsx` — lazy Three.js React viewer.
 - `public/assets/3d/studio-guide-animation-manifest.json` — clip names and durations.
 
 ## Dependency
 
-Run `bun add three` (or `npm install three`) before importing and rendering the component. This updates the package manifest and lockfile using the repo's package manager.
+`three` is declared in `package.json` and `bun.lock`. Install with `bun install` (or `npm install` if using npm) before building.
 
 ## Example
 
