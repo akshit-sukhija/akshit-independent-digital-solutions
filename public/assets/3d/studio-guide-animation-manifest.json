@@ -1,0 +1,34 @@
+{
+  "asset": "studio-guide.glb",
+  "format": "glTF 2.0 Binary (GLB)",
+  "rigType": "Hierarchical transform-node rig (not a skinned mesh)",
+  "character": "Original stylised Digital Studio Guide",
+  "animations": [
+    {
+      "name": "Idle - Gentle Breathing",
+      "durationSeconds": 3,
+      "recommendedUse": "Default hero idle animation"
+    },
+    {
+      "name": "Wave - Welcome",
+      "durationSeconds": 2.25,
+      "recommendedUse": "First-visit greeting or introductory section"
+    },
+    {
+      "name": "Present - Showcase",
+      "durationSeconds": 2.4,
+      "recommendedUse": "Services and featured work section"
+    },
+    {
+      "name": "Think - Reflect",
+      "durationSeconds": 2.2,
+      "recommendedUse": "Strategy, process or insight section"
+    }
+  ],
+  "notes": [
+    "Animation clips are embedded in the GLB and target named transform nodes.",
+    "The model uses a hierarchical transform-node rig, not a Mixamo-ready deformable skin.",
+    "The static PNG fallback is a separately generated image and is not pixel-identical to the GLB.",
+    "Install the three package before rendering StudioGuide.tsx."
+  ]
+}
