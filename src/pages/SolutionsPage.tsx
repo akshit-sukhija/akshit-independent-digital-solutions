@@ -10,6 +10,7 @@ import {
 } from '../components/ArchitectureDiagram';
 import { CtaSection } from '../components/CtaSection';
 import { StudioFaqSection } from '../components/StudioFaqSection';
+import { ServiceComparison } from '../components/ServiceComparison';
 import {
   SERVICES,
   SUPPORTING_CAPABILITIES,
@@ -220,10 +221,13 @@ export function SolutionsPage() {
         </div>
       </section>
 
-      {/* 3. Reusable 3-Question SolutionFinder */}
+      {/* 3. Reusable 3-Question SolutionFinder & Tier Comparison */}
       <section className="bg-[#0E0F14] border-b border-[#2C2F42] py-16 px-6">
-        <div className="max-w-[1200px] mx-auto">
+        <div className="max-w-[1200px] mx-auto space-y-12">
           <MotionReveal>
+            <ServiceComparison variant="dark" />
+          </MotionReveal>
+          <MotionReveal delay={0.05}>
             <SolutionFinder />
           </MotionReveal>
         </div>

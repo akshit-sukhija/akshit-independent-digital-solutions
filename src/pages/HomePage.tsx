@@ -1,9 +1,9 @@
+import { Suspense, lazy, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import {
   ArrowRight,
   ArrowUpRight,
   Award,
-  FileText,
   Sparkles,
 } from 'lucide-react';
 import { PageMeta } from '../components/PageMeta';
@@ -11,7 +11,9 @@ import { MotionReveal } from '../components/MotionReveal';
 import { ProjectCard } from '../components/ProjectCard';
 import { StudioFaqSection } from '../components/StudioFaqSection';
 import { CtaSection } from '../components/CtaSection';
-import { StudioGuide } from '../components/StudioGuide';
+import { VideoHero } from '../components/VideoHero';
+import { HeroVideoShowcase } from '../components/HeroVideoShowcase';
+import { ServiceComparison } from '../components/ServiceComparison';
 import {
   PROFILE_CONFIG,
   PROJECTS,
@@ -19,37 +21,144 @@ import {
   PROCESS_STAGES,
   INSIGHT_NOTES,
 } from '../data/studioData';
+import {
+  resolveStudioGuideAnimation,
+  type HomepageSectionKey,
+  type StudioGuideAnimation,
+} from '../utils/studioLogic';
+
+// Lazy-load StudioGuide.tsx so it is not loaded during initial synchronous page render
+const LazyStudioGuide = lazy(() => import('../components/StudioGuide'));
+
+function StudioGuideStaticFallback({ className = '' }: { className?: string }) {
+  return (
+    <div
+      data-testid="studio-guide-suspense-fallback"
+      className={`relative isolate overflow-hidden select-none pointer-events-none ${className}`}
+      role="img"
+      aria-label="Animated digital studio guide"
+      data-model-ready="false"
+    >
+      <img
+        src="/assets/3d/studio-guide-fallback.png"
+        alt=""
+        aria-hidden="true"
+        className="absolute inset-0 h-full w-full object-contain pointer-events-none"
+        loading="eager"
+      />
+    </div>
+  );
+}
 
 export function HomePage() {
   // Feature 3 core engineered systems alongside the hero RE:FRAME showcase
   const featuredProjects = PROJECTS.filter((p) => p.slug !== 'reframe').slice(0, 3);
 
+  // Defer mounting LazyStudioGuide until after initial page render
+  const [mountGuide, setMountGuide] = useState(false);
+  const [welcomeCompleted, setWelcomeCompleted] = useState(false);
+  const [activeSection, setActiveSection] = useState<HomepageSectionKey>('hero');
+  const [manualClipOverride, setManualClipOverride] = useState<StudioGuideAnimation | null>(null);
+
+  useEffect(() => {
+    const timer = window.setTimeout(() => {
+      setMountGuide(true);
+    }, 50);
+    return () => window.clearTimeout(timer);
+  }, []);
+
+  // IntersectionObserver to determine which homepage section is active in the viewport
+  useEffect(() => {
+    if (typeof IntersectionObserver === 'undefined') return;
+
+    const sectionMapping: { id: string; key: HomepageSectionKey }[] = [
+      { id: 'hero-welcome', key: 'hero' },
+      { id: 'studio-services', key: 'services' },
+      { id: 'selected-work', key: 'work' },
+      { id: 'studio-process', key: 'process' },
+      { id: 'proof-insights', key: 'insights' },
+    ];
+
+    const ratios = new Map<HomepageSectionKey, number>();
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          const match = sectionMapping.find((m) => m.id === entry.target.id);
+          if (!match) return;
+          ratios.set(match.key, entry.isIntersecting ? entry.intersectionRatio : 0);
+        });
+
+        let bestSection: HomepageSectionKey | null = null;
+        let bestRatio = 0;
+
+        ratios.forEach((ratio, key) => {
+          if (ratio > bestRatio) {
+            bestRatio = ratio;
+            bestSection = key;
+          }
+        });
+
+        if (bestSection && bestRatio >= 0.12) {
+          setManualClipOverride(null);
+          setActiveSection((prev) => {
+            if (prev !== 'hero' && bestSection === 'hero') {
+              // Returning to the hero always settles into Idle - Gentle Breathing
+              setWelcomeCompleted(true);
+            }
+            return bestSection!;
+          });
+        }
+      },
+      {
+        threshold: [0, 0.15, 0.35, 0.6],
+        rootMargin: '-10% 0px -15% 0px',
+      }
+    );
+
+    sectionMapping.forEach(({ id }) => {
+      const el = document.getElementById(id);
+      if (el) observer.observe(el);
+    });
+
+    return () => observer.disconnect();
+  }, []);
+
+  const currentGuideAnimation: StudioGuideAnimation =
+    manualClipOverride ?? resolveStudioGuideAnimation(activeSection, welcomeCompleted);
+
   return (
     <div>
       <PageMeta
         title="AKSHIT SUKHIJA — Independent Digital Content & Solutions Studio"
-        description="AKSHIT SUKHIJA | Independent Digital Content & Solutions Studio. Creative ideas. Clear stories. Digital experiences. Ideas worth noticing. Stories worth remembering. Digital experiences that work."
+        description="AKSHIT SUKHIJA | Independent Digital Content & Solutions Studio. Creative ideas. Clear stories. Digital experiences that work."
       />
 
-      {/* 1. Homepage Hero: Studio Identity + RE:FRAME Primary Visual Showcase */}
-      <section className="relative bg-[#0B0E14] border-b border-[#252C3D] pt-10 pb-20 px-6 overflow-hidden">
+      {/* 1. Homepage Hero: Background VideoHero + Studio Positioning + RE:FRAME Video Showcase + Supporting 3D Studio Guide */}
+      <section
+        id="hero-welcome"
+        className="relative bg-[#0B0E14] border-b border-[#252C3D] pt-8 pb-16 sm:pt-10 sm:pb-20 px-6 overflow-hidden"
+      >
+        {/* Background VideoHero positioned behind hero content using z-0 */}
+        <VideoHero />
+
         {/* Subtle radial blue/cyan & gold ambient studio glow */}
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute -top-32 right-0 w-[640px] h-[640px] rounded-full opacity-20 blur-3xl"
+          className="pointer-events-none absolute -top-32 right-0 z-0 w-[640px] h-[640px] rounded-full opacity-20 blur-3xl"
           style={{
             background:
               'radial-gradient(circle, rgba(56,189,248,0.45) 0%, rgba(212,174,92,0.12) 55%, transparent 75%)',
           }}
         />
 
-        <div className="max-w-[1240px] mx-auto relative z-10 space-y-12">
-          {/* Top Studio Positioning & Hero Copy + Primary RE:FRAME Visual Showcase */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
-            {/* Left Column: Studio Positioning & Primary Actions */}
-            <MotionReveal className="lg:col-span-6 space-y-7">
-              <div className="space-y-3">
-                <div className="flex flex-wrap items-center gap-2.5">
+        <div className="max-w-[1240px] mx-auto relative z-10 space-y-8">
+          {/* Primary First-Fold Grid: Studio Positioning (Left) + Front-Page Video Showcase (Right) */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-start">
+            {/* Left Column: Studio Positioning, Supporting 3D Studio Guide Companion & Primary Actions */}
+            <MotionReveal className="lg:col-span-5 space-y-6 pt-1">
+              <div className="space-y-3.5">
+                <div className="flex flex-wrap items-center gap-2">
                   <span className="font-mono text-xs font-semibold tracking-[0.16em] text-[#38BDF8] uppercase">
                     {PROFILE_CONFIG.name}
                   </span>
@@ -61,59 +170,143 @@ export function HomePage() {
                   </span>
                 </div>
 
-                <p className="font-mono text-xs uppercase tracking-[0.18em] text-[#A6A9B8]">
-                  Creative ideas. Clear stories. Digital experiences.
-                </p>
+                {/* Single Scannable Trust Cue */}
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-[#131722] border border-[#252C3D] text-xs font-mono text-[#D4AE5C]">
+                  <Award className="w-3.5 h-3.5 text-[#38BDF8] shrink-0" />
+                  <span>1st Place · REVIVEX · ZERO² 2026 · Featured Concept Showcase</span>
+                </div>
 
                 <h1
                   className="font-display text-[#F4F0E8] leading-[1.04] tracking-tight"
-                  style={{ fontSize: 'clamp(2.5rem, 4.6vw, 4.25rem)' }}
+                  style={{ fontSize: 'clamp(2.35rem, 4.2vw, 3.85rem)' }}
                 >
-                  Ideas worth noticing. Stories worth remembering. Digital experiences that work.
+                  Creative ideas. Clear stories. Digital experiences that work.
                 </h1>
 
-                <p className="text-base sm:text-lg text-[#A6A9B8] leading-relaxed max-w-xl">
-                  An independent studio combining <strong className="text-[#F4F0E8] font-medium">brand storytelling</strong>,{' '}
+                <p className="text-base sm:text-lg text-[#A6A9B8] leading-relaxed">
+                  An independent studio combining{' '}
+                  <strong className="text-[#F4F0E8] font-medium">brand storytelling</strong>,{' '}
                   <strong className="text-[#F4F0E8] font-medium">visual content production</strong>,{' '}
                   <strong className="text-[#F4F0E8] font-medium">custom websites</strong>, and{' '}
-                  <strong className="text-[#F4F0E8] font-medium">AI-powered digital solutions</strong> for founders, brands, and product teams.
+                  <strong className="text-[#F4F0E8] font-medium">
+                    AI-powered digital solutions
+                  </strong>{' '}
+                  for founders, brands, and product teams.
                 </p>
               </div>
 
-              {/* Primary CTA Actions: Explore RE:FRAME & Start a Project */}
-              <div className="flex flex-wrap items-center gap-4 pt-1">
+              {/* Primary CTA Actions */}
+              <div className="flex flex-wrap items-center gap-3.5 pt-1">
                 <Link
-                  to="/work/reframe"
-                  className="inline-flex items-center gap-2.5 px-6 py-3.5 text-sm font-medium text-[#0B0E14] bg-[#38BDF8] hover:bg-[#7DD3FC] rounded-lg transition-colors whitespace-nowrap shrink-0"
+                  to="/work"
+                  className="inline-flex items-center gap-2.5 px-5 py-3 text-sm font-medium text-[#0B0E14] bg-[#38BDF8] hover:bg-[#7DD3FC] rounded-lg transition-colors whitespace-nowrap shrink-0"
                 >
-                  <span>Explore RE:FRAME</span>
+                  <span>Explore Selected Work</span>
                   <ArrowRight className="w-4 h-4" />
                 </Link>
 
                 <Link
                   to="/enquire"
-                  className="inline-flex items-center gap-2.5 px-6 py-3.5 text-sm font-medium text-[#F4F0E8] bg-[#131722] border border-[#252C3D] hover:border-[#D4AE5C] rounded-lg transition-colors whitespace-nowrap shrink-0"
+                  className="inline-flex items-center gap-2.5 px-5 py-3 text-sm font-medium text-[#F4F0E8] bg-[#131722] border border-[#252C3D] hover:border-[#D4AE5C] rounded-lg transition-colors whitespace-nowrap shrink-0"
                 >
                   <span>Start a Project</span>
                   <ArrowRight className="w-4 h-4 text-[#D4AE5C]" />
                 </Link>
 
                 <Link
-                  to="/solutions"
-                  className="inline-flex items-center gap-1.5 font-mono text-xs text-[#E6D3A7] hover:text-[#38BDF8] px-2 py-2 transition-colors"
+                  to="/work/reframe"
+                  className="inline-flex items-center gap-1.5 font-mono text-xs text-[#E6D3A7] hover:text-[#38BDF8] px-1.5 py-2 transition-colors"
                 >
-                  <span>Explore Studio Services</span>
-                  <ArrowRight className="w-3.5 h-3.5" />
+                  <span>Explore RE:FRAME</span>
+                  <ArrowUpRight className="w-3.5 h-3.5" />
                 </Link>
               </div>
 
+              {/* Supporting Hero Visual: 3D Studio Guide Companion (Non-overlapping, pointer-events-none canvas) */}
+              <div
+                data-testid="hero-studio-guide-card"
+                className="bg-[#131722] border border-[#252C3D] rounded-2xl p-4 sm:p-5 grid grid-cols-1 sm:grid-cols-12 gap-4 items-center"
+              >
+                <div className="sm:col-span-5 flex flex-col items-center">
+                  <div className="w-full max-w-[190px]">
+                    {mountGuide ? (
+                      <Suspense fallback={<StudioGuideStaticFallback className="h-[200px] w-full" />}>
+                        <LazyStudioGuide
+                          animation={currentGuideAnimation}
+                          src="/assets/3d/studio-guide.glb"
+                          fallbackSrc="/assets/3d/studio-guide-fallback.png"
+                          className="h-[200px] w-full"
+                          ariaLabel="Animated 3D digital studio guide in the homepage hero"
+                          onWelcomeComplete={() => setWelcomeCompleted(true)}
+                        />
+                      </Suspense>
+                    ) : (
+                      <StudioGuideStaticFallback className="h-[200px] w-full" />
+                    )}
+                  </div>
+                </div>
+
+                <div className="sm:col-span-7 space-y-2.5">
+                  <div className="flex items-center justify-between gap-2">
+                    <span className="font-mono text-[11px] text-[#38BDF8] uppercase tracking-wider">
+                      Studio Guide · 3D Companion
+                    </span>
+                    <span
+                      data-testid="studio-guide-active-state"
+                      className="font-mono text-[10px] text-[#E6D3A7]"
+                    >
+                      {currentGuideAnimation}
+                    </span>
+                  </div>
+
+                  <p className="text-xs text-[#F4F0E8] leading-relaxed">
+                    Greets visitors on arrival, then responds as you explore{' '}
+                    <span className="text-[#38BDF8]">Services &amp; Work</span> or reflect on{' '}
+                    <span className="text-[#D4AE5C]">Process &amp; Insights</span>.
+                  </p>
+
+                  {/* Accessible HTML Pose Selector Buttons for Inspecting All 4 Clips */}
+                  <div
+                    role="group"
+                    aria-label="Preview Studio Guide animations"
+                    className="grid grid-cols-2 gap-1.5 pt-1"
+                  >
+                    {(
+                      [
+                        { clip: 'Wave - Welcome', short: '01 · Welcome' },
+                        { clip: 'Idle - Gentle Breathing', short: '02 · Idle' },
+                        { clip: 'Present - Showcase', short: '03 · Showcase' },
+                        { clip: 'Think - Reflect', short: '04 · Reflect' },
+                      ] as const
+                    ).map(({ clip, short }) => {
+                      const isActive = currentGuideAnimation === clip;
+                      return (
+                        <button
+                          key={clip}
+                          type="button"
+                          onClick={() => setManualClipOverride(clip)}
+                          aria-pressed={isActive}
+                          className={`px-2.5 py-1.5 rounded-lg font-mono text-[10px] text-left border transition-colors cursor-pointer ${
+                            isActive
+                              ? 'bg-[#38BDF8]/15 border-[#38BDF8] text-[#F4F0E8]'
+                              : 'bg-[#0B0E14] border-[#252C3D] text-[#A6A9B8] hover:border-[#D4AE5C]/60 hover:text-[#F4F0E8]'
+                          }`}
+                        >
+                          {short}
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+              </div>
+
               {/* 4 Studio Pillars Strip */}
-              <div className="pt-6 border-t border-[#252C3D] grid grid-cols-2 sm:grid-cols-4 gap-4">
+              <div className="pt-3 border-t border-[#252C3D] grid grid-cols-2 sm:grid-cols-4 gap-3">
                 {SERVICES.map((service) => (
                   <Link
                     key={service.id}
                     to={`/solutions#${service.id}`}
-                    className="group space-y-1"
+                    className="group space-y-0.5"
                   >
                     <p className="font-mono text-[11px] text-[#38BDF8]">{service.number}</p>
                     <p className="text-xs font-medium text-[#F4F0E8] group-hover:text-[#38BDF8] transition-colors leading-snug">
@@ -124,159 +317,60 @@ export function HomePage() {
               </div>
             </MotionReveal>
 
-            {/* Right Column: Featured Visual Showcase — RE:FRAME */}
-            <MotionReveal delay={0.08} className="lg:col-span-6">
-              <div className="bg-[#131722] border border-[#28334A] rounded-2xl overflow-hidden shadow-2xl">
-                {/* Top Recognition Bar */}
-                <div className="px-5 py-3.5 bg-[#0B0E14]/90 border-b border-[#252C3D] flex flex-wrap items-center justify-between gap-3">
-                  <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-[#38BDF8]/15 border border-[#38BDF8]/40 text-[#38BDF8] font-mono text-xs font-medium">
-                    <Award className="w-3.5 h-3.5 shrink-0" />
-                    <span>1st Place · REVIVEX · ZERO² 2026</span>
-                  </div>
-                  <span className="font-mono text-[11px] text-[#A6A9B8]">
-                    Featured Studio Concept Showcase
-                  </span>
-                </div>
+            {/* Right Column: Front-Page Interactive Video Showcase — RE:FRAME */}
+            <MotionReveal delay={0.06} className="lg:col-span-7 space-y-4">
+              <HeroVideoShowcase variant="hero" />
 
-                {/* Main RE:FRAME Hero Image */}
-                <Link to="/work/reframe" className="block relative group overflow-hidden bg-[#0B0E14]">
+              {/* Genuine Award & Team Thumbnail Strip */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <Link
+                  to="/work/reframe#award-and-team"
+                  className="flex items-center gap-3 p-2.5 rounded-xl bg-[#131722] border border-[#252C3D] hover:border-[#38BDF8]/60 transition-colors"
+                >
                   <img
-                    src="/assets/aistudio/REFRAME_THUMBNAIL_IMAGE_99a3fe50.jpeg"
-                    alt="RE:FRAME — Smart Glasses, A More Focused You concept showcase"
-                    className="w-full h-auto object-cover group-hover:scale-[1.015] transition-transform duration-500"
+                    src="/assets/aistudio/Award_Photo_a60e7a36.png"
+                    alt="REVIVEX 1st Position Trophy and Certificate at ZERO² 2026"
+                    className="w-11 h-11 rounded-lg object-cover shrink-0 border border-[#252C3D]"
                   />
+                  <div className="min-w-0">
+                    <p className="font-mono text-[11px] text-[#D4AE5C] truncate">
+                      Verified Trophy &amp; Certificate
+                    </p>
+                    <p className="text-xs text-[#F4F0E8] truncate">
+                      1st Position · REVIVEX (IITM)
+                    </p>
+                  </div>
                 </Link>
 
-                {/* Caption, Studio Context Note & Supporting Proof Strip */}
-                <div className="p-5 sm:p-6 space-y-4">
-                  <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-3">
-                    <div className="space-y-1">
-                      <p className="font-mono text-xs text-[#38BDF8]">
-                        RE:FRAME · Smart Glasses Product Strategy &amp; Visual Concept
-                      </p>
-                      <h2 className="font-display text-2xl text-[#F4F0E8]">
-                        Reimagining Google Glass Around a Contextual Focus Engine
-                      </h2>
-                    </div>
-                    <a
-                      href="/assets/aistudio/REFRAME_Smart_Glasses_Product_Concept_97e4e1df.pdf"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#0B0E14] border border-[#252C3D] hover:border-[#38BDF8] font-mono text-xs text-[#E6D3A7] shrink-0 transition-colors"
-                    >
-                      <FileText className="w-3.5 h-3.5 text-[#38BDF8]" />
-                      <span>15-Slide Deck (PDF)</span>
-                      <ArrowUpRight className="w-3 h-3" />
-                    </a>
+                <Link
+                  to="/work/reframe#award-and-team"
+                  className="flex items-center gap-3 p-2.5 rounded-xl bg-[#131722] border border-[#252C3D] hover:border-[#38BDF8]/60 transition-colors"
+                >
+                  <img
+                    src="/assets/aistudio/Winning_Photo_5d3b58d1.png"
+                    alt="Akshit Sukhija and Adyot Ohri receiving 1st Place at ZERO² 2026"
+                    className="w-11 h-11 rounded-lg object-cover object-top shrink-0 border border-[#252C3D]"
+                  />
+                  <div className="min-w-0">
+                    <p className="font-mono text-[11px] text-[#38BDF8] truncate">
+                      Award Presentation &amp; Video Credit
+                    </p>
+                    <p className="text-xs text-[#F4F0E8] truncate">
+                      Akshit Sukhija &amp; Adyot Ohri
+                    </p>
                   </div>
-
-                  <p className="text-xs text-[#A6A9B8] leading-relaxed">
-                    An independent, unbuilt product concept illustrating how our studio approaches
-                    competitive research, product ecosystem architecture, and visual storytelling.
-                    Presented by Akshit Sukhija &amp; Adyot Ohri (<span className="text-[#E6D3A7]">Special Video Credit: Adyot Ohri</span>).
-                  </p>
-
-                  {/* Genuine Award & Team Thumbnail Strip */}
-                  <div className="pt-3 border-t border-[#252C3D] grid grid-cols-1 sm:grid-cols-2 gap-3">
-                    <Link
-                      to="/work/reframe#award-and-team"
-                      className="flex items-center gap-3 p-2.5 rounded-xl bg-[#0B0E14] border border-[#252C3D] hover:border-[#38BDF8]/60 transition-colors"
-                    >
-                      <img
-                        src="/assets/aistudio/Award_Photo_a60e7a36.png"
-                        alt="REVIVEX 1st Position Trophy and Certificate at ZERO² 2026"
-                        className="w-12 h-12 rounded-lg object-cover shrink-0 border border-[#252C3D]"
-                      />
-                      <div className="min-w-0">
-                        <p className="font-mono text-[11px] text-[#D4AE5C] truncate">
-                          Verified Trophy &amp; Certificate
-                        </p>
-                        <p className="text-xs text-[#F4F0E8] truncate">
-                          1st Position · REVIVEX (IITM)
-                        </p>
-                      </div>
-                    </Link>
-
-                    <Link
-                      to="/work/reframe#award-and-team"
-                      className="flex items-center gap-3 p-2.5 rounded-xl bg-[#0B0E14] border border-[#252C3D] hover:border-[#38BDF8]/60 transition-colors"
-                    >
-                      <img
-                        src="/assets/aistudio/Winning_Photo_5d3b58d1.png"
-                        alt="Akshit Sukhija and Adyot Ohri receiving 1st Place at ZERO² 2026"
-                        className="w-12 h-12 rounded-lg object-cover object-top shrink-0 border border-[#252C3D]"
-                      />
-                      <div className="min-w-0">
-                        <p className="font-mono text-[11px] text-[#38BDF8] truncate">
-                          Award Presentation
-                        </p>
-                        <p className="text-xs text-[#F4F0E8] truncate">
-                          Akshit Sukhija &amp; Adyot Ohri
-                        </p>
-                      </div>
-                    </Link>
-                  </div>
-                </div>
+                </Link>
               </div>
             </MotionReveal>
           </div>
         </div>
       </section>
 
-      {/* Studio Guide — a visual companion to the independent studio */}
+      {/* 2. Studio Services — Four Client-Focused Pillars + ServiceComparison (Warm Ivory Editorial Section) */}
       <section
-        aria-labelledby="studio-guide-title"
-        className="bg-[#F5F1E8] text-[#0B0E14] border-b border-[#D4CBB8] py-14 sm:py-16 px-6"
+        id="studio-services"
+        className="bg-[#F5F1E8] text-[#0B0E14] border-b border-[#D4CBB8] py-20 px-6 bg-ivory-grid"
       >
-        <div className="max-w-[1240px] mx-auto grid grid-cols-1 md:grid-cols-12 gap-8 lg:gap-12 items-center">
-          <MotionReveal className="md:col-span-7 space-y-4">
-            <p className="font-mono text-xs text-[#0284C7] font-semibold tracking-wider uppercase">
-              A visual companion to the studio
-            </p>
-            <h2
-              id="studio-guide-title"
-              className="font-display text-3xl sm:text-4xl md:text-5xl text-[#0B0E14] leading-tight"
-            >
-              Meet the Studio Guide.
-            </h2>
-            <p className="text-sm sm:text-base text-[#1E202E]/85 leading-relaxed max-w-2xl">
-              A small character to make the studio feel a little more human. Explore the work,
-              understand the services, and see how an idea moves from research to a working digital experience.
-            </p>
-            <div className="flex flex-wrap items-center gap-4 pt-2">
-              <Link
-                to="/work"
-                className="inline-flex items-center gap-2 px-5 py-3 text-xs font-mono font-medium text-[#F4F0E8] bg-[#0B0E14] hover:bg-[#1E202E] rounded-lg transition-colors"
-              >
-                <span>Explore the work</span>
-                <ArrowRight className="w-3.5 h-3.5 text-[#38BDF8]" />
-              </Link>
-              <Link
-                to="/process"
-                className="inline-flex items-center gap-1.5 text-xs font-mono font-semibold text-[#7A5B14] hover:text-[#0284C7] transition-colors"
-              >
-                <span>See the process</span>
-                <ArrowUpRight className="w-3.5 h-3.5" />
-              </Link>
-            </div>
-          </MotionReveal>
-          <MotionReveal delay={0.08} className="md:col-span-5">
-            <div className="relative mx-auto w-full max-w-[360px]">
-              <StudioGuide
-                animation="Idle - Gentle Breathing"
-                className="h-[300px] w-full sm:h-[360px]"
-                ariaLabel="Animated illustration of the independent digital studio guide"
-              />
-              <p className="mt-2 text-center font-mono text-[10px] tracking-[0.12em] text-[#7B756B] uppercase">
-                Studio Guide · 3D character
-              </p>
-            </div>
-          </MotionReveal>
-        </div>
-      </section>
-
-      {/* 2. Studio Services — Four Client-Focused Pillars (Warm Ivory Editorial Section) */}
-      <section className="bg-[#F5F1E8] text-[#0B0E14] border-b border-[#D4CBB8] py-20 px-6 bg-ivory-grid">
         <div className="max-w-[1240px] mx-auto space-y-12">
           <MotionReveal className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-6 border-b border-[#D4CBB8]">
             <div className="space-y-2 max-w-2xl">
@@ -348,11 +442,19 @@ export function HomePage() {
               </MotionReveal>
             ))}
           </div>
+
+          {/* Side-by-Side Service Tier Comparison: Data Intelligence vs Product Prototyping */}
+          <MotionReveal delay={0.08}>
+            <ServiceComparison variant="ivory" />
+          </MotionReveal>
         </div>
       </section>
 
       {/* 3. Selected Work — Live Digital Experiences, AI Tools & Research */}
-      <section className="bg-[#0B0E14] border-b border-[#252C3D] py-20 px-6">
+      <section
+        id="selected-work"
+        className="bg-[#0B0E14] border-b border-[#252C3D] py-20 px-6"
+      >
         <div className="max-w-[1240px] mx-auto space-y-12">
           <MotionReveal className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-6 border-b border-[#252C3D]">
             <div className="space-y-2 max-w-2xl">
@@ -426,7 +528,10 @@ export function HomePage() {
       </section>
 
       {/* 4. Studio Process Preview: Discover, Define, Create, Deliver */}
-      <section className="bg-[#131722] border-b border-[#252C3D] py-20 px-6">
+      <section
+        id="studio-process"
+        className="bg-[#131722] border-b border-[#252C3D] py-20 px-6"
+      >
         <div className="max-w-[1240px] mx-auto space-y-10">
           <MotionReveal className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-6 border-b border-[#252C3D]">
             <div className="space-y-2 max-w-2xl">
@@ -475,7 +580,10 @@ export function HomePage() {
       </section>
 
       {/* 5. Editorial Research & Insights Preview (Warm Ivory Section) */}
-      <section className="bg-[#F5F1E8] text-[#0B0E14] border-b border-[#D4CBB8] py-20 px-6">
+      <section
+        id="proof-insights"
+        className="bg-[#F5F1E8] text-[#0B0E14] border-b border-[#D4CBB8] py-20 px-6"
+      >
         <div className="max-w-[1240px] mx-auto space-y-10">
           <MotionReveal className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-6 border-b border-[#D4CBB8]">
             <div className="space-y-2 max-w-2xl">

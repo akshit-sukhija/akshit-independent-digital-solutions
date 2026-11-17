@@ -119,6 +119,298 @@ export const DESIRED_OUTCOME_OPTIONS = [
   'Start with a small paid pilot to test what works best',
 ] as const;
 
+export const REFRAME_VIDEO_ASSET_PATH =
+  '/assets/aistudio/REFRAME_VIDEO_Smart_Glasses_Product_Concept_d6d08b1e.mp4';
+
+export const REFRAME_POSTER_ASSET_PATH =
+  '/assets/aistudio/REFRAME_THUMBNAIL_IMAGE_99a3fe50.jpeg';
+
+export interface VideoChapterItem {
+  id: string;
+  timecode: string;
+  startTime: number;
+  label: string;
+  summary: string;
+}
+
+export const REFRAME_VIDEO_CHAPTERS: VideoChapterItem[] = [
+  {
+    id: 'reveal',
+    timecode: '00:00',
+    startTime: 0,
+    label: '01 · Eyewear Reveal',
+    summary: 'Stay connected without looking away from the world',
+  },
+  {
+    id: 'optics',
+    timecode: '00:04',
+    startTime: 4,
+    label: '02 · Optical Sensor & LED',
+    summary: 'Putting information where you need it',
+  },
+  {
+    id: 'hardware',
+    timecode: '00:08',
+    startTime: 8,
+    label: '03 · Charging Case & Cutaway',
+    summary: 'Meet RE:FRAME modular eyewear architecture',
+  },
+  {
+    id: 'hud-utilities',
+    timecode: '00:12',
+    startTime: 12,
+    label: '04 · Navigate & Translate',
+    summary: '200 m turn-by-turn HUD & live Japanese sign translation',
+  },
+  {
+    id: 'focus-engine',
+    timecode: '00:17',
+    startTime: 17,
+    label: '05 · Focus Engine HUD',
+    summary: 'Contextual notification priority filtering in your view',
+  },
+  {
+    id: 'ecosystem',
+    timecode: '00:20',
+    startTime: 20,
+    label: '06 · Privacy & Phone-Cloud Sync',
+    summary: 'Hardware camera switch, Bluetooth phone compute & Look Up and Live It',
+  },
+];
+
+export type StudioGuideAnimation =
+  | 'Idle - Gentle Breathing'
+  | 'Wave - Welcome'
+  | 'Present - Showcase'
+  | 'Think - Reflect';
+
+export const STUDIO_GUIDE_ANIMATION_CLIPS: readonly StudioGuideAnimation[] = [
+  'Wave - Welcome',
+  'Idle - Gentle Breathing',
+  'Present - Showcase',
+  'Think - Reflect',
+] as const;
+
+export type HomepageSectionKey = 'hero' | 'services' | 'work' | 'process' | 'insights';
+
+/**
+ * Pure state-transition resolver for the homepage Studio Guide 3D companion:
+ * - On hero load: 'Wave - Welcome'
+ * - After welcome completes (or when returning to hero): 'Idle - Gentle Breathing'
+ * - Services or Work active: 'Present - Showcase'
+ * - Process or Insights active: 'Think - Reflect'
+ */
+export function resolveStudioGuideAnimation(
+  activeSection: HomepageSectionKey,
+  welcomeCompleted: boolean
+): StudioGuideAnimation {
+  if (activeSection === 'services' || activeSection === 'work') {
+    return 'Present - Showcase';
+  }
+  if (activeSection === 'process' || activeSection === 'insights') {
+    return 'Think - Reflect';
+  }
+  if (activeSection === 'hero') {
+    return welcomeCompleted ? 'Idle - Gentle Breathing' : 'Wave - Welcome';
+  }
+  return 'Idle - Gentle Breathing';
+}
+
+export interface StudioGuideChapter {
+  id: string;
+  sectionKey: HomepageSectionKey;
+  number: string;
+  title: string;
+  guideBehaviour: string;
+  animationClip: StudioGuideAnimation;
+  contentSummary: string;
+  ctaLabel: string;
+  ctaTo: string;
+}
+
+export const STUDIO_GUIDE_SCROLL_CHAPTERS: StudioGuideChapter[] = [
+  {
+    id: 'chapter-welcome',
+    sectionKey: 'hero',
+    number: '01',
+    title: 'Welcome',
+    guideBehaviour: 'On hero load plays Wave - Welcome, then cross-fades to Idle - Gentle Breathing.',
+    animationClip: 'Wave - Welcome',
+    contentSummary:
+      'Studio positioning, front-page RE:FRAME concept film showcase, and direct paths to explore selected work or start a project.',
+    ctaLabel: 'Explore Selected Work',
+    ctaTo: '/work',
+  },
+  {
+    id: 'chapter-services',
+    sectionKey: 'services',
+    number: '02',
+    title: 'Services',
+    guideBehaviour: 'Smoothly cross-fades to Present - Showcase when Services becomes active.',
+    animationClip: 'Present - Showcase',
+    contentSummary:
+      'Four client-focused studio services plus side-by-side Data Intelligence vs Product Prototyping tier comparison.',
+    ctaLabel: 'Explore Studio Services',
+    ctaTo: '/solutions',
+  },
+  {
+    id: 'chapter-work',
+    sectionKey: 'work',
+    number: '03',
+    title: 'Selected Work',
+    guideBehaviour: 'Smoothly cross-fades to Present - Showcase when Selected Work becomes active.',
+    animationClip: 'Present - Showcase',
+    contentSummary:
+      'Flagship proof across RE:FRAME, Notice Decoder, SentinelX, Clarity Redemption AI, and evaluated research studies.',
+    ctaLabel: 'Browse Selected Work',
+    ctaTo: '/work',
+  },
+  {
+    id: 'chapter-process',
+    sectionKey: 'process',
+    number: '04',
+    title: 'Process',
+    guideBehaviour: 'Smoothly cross-fades to Think - Reflect when Process becomes active.',
+    animationClip: 'Think - Reflect',
+    contentSummary:
+      'A transparent four-stage workflow—Discover → Define → Create → Deliver—from initial research to shipping the finished product.',
+    ctaLabel: 'See the 4-Stage Process',
+    ctaTo: '/process',
+  },
+  {
+    id: 'chapter-insights',
+    sectionKey: 'insights',
+    number: '05',
+    title: 'Insights',
+    guideBehaviour: 'Smoothly cross-fades to Think - Reflect when Insights becomes active.',
+    animationClip: 'Think - Reflect',
+    contentSummary:
+      'Original research writing connecting brand perception, customer behaviour data, and applied software engineering.',
+    ctaLabel: 'Read Studio Insights',
+    ctaTo: '/insights',
+  },
+];
+
+export interface ServiceComparisonTier {
+  id: 'data-intelligence' | 'product-prototyping';
+  tierCode: string;
+  title: string;
+  subtitle: string;
+  idealFor: string;
+  expectedScope: string;
+  typicalTimeline: string;
+  inputRequired: string;
+  deliverables: string[];
+  stackAndTools: string[];
+  verifiedProof: { title: string; slug: string; metricOrNote: string }[];
+  ctaProblemCategory: string;
+}
+
+export const SERVICE_COMPARISON_TIERS: ServiceComparisonTier[] = [
+  {
+    id: 'data-intelligence',
+    tierCode: 'TIER 01 · DATA INTELLIGENCE',
+    title: 'Data Intelligence & Cohort Analytics',
+    subtitle:
+      'Turn raw transactional exports, survey records, and operational logs into decision-ready dashboards and statistical proof.',
+    idealFor:
+      'D2C brands, retail/operations teams, and founders with existing CSV, SQL, Excel, or CRM data who need clarity on retention, margins, or customer segments.',
+    expectedScope:
+      'Data cleaning & audit → cohort/econometric modelling → interactive Power BI or Python visual report → plain-English strategic recommendations.',
+    typicalTimeline: '1–3 weeks (Fixed-Scope Audit or Dashboard Sprint)',
+    inputRequired: 'Historical spreadsheets, Shopify/ERP CSV exports, or public/internal SQL tables.',
+    deliverables: [
+      'Cleaned, documented dataset & reproducible Python / SQL analysis pipeline',
+      'Interactive Power BI or web KPI dashboard with segment filters',
+      'Cohort retention, discount-sensitivity, or demographic anomaly breakdown',
+      'Plain-English executive decision brief with prioritised action steps',
+    ],
+    stackAndTools: ['Python (Pandas, Scikit-learn)', 'SQL', 'Power BI', 'Statistical Hypothesis Testing'],
+    verifiedProof: [
+      {
+        title: 'Decoding Customer Value',
+        slug: 'decoding-customer-value',
+        metricOrNote: 'IIT Guwahati · RFM & discount-dependency BI study',
+      },
+      {
+        title: 'OTT Viewer Retention Analysis',
+        slug: 'ott-viewer-retention-analysis',
+        metricOrNote: '33,171 episodes (2020–2024) · 16.7% vs 11.8% drop-off',
+      },
+    ],
+    ctaProblemCategory: 'Understand my business data',
+  },
+  {
+    id: 'product-prototyping',
+    tierCode: 'TIER 02 · PRODUCT PROTOTYPING',
+    title: 'Product Prototyping & Custom Web / AI Tools',
+    subtitle:
+      'Transform early product concepts, manual document workflows, or pitch narratives into interactive web applications and investor-ready showcases.',
+    idealFor:
+      'Founders, product leads, and teams launching a new digital product, automating PDF/document workflows, or pitching a high-stakes hardware/software concept.',
+    expectedScope:
+      'Problem & UX architecture → interactive React/TypeScript web prototype or deterministic AI workflow → live deployment or 15-slide visual concept showcase.',
+    typicalTimeline: '2–4 weeks (Clickable Prototype, Web App, or Concept Pitch System)',
+    inputRequired: 'Rough product brief, workflow pain-point notes, or 10–20 sample PDFs/documents.',
+    deliverables: [
+      'Responsive React + TypeScript web application or working AI workflow tool',
+      'End-to-end UX ecosystem architecture, user flows, and interactive states',
+      'Deterministic rule validation + structured JSON/PDF export pipeline',
+      'Investor/competition-grade visual presentation deck & concept walkthrough',
+    ],
+    stackAndTools: ['React 19 & TypeScript', 'Tailwind CSS', 'FastAPI / Python', 'Gemini / Structured LLM APIs'],
+    verifiedProof: [
+      {
+        title: 'RE:FRAME Smart Glasses Concept',
+        slug: 'reframe',
+        metricOrNote: '1st Place · REVIVEX · ZERO² 2026 · 15-slide deck & concept film',
+      },
+      {
+        title: 'Notice Decoder & SentinelX',
+        slug: 'notice-decoder',
+        metricOrNote: 'Live deployed web apps on Vercel with automated PDF/risk output',
+      },
+    ],
+    ctaProblemCategory: 'Prototype a product idea',
+  },
+];
+
+export interface ServiceComparisonRow {
+  dimension: string;
+  dataIntelligence: string;
+  productPrototyping: string;
+}
+
+export const SERVICE_COMPARISON_ROWS: ServiceComparisonRow[] = [
+  {
+    dimension: 'Primary Objective',
+    dataIntelligence: 'Uncover why metrics move (retention, churn, discount leakage, regional demand).',
+    productPrototyping: 'Validate how a product works in users’ hands or automate a manual workflow.',
+  },
+  {
+    dimension: 'Starting Material Needed',
+    dataIntelligence: 'CSV/Excel exports, billing logs, survey responses, or database tables.',
+    productPrototyping: 'A rough idea, workflow pain point, wireframe sketch, or sample PDFs.',
+  },
+  {
+    dimension: 'Core Deliverable',
+    dataIntelligence: 'Interactive Power BI / Python dashboard + executive findings report.',
+    productPrototyping: 'Live deployed React/AI web application + visual product narrative.',
+  },
+  {
+    dimension: 'Typical Engagement Scope',
+    dataIntelligence: '1–3 weeks · Fixed-scope diagnostic audit or recurring BI reporting setup.',
+    productPrototyping: '2–4 weeks · Focused MVP pilot, internal tool, or flagship concept showcase.',
+  },
+  {
+    dimension: 'Handover & Ownership',
+    dataIntelligence: '100% ownership of cleaned datasets, SQL/Python notebooks, and dashboard files.',
+    productPrototyping: '100% ownership of source code, GitHub repository, live deployment, and design assets.',
+  },
+];
+
+
+
 /**
  * Filters flagship case study projects by capability domain, tier, technology, and evidence type
  * while preserving the priority hierarchy:

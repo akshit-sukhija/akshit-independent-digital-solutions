@@ -264,3 +264,85 @@ test('matchProblemToService maps plain business problems to the four studio serv
   const webMatch = matchProblemToService('Build a dashboard or internal tool');
   assert.equal(webMatch.recommendedService.id, 'websites-digital-experiences');
 });
+
+test('front-page RE:FRAME video config, Studio Guide 3D GLB clips & section transitions, ServiceComparison tiers, and reconciled 2020-2024 OTT metrics are verified', async () => {
+  const fs = await import('node:fs');
+  const path = await import('node:path');
+  const {
+    REFRAME_VIDEO_ASSET_PATH,
+    REFRAME_POSTER_ASSET_PATH,
+    REFRAME_VIDEO_CHAPTERS,
+    STUDIO_GUIDE_ANIMATION_CLIPS,
+    STUDIO_GUIDE_SCROLL_CHAPTERS,
+    resolveStudioGuideAnimation,
+    SERVICE_COMPARISON_TIERS,
+    SERVICE_COMPARISON_ROWS,
+  } = await import('./studioLogic');
+
+  assert.equal(
+    REFRAME_VIDEO_ASSET_PATH,
+    '/assets/aistudio/REFRAME_VIDEO_Smart_Glasses_Product_Concept_d6d08b1e.mp4'
+  );
+  assert.equal(
+    REFRAME_POSTER_ASSET_PATH,
+    '/assets/aistudio/REFRAME_THUMBNAIL_IMAGE_99a3fe50.jpeg'
+  );
+  assert.equal(REFRAME_VIDEO_CHAPTERS.length, 6);
+  assert.equal(STUDIO_GUIDE_SCROLL_CHAPTERS.length, 5);
+
+  // Verify exact 4 GLB animation clip names
+  assert.deepEqual(STUDIO_GUIDE_ANIMATION_CLIPS, [
+    'Wave - Welcome',
+    'Idle - Gentle Breathing',
+    'Present - Showcase',
+    'Think - Reflect',
+  ]);
+
+  // Verify exact animation sequence state machine
+  assert.equal(resolveStudioGuideAnimation('hero', false), 'Wave - Welcome');
+  assert.equal(resolveStudioGuideAnimation('hero', true), 'Idle - Gentle Breathing');
+  assert.equal(resolveStudioGuideAnimation('services', true), 'Present - Showcase');
+  assert.equal(resolveStudioGuideAnimation('work', true), 'Present - Showcase');
+  assert.equal(resolveStudioGuideAnimation('process', true), 'Think - Reflect');
+  assert.equal(resolveStudioGuideAnimation('insights', true), 'Think - Reflect');
+  assert.equal(resolveStudioGuideAnimation('hero', true), 'Idle - Gentle Breathing');
+
+  // Verify studio-guide.glb and studio-guide-fallback.png exist in public/assets/3d/ and contain all 4 clips
+  const glbPath = path.resolve(process.cwd(), 'public/assets/3d/studio-guide.glb');
+  const fallbackPath = path.resolve(process.cwd(), 'public/assets/3d/studio-guide-fallback.png');
+  assert.ok(fs.existsSync(glbPath), 'public/assets/3d/studio-guide.glb must exist');
+  assert.ok(fs.existsSync(fallbackPath), 'public/assets/3d/studio-guide-fallback.png must exist');
+
+  const glbBuffer = fs.readFileSync(glbPath);
+  assert.equal(glbBuffer.toString('ascii', 0, 4), 'glTF');
+  const jsonChunkLength = glbBuffer.readUInt32LE(12);
+  const gltfJson = JSON.parse(glbBuffer.toString('utf8', 20, 20 + jsonChunkLength));
+  const embeddedClipNames = (gltfJson.animations || []).map((a: { name: string }) => a.name);
+  assert.deepEqual(embeddedClipNames, [
+    'Idle - Gentle Breathing',
+    'Wave - Welcome',
+    'Present - Showcase',
+    'Think - Reflect',
+  ]);
+
+  // Verify ServiceComparison tiers for Data Intelligence vs Product Prototyping
+  assert.equal(SERVICE_COMPARISON_TIERS.length, 2);
+  assert.equal(SERVICE_COMPARISON_TIERS[0].id, 'data-intelligence');
+  assert.equal(SERVICE_COMPARISON_TIERS[1].id, 'product-prototyping');
+  assert.ok(SERVICE_COMPARISON_ROWS.length >= 5);
+
+  const reframeCurated = CURATED_WORK_ITEMS.find((item) => item.slug === 'reframe');
+  assert.ok(reframeCurated);
+  assert.equal(reframeCurated.collaborationType, 'Collaborative Work');
+  assert.equal(reframeCurated.specialCredit, 'Special Video Credit: Adyot Ohri');
+
+  const ottStudy = CURATED_WORK_ITEMS.find(
+    (item) => item.slug === 'ott-viewer-retention-analysis'
+  );
+  assert.ok(ottStudy);
+  assert.ok(ottStudy.overview.includes('2020–2024'));
+  assert.ok(ottStudy.outcomes.includes('16.7%'));
+  assert.ok(ottStudy.outcomes.includes('11.8%'));
+});
+
+

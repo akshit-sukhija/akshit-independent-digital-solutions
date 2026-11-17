@@ -22,7 +22,7 @@ export function ProjectCard({ project, compact = false }: ProjectCardProps) {
 
   const workNatureLabel =
     project.slug === 'reframe'
-      ? 'Independent Concept · Award Winner'
+      ? 'Collaborative Work · Independent Product Concept'
       : project.collaborators.toLowerCase().includes('solo')
         ? 'Solo Work'
         : project.slug === 'decoding-customer-value'

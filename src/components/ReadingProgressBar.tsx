@@ -1,12 +1,10 @@
 import { useEffect, useState } from 'react';
 
 interface ReadingProgressBarProps {
-  accentColor?: string;
   label?: string;
 }
 
 export function ReadingProgressBar({
-  accentColor = '#38BDF8',
   label = 'Case study reading progress',
 }: ReadingProgressBarProps) {
   const [progress, setProgress] = useState(0);
@@ -69,7 +67,7 @@ export function ReadingProgressBar({
       aria-valuemin={0}
       aria-valuemax={100}
       aria-valuenow={Math.round(progress)}
-      className="fixed top-0 left-0 right-0 z-[60] h-1 bg-[#0E0F14]/80 pointer-events-none"
+      className="fixed top-0 left-0 right-0 z-[60] h-[3px] theme-bg/85 pointer-events-none"
     >
       <div
         className={
@@ -79,7 +77,7 @@ export function ReadingProgressBar({
         }
         style={{
           width: `${progress}%`,
-          background: `linear-gradient(90deg, ${accentColor} 0%, #D4AE5C 100%)`,
+          background: 'linear-gradient(90deg, var(--accent) 0%, var(--accent-secondary) 100%)',
         }}
       />
     </div>

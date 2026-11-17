@@ -138,8 +138,8 @@ function StructuredWorkCard({ item }: { item: CuratedWorkItem }) {
           <span>{item.technologies.join(' · ')}</span>
         </div>
 
-        {/* Quantitative Chart When Available (e.g., OTT Viewer Retention 16.7% vs 11.8%) */}
-        <ProjectMetrics projectSlug={item.slug} compact />
+        {/* Quantitative Chart Shown on Demand When Inspecting Details */}
+        {showDetails && <ProjectMetrics projectSlug={item.slug} compact />}
       </div>
 
       {/* Expandable Methodology & Proof Links */}

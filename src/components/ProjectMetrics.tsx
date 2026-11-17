@@ -8,6 +8,7 @@ import {
   Tooltip,
   Cell,
 } from 'recharts';
+import { useTheme } from '../context/ThemeContext';
 
 export interface MetricDataPoint {
   label: string;
@@ -68,46 +69,32 @@ export const VERIFIED_PROJECT_METRICS: Record<string, ProjectMetricConfig> = {
   },
   'ott-viewer-retention-analysis': {
     projectSlug: 'ott-viewer-retention-analysis',
-    title: 'Streaming Cohort Drop-Off & Multi-Season Completion Rates',
+    title: 'Streaming Cohort Drop-Off: Mid-Season (Ep 4–8) vs. Early-Season (Ep 1–3)',
     subtitle:
-      'Episode-level churn comparison and season-over-season completion across 33,171 episodes.',
-    datasetScope: 'Evaluated Dataset: N = 33,171 streaming episodes across 100 multi-season series',
+      'Episode-level viewer abandonment comparison across 33,171 streaming episodes from 100 multi-season series (2020–2024 dataset).',
+    datasetScope: 'Evaluated Dataset: N = 33,171 episodes across 100 series (2020–2024 cohort)',
     sourceNote:
-      'Source: OTT Viewer Retention Capstone Study (2015–2026 cohort analysis). Compares mid-season slump (Episodes 4–8) against late-season drop-off and multi-season completion.',
+      'Source: OTT Viewer Retention Study (2020–2024 dataset). Compares mid-season audience drop-off (Episodes 4–8: 16.7%) against early-season drop-off (Episodes 1–3: 11.8%).',
     unitSuffix: '%',
-    yAxisMax: 85,
+    yAxisMax: 25,
     data: [
       {
-        label: 'Ep 4–8 Drop-Off Spike',
+        label: 'Episodes 4–8 Drop-Off',
         value: 16.7,
         unit: '%',
         context: 'Peak mid-season audience abandonment occurs between Episodes 4 and 8 (16.7%)',
         color: '#F97316',
       },
       {
-        label: 'Late-Season Drop-Off',
+        label: 'Episodes 1–3 Drop-Off',
         value: 11.8,
         unit: '%',
-        context: 'Average episode drop-off stabilises to 11.8% once viewers pass Episode 8',
+        context: 'Early-season episode drop-off across Episodes 1 to 3 averages 11.8%',
         color: '#38BDF8',
-      },
-      {
-        label: 'Season 1 Completion',
-        value: 72.0,
-        unit: '%',
-        context: 'Average Season 1 viewer completion rate across analysed series (72.0%)',
-        color: '#22C55E',
-      },
-      {
-        label: 'Season 4+ Completion',
-        value: 58.0,
-        unit: '%',
-        context: 'Average completion declines to 58.0% by Season 4 and beyond',
-        color: '#D4AE5C',
       },
     ],
     keyInsight:
-      'Mid-season pacing between Episodes 4 and 8 accounts for a 16.7% drop-off spike compared to 11.8% later in the season, supporting tighter 6–8 episode season structures.',
+      'Mid-season pacing between Episodes 4 and 8 drives a 16.7% viewer drop-off spike compared to 11.8% across Episodes 1–3 in the 2020–2024 dataset, supporting tighter 6–8 episode season structures.',
   },
 };
 
@@ -117,24 +104,32 @@ interface ProjectMetricsProps {
 }
 
 export function ProjectMetrics({ projectSlug, compact = false }: ProjectMetricsProps) {
+  const { theme } = useTheme();
   const config = VERIFIED_PROJECT_METRICS[projectSlug];
 
-  // When a project has no suitable quantitative evidence, omit its chart.
   if (!config) {
     return null;
   }
 
+  const isLight = theme === 'light';
+  const gridStroke = isLight ? '#D8E1EA' : '#28364A';
+  const axisTickFill = isLight ? '#142033' : '#F4F7FB';
+  const yAxisTickFill = isLight ? '#526174' : '#A9B5C5';
+  const tooltipBg = isLight ? '#FFFFFF' : '#0B0E14';
+  const tooltipBorder = isLight ? '#0369A1' : '#38BDF8';
+  const tooltipText = isLight ? '#142033' : '#F4F7FB';
+
   return (
-    <div className="bg-[#131722] border border-[#283044] rounded-2xl p-6 md:p-8 space-y-6">
-      <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-4 border-b border-[#283044] pb-5">
+    <div className="theme-surface border theme-border rounded-2xl p-6 md:p-8 space-y-6">
+      <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-4 border-b theme-border pb-5">
         <div className="space-y-1.5 max-w-2xl">
-          <p className="font-mono text-xs text-[#38BDF8] uppercase tracking-wider">
+          <p className="font-mono text-xs theme-accent">
             Source-Backed Quantitative Evidence
           </p>
-          <h3 className="font-display text-2xl sm:text-3xl text-[#F4F0E8]">{config.title}</h3>
-          <p className="text-xs sm:text-sm text-[#A6A9B8] leading-relaxed">{config.subtitle}</p>
+          <h3 className="font-display text-2xl sm:text-3xl theme-text">{config.title}</h3>
+          <p className="text-sm theme-text-muted leading-relaxed">{config.subtitle}</p>
         </div>
-        <div className="px-3.5 py-2 rounded-lg bg-[#0B0E14] border border-[#283044] font-mono text-xs text-[#D4AE5C] shrink-0">
+        <div className="px-3.5 py-2 rounded-lg theme-bg border theme-border font-mono text-xs theme-accent-secondary shrink-0">
           {config.datasetScope}
         </div>
       </div>
@@ -145,31 +140,31 @@ export function ProjectMetrics({ projectSlug, compact = false }: ProjectMetricsP
           <BarChart
             data={config.data}
             margin={{ top: 16, right: 20, left: 4, bottom: 8 }}
-            barSize={compact ? 40 : 54}
+            barSize={compact ? 42 : 56}
           >
-            <CartesianGrid strokeDasharray="3 3" stroke="#283044" vertical={false} />
+            <CartesianGrid strokeDasharray="3 3" stroke={gridStroke} vertical={false} />
             <XAxis
               dataKey="label"
-              stroke="#A6A9B8"
-              tick={{ fill: '#F4F0E8', fontSize: 12, fontFamily: 'IBM Plex Mono, monospace' }}
-              axisLine={{ stroke: '#283044' }}
+              stroke={yAxisTickFill}
+              tick={{ fill: axisTickFill, fontSize: 12, fontFamily: 'IBM Plex Mono, monospace' }}
+              axisLine={{ stroke: gridStroke }}
               tickLine={false}
             />
             <YAxis
               domain={[0, config.yAxisMax]}
-              stroke="#A6A9B8"
+              stroke={yAxisTickFill}
               tickFormatter={(val) => `${val}${config.unitSuffix}`}
-              tick={{ fill: '#A6A9B8', fontSize: 11, fontFamily: 'IBM Plex Mono, monospace' }}
-              axisLine={{ stroke: '#283044' }}
+              tick={{ fill: yAxisTickFill, fontSize: 11, fontFamily: 'IBM Plex Mono, monospace' }}
+              axisLine={{ stroke: gridStroke }}
               tickLine={false}
             />
             <Tooltip
-              cursor={{ fill: 'rgba(56, 189, 248, 0.08)' }}
+              cursor={{ fill: isLight ? 'rgba(3, 105, 161, 0.08)' : 'rgba(56, 189, 248, 0.08)' }}
               contentStyle={{
-                backgroundColor: '#0B0E14',
-                borderColor: '#38BDF8',
+                backgroundColor: tooltipBg,
+                borderColor: tooltipBorder,
                 borderRadius: '0.75rem',
-                color: '#F4F0E8',
+                color: tooltipText,
                 fontSize: '12px',
                 fontFamily: 'IBM Plex Mono, monospace',
               }}
@@ -188,33 +183,37 @@ export function ProjectMetrics({ projectSlug, compact = false }: ProjectMetricsP
       </div>
 
       {/* Metric Summary Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
+      <div
+        className={`grid grid-cols-1 ${
+          config.data.length === 2 ? 'sm:grid-cols-2' : 'sm:grid-cols-3'
+        } gap-4 pt-2`}
+      >
         {config.data.slice(0, 3).map((item) => (
           <div
             key={item.label}
-            className="bg-[#0B0E14] border border-[#283044] rounded-xl p-4 space-y-1"
+            className="theme-bg border theme-border rounded-xl p-4 space-y-1"
           >
             <div className="flex items-baseline justify-between gap-2">
-              <span className="font-mono text-xs text-[#A6A9B8]">{item.label}</span>
+              <span className="font-mono text-xs theme-text-muted">{item.label}</span>
               <span
-                className="font-display text-2xl font-semibold"
+                className="font-display text-2xl font-semibold tabular-nums"
                 style={{ color: item.color }}
               >
                 {item.value.toFixed(1)}
                 {item.unit}
               </span>
             </div>
-            <p className="text-xs text-[#F4F0E8]/85 leading-relaxed">{item.context}</p>
+            <p className="text-xs theme-text leading-relaxed">{item.context}</p>
           </div>
         ))}
       </div>
 
-      <div className="pt-3 border-t border-[#283044] space-y-2 text-xs">
-        <p className="text-[#E6D3A7] leading-relaxed">
-          <strong className="font-mono text-[#38BDF8] uppercase mr-1.5">Takeaway:</strong>
+      <div className="pt-3 border-t theme-border space-y-2 text-xs">
+        <p className="theme-text leading-relaxed">
+          <strong className="font-mono theme-accent mr-1.5">Takeaway:</strong>
           {config.keyInsight}
         </p>
-        <p className="font-mono text-[11px] text-[#A6A9B8] leading-relaxed">{config.sourceNote}</p>
+        <p className="font-mono text-xs theme-text-muted leading-relaxed">{config.sourceNote}</p>
       </div>
     </div>
   );

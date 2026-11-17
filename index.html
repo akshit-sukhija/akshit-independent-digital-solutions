@@ -1,25 +1,34 @@
 <!doctype html>
-<html lang="en" class="dark scroll-smooth">
+<html lang="en" class="dark scroll-smooth" data-theme="dark">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Akshit | Independent Digital Solutions — AI, Data & Custom Tools</title>
+    <title>AKSHIT SUKHIJA — Independent Digital Content &amp; Solutions Studio</title>
     <meta
       name="description"
-      content="Independent digital solutions by Akshit. Helping Indian startups and businesses turn messy data, repetitive workflows, and early-stage product ideas into practical digital solutions."
+      content="AKSHIT SUKHIJA — Independent Digital Content & Solutions Studio. Creative ideas. Clear stories. Digital experiences that work. Brand storytelling, visual content production, websites, and AI-powered digital solutions."
     />
     <meta property="og:type" content="website" />
-    <meta property="og:site_name" content="Akshit | Independent Digital Solutions" />
-    <meta property="og:title" content="Akshit | Independent Digital Solutions — AI, Data & Custom Tools" />
+    <meta
+      property="og:site_name"
+      content="AKSHIT SUKHIJA — Independent Digital Content & Solutions Studio"
+    />
+    <meta
+      property="og:title"
+      content="AKSHIT SUKHIJA — Independent Digital Content & Solutions Studio"
+    />
     <meta
       property="og:description"
-      content="Helping Indian startups and small businesses turn messy data, repetitive workflows, and early-stage product ideas into useful digital solutions."
+      content="Creative ideas. Clear stories. Digital experiences that work. Brand storytelling, visual content, websites, and AI-powered digital solutions for founders, brands, and product teams."
     />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Akshit | Independent Digital Solutions — AI, Data & Custom Tools" />
+    <meta
+      name="twitter:title"
+      content="AKSHIT SUKHIJA — Independent Digital Content & Solutions Studio"
+    />
     <meta
       name="twitter:description"
-      content="Independent work across AI workflow automation, data intelligence, and custom digital products for Indian businesses."
+      content="Brand storytelling, visual content production, custom websites, and AI-powered digital solutions by Akshit Sukhija."
     />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -28,21 +37,40 @@
       href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;1,400&family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Instrument+Serif:ital@0;1&display=swap"
       rel="stylesheet"
     />
+    <script>
+      (function () {
+        try {
+          var saved = window.localStorage.getItem('akshit_studio_theme');
+          var theme = saved === 'light' ? 'light' : 'dark';
+          var root = document.documentElement;
+          root.setAttribute('data-theme', theme);
+          if (theme === 'dark') {
+            root.classList.add('dark');
+            root.classList.remove('light');
+          } else {
+            root.classList.add('light');
+            root.classList.remove('dark');
+          }
+        } catch (e) {
+          document.documentElement.setAttribute('data-theme', 'dark');
+        }
+      })();
+    </script>
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
         "@type": "ProfessionalService",
-        "name": "AKSHIT SUKHIJA | Independent Digital & Product Solutions",
-        "description": "I turn business problems and early ideas into useful digital solutions through research, data, AI and technology.",
+        "name": "AKSHIT SUKHIJA — Independent Digital Content & Solutions Studio",
+        "description": "Creative ideas. Clear stories. Digital experiences that work. Brand storytelling, visual content production, custom websites, and AI-powered digital solutions.",
         "areaServed": "IN",
         "priceRange": "₹₹",
         "knowsAbout": [
-          "Data & Business Intelligence",
-          "AI & Workflow Automation",
-          "Digital Products & Prototyping",
+          "Brand Strategy & Storytelling",
+          "Digital Content & Creative Production",
+          "Websites & Digital Experiences",
+          "AI-Powered Digital Solutions",
           "Product Strategy & UX",
-          "Brand & Market Research",
-          "Software Quality",
+          "Data & Business Intelligence",
           "Python",
           "SQL",
           "React",
@@ -52,7 +80,7 @@
       }
     </script>
   </head>
-  <body class="bg-[#0E0F14] text-[#F4F0E8] antialiased selection:bg-[#D4AE5C]/30 selection:text-[#F4F0E8]">
+  <body class="antialiased selection:bg-[#38BDF8]/30">
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>

@@ -63,7 +63,7 @@ export const CURATED_WORK_ITEMS: CuratedWorkItem[] = [
       'Award-winning product revival strategy, Focus Engine UX concept, and visual presentation reimagining Google Glass for mindful everyday utility.',
     category: 'Brand Storytelling, Product Strategy & Visual Concept',
     workSection: 'selected-projects',
-    collaborationType: 'Independent Concept',
+    collaborationType: 'Collaborative Work',
     domain: 'product-strategy',
     hasDedicatedCaseStudy: true,
     recognitionBadge: '1st Place · REVIVEX · ZERO² 2026',
@@ -361,21 +361,21 @@ export const CURATED_WORK_ITEMS: CuratedWorkItem[] = [
     slug: 'ott-viewer-retention-analysis',
     title: 'OTT Viewer Retention Analysis',
     subtitle:
-      'Episode-level viewer drop-off and cohort retention study across 33,171 episodes from 100 streaming series (16.7% mid-season vs 11.8% late-season drop-off).',
+      'Episode-level viewer drop-off and cohort retention study across 33,171 episodes from 100 streaming series (16.7% Episodes 4–8 vs 11.8% Episodes 1–3 drop-off).',
     category: 'Media Retention Analytics & Cohort Modeling',
     workSection: 'research-analytics',
     collaborationType: 'Research & Analytics',
     domain: 'data-intelligence',
     hasDedicatedCaseStudy: false,
     overview:
-      'A quantitative retention study examining 33,171 streaming episodes across 100 multi-season series (2015–2026) to pinpoint where audiences abandon shows and how season structure affects completion.',
+      'A quantitative retention study examining 33,171 streaming episodes across 100 multi-season series (2020–2024 dataset) to pinpoint where audiences abandon shows and how episode pacing affects retention.',
     problem:
-      'Streaming platforms invest heavily in pilot episodes, yet significant subscriber churn occurs mid-season when pacing drops between episodes 4 and 8.',
+      'Streaming platforms invest heavily in pilot episodes, yet significant viewer abandonment occurs mid-season when narrative pacing slows between episodes 4 and 8.',
     myContribution:
       'Solo Analyst — structured the 6-hypothesis testing framework, computed Early Retention Ratio (ERR) and Mid-Season Slump Index (MSSI) metrics, and formulated commissioning recommendations.',
     collaborators: 'Solo Research Study (Akshit Sukhija)',
     methodology:
-      'Evaluated episode-to-episode retention curves, genre completion cohorts, and season-length elasticity across 33,171 episodes.',
+      'Evaluated episode-to-episode retention curves, early vs. mid-season drop-off cohorts, and season-length elasticity across 33,171 episodes (2020–2024 dataset).',
     technologies: [
       'Python',
       'Statistical Cohort Analysis',
@@ -383,9 +383,9 @@ export const CURATED_WORK_ITEMS: CuratedWorkItem[] = [
       'Hypothesis Testing',
     ],
     outcomes:
-      'Demonstrated that average season completion declines from 72.0% (Season 1) to 58.0% (Season 4+), pinpointed the Episodes 4–8 mid-season drop-off peak (16.7% vs 11.8% late-season), and identified 6–8 episodes as the optimal completion format.',
+      'Pinpointed the Episodes 4–8 mid-season drop-off spike (16.7%) compared to Episodes 1–3 early-season drop-off (11.8%) across the 2020–2024 dataset, supporting tighter 6–8 episode season structures.',
     limitations:
-      'Observational study based on aggregated episode engagement records.',
+      'Observational study based on aggregated episode engagement records (2020–2024 cohort dataset).',
     links: {
       drivePdfPlaceholder: 'OTT Viewer Retention Study PDF (Google Drive link placeholder)',
     },
