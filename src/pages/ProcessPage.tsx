@@ -18,19 +18,24 @@ export function ProcessPage() {
       />
 
       {/* Editorial Header */}
-      <section className="bg-[#11100E] bg-lamplit-glow border-b border-[#3A3429] pt-14 pb-16 px-6">
+      <section className="theme-bg bg-lamplit-glow border-b theme-border pt-10 pb-14 px-4 sm:px-6">
         <div className="max-w-[1200px] mx-auto space-y-6">
           <MotionReveal className="max-w-3xl space-y-4">
-            <p className="font-mono text-xs text-[#38BDF8] uppercase tracking-wider">
-              Studio Process · Discover · Define · Create · Deliver
-            </p>
+            <div className="flex flex-wrap items-center gap-3">
+              <p className="font-mono text-xs theme-accent font-semibold uppercase tracking-wider">
+                Studio Process · Discover · Define · Create · Deliver
+              </p>
+              <span className="font-hand text-xl theme-accent-secondary">
+                — Direct 1-on-1 collaboration from brief to handover
+              </span>
+            </div>
             <h1
-              className="font-display text-[#F2EBDD] leading-tight"
-              style={{ fontSize: 'clamp(2.25rem, 4vw, 3.75rem)' }}
+              className="font-display theme-text leading-tight"
+              style={{ fontSize: 'clamp(2.35rem, 4vw, 3.75rem)' }}
             >
               Discover. Define. Create. Deliver.
             </h1>
-            <p className="text-base sm:text-lg text-[#A9A092] leading-relaxed">
+            <p className="text-base sm:text-lg theme-text-muted leading-relaxed">
               When you work with my studio, you collaborate directly with the person researching
               your audience, shaping the story, and building the digital product—without account
               handoffs or unnecessary jargon.
@@ -40,7 +45,7 @@ export function ProcessPage() {
       </section>
 
       {/* Interactive 4-Stage Flowchart */}
-      <section className="bg-[#11100E] py-14 px-6 border-b border-[#3A3429]">
+      <section className="theme-bg py-14 px-4 sm:px-6 border-b theme-border">
         <div className="max-w-[1200px] mx-auto">
           <MotionReveal>
             <FiveStepProcessDiagram />
@@ -49,19 +54,21 @@ export function ProcessPage() {
       </section>
 
       {/* Detailed 4-Stage Breakdown */}
-      <section className="bg-[#11100E] py-20 px-6 border-b border-[#3A3429]">
+      <section className="theme-bg py-16 sm:py-20 px-4 sm:px-6 border-b theme-border">
         <div className="max-w-[1200px] mx-auto space-y-8">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2">
             <div>
-              <p className="font-mono text-xs text-[#C9A24B]">Four-Stage Studio Workflow</p>
-              <h2 className="font-display text-3xl text-[#F2EBDD] mt-1">
+              <p className="font-mono text-xs theme-accent-secondary font-semibold">
+                Four-Stage Studio Workflow
+              </p>
+              <h2 className="font-display text-3xl theme-text mt-1">
                 What Happens at Each Stage
               </h2>
             </div>
             <button
               type="button"
               onClick={() => setShowTechNotes((prev) => !prev)}
-              className="inline-flex items-center gap-1.5 px-3.5 py-2 text-xs font-mono text-[#E8D5A8] bg-[#1A1814] border border-[#3A3429] hover:border-[#C9A24B] rounded cursor-pointer self-start sm:self-auto"
+              className="inline-flex items-center gap-1.5 px-4 py-2 text-xs font-mono theme-text theme-surface border theme-border hover:border-[var(--accent)] rounded-full cursor-pointer self-start sm:self-auto"
             >
               <span>
                 {showTechNotes
@@ -80,39 +87,47 @@ export function ProcessPage() {
             <MotionReveal
               key={stage.stepNumber}
               delay={idx * 0.04}
-              className="bg-[#1A1814] border border-[#3A3429] rounded-lg p-6 md:p-8"
+              className="bento-card p-6 md:p-8"
             >
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
                 <div className="lg:col-span-4 space-y-2">
-                  <p className="font-mono text-xs text-[#38BDF8]">Stage {stage.stepNumber}</p>
-                  <h3 className="font-display text-2xl sm:text-3xl text-[#F2EBDD]">
+                  <p className="font-mono text-xs theme-accent font-semibold">
+                    Stage {stage.stepNumber}
+                  </p>
+                  <h3 className="font-display text-2xl sm:text-3xl theme-text">
                     {stage.stepNumber}. {stage.title}
                   </h3>
-                  <p className="text-xs font-mono text-[#E8D5A8] pt-1">{stage.keyPrinciple}</p>
+                  <p className="text-xs font-mono theme-accent-secondary pt-1">
+                    {stage.keyPrinciple}
+                  </p>
                 </div>
 
                 <div className="lg:col-span-8 space-y-5">
-                  <p className="text-base text-[#F2EBDD] leading-relaxed">
+                  <p className="text-base theme-text leading-relaxed">
                     {stage.clientExperience}
                   </p>
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div className="bg-[#11100E] border border-[#3A3429] rounded p-4 space-y-1.5">
-                      <p className="font-mono text-xs text-[#A9A092]">What You Share</p>
-                      <p className="text-xs text-[#F2EBDD] leading-relaxed">
+                    <div className="bento-card-raised p-4 space-y-1.5">
+                      <p className="font-mono text-xs theme-text-muted font-semibold">
+                        What You Share
+                      </p>
+                      <p className="text-xs theme-text leading-relaxed">
                         {stage.whatYouProvide}
                       </p>
                     </div>
-                    <div className="bg-[#11100E] border border-[#3A3429] rounded p-4 space-y-1.5">
-                      <p className="font-mono text-xs text-[#C9A24B]">What You Receive</p>
-                      <p className="text-xs text-[#F2EBDD] leading-relaxed">
+                    <div className="bento-card-raised p-4 space-y-1.5">
+                      <p className="font-mono text-xs theme-accent font-semibold">
+                        What You Receive
+                      </p>
+                      <p className="text-xs theme-text leading-relaxed">
                         {stage.whatYouReceive}
                       </p>
                     </div>
                   </div>
 
                   {showTechNotes && (
-                    <p className="font-mono text-xs text-[#E8D5A8]/90 bg-[#11100E] border border-[#3A3429] rounded p-3">
+                    <p className="font-mono text-xs theme-text-muted bento-card-raised p-3.5">
                       Studio workflow note: {stage.technicalNote}
                     </p>
                   )}
@@ -123,47 +138,47 @@ export function ProcessPage() {
         </div>
       </section>
 
-      {/* Practical Working Commitments (Ivory Contrast Panel) */}
-      <section className="bg-[#F4EFE6] text-[#11100E] py-16 px-6 border-b border-[#3A3429]/30">
+      {/* Practical Working Commitments */}
+      <section className="theme-bg py-16 px-4 sm:px-6 border-b theme-border bg-ivory-grid">
         <div className="max-w-[1200px] mx-auto space-y-8">
           <MotionReveal className="max-w-3xl space-y-2">
-            <p className="font-mono text-xs text-[#7A5B14]">
+            <p className="font-mono text-xs theme-accent font-semibold">
               Straightforward Working Promises
             </p>
-            <h2 className="font-display text-3xl sm:text-4xl text-[#11100E]">
+            <h2 className="font-display text-3xl sm:text-4xl theme-text">
               How I Keep Studio Projects Clear, Focused &amp; Honest
             </h2>
           </MotionReveal>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="bg-white/80 border border-[#3A3429]/20 rounded-lg p-6 space-y-2.5">
-              <p className="font-mono text-xs text-[#7A5B14]">01 · Right-Sized Scope</p>
-              <h3 className="text-base font-semibold text-[#11100E]">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-[18px]">
+            <div className="bento-card p-6 space-y-2.5">
+              <p className="font-mono text-xs theme-accent font-semibold">01 · Right-Sized Scope</p>
+              <h3 className="font-display text-xl theme-text">
                 Story &amp; Structure Before Expensive Builds
               </h3>
-              <p className="text-sm text-[#232019] leading-relaxed">
+              <p className="text-sm theme-text-muted leading-relaxed">
                 Whether you need a pitch deck, a conversion website, or an AI workflow, we define
                 the clearest, most practical deliverable first.
               </p>
             </div>
 
-            <div className="bg-white/80 border border-[#3A3429]/20 rounded-lg p-6 space-y-2.5">
-              <p className="font-mono text-xs text-[#7A5B14]">02 · Focused Pilots</p>
-              <h3 className="text-base font-semibold text-[#11100E]">
-                Validate on Real Material Early
-              </h3>
-              <p className="text-sm text-[#232019] leading-relaxed">
+            <div className="bento-card p-6 space-y-2.5">
+              <p className="font-mono text-xs theme-accent-secondary font-semibold">
+                02 · Focused Pilots
+              </p>
+              <h3 className="font-display text-xl theme-text">Validate on Real Material Early</h3>
+              <p className="text-sm theme-text-muted leading-relaxed">
                 Start with a focused narrative sprint, landing-page prototype, or sample data audit
                 before committing to a multi-week engagement.
               </p>
             </div>
 
-            <div className="bg-white/80 border border-[#3A3429]/20 rounded-lg p-6 space-y-2.5">
-              <p className="font-mono text-xs text-[#7A5B14]">03 · Transparent Timelines</p>
-              <h3 className="text-base font-semibold text-[#11100E]">
-                Scoped After Reviewing Your Brief
-              </h3>
-              <p className="text-sm text-[#232019] leading-relaxed">
+            <div className="bento-card p-6 space-y-2.5">
+              <p className="font-mono text-xs theme-accent font-semibold">
+                03 · Transparent Timelines
+              </p>
+              <h3 className="font-display text-xl theme-text">Scoped After Reviewing Your Brief</h3>
+              <p className="text-sm theme-text-muted leading-relaxed">
                 No fake instant quotes or overnight promises. Every milestone and INR quote is set
                 transparently once we review your material in Stage 01 (Discover).
               </p>
@@ -173,16 +188,16 @@ export function ProcessPage() {
           <div className="pt-2">
             <Link
               to="/enquire"
-              className="inline-flex items-center gap-2 px-6 py-3 text-sm font-medium text-[#F4EFE6] bg-[#11100E] hover:bg-[#232019] rounded transition-colors"
+              className="inline-flex items-center gap-2 px-6 py-3.5 min-h-[48px] text-sm font-semibold text-[#F7F0E4] bg-[#6B2635] hover:bg-[#581D2A] rounded-full transition-colors"
             >
               <span>Start Stage 01 — Discover</span>
-              <ArrowRight className="w-4 h-4 text-[#C9A24B]" />
+              <ArrowRight className="w-4 h-4 text-[#D9B873]" />
             </Link>
           </div>
         </div>
       </section>
 
-      <CtaSection variant="dark" />
+      <CtaSection />
     </div>
   );
 }

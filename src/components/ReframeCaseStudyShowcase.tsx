@@ -536,9 +536,9 @@ export function ReframeCaseStudyShowcase() {
 
           {/* Active Slide Showcase */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
-            <div className="lg:col-span-8 bg-[#131722] border border-[#38BDF8]/40 rounded-2xl overflow-hidden">
-              <div className="px-5 py-3 border-b border-[#252B3B] flex items-center justify-between text-xs font-mono">
-                <span className="text-[#38BDF8]">
+            <div className="lg:col-span-8 bento-card overflow-hidden">
+              <div className="px-5 py-3.5 border-b theme-border flex items-center justify-between text-xs font-mono">
+                <span className="theme-accent font-semibold">
                   Slide {activeSlide.number} of 15 · {activeSlide.title}
                 </span>
                 <div className="flex items-center gap-2">
@@ -549,7 +549,7 @@ export function ReframeCaseStudyShowcase() {
                         prev > 0 ? prev - 1 : REFRAME_SLIDES.length - 1
                       )
                     }
-                    className="px-2.5 py-1 rounded bg-[#0B0D13] border border-[#252B3B] hover:border-[#38BDF8] text-[#F4F0E8] cursor-pointer"
+                    className="px-3.5 py-1.5 rounded-full theme-surface-raised border theme-border hover:border-[var(--accent)] theme-text cursor-pointer"
                   >
                     ← Prev
                   </button>
@@ -560,7 +560,7 @@ export function ReframeCaseStudyShowcase() {
                         prev < REFRAME_SLIDES.length - 1 ? prev + 1 : 0
                       )
                     }
-                    className="px-2.5 py-1 rounded bg-[#0B0D13] border border-[#252B3B] hover:border-[#38BDF8] text-[#F4F0E8] cursor-pointer"
+                    className="px-3.5 py-1.5 rounded-full theme-surface-raised border theme-border hover:border-[var(--accent)] theme-text cursor-pointer"
                   >
                     Next →
                   </button>
@@ -569,17 +569,17 @@ export function ReframeCaseStudyShowcase() {
               <img
                 src={activeSlide.src}
                 alt={`RE:FRAME Presentation Slide ${activeSlide.number}: ${activeSlide.title}`}
-                className="w-full h-auto object-contain bg-[#080A0F]"
+                className="w-full h-auto object-contain bg-[#171516]"
               />
-              <div className="p-4 border-t border-[#252B3B] text-xs text-[#A6A9B8] leading-relaxed">
-                <strong className="text-[#F4F0E8]">Slide {activeSlide.number}: </strong>
+              <div className="p-4 border-t theme-border text-xs theme-text-muted leading-relaxed">
+                <strong className="theme-text font-semibold">Slide {activeSlide.number}: </strong>
                 {activeSlide.caption}
               </div>
             </div>
 
             {/* 15-Slide Thumbnail Grid Selector */}
-            <div className="lg:col-span-4 bg-[#131722] border border-[#252B3B] rounded-2xl p-4 space-y-3">
-              <p className="font-mono text-xs text-[#E6D3A7]">
+            <div className="lg:col-span-4 bento-card p-4 space-y-3">
+              <p className="font-mono text-xs theme-accent-secondary font-semibold">
                 Select Any Slide (01–15)
               </p>
               <div className="grid grid-cols-3 gap-2.5 max-h-[460px] overflow-y-auto pr-1">
@@ -590,10 +590,10 @@ export function ReframeCaseStudyShowcase() {
                       key={slide.number}
                       type="button"
                       onClick={() => setActiveSlideIndex(idx)}
-                      className={`group text-left rounded-lg overflow-hidden border transition-all cursor-pointer ${
+                      className={`group text-left rounded-xl overflow-hidden border transition-all cursor-pointer ${
                         isSelected
-                          ? 'border-[#38BDF8] ring-1 ring-[#38BDF8]'
-                          : 'border-[#252B3B] hover:border-[#D4AE5C]/60 opacity-80 hover:opacity-100'
+                          ? 'border-[var(--accent)] ring-1 ring-[var(--accent)]'
+                          : 'theme-border opacity-80 hover:opacity-100'
                       }`}
                     >
                       <img
@@ -602,9 +602,9 @@ export function ReframeCaseStudyShowcase() {
                         loading="lazy"
                         className="w-full h-14 object-cover"
                       />
-                      <div className="px-2 py-1 bg-[#0B0D13] font-mono text-[10px] text-[#F4F0E8] flex items-center justify-between">
+                      <div className="px-2 py-1 theme-surface-raised font-mono text-[10px] theme-text flex items-center justify-between">
                         <span>#{slide.number}</span>
-                        {isSelected && <Eye className="w-2.5 h-2.5 text-[#38BDF8]" />}
+                        {isSelected && <Eye className="w-2.5 h-2.5 theme-accent" />}
                       </div>
                     </button>
                   );

@@ -38,59 +38,68 @@ export function AboutPage() {
       />
 
       {/* 1. Personal Story, Prominent Portrait & Verified Contact Channels */}
-      <section className="bg-[#0E0F14] bg-lamplit-glow border-b border-[#2C2F42] pt-14 pb-20 px-6">
+      <section className="theme-bg bg-lamplit-glow border-b theme-border pt-10 pb-16 sm:pb-20 px-4 sm:px-6">
         <div className="max-w-[1200px] mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
-            <MotionReveal className="lg:col-span-7 space-y-6">
-              <p className="font-mono text-xs text-[#D4AE5C] tracking-wider uppercase">
-                {PROFILE_CONFIG.name} · {PROFILE_CONFIG.roleSubtitle}
-              </p>
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-[18px] items-start">
+            <MotionReveal className="lg:col-span-7 bento-card p-6 sm:p-9 space-y-6">
+              <div className="flex flex-wrap items-center gap-3">
+                <p className="font-mono text-xs theme-accent font-semibold tracking-wider uppercase">
+                  {PROFILE_CONFIG.name} · {PROFILE_CONFIG.roleSubtitle}
+                </p>
+                <span className="font-hand text-xl theme-accent-secondary">
+                  — Solo studio operator in New Delhi
+                </span>
+              </div>
+
               <h1
-                className="font-display text-[#F4F0E8] leading-[1.08]"
-                style={{ fontSize: 'clamp(2.4rem, 4.2vw, 3.85rem)' }}
+                className="font-display theme-text leading-[1.06]"
+                style={{ fontSize: 'clamp(2.35rem, 4vw, 3.65rem)' }}
               >
-                One person who researches the problem, analyses the data, and builds the working solution.
+                One person who researches the problem, analyses the data, and builds the working
+                solution.
               </h1>
-              <p className="text-lg text-[#E6D3A7] leading-relaxed">
+
+              <p className="text-base sm:text-lg theme-accent-secondary font-medium leading-relaxed">
                 {BRAND_IDENTITY.positioningStatement}
               </p>
-              <p className="text-base text-[#A6A9B8] leading-relaxed">
+
+              <p className="text-base theme-text-muted leading-relaxed">
                 {PROFILE_CONFIG.extendedBio}
               </p>
 
               {/* Verified Direct Contact Bar on About Page */}
-              <div className="bg-[#161822] border border-[#2C2F42] rounded-xl p-5 space-y-4">
-                <div className="flex flex-wrap items-center justify-between gap-2 border-b border-[#2C2F42] pb-3">
-                  <span className="font-mono text-xs text-[#D4AE5C]">
+              <div className="bento-card-raised p-5 space-y-4">
+                <div className="flex flex-wrap items-center justify-between gap-2 border-b theme-border pb-3">
+                  <span className="font-mono text-xs theme-accent font-semibold">
                     Verified Contact &amp; Profiles
                   </span>
-                  <span className="font-mono text-xs text-[#7AD992]">
+                  <span className="font-mono text-xs theme-accent-secondary">
                     {PROFILE_CONFIG.location}
                   </span>
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs font-mono">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-xs font-mono">
                   <a
                     href={PROFILE_CONFIG.contact.emailPrimary.mailto}
-                    className="flex items-center gap-2.5 p-3 rounded-lg bg-[#0E0F14] border border-[#2C2F42] hover:border-[#D4AE5C] text-[#F4F0E8] transition-colors"
+                    className="flex items-center gap-2.5 p-3 rounded-2xl theme-surface border theme-border hover:border-[var(--accent)] theme-text transition-colors"
                   >
-                    <Mail className="w-4 h-4 text-[#8B75FF] shrink-0" />
+                    <Mail className="w-4 h-4 theme-accent shrink-0" />
                     <span className="truncate">{PROFILE_CONFIG.contact.emailPrimary.address}</span>
                   </a>
 
                   <a
                     href={PROFILE_CONFIG.contact.emailSecondary.mailto}
-                    className="flex items-center gap-2.5 p-3 rounded-lg bg-[#0E0F14] border border-[#2C2F42] hover:border-[#D4AE5C] text-[#E6D3A7] transition-colors"
+                    className="flex items-center gap-2.5 p-3 rounded-2xl theme-surface border theme-border hover:border-[var(--accent)] theme-accent-secondary transition-colors"
                   >
-                    <Mail className="w-4 h-4 text-[#D4AE5C] shrink-0" />
+                    <Mail className="w-4 h-4 theme-accent-secondary shrink-0" />
                     <span className="truncate">{PROFILE_CONFIG.contact.emailSecondary.address}</span>
                   </a>
 
                   <a
                     href={PROFILE_CONFIG.contact.phone.telHref}
-                    className="flex items-center gap-2.5 p-3 rounded-lg bg-[#0E0F14] border border-[#2C2F42] hover:border-[#D4AE5C] text-[#F4F0E8] transition-colors"
+                    className="flex items-center gap-2.5 p-3 rounded-2xl theme-surface border theme-border hover:border-[var(--accent)] theme-text transition-colors"
                   >
-                    <Phone className="w-4 h-4 text-[#D4AE5C] shrink-0" />
+                    <Phone className="w-4 h-4 theme-accent-secondary shrink-0" />
                     <span>Call {PROFILE_CONFIG.contact.phone.displayNumber}</span>
                   </a>
 
@@ -98,7 +107,7 @@ export function AboutPage() {
                     href={PROFILE_CONFIG.contact.phone.whatsappHref}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-2.5 p-3 rounded-lg bg-[#0E0F14] border border-[#2C2F42] hover:border-[#7AD992] text-[#7AD992] transition-colors"
+                    className="flex items-center gap-2.5 p-3 rounded-2xl theme-surface border theme-border hover:border-[var(--accent)] theme-accent transition-colors"
                   >
                     <MessageSquare className="w-4 h-4 shrink-0" />
                     <span>WhatsApp {PROFILE_CONFIG.contact.phone.displayNumber}</span>
@@ -108,39 +117,39 @@ export function AboutPage() {
                     href={PROFILE_CONFIG.contact.linkedin.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center justify-between p-3 rounded-lg bg-[#0E0F14] border border-[#2C2F42] hover:border-[#8B75FF] text-[#F4F0E8] transition-colors"
+                    className="flex items-center justify-between p-3 rounded-2xl theme-surface border theme-border hover:border-[var(--accent)] theme-text transition-colors"
                   >
                     <span>LinkedIn ({PROFILE_CONFIG.contact.linkedin.handle})</span>
-                    <ExternalLink className="w-3.5 h-3.5 text-[#8B75FF]" />
+                    <ExternalLink className="w-3.5 h-3.5 theme-accent" />
                   </a>
 
                   <a
                     href={PROFILE_CONFIG.contact.github.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center justify-between p-3 rounded-lg bg-[#0E0F14] border border-[#2C2F42] hover:border-[#D4AE5C] text-[#E6D3A7] transition-colors"
+                    className="flex items-center justify-between p-3 rounded-2xl theme-surface border theme-border hover:border-[var(--accent)] theme-accent-secondary transition-colors"
                   >
                     <span>GitHub ({PROFILE_CONFIG.contact.github.handle})</span>
-                    <ExternalLink className="w-3.5 h-3.5 text-[#D4AE5C]" />
+                    <ExternalLink className="w-3.5 h-3.5 theme-accent-secondary" />
                   </a>
                 </div>
               </div>
 
-              <div className="pt-1 flex flex-wrap items-center gap-4">
+              <div className="pt-1 flex flex-wrap items-center gap-3.5">
                 <Link
                   to="/enquire"
-                  className="inline-flex items-center gap-2 px-5 py-3 text-xs font-medium text-[#0E0F14] bg-[#D4AE5C] hover:bg-[#E6D3A7] rounded-lg transition-colors"
+                  className="inline-flex items-center gap-2 px-6 py-3 min-h-[48px] text-xs font-semibold text-[#F7F0E4] bg-[#6B2635] hover:bg-[#581D2A] rounded-full transition-colors"
                 >
                   <span>Start a Conversation</span>
-                  <ArrowRight className="w-3.5 h-3.5" />
+                  <ArrowRight className="w-3.5 h-3.5 text-[#D9B873]" />
                 </Link>
 
                 <button
                   type="button"
                   onClick={() => setShowCodeCard((prev) => !prev)}
-                  className="inline-flex items-center gap-2 px-4 py-3 text-xs font-mono text-[#E6D3A7] bg-[#161822] border border-[#2C2F42] hover:border-[#8B75FF] rounded-lg cursor-pointer transition-colors"
+                  className="inline-flex items-center gap-2 px-4 py-3 min-h-[48px] text-xs font-mono theme-text theme-surface-raised border theme-border hover:border-[var(--accent)] rounded-full cursor-pointer transition-colors"
                 >
-                  <Code2 className="w-4 h-4 text-[#8B75FF]" />
+                  <Code2 className="w-4 h-4 theme-accent" />
                   <span>
                     {showCodeCard
                       ? 'Hide Code-Style Profile Card'
@@ -150,28 +159,24 @@ export function AboutPage() {
               </div>
 
               {showCodeCard && (
-                <div className="bg-[#161822] border border-[#2C2F42] rounded-xl p-5 font-mono text-xs overflow-x-auto">
-                  <div className="flex items-center justify-between pb-2.5 mb-2.5 border-b border-[#2C2F42] text-[#8B75FF]">
+                <div className="bento-card-raised p-5 font-mono text-xs overflow-x-auto">
+                  <div className="flex items-center justify-between pb-2.5 mb-2.5 border-b theme-border theme-accent font-semibold">
                     <span>akshit.config.ts</span>
                     <span>Solo Studio Operator</span>
                   </div>
-                  <pre className="leading-relaxed text-[#F4F0E8]">{`export const operatorProfile = {
+                  <pre className="leading-relaxed theme-text">{`export const operatorProfile = {
   name: "AKSHIT SUKHIJA",
-  practice: "Independent Digital & Product Solutions",
+  practice: "Independent Digital Content & Solutions Studio",
   education: "BCA at IITM, affiliated with GGSIPU (CGPA: 9.10/10 · 85.026%)",
   internships: [
     "ResolX.ai — AI Solutioning Internship",
     "CareerWithDishani — Research & Insight Synthesis Internship"
   ],
   coreCapabilities: [
-    "Data & Business Intelligence",
-    "AI & Workflow Automation",
-    "Digital Products & Prototyping"
-  ],
-  supportingCapabilities: [
-    "Product Strategy & UX",
-    "Brand & Market Research",
-    "Software Quality"
+    "Brand Strategy & Storytelling",
+    "Digital Content & Creative Production",
+    "Websites & Digital Experiences",
+    "AI-Powered Digital Solutions"
   ]
 };`}</pre>
                 </div>
@@ -179,7 +184,7 @@ export function AboutPage() {
             </MotionReveal>
 
             {/* Right: Prominent StudioPortrait */}
-            <MotionReveal delay={0.08} className="lg:col-span-5">
+            <MotionReveal delay={0.06} className="lg:col-span-5">
               <StudioPortrait variant="about" showQuickContacts={true} />
             </MotionReveal>
           </div>
@@ -187,45 +192,45 @@ export function AboutPage() {
       </section>
 
       {/* 2. Verified Internship Experience (ResolX.ai & CareerWithDishani) */}
-      <section className="bg-[#F5F1E8] text-[#0E0F14] border-b border-[#D4CBB8] py-20 px-6 bg-ivory-grid">
+      <section className="theme-bg border-b theme-border py-16 sm:py-20 px-4 sm:px-6 bg-ivory-grid">
         <div className="max-w-[1200px] mx-auto space-y-10">
-          <MotionReveal className="max-w-3xl space-y-3">
-            <p className="font-mono text-xs text-[#4A32C4] font-medium uppercase tracking-wide">
+          <MotionReveal className="max-w-3xl space-y-2.5">
+            <p className="font-mono text-xs theme-accent font-semibold uppercase tracking-wide">
               Professional &amp; Internship Experience
             </p>
-            <h2 className="font-display text-3xl sm:text-4xl text-[#0E0F14]">
+            <h2 className="font-display text-3xl sm:text-4xl theme-text">
               Where Research Discipline Meets Practical AI Solutioning
             </h2>
-            <p className="text-base text-[#1E202E] leading-relaxed">
+            <p className="text-base theme-text-muted leading-relaxed">
               My approach combines structured research synthesis with hands-on AI workflow and
               software engineering.
             </p>
           </MotionReveal>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-[18px]">
             {VERIFIED_EXPERIENCE.map((exp, idx) => (
               <MotionReveal
                 key={exp.id}
                 delay={idx * 0.05}
-                className="bg-[#EAE3D5] border border-[#D4CBB8] rounded-2xl p-7 flex flex-col justify-between gap-5"
+                className="bento-card p-6 sm:p-8 flex flex-col justify-between gap-5"
               >
                 <div className="space-y-4">
                   <div className="flex items-center justify-between font-mono text-xs">
-                    <span className="text-[#4A32C4] font-semibold">{exp.organisation}</span>
-                    <span className="text-[#7A5B14]">{exp.periodLabel}</span>
+                    <span className="theme-accent font-semibold">{exp.organisation}</span>
+                    <span className="theme-accent-secondary">{exp.periodLabel}</span>
                   </div>
-                  <h3 className="font-display text-3xl text-[#0E0F14]">{exp.role}</h3>
-                  <p className="text-sm text-[#1E202E] leading-relaxed">{exp.plainSummary}</p>
-                  <ul className="space-y-2 text-xs text-[#1E202E] pt-2 border-t border-[#D4CBB8]">
+                  <h3 className="font-display text-3xl theme-text">{exp.role}</h3>
+                  <p className="text-sm theme-text-muted leading-relaxed">{exp.plainSummary}</p>
+                  <ul className="space-y-2 text-xs theme-text pt-3 border-t theme-border">
                     {exp.keyContributions.map((item) => (
                       <li key={item} className="flex items-start gap-2 leading-relaxed">
-                        <span className="font-mono text-[#4A32C4]">—</span>
+                        <span className="font-mono theme-accent font-semibold">—</span>
                         <span>{item}</span>
                       </li>
                     ))}
                   </ul>
                 </div>
-                <p className="font-mono text-[11px] text-[#7A5B14] pt-3 border-t border-[#D4CBB8]">
+                <p className="font-mono text-[11px] theme-accent-secondary pt-3 border-t theme-border">
                   {exp.privacyNote}
                 </p>
               </MotionReveal>
@@ -234,23 +239,23 @@ export function AboutPage() {
         </div>
       </section>
 
-      {/* 3. Interactive Technology Explorer (Demonstrated Project Use Cases — Zero Fake Percentages) */}
-      <section className="bg-[#0E0F14] border-b border-[#2C2F42] py-20 px-6">
+      {/* 3. Interactive Technology Explorer */}
+      <section className="theme-bg border-b theme-border py-16 sm:py-20 px-4 sm:px-6">
         <div className="max-w-[1200px] mx-auto space-y-12">
-          <MotionReveal className="max-w-3xl space-y-3">
-            <p className="font-mono text-xs text-[#D4AE5C] uppercase tracking-wide">
+          <MotionReveal className="max-w-3xl space-y-2.5">
+            <p className="font-mono text-xs theme-accent-secondary font-semibold uppercase tracking-wide">
               Interactive Technology Explorer
             </p>
-            <h2 className="font-display text-3xl sm:text-4xl text-[#F4F0E8]">
+            <h2 className="font-display text-3xl sm:text-4xl theme-text">
               Tools I Use &amp; Where They Are Proven in Real Projects
             </h2>
-            <p className="text-sm sm:text-base text-[#A6A9B8] leading-relaxed">
+            <p className="text-sm sm:text-base theme-text-muted leading-relaxed">
               Instead of arbitrary skill-bar percentages, click any technology below to inspect how
               I actually use it and which portfolio projects demonstrate it.
             </p>
           </MotionReveal>
 
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-[18px] items-start">
             {/* Left: Selectable Technology Pills */}
             <div className="lg:col-span-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-2.5">
               {TECHNOLOGY_EXPLORER_ITEMS.map((item) => {
@@ -260,19 +265,19 @@ export function AboutPage() {
                     key={item.id}
                     type="button"
                     onClick={() => setSelectedToolId(item.id)}
-                    className={`w-full text-left px-4 py-3.5 rounded-xl border transition-colors cursor-pointer flex items-center justify-between gap-3 ${
+                    className={`w-full text-left px-5 py-3.5 rounded-2xl border transition-colors cursor-pointer flex items-center justify-between gap-3 ${
                       isSelected
-                        ? 'bg-[#161822] border-[#D4AE5C] text-[#F4F0E8]'
-                        : 'bg-[#161822]/50 border-[#2C2F42] text-[#A6A9B8] hover:text-[#F4F0E8] hover:border-[#A6A9B8]'
+                        ? 'theme-surface-raised border-[var(--accent)] theme-text'
+                        : 'theme-surface theme-border theme-text-muted hover:theme-text'
                     }`}
                   >
                     <div>
-                      <p className="text-sm font-semibold text-[#F4F0E8]">{item.tool}</p>
-                      <p className="font-mono text-[11px] text-[#D4AE5C]">{item.category}</p>
+                      <p className="text-sm font-semibold theme-text">{item.tool}</p>
+                      <p className="font-mono text-[11px] theme-accent-secondary">{item.category}</p>
                     </div>
                     <ArrowRight
                       className={`w-4 h-4 shrink-0 transition-transform ${
-                        isSelected ? 'text-[#D4AE5C] translate-x-0.5' : 'text-[#A6A9B8]'
+                        isSelected ? 'theme-accent translate-x-0.5' : 'theme-text-muted'
                       }`}
                     />
                   </button>
@@ -281,38 +286,42 @@ export function AboutPage() {
             </div>
 
             {/* Right: Demonstrated Use Cases & Connected Projects */}
-            <div className="lg:col-span-7 bg-[#161822] border border-[#2C2F42] rounded-2xl p-6 md:p-8 space-y-6">
-              <div className="border-b border-[#2C2F42] pb-4 space-y-1.5">
-                <p className="font-mono text-xs text-[#D4AE5C]">{activeTool.category}</p>
-                <h3 className="font-display text-3xl text-[#F4F0E8]">{activeTool.tool}</h3>
-                <p className="text-sm text-[#E6D3A7] leading-relaxed">{activeTool.whatIUseItFor}</p>
+            <div className="lg:col-span-7 bento-card p-6 md:p-8 space-y-6">
+              <div className="border-b theme-border pb-4 space-y-1.5">
+                <p className="font-mono text-xs theme-accent-secondary font-semibold">
+                  {activeTool.category}
+                </p>
+                <h3 className="font-display text-3xl theme-text">{activeTool.tool}</h3>
+                <p className="text-sm theme-text-muted leading-relaxed">
+                  {activeTool.whatIUseItFor}
+                </p>
               </div>
 
               <div className="space-y-3">
-                <p className="font-mono text-xs text-[#8B75FF] uppercase tracking-wide">
+                <p className="font-mono text-xs theme-accent font-semibold uppercase tracking-wide">
                   Demonstrated Project Use Cases
                 </p>
-                <ul className="space-y-3 text-sm text-[#F4F0E8]/90">
+                <ul className="space-y-3 text-sm theme-text">
                   {activeTool.demonstratedUseCases.map((useCase) => (
                     <li
                       key={`${useCase.projectTitle}-${useCase.howItWasUsed}`}
-                      className="bg-[#0E0F14] border border-[#2C2F42] rounded-xl p-4 space-y-1.5"
+                      className="bento-card-raised p-4 space-y-1.5"
                     >
                       <div className="flex items-center justify-between gap-2">
-                        <span className="font-mono text-xs text-[#D4AE5C]">
+                        <span className="font-mono text-xs theme-accent-secondary font-semibold">
                           {useCase.projectTitle}
                         </span>
                         {useCase.projectSlug && (
                           <Link
                             to={`/work/${useCase.projectSlug}`}
-                            className="inline-flex items-center gap-1 font-mono text-xs text-[#8B75FF] hover:underline"
+                            className="inline-flex items-center gap-1 font-mono text-xs theme-accent font-semibold hover:underline"
                           >
-                            <span>Inspect Case Study</span>
+                            <span>Inspect Story</span>
                             <ArrowUpRight className="w-3.5 h-3.5" />
                           </Link>
                         )}
                       </div>
-                      <p className="text-xs sm:text-sm text-[#A6A9B8] leading-relaxed">
+                      <p className="text-xs sm:text-sm theme-text-muted leading-relaxed">
                         {useCase.howItWasUsed}
                       </p>
                     </li>
@@ -323,27 +332,27 @@ export function AboutPage() {
           </div>
 
           {/* Summary of Core Capability Groups */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-6 border-t border-[#2C2F42]">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-[18px] pt-6 border-t theme-border">
             {SKILLS_MATRIX.map((group, idx) => (
               <MotionReveal
                 key={group.category}
-                delay={idx * 0.05}
-                className="bg-[#161822] border border-[#2C2F42] rounded-2xl p-6 flex flex-col justify-between gap-5"
+                delay={idx * 0.04}
+                className="bento-card p-6 flex flex-col justify-between gap-5"
               >
                 <div className="space-y-3">
-                  <div className="flex items-center justify-between">
-                    <p className="font-mono text-xs text-[#8B75FF]">{group.category}</p>
-                    <span className="font-mono text-[11px] text-[#E6D3A7]">
+                  <div className="flex items-center justify-between gap-2">
+                    <p className="font-mono text-xs theme-accent font-semibold">{group.category}</p>
+                    <span className="font-mono text-[11px] theme-accent-secondary">
                       {group.skills.join(' · ')}
                     </span>
                   </div>
-                  <h3 className="font-display text-2xl text-[#F4F0E8]">{group.plainTitle}</h3>
-                  <p className="text-sm text-[#A6A9B8] leading-relaxed">{group.summary}</p>
+                  <h3 className="font-display text-2xl theme-text">{group.plainTitle}</h3>
+                  <p className="text-sm theme-text-muted leading-relaxed">{group.summary}</p>
                 </div>
 
-                <div className="pt-3 border-t border-[#2C2F42]">
-                  <p className="font-mono text-[11px] text-[#A6A9B8]">
-                    Proven in: <span className="text-[#E6D3A7]">{group.appliedIn}</span>
+                <div className="pt-3 border-t theme-border">
+                  <p className="font-mono text-[11px] theme-text-muted">
+                    Proven in: <span className="theme-text font-semibold">{group.appliedIn}</span>
                   </p>
                 </div>
               </MotionReveal>
@@ -353,32 +362,32 @@ export function AboutPage() {
       </section>
 
       {/* 4. Verified Academic Record & Collaborator Credits */}
-      <section className="bg-[#0E0F14] border-b border-[#2C2F42] py-20 px-6">
-        <div className="max-w-[1200px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+      <section className="theme-bg border-b theme-border py-16 sm:py-20 px-4 sm:px-6">
+        <div className="max-w-[1200px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-[18px] items-start">
           {/* Academic Record */}
-          <MotionReveal className="lg:col-span-6 bg-[#161822] border border-[#2C2F42] rounded-2xl p-7 space-y-6">
-            <div className="space-y-2 border-b border-[#2C2F42] pb-4">
-              <p className="font-mono text-xs text-[#8B75FF]">
+          <MotionReveal className="lg:col-span-6 bento-card p-6 sm:p-8 space-y-6">
+            <div className="space-y-2 border-b theme-border pb-4">
+              <p className="font-mono text-xs theme-accent font-semibold">
                 03 · Verified Academic Credentials
               </p>
-              <h2 className="font-display text-3xl text-[#F4F0E8]">
+              <h2 className="font-display text-3xl theme-text">
                 {VERIFIED_ACADEMIC_RECORD.degree}
               </h2>
-              <p className="text-xs text-[#E6D3A7]">
+              <p className="text-xs theme-accent-secondary font-medium">
                 {VERIFIED_ACADEMIC_RECORD.institution} · {VERIFIED_ACADEMIC_RECORD.affiliation}
               </p>
             </div>
 
             <div className="grid grid-cols-2 gap-4">
-              <div className="bg-[#0E0F14] border border-[#2C2F42] rounded-xl p-4">
-                <p className="font-mono text-xs text-[#A6A9B8]">Official CGPA</p>
-                <p className="font-display text-3xl text-[#D4AE5C] tabular-nums mt-1">
+              <div className="bento-card-raised p-4">
+                <p className="font-mono text-xs theme-text-muted">Official CGPA</p>
+                <p className="font-display text-3xl theme-accent tabular-nums mt-1">
                   {VERIFIED_ACADEMIC_RECORD.cgpa}
                 </p>
               </div>
-              <div className="bg-[#0E0F14] border border-[#2C2F42] rounded-xl p-4">
-                <p className="font-mono text-xs text-[#A6A9B8]">Overall Aggregate</p>
-                <p className="font-display text-3xl text-[#F4F0E8] tabular-nums mt-1">
+              <div className="bento-card-raised p-4">
+                <p className="font-mono text-xs theme-text-muted">Overall Aggregate</p>
+                <p className="font-display text-3xl theme-text tabular-nums mt-1">
                   {VERIFIED_ACADEMIC_RECORD.aggregatePercentage}
                 </p>
               </div>
@@ -388,31 +397,31 @@ export function AboutPage() {
               {VERIFIED_ACADEMIC_RECORD.semesterSgpas.map((sem) => (
                 <div
                   key={sem.semester}
-                  className="bg-[#0E0F14] border border-[#2C2F42] rounded-lg p-3 text-center"
+                  className="bento-card-raised p-3 text-center"
                 >
-                  <p className="font-mono text-[11px] text-[#A6A9B8]">{sem.semester}</p>
-                  <p className="font-mono text-sm font-semibold text-[#F4F0E8] tabular-nums mt-1">
+                  <p className="font-mono text-[11px] theme-text-muted">{sem.semester}</p>
+                  <p className="font-mono text-sm font-semibold theme-text tabular-nums mt-1">
                     {sem.sgpa}
                   </p>
                 </div>
               ))}
             </div>
 
-            <p className="text-xs text-[#A6A9B8] leading-relaxed">
+            <p className="text-xs theme-text-muted leading-relaxed">
               {VERIFIED_ACADEMIC_RECORD.contextNote}
             </p>
           </MotionReveal>
 
           {/* Collaborator Credits */}
-          <MotionReveal delay={0.08} className="lg:col-span-6 space-y-5">
+          <MotionReveal delay={0.06} className="lg:col-span-6 space-y-4">
             <div className="space-y-2">
-              <p className="font-mono text-xs text-[#D4AE5C]">
+              <p className="font-mono text-xs theme-accent-secondary font-semibold">
                 04 · Project Roles &amp; Co-Creator Credits
               </p>
-              <h2 className="font-display text-3xl text-[#F4F0E8]">
+              <h2 className="font-display text-3xl theme-text">
                 Honest Attribution Across Every Project
               </h2>
-              <p className="text-xs text-[#A6A9B8] leading-relaxed">
+              <p className="text-xs theme-text-muted leading-relaxed">
                 Where a project was built with a co-creator, I state my exact role and credit my
                 collaborators clearly.
               </p>
@@ -422,21 +431,21 @@ export function AboutPage() {
               {PROJECTS.map((project) => (
                 <div
                   key={project.slug}
-                  className="bg-[#161822] border border-[#2C2F42] rounded-xl p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3"
+                  className="bento-card p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3"
                 >
                   <div className="space-y-1">
-                    <div className="flex items-center gap-2 font-mono text-xs">
-                      <span className="text-[#8B75FF]">
+                    <div className="flex flex-wrap items-center gap-2 font-mono text-xs">
+                      <span className="theme-accent font-semibold">
                         {project.indexNumber}. {project.title}
                       </span>
-                      <span>·</span>
-                      <span className="text-[#E6D3A7]">{project.documentedRole}</span>
+                      <span aria-hidden="true">·</span>
+                      <span className="theme-text font-medium">{project.documentedRole}</span>
                     </div>
-                    <p className="text-xs text-[#A6A9B8]">{project.collaborators}</p>
+                    <p className="text-xs theme-text-muted">{project.collaborators}</p>
                   </div>
                   <Link
                     to={`/work/${project.slug}`}
-                    className="inline-flex items-center gap-1 font-mono text-xs text-[#D4AE5C] hover:text-[#8B75FF] shrink-0"
+                    className="inline-flex items-center gap-1 font-mono text-xs theme-accent font-semibold hover:underline shrink-0"
                   >
                     <span>Case Study</span>
                     <ArrowUpRight className="w-3.5 h-3.5" />
@@ -448,7 +457,7 @@ export function AboutPage() {
         </div>
       </section>
 
-      <CtaSection variant="ivory" />
+      <CtaSection />
     </div>
   );
 }

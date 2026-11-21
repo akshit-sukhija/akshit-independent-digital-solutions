@@ -28,24 +28,22 @@ export function CaseStudyPage() {
 
   if (!project) {
     return (
-      <div className="min-h-[70vh] bg-[#11100E] px-6 py-24">
+      <div className="min-h-[70vh] theme-bg px-4 sm:px-6 py-24">
         <PageMeta
           title="Case Study Not Found"
           description="The requested project case study could not be found."
         />
-        <div className="max-w-[800px] mx-auto bg-[#1A1814] border border-[#3A3429] rounded-lg p-8 space-y-6">
-          <p className="font-mono text-xs text-[#E08A1E]">Case Study Lookup · 404</p>
-          <h1 className="font-display text-3xl sm:text-4xl text-[#F2EBDD]">
-            Case Study Not Found
-          </h1>
-          <p className="text-sm text-[#A9A092] leading-relaxed">
-            The project URL <code className="text-[#E8D5A8]">{slug}</code> does not match any of
-            the dedicated case studies in this portfolio.
+        <div className="max-w-[800px] mx-auto bento-card p-8 space-y-6">
+          <p className="font-mono text-xs theme-accent font-semibold">Case Study Lookup · 404</p>
+          <h1 className="font-display text-3xl sm:text-4xl theme-text">Case Study Not Found</h1>
+          <p className="text-sm theme-text-muted leading-relaxed">
+            The project URL <code className="theme-accent">{slug}</code> does not match any of the
+            dedicated case studies in this portfolio.
           </p>
           <div className="flex flex-wrap items-center gap-4 pt-2">
             <Link
               to="/work"
-              className="inline-flex items-center gap-2 px-5 py-2.5 text-xs font-medium text-[#11100E] bg-[#C9A24B] rounded"
+              className="inline-flex items-center gap-2 px-5 py-2.5 text-xs font-semibold text-[#F7F0E4] bg-[#6B2635] rounded-full"
             >
               <ArrowLeft className="w-3.5 h-3.5" />
               <span>Return to Selected Work</span>
@@ -71,29 +69,35 @@ export function CaseStudyPage() {
         description={`${project.title}: ${project.plainSubtitle}`}
       />
 
-      {/* Header + Source Evidence Inspector Bar */}
-      <section className="bg-[#11100E] bg-lamplit-glow border-b border-[#3A3429] pt-12 pb-16 px-6">
+      {/* 01. Cover + 02. The Brief + 03. The Role & Collaborators */}
+      <section className="theme-bg bg-lamplit-glow border-b theme-border pt-10 pb-16 px-4 sm:px-6">
         <div className="max-w-[1200px] mx-auto space-y-8">
-          <Link
-            to="/work"
-            className="inline-flex items-center gap-2 font-mono text-xs text-[#A9A092] hover:text-[#F2EBDD] transition-colors"
-          >
-            <ArrowLeft className="w-3.5 h-3.5" />
-            <span>Back to Selected Work</span>
-          </Link>
+          <div className="flex flex-wrap items-center justify-between gap-3">
+            <Link
+              to="/work"
+              className="inline-flex items-center gap-2 font-mono text-xs theme-text-muted hover:theme-text transition-colors"
+            >
+              <ArrowLeft className="w-3.5 h-3.5" />
+              <span>Back to Selected Work</span>
+            </Link>
+            <span className="font-hand text-lg theme-accent-secondary">
+              Story-Led Case Study · Chapter {project.indexNumber}
+            </span>
+          </div>
 
-          <MotionReveal className="space-y-4 max-w-4xl">
-            <div className="flex flex-wrap items-center gap-2 font-mono text-xs text-[#A9A092]">
+          {/* 01. Cover Card */}
+          <MotionReveal className="bento-card p-6 sm:p-9 space-y-5">
+            <div className="flex flex-wrap items-center gap-2 font-mono text-xs theme-text-muted">
               {project.recognitionBadge && (
                 <>
-                  <span className="inline-flex items-center gap-1.5 text-[#38BDF8] font-medium">
-                    <Award className="w-3.5 h-3.5 text-[#D4AE5C]" />
+                  <span className="inline-flex items-center gap-1.5 theme-accent font-semibold">
+                    <Award className="w-3.5 h-3.5 theme-accent-secondary" />
                     {project.recognitionBadge}
                   </span>
                   <span aria-hidden="true">·</span>
                 </>
               )}
-              <span className="text-[#C9A24B] font-medium">
+              <span className="theme-accent-secondary font-semibold">
                 {project.collaborators.toLowerCase().includes('solo')
                   ? 'Solo Work'
                   : 'Collaborative Work'}
@@ -101,119 +105,141 @@ export function CaseStudyPage() {
               <span aria-hidden="true">·</span>
               <span>{project.category}</span>
               <span aria-hidden="true">·</span>
-              <span className="text-[#E8D5A8]">Role: {project.documentedRole}</span>
+              <span className="theme-text font-medium">Role: {project.documentedRole}</span>
             </div>
 
             <h1
-              className="font-display text-[#F2EBDD] leading-tight"
-              style={{ fontSize: 'clamp(2.25rem, 4.2vw, 4rem)' }}
+              className="font-display theme-text leading-tight"
+              style={{ fontSize: 'clamp(2.35rem, 4.2vw, 3.9rem)' }}
             >
               {project.indexNumber}. {project.title}
             </h1>
 
-            <p className="text-lg sm:text-xl text-[#E8D5A8] leading-relaxed">
+            <p className="text-lg sm:text-xl theme-text-muted leading-relaxed max-w-3xl">
               {project.plainSubtitle}
             </p>
 
             {project.specialCredit && (
-              <p className="font-mono text-xs text-[#38BDF8] pt-1">
+              <p className="font-mono text-xs theme-accent font-semibold pt-1">
                 {project.specialCredit} · Co-presented with Adyot Ohri at ZERO² 2026
               </p>
             )}
           </MotionReveal>
 
-          {/* Structured Case Study Summary: My Contribution, Methodology, Outcomes & Proof Links */}
+          {/* 02. The Brief & 03. The Role & Collaborators Bento Row */}
           <MotionReveal
-            delay={0.06}
-            className="bg-[#1A1814] border border-[#3A3429] rounded-lg p-6 grid grid-cols-1 md:grid-cols-12 gap-6"
+            delay={0.05}
+            className="grid grid-cols-1 md:grid-cols-12 gap-[18px] items-stretch"
           >
-            <div className="md:col-span-4 space-y-1.5">
-              <p className="font-mono text-xs text-[#C9A24B] inline-flex items-center gap-1.5">
-                <FileCheck2 className="w-3.5 h-3.5" />
-                <span>My Contribution &amp; Collaborators</span>
-              </p>
-              <p className="text-sm font-semibold text-[#F2EBDD]">{project.documentedRole}</p>
-              <p className="text-xs text-[#A9A092] leading-relaxed">{project.collaborators}</p>
-              <p className="text-xs text-[#E8D5A8]/90 leading-relaxed pt-1">
-                {project.attributionNote}
+            {/* 02. The Brief */}
+            <div className="md:col-span-5 bento-card p-6 space-y-3 flex flex-col justify-between">
+              <div className="space-y-2">
+                <p className="font-mono text-xs theme-accent font-semibold">
+                  02 · The Brief &amp; Problem Context
+                </p>
+                <h2 className="font-display text-2xl theme-text">Why This Mattered</h2>
+                <p className="text-sm theme-text leading-relaxed">{project.problemSummary}</p>
+              </div>
+              <p className="text-xs theme-text-muted leading-relaxed pt-3 border-t theme-border">
+                {project.businessContext}
               </p>
             </div>
 
-            <div className="md:col-span-5 space-y-2">
-              <p className="font-mono text-xs text-[#C9A24B]">
-                Methodology &amp; Verified Outcomes
-              </p>
-              <p className="text-xs text-[#F2EBDD] leading-relaxed">
-                <strong className="text-[#E8D5A8] font-normal">Approach: </strong>
-                {project.approachSummary}
-              </p>
-              <p className="text-xs text-[#A9A092] leading-relaxed pt-1">
-                <strong className="text-[#7AD992] font-normal">Outcome: </strong>
+            {/* 03. The Role & Collaborators */}
+            <div className="md:col-span-4 bento-card p-6 space-y-3 flex flex-col justify-between">
+              <div className="space-y-2">
+                <p className="font-mono text-xs theme-accent-secondary font-semibold inline-flex items-center gap-1.5">
+                  <FileCheck2 className="w-3.5 h-3.5" />
+                  <span>03 · My Role &amp; Collaborators</span>
+                </p>
+                <h2 className="font-display text-2xl theme-text">{project.documentedRole}</h2>
+                <p className="text-xs font-mono theme-accent">{project.collaborators}</p>
+                <p className="text-xs theme-text-muted leading-relaxed">
+                  {project.attributionNote}
+                </p>
+              </div>
+              <p className="text-xs theme-text pt-3 border-t theme-border">
+                <strong className="theme-accent-secondary font-semibold">Outcome: </strong>
                 {project.resultSummary}
               </p>
             </div>
 
-            <div className="md:col-span-3 flex flex-col justify-between gap-3 md:border-l md:border-[#3A3429] md:pl-6">
-              <p className="font-mono text-xs text-[#C9A24B]">Available Proof Links</p>
-              <div className="space-y-2">
-                {project.liveDemoUrl && (
-                  <a
-                    href={project.liveDemoUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="w-full inline-flex items-center justify-between px-3.5 py-2 text-xs font-mono text-[#11100E] bg-[#C9A24B] hover:bg-[#E8D5A8] rounded transition-colors"
-                  >
-                    <span>Open Live App</span>
-                    <ArrowUpRight className="w-3.5 h-3.5" />
-                  </a>
-                )}
-                {project.slug === 'reframe' && (
-                  <a
-                    href="#slide-deck-gallery"
-                    className="w-full inline-flex items-center justify-between px-3.5 py-2 text-xs font-mono text-[#0B0D13] bg-[#38BDF8] hover:bg-[#7DD3FC] font-medium rounded transition-colors"
-                  >
-                    <span>Inspect 15-Slide Deck ↓</span>
-                    <ArrowRight className="w-3.5 h-3.5" />
-                  </a>
-                )}
-                {project.githubUrl && (
-                  <a
-                    href={project.githubUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="w-full inline-flex items-center justify-between px-3.5 py-2 text-xs font-mono text-[#F2EBDD] bg-[#11100E] border border-[#3A3429] hover:border-[#C9A24B] rounded transition-colors"
-                  >
-                    <span>View GitHub Code</span>
-                    <ArrowUpRight className="w-3.5 h-3.5" />
-                  </a>
-                )}
-                {project.drivePdfPlaceholder && (
-                  <div className="px-3 py-2 rounded bg-[#11100E] border border-[#3A3429]/80 text-[11px] font-mono text-[#A9A092] leading-relaxed">
-                    {project.drivePdfPlaceholder}
-                  </div>
-                )}
+            {/* Quick Proof Links */}
+            <div className="md:col-span-3 bento-card p-6 flex flex-col justify-between gap-4">
+              <div className="space-y-3">
+                <p className="font-mono text-xs theme-accent font-semibold">
+                  06 · Proof &amp; Artifacts
+                </p>
+                <h2 className="font-display text-2xl theme-text">Verified Evidence</h2>
+                <div className="space-y-2 pt-1">
+                  {project.liveDemoUrl && (
+                    <a
+                      href={project.liveDemoUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-full inline-flex items-center justify-between px-4 py-2.5 text-xs font-semibold text-[#F7F0E4] bg-[#6B2635] hover:bg-[#581D2A] rounded-full transition-colors"
+                    >
+                      <span>Open Live App</span>
+                      <ArrowUpRight className="w-3.5 h-3.5 text-[#D9B873]" />
+                    </a>
+                  )}
+                  {project.slug === 'reframe' && (
+                    <>
+                      <a
+                        href="#slide-deck-gallery"
+                        className="w-full inline-flex items-center justify-between px-4 py-2.5 text-xs font-semibold text-[#F7F0E4] bg-[#6B2635] hover:bg-[#581D2A] rounded-full transition-colors"
+                      >
+                        <span>Inspect 15-Slide Deck ↓</span>
+                        <ArrowRight className="w-3.5 h-3.5 text-[#D9B873]" />
+                      </a>
+                      <a
+                        href="#award-and-team"
+                        className="w-full inline-flex items-center justify-between px-4 py-2.5 text-xs font-mono theme-text theme-surface-raised border theme-border hover:border-[var(--accent)] rounded-full transition-colors"
+                      >
+                        <span>1st Place Trophy &amp; Photos ↓</span>
+                        <ArrowRight className="w-3.5 h-3.5 theme-accent-secondary" />
+                      </a>
+                    </>
+                  )}
+                  {project.githubUrl && (
+                    <a
+                      href={project.githubUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-full inline-flex items-center justify-between px-4 py-2.5 text-xs font-mono theme-text theme-surface-raised border theme-border hover:border-[var(--accent)] rounded-full transition-colors"
+                    >
+                      <span>View GitHub Code</span>
+                      <ArrowUpRight className="w-3.5 h-3.5" />
+                    </a>
+                  )}
+                  {project.drivePdfPlaceholder && (
+                    <div className="px-3.5 py-2.5 rounded-2xl theme-surface-raised border theme-border text-[11px] font-mono theme-text-muted leading-relaxed">
+                      {project.drivePdfPlaceholder}
+                    </div>
+                  )}
+                </div>
               </div>
+              <p className="font-mono text-[11px] theme-text-muted pt-3 border-t theme-border">
+                Status: <span className="theme-text font-semibold">{project.evidenceTypeLabel}</span>
+              </p>
             </div>
           </MotionReveal>
 
-          {/* Genuine Visual Showcase / Live Interface Screenshot (when available) */}
+          {/* Hero Visual / Live Interface Screenshot */}
           {project.screenshotUrl && (
-            <MotionReveal
-              delay={0.08}
-              className="bg-[#1A1814] border border-[#3A3429] rounded-xl overflow-hidden"
-            >
-              <div className="px-5 py-3 border-b border-[#3A3429] flex flex-wrap items-center justify-between gap-2">
-                <span className="font-mono text-xs text-[#C9A24B]">
+            <MotionReveal delay={0.07} className="polaroid-frame overflow-hidden">
+              <div className="px-3 pb-3 flex flex-wrap items-center justify-between gap-2">
+                <span className="font-mono text-xs theme-accent font-semibold">
                   {project.slug === 'reframe'
-                    ? 'RE:FRAME Product Concept Hero Visual · Smart Glasses & Focus Engine Companion App'
-                    : 'Live Application Interface Preview'}
+                    ? '05 · The Work — RE:FRAME Smart Glasses & Focus Engine Visual'
+                    : '05 · The Work — Live Application Interface Preview'}
                 </span>
                 {project.liveDemoUrl && (
                   <a
                     href={project.liveDemoUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="font-mono text-xs text-[#7AD992] hover:underline inline-flex items-center gap-1"
+                    className="font-mono text-xs theme-accent font-semibold hover:underline inline-flex items-center gap-1"
                   >
                     <span>Visit {project.liveDemoUrl}</span>
                     <ArrowUpRight className="w-3.5 h-3.5" />
@@ -222,20 +248,22 @@ export function CaseStudyPage() {
                 {project.slug === 'reframe' && (
                   <a
                     href="#award-and-team"
-                    className="font-mono text-xs text-[#38BDF8] hover:underline inline-flex items-center gap-1"
+                    className="font-mono text-xs theme-accent-secondary hover:underline inline-flex items-center gap-1"
                   >
                     <span>Jump to 1st Place Award &amp; Team Photos ↓</span>
                   </a>
                 )}
               </div>
-              <img
-                src={project.screenshotUrl}
-                alt={`${project.title} visual showcase`}
-                referrerPolicy="no-referrer"
-                className="w-full max-h-[580px] object-cover object-top"
-              />
+              <div className="rounded-[20px] overflow-hidden border theme-border">
+                <img
+                  src={project.screenshotUrl}
+                  alt={`${project.title} visual showcase`}
+                  referrerPolicy="no-referrer"
+                  className="w-full max-h-[560px] object-cover object-top"
+                />
+              </div>
               {project.screenshotCaption && (
-                <p className="px-5 py-3 font-mono text-xs text-[#A9A092] border-t border-[#3A3429]">
+                <p className="px-3 pt-3 font-mono text-xs theme-text-muted">
                   {project.screenshotCaption}
                 </p>
               )}
@@ -244,98 +272,81 @@ export function CaseStudyPage() {
         </div>
       </section>
 
-      {/* Dedicated Visual & Video Showcase for RE:FRAME */}
+      {/* 05. Dedicated Visual, 15-Slide Deck & Video Showcase for RE:FRAME */}
       {project.slug === 'reframe' && <ReframeCaseStudyShowcase />}
 
-      {/* Section 1: Product-Thinking Case Study Flow */}
-      <section className="bg-[#0E0F14] py-16 px-6 border-b border-[#2C2F42]">
+      {/* 04. The Approach & 06. Quantitative Evidence */}
+      <section className="theme-bg py-16 px-4 sm:px-6 border-b theme-border">
         <div className="max-w-[1200px] mx-auto space-y-12">
           {/* Quantitative Data Visualisation (Rendered Only for Projects with Verified Numeric Evidence) */}
           <ProjectMetrics projectSlug={project.slug} />
 
           <MotionReveal className="space-y-2 max-w-3xl">
-            <p className="font-mono text-xs text-[#D4AE5C] uppercase tracking-wide">
-              Product-Thinking Narrative
+            <p className="font-mono text-xs theme-accent font-semibold uppercase tracking-wide">
+              04 · The Approach &amp; Product-Thinking Narrative
             </p>
-            <h2 className="font-display text-3xl sm:text-4xl text-[#F4F0E8]">
+            <h2 className="font-display text-3xl sm:text-4xl theme-text">
               From Problem Discovery &amp; Alternatives to Final Architecture
             </h2>
-            <p className="text-sm text-[#A6A9B8]">
+            <p className="text-sm sm:text-base theme-text-muted">
               How this project progressed from initial problem framing and user research to
               evaluating alternatives, making the key architectural decision, and shipping the
               verified deliverable.
             </p>
           </MotionReveal>
 
-          {/* Top Row: Problem -> Research -> User Needs */}
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-            <MotionReveal className="bg-[#161822] border border-[#2C2F42] rounded-xl p-6 space-y-3">
-              <p className="font-mono text-xs text-[#D4AE5C]">01 · Problem</p>
-              <h3 className="font-display text-2xl text-[#F4F0E8]">What Was Going Wrong</h3>
-              <p className="text-sm text-[#F4F0E8]/90 leading-relaxed">{project.problemSummary}</p>
-              <p className="text-xs text-[#A6A9B8] leading-relaxed pt-2 border-t border-[#2C2F42]">
-                {project.businessContext}
-              </p>
-            </MotionReveal>
-
-            <MotionReveal
-              delay={0.04}
-              className="bg-[#161822] border border-[#2C2F42] rounded-xl p-6 space-y-3"
-            >
-              <p className="font-mono text-xs text-[#8B75FF]">02 · Research Context</p>
-              <h3 className="font-display text-2xl text-[#F4F0E8]">What We Observed</h3>
-              <p className="text-sm text-[#F4F0E8]/90 leading-relaxed">
+          {/* Top Row: Research -> User Needs -> Alternatives */}
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-[18px]">
+            <MotionReveal className="bento-card p-6 space-y-3">
+              <p className="font-mono text-xs theme-accent font-semibold">01 · Research Context</p>
+              <h3 className="font-display text-2xl theme-text">What We Observed</h3>
+              <p className="text-sm theme-text-muted leading-relaxed">
                 {project.productThinking.researchContext}
               </p>
             </MotionReveal>
 
-            <MotionReveal
-              delay={0.08}
-              className="bg-[#161822] border border-[#2C2F42] rounded-xl p-6 space-y-3"
-            >
-              <p className="font-mono text-xs text-[#7AD992]">03 · User Needs</p>
-              <h3 className="font-display text-2xl text-[#F4F0E8]">What Users Actually Needed</h3>
-              <p className="text-sm text-[#F4F0E8]/90 leading-relaxed">
+            <MotionReveal delay={0.04} className="bento-card p-6 space-y-3">
+              <p className="font-mono text-xs theme-accent-secondary font-semibold">
+                02 · User Needs
+              </p>
+              <h3 className="font-display text-2xl theme-text">What Users Actually Needed</h3>
+              <p className="text-sm theme-text-muted leading-relaxed">
                 {project.productThinking.userNeeds}
+              </p>
+            </MotionReveal>
+
+            <MotionReveal delay={0.08} className="bento-card p-6 space-y-3">
+              <p className="font-mono text-xs theme-accent font-semibold">
+                03 · Alternatives Considered
+              </p>
+              <h3 className="font-display text-2xl theme-text">Why Simpler Options Fell Short</h3>
+              <p className="text-sm theme-text-muted leading-relaxed">
+                {project.productThinking.alternativesConsidered}
               </p>
             </MotionReveal>
           </div>
 
-          {/* Second Row: Alternatives -> Decision -> Prototype & Evidence */}
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-            <MotionReveal className="bg-[#161822] border border-[#2C2F42] rounded-xl p-6 space-y-3">
-              <p className="font-mono text-xs text-[#E6D3A7]">04 · Alternatives Considered</p>
-              <h3 className="font-display text-2xl text-[#F4F0E8]">
-                Why Simpler Options Fell Short
-              </h3>
-              <p className="text-sm text-[#A6A9B8] leading-relaxed">
-                {project.productThinking.alternativesConsidered}
+          {/* Second Row: Chosen Architecture -> Prototype Evolution */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-[18px]">
+            <MotionReveal className="lg:col-span-6 bento-card p-6 space-y-3">
+              <p className="font-mono text-xs theme-accent font-semibold">
+                04 · Product &amp; System Decision
               </p>
-            </MotionReveal>
-
-            <MotionReveal
-              delay={0.04}
-              className="bg-[#161822] border border-[#2C2F42] rounded-xl p-6 space-y-3"
-            >
-              <p className="font-mono text-xs text-[#D4AE5C]">05 · Product &amp; System Decision</p>
-              <h3 className="font-display text-2xl text-[#F4F0E8]">The Chosen Architecture</h3>
-              <p className="text-sm text-[#F4F0E8]/90 leading-relaxed">
+              <h3 className="font-display text-2xl theme-text">The Chosen Architecture</h3>
+              <p className="text-sm theme-text-muted leading-relaxed">
                 {project.productThinking.productDecision}
               </p>
             </MotionReveal>
 
-            <MotionReveal
-              delay={0.08}
-              className="bg-[#161822] border border-[#D4AE5C]/70 rounded-xl p-6 space-y-3"
-            >
-              <p className="font-mono text-xs text-[#D4AE5C]">
-                06 · Prototype → Implementation &amp; Evidence
+            <MotionReveal delay={0.04} className="lg:col-span-6 bento-card p-6 space-y-3">
+              <p className="font-mono text-xs theme-accent-secondary font-semibold">
+                05 · Prototype → Implementation &amp; Deliverables
               </p>
-              <h3 className="font-display text-2xl text-[#F4F0E8]">What Was Delivered</h3>
-              <p className="text-xs text-[#E6D3A7] leading-relaxed">
+              <h3 className="font-display text-2xl theme-text">What Was Delivered</h3>
+              <p className="text-xs sm:text-sm theme-text-muted leading-relaxed">
                 {project.productThinking.prototypeEvolution}
               </p>
-              <ul className="space-y-1 text-xs text-[#F4F0E8] pt-2 border-t border-[#2C2F42]">
+              <ul className="space-y-1 text-xs theme-text pt-2 border-t theme-border">
                 {project.deliverables.map((del) => (
                   <li key={del}>· {del}</li>
                 ))}
@@ -343,7 +354,7 @@ export function CaseStudyPage() {
             </MotionReveal>
           </div>
 
-          {/* Section 3: Bespoke ProjectVisual Architecture + Interactive Step Flowchart */}
+          {/* Bespoke ProjectVisual Architecture + Interactive Step Flowchart */}
           <MotionReveal>
             <ProjectVisual slug={project.slug} mode="full" />
           </MotionReveal>
@@ -359,32 +370,24 @@ export function CaseStudyPage() {
         </div>
       </section>
 
-      {/* Section 4: Plain-English Features + Step-by-Step Walkthrough */}
-      <section className="bg-[#1A1814] py-16 px-6 border-b border-[#3A3429]">
-        <div className="max-w-[1200px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12">
-          {/* Plain-English Benefits with Expandable Technical Note */}
-          <MotionReveal className="lg:col-span-5 space-y-6">
+      {/* Plain-English Features + Step-by-Step Walkthrough */}
+      <section className="theme-bg py-16 px-4 sm:px-6 border-b theme-border bg-ivory-grid">
+        <div className="max-w-[1200px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-10">
+          <MotionReveal className="lg:col-span-5 space-y-5">
             <div>
-              <p className="font-mono text-xs text-[#C9A24B]">Key Capabilities</p>
-              <h2 className="font-display text-3xl text-[#F2EBDD] mt-1">
-                What the System Does
-              </h2>
-              <p className="text-xs text-[#A9A092] mt-1">
+              <p className="font-mono text-xs theme-accent font-semibold">Key Capabilities</p>
+              <h2 className="font-display text-3xl theme-text mt-1">What the System Does</h2>
+              <p className="text-xs theme-text-muted mt-1">
                 Written in plain English, with technical notes underneath each point.
               </p>
             </div>
 
-            <div className="space-y-4">
+            <div className="space-y-3.5">
               {project.plainFeatures.map((feat) => (
-                <div
-                  key={feat.plain}
-                  className="bg-[#11100E] border border-[#3A3429] rounded-lg p-4 space-y-2"
-                >
-                  <p className="text-sm font-medium text-[#F2EBDD] leading-relaxed">
-                    {feat.plain}
-                  </p>
-                  <p className="font-mono text-[11px] text-[#A9A092] pt-2 border-t border-[#3A3429]/70 leading-relaxed">
-                    <span className="text-[#C9A24B]">Technical detail: </span>
+                <div key={feat.plain} className="bento-card p-4 space-y-2">
+                  <p className="text-sm font-semibold theme-text leading-relaxed">{feat.plain}</p>
+                  <p className="font-mono text-[11px] theme-text-muted pt-2 border-t theme-border leading-relaxed">
+                    <span className="theme-accent font-semibold">Technical detail: </span>
                     {feat.technical}
                   </p>
                 </div>
@@ -392,28 +395,28 @@ export function CaseStudyPage() {
             </div>
           </MotionReveal>
 
-          {/* Step-by-Step How Information Moves */}
-          <MotionReveal delay={0.06} className="lg:col-span-7 space-y-6">
+          <MotionReveal delay={0.06} className="lg:col-span-7 space-y-5">
             <div>
-              <p className="font-mono text-xs text-[#C9A24B]">Step-by-Step Walkthrough</p>
-              <h2 className="font-display text-3xl text-[#F2EBDD] mt-1">
+              <p className="font-mono text-xs theme-accent-secondary font-semibold">
+                Step-by-Step Walkthrough
+              </p>
+              <h2 className="font-display text-3xl theme-text mt-1">
                 How Information Moves Through {project.title}
               </h2>
             </div>
 
-            <div className="space-y-4">
+            <div className="space-y-3.5">
               {project.workflowSteps.map((step) => (
-                <div
-                  key={step.step}
-                  className="bg-[#11100E] border border-[#3A3429] rounded-lg p-5 space-y-2"
-                >
+                <div key={step.step} className="bento-card p-5 space-y-2">
                   <div className="flex items-center gap-3">
-                    <span className="font-mono text-xs text-[#C9A24B]">Step {step.step}</span>
-                    <h3 className="text-base font-semibold text-[#F2EBDD]">{step.title}</h3>
+                    <span className="font-mono text-xs theme-accent font-semibold">
+                      Step {step.step}
+                    </span>
+                    <h3 className="text-base font-semibold theme-text">{step.title}</h3>
                   </div>
-                  <p className="text-sm text-[#A9A092] leading-relaxed">{step.detail}</p>
+                  <p className="text-sm theme-text-muted leading-relaxed">{step.detail}</p>
                   {step.technicalDetail && (
-                    <p className="font-mono text-[11px] text-[#E8D5A8]/80 pt-1">
+                    <p className="font-mono text-[11px] theme-accent-secondary pt-1">
                       Under the hood: {step.technicalDetail}
                     </p>
                   )}
@@ -424,22 +427,24 @@ export function CaseStudyPage() {
         </div>
       </section>
 
-      {/* Section 5: Tools Used (Plain-English Explanations + Expandable Deep Technical Spec) */}
-      <section className="bg-[#11100E] py-16 px-6 border-b border-[#3A3429]">
-        <div className="max-w-[1200px] mx-auto space-y-10">
+      {/* 06. The Evidence: Tools & Expandable Technical Specs */}
+      <section className="theme-bg py-16 px-4 sm:px-6 border-b theme-border">
+        <div className="max-w-[1200px] mx-auto space-y-8">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
             <div>
-              <p className="font-mono text-xs text-[#C9A24B]">Tools &amp; Technology</p>
-              <h2 className="font-display text-3xl text-[#F2EBDD] mt-1">
+              <p className="font-mono text-xs theme-accent font-semibold">
+                06 · The Evidence &amp; Technology Stack
+              </p>
+              <h2 className="font-display text-3xl theme-text mt-1">
                 Tools &amp; Frameworks Applied
               </h2>
             </div>
             <button
               type="button"
               onClick={() => setShowTechnicalSpec((prev) => !prev)}
-              className="inline-flex items-center gap-2 px-4 py-2 text-xs font-mono text-[#E8D5A8] bg-[#1A1814] border border-[#3A3429] hover:border-[#C9A24B] rounded cursor-pointer"
+              className="inline-flex items-center gap-2 px-5 py-2.5 text-xs font-mono theme-text theme-surface border theme-border hover:border-[var(--accent)] rounded-full cursor-pointer"
             >
-              <Layers className="w-3.5 h-3.5 text-[#C9A24B]" />
+              <Layers className="w-3.5 h-3.5 theme-accent" />
               <span>
                 {showTechnicalSpec
                   ? 'Hide Deep Specs & Architecture Decisions'
@@ -453,55 +458,44 @@ export function CaseStudyPage() {
             </button>
           </div>
 
-          {/* Plain-English Tools Grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {project.plainToolsSummary.map((item) => (
-              <div
-                key={item.tool}
-                className="bg-[#1A1814] border border-[#3A3429] rounded-lg p-5 space-y-2"
-              >
-                <p className="font-mono text-xs text-[#C9A24B]">{item.tool}</p>
-                <p className="text-sm text-[#F2EBDD] leading-relaxed">{item.whatItDoes}</p>
+              <div key={item.tool} className="bento-card p-5 space-y-2">
+                <p className="font-mono text-xs theme-accent font-semibold">{item.tool}</p>
+                <p className="text-sm theme-text-muted leading-relaxed">{item.whatItDoes}</p>
               </div>
             ))}
           </div>
 
-          {/* Expandable Technical Depth for Developers & Technical Reviewers */}
           {showTechnicalSpec && (
-            <div className="space-y-8 pt-4 border-t border-[#3A3429]">
+            <div className="space-y-6 pt-4 border-t theme-border">
               {project.evidenceArtifacts.map((artifact) => (
-                <div
-                  key={artifact.title}
-                  className="bg-[#1A1814] border border-[#3A3429] rounded-lg p-6 space-y-4"
-                >
-                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-[#3A3429] pb-3">
-                    <h3 className="text-base font-semibold text-[#F2EBDD]">{artifact.title}</h3>
+                <div key={artifact.title} className="bento-card p-6 space-y-4">
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b theme-border pb-3">
+                    <h3 className="text-base font-semibold theme-text">{artifact.title}</h3>
                     {artifact.datasetOrHardwareCondition && (
-                      <span className="font-mono text-xs text-[#E08A1E]">
+                      <span className="font-mono text-xs theme-accent-secondary">
                         {artifact.datasetOrHardwareCondition}
                       </span>
                     )}
                   </div>
-                  <p className="text-xs text-[#A9A092]">{artifact.caption}</p>
-                  <pre className="bg-[#11100E] border border-[#3A3429] rounded p-4 overflow-x-auto font-mono text-xs text-[#E8D5A8] leading-relaxed">
+                  <p className="text-xs theme-text-muted">{artifact.caption}</p>
+                  <pre className="theme-surface-raised border theme-border rounded-2xl p-4 overflow-x-auto font-mono text-xs theme-text leading-relaxed">
                     <code>{artifact.codeOrSpec}</code>
                   </pre>
                 </div>
               ))}
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                 {project.technicalDecisions.map((item) => (
-                  <div
-                    key={item.decision}
-                    className="bg-[#1A1814] border border-[#3A3429] rounded-lg p-6 space-y-2.5"
-                  >
-                    <h3 className="text-base font-semibold text-[#F2EBDD]">{item.decision}</h3>
-                    <p className="text-sm text-[#A9A092] leading-relaxed">
-                      <strong className="text-[#E8D5A8] font-normal">Why: </strong>
+                  <div key={item.decision} className="bento-card p-6 space-y-2.5">
+                    <h3 className="text-base font-semibold theme-text">{item.decision}</h3>
+                    <p className="text-sm theme-text-muted leading-relaxed">
+                      <strong className="theme-text font-semibold">Why: </strong>
                       {item.rationale}
                     </p>
-                    <p className="text-xs text-[#A9A092] pt-2 border-t border-[#3A3429]">
-                      <strong className="text-[#F2EBDD] font-normal">Trade-off: </strong>
+                    <p className="text-xs theme-text-muted pt-2 border-t theme-border">
+                      <strong className="theme-text font-semibold">Trade-off: </strong>
                       {item.tradeoff}
                     </p>
                   </div>
@@ -512,45 +506,43 @@ export function CaseStudyPage() {
         </div>
       </section>
 
-      {/* Section 11: Project Limitations & Final Learnings (Ivory Contrast Panel) */}
-      <section className="bg-[#F4EFE6] text-[#11100E] py-16 px-6 border-b border-[#3A3429]/30">
-        <div className="max-w-[1200px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-10">
-          <MotionReveal className="space-y-4">
-            <p className="font-mono text-xs text-[#7A5B14]">
-              {project.slug === 'reframe'
-                ? 'Section 11 · Project Limitations & Unbuilt Concept Scope'
-                : 'Honest Limitations & Scope'}
+      {/* 07. What Changed / Honest Limitations & Client Takeaways */}
+      <section className="theme-bg py-16 px-4 sm:px-6 border-b theme-border bg-ivory-grid">
+        <div className="max-w-[1200px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8">
+          <MotionReveal className="bento-card p-6 sm:p-8 space-y-4">
+            <p className="font-mono text-xs theme-accent font-semibold">
+              07 · Honest Limitations &amp; Scope Boundaries
             </p>
-            <h2 className="font-display text-3xl text-[#11100E]">
+            <h2 className="font-display text-3xl theme-text">
               What You Should Know About This Project
             </h2>
-            <ul className="space-y-3 text-sm text-[#232019] leading-relaxed">
+            <ul className="space-y-3 text-sm theme-text-muted leading-relaxed">
               {project.limitationsAndScope.map((lim) => (
                 <li
                   key={lim}
-                  className="bg-white/80 border border-[#3A3429]/20 rounded p-4 flex items-start gap-3"
+                  className="bento-card-raised p-4 flex items-start gap-3"
                 >
-                  <span className="font-mono text-[#7A5B14] font-semibold">—</span>
+                  <span className="font-mono theme-accent font-semibold">—</span>
                   <span>{lim}</span>
                 </li>
               ))}
             </ul>
           </MotionReveal>
 
-          <MotionReveal delay={0.06} className="space-y-4">
-            <p className="font-mono text-xs text-[#7A5B14]">
+          <MotionReveal delay={0.06} className="bento-card p-6 sm:p-8 space-y-4">
+            <p className="font-mono text-xs theme-accent-secondary font-semibold">
               Final Learnings &amp; Client Takeaways
             </p>
-            <h2 className="font-display text-3xl text-[#11100E]">
+            <h2 className="font-display text-3xl theme-text">
               How This Applies to Studio Client Work
             </h2>
-            <ul className="space-y-3 text-sm text-[#232019] leading-relaxed">
+            <ul className="space-y-3 text-sm theme-text-muted leading-relaxed">
               {project.keyLessons.map((lesson) => (
                 <li
                   key={lesson}
-                  className="bg-white/80 border border-[#3A3429]/20 rounded p-4 flex items-start gap-3"
+                  className="bento-card-raised p-4 flex items-start gap-3"
                 >
-                  <span className="font-mono text-[#7A5B14] font-semibold">→</span>
+                  <span className="font-mono theme-accent-secondary font-semibold">→</span>
                   <span>{lesson}</span>
                 </li>
               ))}
@@ -559,18 +551,18 @@ export function CaseStudyPage() {
         </div>
       </section>
 
-      {/* Prev / Next Navigation */}
-      <section className="bg-[#11100E] py-12 px-6 border-b border-[#3A3429]">
+      {/* 08. Next Project & Continuation */}
+      <section className="theme-bg py-12 px-4 sm:px-6 border-b theme-border">
         <div className="max-w-[1200px] mx-auto flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4">
           {prevProject ? (
             <Link
               to={`/work/${prevProject.slug}`}
-              className="bg-[#1A1814] border border-[#3A3429] hover:border-[#C9A24B] rounded-lg p-4 flex items-center gap-3 transition-colors"
+              className="bento-card-interactive p-5 flex items-center gap-3.5"
             >
-              <ArrowLeft className="w-4 h-4 text-[#C9A24B] shrink-0" />
+              <ArrowLeft className="w-4 h-4 theme-accent shrink-0" />
               <div>
-                <p className="font-mono text-xs text-[#A9A092]">Previous Project</p>
-                <p className="text-sm font-semibold text-[#F2EBDD]">
+                <p className="font-mono text-xs theme-text-muted">Previous Project</p>
+                <p className="font-display text-xl theme-text">
                   {prevProject.indexNumber}. {prevProject.title}
                 </p>
               </div>
@@ -582,22 +574,21 @@ export function CaseStudyPage() {
           {nextProject && (
             <Link
               to={`/work/${nextProject.slug}`}
-              className="bg-[#1A1814] border border-[#3A3429] hover:border-[#C9A24B] rounded-lg p-4 flex items-center justify-between gap-3 transition-colors sm:ml-auto"
+              className="bento-card-interactive p-5 flex items-center justify-between gap-3.5 sm:ml-auto"
             >
               <div className="text-right">
-                <p className="font-mono text-xs text-[#A9A092]">Next Project</p>
-                <p className="text-sm font-semibold text-[#F2EBDD]">
+                <p className="font-mono text-xs theme-text-muted">08 · Next Project</p>
+                <p className="font-display text-xl theme-text">
                   {nextProject.indexNumber}. {nextProject.title}
                 </p>
               </div>
-              <ArrowRight className="w-4 h-4 text-[#C9A24B] shrink-0" />
+              <ArrowRight className="w-4 h-4 theme-accent shrink-0" />
             </Link>
           )}
         </div>
       </section>
 
       <CtaSection
-        variant="dark"
         headline={`Planning a product narrative, campaign, or custom tool like ${project.title}?`}
         supportingCopy="Share your brief, product concept, or workflow challenge. I will review your material and outline a clear studio scope."
       />

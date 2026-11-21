@@ -31,20 +31,25 @@ export function SolutionsPage() {
         description="Explore Akshit Sukhija’s four studio services: Brand Strategy & Storytelling, Digital Content & Creative Production, Websites & Digital Experiences, and AI-Powered Digital Solutions."
       />
 
-      {/* 1. Header */}
-      <section className="bg-[#0E0F14] bg-lamplit-glow border-b border-[#2C2F42] pt-14 pb-16 px-6">
+      {/* 1. Editorial Header */}
+      <section className="theme-bg bg-lamplit-glow border-b theme-border pt-10 pb-14 px-4 sm:px-6">
         <div className="max-w-[1200px] mx-auto">
-          <MotionReveal className="max-w-3xl space-y-5">
-            <p className="font-mono text-xs text-[#38BDF8] uppercase tracking-wider">
-              Services · AKSHIT SUKHIJA · Independent Digital Content &amp; Solutions Studio
-            </p>
+          <MotionReveal className="max-w-3xl space-y-4">
+            <div className="flex flex-wrap items-center gap-3">
+              <p className="font-mono text-xs theme-accent font-semibold uppercase tracking-wider">
+                Services · Independent Digital Content &amp; Solutions Studio
+              </p>
+              <span className="font-hand text-xl theme-accent-secondary">
+                — Strategy, content, websites &amp; AI workflows
+              </span>
+            </div>
             <h1
-              className="font-display text-[#F4F0E8] leading-[1.08]"
+              className="font-display theme-text leading-[1.08]"
               style={{ fontSize: 'clamp(2.4rem, 4.2vw, 3.85rem)' }}
             >
               Services Built Around Brand Clarity, Content &amp; Useful Digital Systems
             </h1>
-            <p className="text-base sm:text-lg text-[#A6A9B8] leading-relaxed">
+            <p className="text-base sm:text-lg theme-text-muted leading-relaxed">
               Creative ideas. Clear stories. Digital experiences. Explore the four studio service
               categories below or use the interactive Solution Finder to match your brief with the
               right deliverable.
@@ -54,45 +59,47 @@ export function SolutionsPage() {
       </section>
 
       {/* 2. Four Studio Service Categories */}
-      <section className="bg-[#0E0F14] border-b border-[#2C2F42] py-20 px-6">
-        <div className="max-w-[1200px] mx-auto space-y-12">
+      <section className="theme-bg border-b theme-border py-16 sm:py-20 px-4 sm:px-6">
+        <div className="max-w-[1200px] mx-auto space-y-10">
           <MotionReveal className="max-w-3xl space-y-2">
-            <p className="font-mono text-xs text-[#D4AE5C] uppercase tracking-wide">
+            <p className="font-mono text-xs theme-accent-secondary font-semibold uppercase tracking-wide">
               Four Studio Service Categories
             </p>
-            <h2 className="font-display text-3xl sm:text-4xl text-[#F4F0E8]">
+            <h2 className="font-display text-3xl sm:text-4xl theme-text">
               01. Brand Strategy &amp; Storytelling · 02. Digital Content · 03. Websites · 04. AI Solutions
             </h2>
           </MotionReveal>
 
-          <div className="space-y-12">
+          <div className="space-y-8">
             {SERVICES.map((service, index) => {
               const showTech = !!expandedTechIds[service.id];
               return (
                 <MotionReveal
                   key={service.id}
-                  delay={index * 0.05}
-                  className="bg-[#161822] border border-[#2C2F42] rounded-2xl p-6 md:p-10 space-y-8"
+                  delay={index * 0.04}
+                  className="bento-card p-6 sm:p-9 space-y-8"
                 >
                   <div
                     id={service.id}
-                    className="flex flex-col lg:flex-row lg:items-end justify-between gap-4 pb-6 border-b border-[#2C2F42] scroll-mt-28"
+                    className="flex flex-col lg:flex-row lg:items-end justify-between gap-4 pb-6 border-b theme-border scroll-mt-28"
                   >
                     <div className="space-y-2 max-w-2xl">
-                      <p className="font-mono text-xs text-[#38BDF8]">
+                      <p className="font-mono text-xs theme-accent font-semibold">
                         Studio Service {service.number} · {service.targetAudience}
                       </p>
-                      <h3 className="font-display text-3xl sm:text-4xl text-[#F4F0E8]">
+                      <h3 className="font-display text-3xl sm:text-4xl theme-text">
                         {service.number}. {service.title}
                       </h3>
-                      <p className="text-base text-[#E6D3A7]">{service.plainTagline}</p>
+                      <p className="text-base theme-accent-secondary font-medium">
+                        {service.plainTagline}
+                      </p>
                     </div>
                     <Link
                       to={`/enquire?problem=${encodeURIComponent(service.title)}`}
-                      className="inline-flex items-center gap-2 px-5 py-2.5 text-xs font-medium text-[#0E0F14] bg-[#D4AE5C] hover:bg-[#E6D3A7] rounded-lg transition-colors whitespace-nowrap shrink-0 self-start lg:self-auto"
+                      className="inline-flex items-center gap-2 px-5 py-3 min-h-[46px] text-xs font-semibold text-[#F7F0E4] bg-[#6B2635] hover:bg-[#581D2A] rounded-full transition-colors whitespace-nowrap shrink-0 self-start lg:self-auto"
                     >
                       <span>Start a {service.title} Project</span>
-                      <ArrowRight className="w-3.5 h-3.5" />
+                      <ArrowRight className="w-3.5 h-3.5 text-[#D9B873]" />
                     </Link>
                   </div>
 
@@ -100,15 +107,19 @@ export function SolutionsPage() {
                   <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
                     <div className="lg:col-span-7 space-y-6">
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <div className="bg-[#0E0F14] border border-[#2C2F42] rounded-xl p-5 space-y-2">
-                          <p className="font-mono text-xs text-[#A6A9B8]">The Challenge</p>
-                          <p className="text-sm text-[#F4F0E8] leading-relaxed">
+                        <div className="bento-card-raised p-5 space-y-2">
+                          <p className="font-mono text-xs theme-text-muted font-semibold">
+                            The Challenge
+                          </p>
+                          <p className="text-sm theme-text leading-relaxed">
                             {service.problemStatement}
                           </p>
                         </div>
-                        <div className="bg-[#0E0F14] border border-[#38BDF8]/40 rounded-xl p-5 space-y-2">
-                          <p className="font-mono text-xs text-[#38BDF8]">Studio Approach</p>
-                          <p className="text-sm text-[#F4F0E8] leading-relaxed">
+                        <div className="bento-card-raised p-5 space-y-2">
+                          <p className="font-mono text-xs theme-accent font-semibold">
+                            Studio Approach
+                          </p>
+                          <p className="text-sm theme-text leading-relaxed">
                             {service.description}
                           </p>
                         </div>
@@ -116,24 +127,26 @@ export function SolutionsPage() {
 
                       {/* Real-World Scenarios */}
                       <div className="space-y-3">
-                        <p className="font-mono text-xs text-[#E6D3A7]">
+                        <p className="font-mono text-xs theme-accent-secondary font-semibold">
                           Practical Client Scenarios
                         </p>
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                           {service.exampleScenarios.map((scenario) => (
                             <div
                               key={scenario.businessType}
-                              className="bg-[#0E0F14] border border-[#2C2F42] rounded-xl p-4 space-y-2"
+                              className="bento-card-raised p-4 space-y-2"
                             >
-                              <p className="font-mono text-xs text-[#D4AE5C]">
+                              <p className="font-mono text-xs theme-accent font-semibold">
                                 {scenario.businessType}
                               </p>
-                              <p className="text-xs text-[#A6A9B8] leading-relaxed">
-                                <strong className="text-[#F4F0E8]">Problem: </strong>
+                              <p className="text-xs theme-text-muted leading-relaxed">
+                                <strong className="theme-text font-semibold">Problem: </strong>
                                 {scenario.challenge}
                               </p>
-                              <p className="text-xs text-[#F4F0E8] leading-relaxed pt-1 border-t border-[#2C2F42]/60">
-                                <strong className="text-[#38BDF8]">Solution: </strong>
+                              <p className="text-xs theme-text leading-relaxed pt-1 border-t theme-border">
+                                <strong className="theme-accent-secondary font-semibold">
+                                  Solution:{' '}
+                                </strong>
                                 {scenario.practicalSolution}
                               </p>
                             </div>
@@ -142,15 +155,15 @@ export function SolutionsPage() {
                       </div>
                     </div>
 
-                    <div className="lg:col-span-5 bg-[#0E0F14] border border-[#2C2F42] rounded-xl p-6 space-y-6">
+                    <div className="lg:col-span-5 bento-card-raised p-6 space-y-6">
                       <div>
-                        <p className="font-mono text-xs text-[#D4AE5C] pb-3 border-b border-[#2C2F42]">
+                        <p className="font-mono text-xs theme-accent font-semibold pb-3 border-b theme-border">
                           What You Receive
                         </p>
-                        <ul className="space-y-2.5 text-xs text-[#F4F0E8] pt-3">
+                        <ul className="space-y-2.5 text-xs theme-text pt-3">
                           {service.deliverables.map((item) => (
                             <li key={item} className="flex items-start gap-2.5">
-                              <span className="font-mono text-[#38BDF8]">—</span>
+                              <span className="font-mono theme-accent font-semibold">—</span>
                               <span>{item}</span>
                             </li>
                           ))}
@@ -158,16 +171,16 @@ export function SolutionsPage() {
                       </div>
 
                       {/* Expandable Technical Details */}
-                      <div className="pt-3 border-t border-[#2C2F42]">
+                      <div className="pt-3 border-t theme-border">
                         <button
                           type="button"
                           onClick={() => toggleTech(service.id)}
-                          className="w-full flex items-center justify-between font-mono text-xs text-[#E6D3A7] hover:text-[#38BDF8] cursor-pointer"
+                          className="w-full flex items-center justify-between font-mono text-xs theme-text hover:theme-accent cursor-pointer"
                         >
                           <span>
                             {showTech
                               ? 'Hide tools & production workflow'
-                              : 'Show tools & production workflow (optional)'}
+                              : 'See what is included in the workflow'}
                           </span>
                           {showTech ? (
                             <ChevronUp className="w-4 h-4" />
@@ -176,7 +189,7 @@ export function SolutionsPage() {
                           )}
                         </button>
                         {showTech && (
-                          <ul className="mt-3 space-y-1.5 text-xs text-[#A6A9B8] bg-[#161822] border border-[#2C2F42] rounded-lg p-3.5">
+                          <ul className="mt-3 space-y-1.5 text-xs theme-text-muted theme-surface border theme-border rounded-2xl p-3.5">
                             {service.technicalUnderTheHood.map((tech) => (
                               <li key={tech} className="leading-relaxed">
                                 • {tech}
@@ -186,27 +199,27 @@ export function SolutionsPage() {
                         )}
                       </div>
 
-                      <div className="pt-4 border-t border-[#2C2F42] space-y-3">
-                        <p className="font-mono text-xs text-[#38BDF8]">
+                      <div className="pt-4 border-t theme-border space-y-3">
+                        <p className="font-mono text-xs theme-accent-secondary font-semibold">
                           Relevant Studio Proof
                         </p>
                         {service.portfolioProof.map((proof) => (
                           <div
                             key={proof.title}
-                            className="bg-[#161822] border border-[#2C2F42] rounded-lg p-3.5 space-y-1"
+                            className="theme-surface border theme-border rounded-2xl p-3.5 space-y-1"
                           >
                             <div className="flex items-center justify-between">
-                              <p className="text-xs font-semibold text-[#F4F0E8]">{proof.title}</p>
+                              <p className="text-xs font-semibold theme-text">{proof.title}</p>
                               {proof.slug && (
                                 <Link
                                   to={`/work/${proof.slug}`}
-                                  className="font-mono text-[11px] text-[#D4AE5C] hover:underline"
+                                  className="font-mono text-[11px] theme-accent font-semibold hover:underline"
                                 >
-                                  View Case Study →
+                                  View Story →
                                 </Link>
                               )}
                             </div>
-                            <p className="text-xs text-[#A6A9B8] leading-relaxed">
+                            <p className="text-xs theme-text-muted leading-relaxed">
                               {proof.summary}
                             </p>
                           </div>
@@ -222,10 +235,10 @@ export function SolutionsPage() {
       </section>
 
       {/* 3. Reusable 3-Question SolutionFinder & Tier Comparison */}
-      <section className="bg-[#0E0F14] border-b border-[#2C2F42] py-16 px-6">
+      <section className="theme-bg border-b theme-border py-16 px-4 sm:px-6">
         <div className="max-w-[1200px] mx-auto space-y-12">
           <MotionReveal>
-            <ServiceComparison variant="dark" />
+            <ServiceComparison />
           </MotionReveal>
           <MotionReveal delay={0.05}>
             <SolutionFinder />
@@ -233,51 +246,51 @@ export function SolutionsPage() {
         </div>
       </section>
 
-      {/* 4. Three Supporting Capabilities (Warm Ivory Section) */}
-      <section className="bg-[#F5F1E8] text-[#0E0F14] border-b border-[#D4CBB8] py-16 px-6 bg-ivory-grid">
+      {/* 4. Three Supporting Capabilities */}
+      <section className="theme-bg border-b theme-border py-16 px-4 sm:px-6 bg-ivory-grid">
         <div className="max-w-[1200px] mx-auto space-y-8">
           <MotionReveal className="max-w-3xl space-y-2">
-            <p className="font-mono text-xs text-[#4A32C4] font-medium uppercase tracking-wide">
+            <p className="font-mono text-xs theme-accent font-semibold uppercase tracking-wide">
               Supporting Foundations
             </p>
-            <h2 className="font-display text-3xl sm:text-4xl text-[#0E0F14]">
+            <h2 className="font-display text-3xl sm:text-4xl theme-text">
               Product Strategy &amp; UX · Brand &amp; Market Research · Software Quality
             </h2>
-            <p className="text-sm sm:text-base text-[#1E202E]">
-              Every studio engagement is backed by structured problem discovery before production and
-              rigorous verification before delivery.
+            <p className="text-sm sm:text-base theme-text-muted">
+              Every studio engagement is backed by structured problem discovery before production
+              and rigorous verification before delivery.
             </p>
           </MotionReveal>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-[18px]">
             {SUPPORTING_CAPABILITIES.map((cap) => (
               <div
                 key={cap.id}
-                className="bg-[#EAE3D5] border border-[#D4CBB8] rounded-2xl p-6 space-y-4 flex flex-col justify-between"
+                className="bento-card p-6 space-y-4 flex flex-col justify-between"
               >
                 <div className="space-y-3">
                   <div className="flex items-center justify-between font-mono text-xs">
-                    <span className="text-[#4A32C4] font-semibold inline-flex items-center gap-1.5">
+                    <span className="theme-accent font-semibold inline-flex items-center gap-1.5">
                       <Sparkles className="w-3.5 h-3.5" />
                       {cap.number}
                     </span>
-                    <span className="text-[#7A5B14]">Supporting</span>
+                    <span className="theme-accent-secondary">Supporting</span>
                   </div>
-                  <h3 className="font-display text-2xl text-[#0E0F14]">{cap.title}</h3>
-                  <p className="text-xs font-medium text-[#4A32C4]">{cap.tagline}</p>
+                  <h3 className="font-display text-2xl theme-text">{cap.title}</h3>
+                  <p className="text-xs font-semibold theme-accent">{cap.tagline}</p>
 
-                  <div className="space-y-2 text-xs text-[#1E202E] pt-2 border-t border-[#D4CBB8]">
+                  <div className="space-y-2 text-xs theme-text-muted pt-2 border-t theme-border">
                     <p>
-                      <strong>What I Do: </strong>
+                      <strong className="theme-text">What I Do: </strong>
                       {cap.whatIDo}
                     </p>
                     <p>
-                      <strong>What You Receive: </strong>
+                      <strong className="theme-text">What You Receive: </strong>
                       {cap.whatYouReceive}
                     </p>
                   </div>
                 </div>
-                <p className="font-mono text-[11px] text-[#7A5B14] pt-3 border-t border-[#D4CBB8]">
+                <p className="font-mono text-[11px] theme-accent-secondary pt-3 border-t theme-border">
                   Proven in: {cap.evidenceProjects.join(' · ')}
                 </p>
               </div>
@@ -287,39 +300,39 @@ export function SolutionsPage() {
       </section>
 
       {/* 5. Flexible Engagement Models, 4-Step Scope Estimator & Working Process */}
-      <section className="bg-[#0E0F14] border-b border-[#2C2F42] py-20 px-6">
+      <section className="theme-bg border-b theme-border py-16 sm:py-20 px-4 sm:px-6">
         <div className="max-w-[1200px] mx-auto space-y-14">
           <div className="space-y-8">
             <MotionReveal className="max-w-3xl space-y-2">
-              <p className="font-mono text-xs text-[#D4AE5C] uppercase tracking-wide">
+              <p className="font-mono text-xs theme-accent-secondary font-semibold uppercase tracking-wide">
                 Flexible Engagement Models (INR)
               </p>
-              <h2 className="font-display text-3xl sm:text-4xl text-[#F4F0E8]">
+              <h2 className="font-display text-3xl sm:text-4xl theme-text">
                 Start Small With a Focused Sprint or Scope a Full Custom Build
               </h2>
-              <p className="text-sm text-[#A6A9B8]">
+              <p className="text-sm theme-text-muted">
                 No invented package prices or unrealistic delivery promises. Every engagement is
                 quoted transparently in INR after reviewing your brief and sample material.
               </p>
             </MotionReveal>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-[18px]">
               {ENGAGEMENT_MODELS.map((model) => (
                 <div
                   key={model.id}
-                  className="bg-[#161822] border border-[#2C2F42] rounded-xl p-6 flex flex-col justify-between gap-4"
+                  className="bento-card p-6 flex flex-col justify-between gap-4"
                 >
                   <div className="space-y-2.5">
-                    <span className="font-mono text-xs text-[#D4AE5C]">
+                    <span className="font-mono text-xs theme-accent font-semibold">
                       Model {model.number}
                     </span>
-                    <h3 className="font-display text-2xl text-[#F4F0E8]">{model.title}</h3>
-                    <p className="text-xs text-[#E6D3A7]">{model.bestFor}</p>
-                    <p className="text-xs text-[#A6A9B8] leading-relaxed">
+                    <h3 className="font-display text-2xl theme-text">{model.title}</h3>
+                    <p className="text-xs theme-accent-secondary font-medium">{model.bestFor}</p>
+                    <p className="text-xs theme-text-muted leading-relaxed">
                       {model.plainDescription}
                     </p>
                   </div>
-                  <p className="font-mono text-[11px] text-[#7AD992] pt-3 border-t border-[#2C2F42]">
+                  <p className="font-mono text-[11px] theme-text pt-3 border-t theme-border">
                     Outcome: {model.whatYouGet}
                   </p>
                 </div>
@@ -337,10 +350,9 @@ export function SolutionsPage() {
         </div>
       </section>
 
-      <StudioFaqSection variant="dark" showCtaLink={true} />
+      <StudioFaqSection showCtaLink={true} />
 
       <CtaSection
-        variant="ivory"
         headline="Ready to scope a campaign, website, or AI workflow?"
         primaryLabel="Start a Project"
         primaryTo="/enquire"

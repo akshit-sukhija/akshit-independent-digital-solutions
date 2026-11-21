@@ -5,52 +5,53 @@
 @layer base {
   :root,
   [data-theme="dark"] {
-    /* Semantic Theme Tokens — Dark Mode (Default Studio Experience) */
-    --bg: #0B0E14;
-    --surface: #131722;
-    --surface-raised: #1B2534;
-    --text: #F4F7FB;
-    --text-muted: #A9B5C5;
-    --border: #28364A;
-    --accent: #38BDF8;
-    --accent-strong: #7DD3FC;
-    --accent-secondary: #D4AE5C;
-    --chart-grid: #28364A;
-    --chart-tooltip-bg: #0B0E14;
+    /* Semantic Theme Tokens — Warm Charcoal Dark Mode (Design Brief §3) */
+    --bg: #171516;
+    --surface: #211D1E;
+    --surface-raised: #2D2728;
+    --text: #F4EDE3;
+    --text-muted: #B8AAA0;
+    --border: #433839;
+    --accent: #D17C88;
+    --accent-fill: #6B2635;
+    --accent-fill-hover: #7E2E40;
+    --accent-strong: #E498A3;
+    --accent-secondary: #D9B873;
+    --accent-tech: #68B8D4;
+    --wine-surface: #5C0F1D;
+    --wine-text: #F7F0E4;
+    --chart-grid: #433839;
+    --chart-tooltip-bg: #171516;
+    --card-shadow: 0 26px 48px -30px rgba(0, 0, 0, 0.65);
 
-    /* Legacy compatibility variables */
-    --color-warm-ink: #0B0E14;
-    --color-midnight: #131722;
-    --color-surface: #131722;
-    --color-raised: #1B2534;
-    --color-hairline: #28364A;
-    --color-ivory: #F5F1E8;
-    --color-ivory-surface: #EAE3D5;
-    --color-ivory-hairline: #D4CBB8;
-    --color-text-primary: #F4F7FB;
-    --color-text-secondary: #A9B5C5;
-    --color-champagne: #E6D3A7;
-    --color-gold: #D4AE5C;
-    --color-live: #7AD992;
-
-    --font-serif: 'Instrument Serif', Georgia, serif;
-    --font-sans: 'Instrument Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    /* Font families (Design Brief §2) */
+    --font-display: 'Fraunces', Georgia, serif;
+    --font-serif: 'Fraunces', Georgia, serif;
+    --font-sans: 'Manrope', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-hand: 'Caveat', cursive;
+    --font-script: 'Yellowtail', cursive;
     --font-mono: 'IBM Plex Mono', monospace;
   }
 
   [data-theme="light"] {
-    /* Semantic Theme Tokens — Warm Editorial Light Mode */
-    --bg: #F6F8FB;
-    --surface: #FFFFFF;
-    --surface-raised: #EDF2F7;
-    --text: #142033;
-    --text-muted: #526174;
-    --border: #D8E1EA;
-    --accent: #0369A1;
-    --accent-strong: #075985;
-    --accent-secondary: #8A6114;
-    --chart-grid: #D8E1EA;
-    --chart-tooltip-bg: #FFFFFF;
+    /* Semantic Theme Tokens — Warm Editorial Paper Light Mode (Design Brief §3) */
+    --bg: #F3EFE7;
+    --surface: #FFFCF7;
+    --surface-raised: #E8E0D4;
+    --text: #241C1B;
+    --text-muted: #766A63;
+    --border: #D8CEC1;
+    --accent: #6B2635;
+    --accent-fill: #6B2635;
+    --accent-fill-hover: #581D2A;
+    --accent-strong: #5C0F1D;
+    --accent-secondary: #B9853C;
+    --accent-tech: #327C9E;
+    --wine-surface: #5C0F1D;
+    --wine-text: #F7F0E4;
+    --chart-grid: #D8CEC1;
+    --chart-tooltip-bg: #FFFCF7;
+    --card-shadow: 0 26px 48px -30px rgba(48, 18, 12, 0.35);
   }
 
   html {
@@ -64,15 +65,32 @@
   body {
     background-color: var(--bg);
     color: var(--text);
+    line-height: 1.55;
     transition: background-color 0.2s ease, color 0.2s ease;
   }
 
-  h1, h2, .font-display {
-    font-family: var(--font-serif);
+  h1,
+  h2,
+  h3,
+  .font-display {
+    font-family: var(--font-display);
+    line-height: 1.08;
+    letter-spacing: -0.025em;
     text-wrap: balance;
   }
 
-  code, pre, .font-mono {
+  .font-hand {
+    font-family: var(--font-hand);
+  }
+
+  .font-script {
+    font-family: var(--font-script);
+    letter-spacing: 0;
+  }
+
+  code,
+  pre,
+  .font-mono {
     font-family: var(--font-mono);
     font-variant-numeric: tabular-nums;
   }
@@ -117,74 +135,153 @@
   color: var(--accent-secondary);
 }
 
+.theme-accent-tech {
+  color: var(--accent-tech);
+}
+
 .tabular-nums {
   font-variant-numeric: tabular-nums;
 }
 
-/* Subtle editorial studio grid background */
-.bg-blueprint-grid {
-  background-size: 48px 48px;
-  background-image:
-    linear-gradient(to right, rgba(56, 189, 248, 0.05) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(212, 174, 92, 0.04) 1px, transparent 1px);
+/* Bento Card & Editorial Surface Utilities (Design Brief §3 & §4) */
+.bento-card {
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 28px;
+  box-shadow: var(--card-shadow);
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.2s ease, background-color 0.2s ease;
 }
 
-/* Editorial ivory grid texture */
+.bento-card-interactive {
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 28px;
+  box-shadow: var(--card-shadow);
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.bento-card-interactive:hover {
+  transform: translateY(-4px);
+  border-color: var(--accent);
+}
+
+.bento-card-raised {
+  background-color: var(--surface-raised);
+  border: 1px solid var(--border);
+  border-radius: 24px;
+}
+
+.bento-wine-panel {
+  background: linear-gradient(135deg, #5C0F1D 0%, #6B2635 58%, #3F0B15 100%);
+  color: #F7F0E4;
+  border: 1px solid rgba(247, 240, 228, 0.16);
+  border-radius: 28px;
+  box-shadow: 0 28px 54px -28px rgba(48, 12, 18, 0.65);
+}
+
+/* Polaroid / Tactile Paper Frame for Selected Work Wall */
+.polaroid-frame {
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 28px;
+  padding: 14px 14px 20px 14px;
+  box-shadow: var(--card-shadow);
+  transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.2s ease;
+}
+
+.polaroid-frame:hover {
+  transform: translateY(-5px) rotate(-0.4deg);
+  border-color: var(--accent);
+}
+
+/* Subtle Washi Tape / Editorial Stamp Detail */
+.editorial-tape {
+  background: rgba(217, 184, 115, 0.22);
+  border: 1px dashed rgba(185, 133, 60, 0.45);
+}
+
+/* Continuous Marquee Strip with Pause on Hover */
+@keyframes studio-marquee {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: studio-marquee 34s linear infinite;
+}
+
+.marquee-container:hover .marquee-track,
+.marquee-container:focus-within .marquee-track {
+  animation-play-state: paused;
+}
+
+/* Subtle editorial paper texture */
 .bg-ivory-grid {
-  background-size: 48px 48px;
+  background-size: 44px 44px;
   background-image:
-    linear-gradient(to right, rgba(20, 32, 51, 0.045) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(20, 32, 51, 0.045) 1px, transparent 1px);
+    linear-gradient(to right, rgba(107, 38, 53, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(185, 133, 60, 0.04) 1px, transparent 1px);
 }
 
-/* Atmospheric top studio glow */
 .bg-lamplit-glow {
   background:
-    radial-gradient(circle at 18% 0%, rgba(56, 189, 248, 0.12) 0%, transparent 55%),
-    radial-gradient(circle at 82% 8%, rgba(212, 174, 92, 0.09) 0%, transparent 55%);
+    radial-gradient(circle at 16% 0%, rgba(107, 38, 53, 0.14) 0%, transparent 52%),
+    radial-gradient(circle at 84% 8%, rgba(185, 133, 60, 0.1) 0%, transparent 52%);
 }
 
-/* Harmonise legacy hard-coded dark surface classes when data-theme="light" is active */
+/* Harmonise any remaining legacy hard-coded surface/text classes across both themes */
 html[data-theme="light"] .bg-\[\#0B0E14\],
 html[data-theme="light"] .bg-\[\#0B0D13\],
 html[data-theme="light"] .bg-\[\#0E0F14\],
 html[data-theme="light"] .bg-\[\#0E1118\],
-html[data-theme="light"] .bg-\[\#11100E\] {
+html[data-theme="light"] .bg-\[\#11100E\],
+html[data-theme="light"] .bg-\[\#171516\] {
   background-color: var(--bg);
 }
 
 html[data-theme="light"] .bg-\[\#131722\],
 html[data-theme="light"] .bg-\[\#161822\],
-html[data-theme="light"] .bg-\[\#1A1814\] {
+html[data-theme="light"] .bg-\[\#1A1814\],
+html[data-theme="light"] .bg-\[\#211D1E\] {
   background-color: var(--surface);
 }
 
 html[data-theme="light"] .bg-\[\#1E202E\],
-html[data-theme="light"] .bg-\[\#232019\] {
+html[data-theme="light"] .bg-\[\#232019\],
+html[data-theme="light"] .bg-\[\#2D2728\] {
   background-color: var(--surface-raised);
 }
 
 html[data-theme="light"] .text-\[\#F4F0E8\],
 html[data-theme="light"] .text-\[\#F2EBDD\],
-html[data-theme="light"] .text-\[\#F4F7FB\] {
+html[data-theme="light"] .text-\[\#F4F7FB\],
+html[data-theme="light"] .text-\[\#F4EDE3\] {
   color: var(--text);
 }
 
 html[data-theme="light"] .text-\[\#A6A9B8\],
-html[data-theme="light"] .text-\[\#A9A092\] {
+html[data-theme="light"] .text-\[\#A9A092\],
+html[data-theme="light"] .text-\[\#B8AAA0\] {
   color: var(--text-muted);
 }
 
 html[data-theme="light"] .text-\[\#E6D3A7\],
 html[data-theme="light"] .text-\[\#E8D5A8\],
 html[data-theme="light"] .text-\[\#D4AE5C\],
-html[data-theme="light"] .text-\[\#C9A24B\] {
+html[data-theme="light"] .text-\[\#C9A24B\],
+html[data-theme="light"] .text-\[\#D9B873\] {
   color: var(--accent-secondary);
 }
 
 html[data-theme="light"] .text-\[\#38BDF8\],
 html[data-theme="light"] .text-\[\#8B75FF\] {
-  color: var(--accent);
+  color: var(--accent-tech);
 }
 
 html[data-theme="light"] .border-\[\#252C3D\],
@@ -192,20 +289,16 @@ html[data-theme="light"] .border-\[\#252B3B\],
 html[data-theme="light"] .border-\[\#28334A\],
 html[data-theme="light"] .border-\[\#283044\],
 html[data-theme="light"] .border-\[\#2C2F42\],
-html[data-theme="light"] .border-\[\#3A3429\] {
+html[data-theme="light"] .border-\[\#3A3429\],
+html[data-theme="light"] .border-\[\#433839\] {
   border-color: var(--border);
 }
 
 /* Keep overlaid controls inside the dark video frame bright in both themes */
 html[data-theme="light"] .video-viewport-dark .text-\[\#F4F7FB\],
-html[data-theme="light"] .video-viewport-dark .text-\[\#F4F0E8\] {
-  color: #F4F7FB;
-}
-html[data-theme="light"] .video-viewport-dark .text-\[\#38BDF8\] {
-  color: #38BDF8;
-}
-html[data-theme="light"] .video-viewport-dark .text-\[\#D4AE5C\] {
-  color: #D4AE5C;
+html[data-theme="light"] .video-viewport-dark .text-\[\#F4F0E8\],
+html[data-theme="light"] .video-viewport-dark .text-\[\#F4EDE3\] {
+  color: #F4EDE3;
 }
 
 /* Reduced motion accessibility compliance */
@@ -217,5 +310,9 @@ html[data-theme="light"] .video-viewport-dark .text-\[\#D4AE5C\] {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
+  }
+
+  .marquee-track {
+    animation: none !important;
   }
 }

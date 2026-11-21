@@ -45,19 +45,24 @@ export function InsightsPage() {
       />
 
       {/* 1. Editorial Header */}
-      <section className="bg-[#0E0F14] bg-lamplit-glow border-b border-[#2C2F42] pt-14 pb-16 px-6">
+      <section className="theme-bg bg-lamplit-glow border-b theme-border pt-10 pb-14 px-4 sm:px-6">
         <div className="max-w-[1200px] mx-auto space-y-6">
           <MotionReveal className="max-w-3xl space-y-4">
-            <p className="font-mono text-xs text-[#D4AE5C] uppercase tracking-wider">
-              Research &amp; Insights · Educational &amp; Project-Grounded Writing
-            </p>
+            <div className="flex flex-wrap items-center gap-3">
+              <p className="font-mono text-xs theme-accent font-semibold uppercase tracking-wider">
+                Research &amp; Insights · Educational &amp; Project-Grounded Writing
+              </p>
+              <span className="font-hand text-xl theme-accent-secondary">
+                — Notes from real datasets &amp; studio builds
+              </span>
+            </div>
             <h1
-              className="font-display text-[#F4F0E8] leading-[1.06]"
-              style={{ fontSize: 'clamp(2.4rem, 4.4vw, 4rem)' }}
+              className="font-display theme-text leading-[1.06]"
+              style={{ fontSize: 'clamp(2.35rem, 4.2vw, 3.85rem)' }}
             >
               Research Notes on Marketing, Product Discovery &amp; Practical AI
             </h1>
-            <p className="text-base sm:text-lg text-[#A6A9B8] leading-relaxed">
+            <p className="text-base sm:text-lg theme-text-muted leading-relaxed">
               I write these notes to explain how market research, customer behaviour analysis,
               product discovery, and rule-backed software fit together in real projects.
             </p>
@@ -72,10 +77,10 @@ export function InsightsPage() {
                   key={cat}
                   type="button"
                   onClick={() => handleCategoryChange(cat)}
-                  className={`px-4 py-2 rounded-lg font-mono text-xs transition-colors cursor-pointer ${
+                  className={`px-4 py-2 rounded-full font-mono text-xs transition-colors cursor-pointer ${
                     active
-                      ? 'bg-[#D4AE5C] text-[#0E0F14] font-medium'
-                      : 'bg-[#161822] text-[#A6A9B8] border border-[#2C2F42] hover:text-[#F4F0E8]'
+                      ? 'bg-[#6B2635] text-[#F7F0E4] font-semibold'
+                      : 'theme-surface theme-text-muted border theme-border hover:theme-text'
                   }`}
                 >
                   {cat}
@@ -86,123 +91,129 @@ export function InsightsPage() {
         </div>
       </section>
 
-      {/* 2. Featured Research Visual: Marketing vs. Branding vs. Advertising (Warm Ivory Section) */}
-      <section className="bg-[#F5F1E8] text-[#0E0F14] border-b border-[#D4CBB8] py-16 px-6 bg-ivory-grid">
+      {/* 2. Featured Research Visual: Marketing vs. Branding vs. Advertising */}
+      <section className="theme-bg border-b theme-border py-16 px-4 sm:px-6 bg-ivory-grid">
         <div className="max-w-[1200px] mx-auto space-y-10">
-          <MotionReveal className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 pb-6 border-b border-[#D4CBB8]">
+          <MotionReveal className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 pb-6 border-b theme-border">
             <div className="space-y-2 max-w-3xl">
-              <p className="font-mono text-xs text-[#4A32C4] font-medium uppercase tracking-wide">
+              <p className="font-mono text-xs theme-accent font-semibold uppercase tracking-wide">
                 Featured Research Visual · Market &amp; Brand Fundamentals
               </p>
-              <h2 className="font-display text-3xl sm:text-4xl text-[#0E0F14]">
+              <h2 className="font-display text-3xl sm:text-4xl theme-text">
                 Marketing vs. Branding vs. Advertising: How They Differ &amp; Connect
               </h2>
-              <p className="text-sm sm:text-base text-[#1E202E]/85 leading-relaxed">
+              <p className="text-sm sm:text-base theme-text-muted leading-relaxed">
                 Founders often treat these three words as synonyms. Here is a clear structural
                 breakdown of how they differ, how they reinforce one another, and how I support
-                them through customer data and research—without claiming to be a full-service ad agency.
+                them through customer data and research—without claiming to be a full-service ad
+                agency.
               </p>
             </div>
-            <span className="font-mono text-xs text-[#7A5B14] bg-[#EAE3D5] border border-[#D4CBB8] px-3.5 py-2 rounded-lg shrink-0">
+            <span className="font-mono text-xs theme-accent-secondary theme-surface border theme-border px-4 py-2 rounded-full shrink-0">
               Educational Research Breakdown
             </span>
           </MotionReveal>
 
-          {/* 3-Column Nested System Visual Diagram */}
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          {/* 3-Column Bento System Visual Diagram */}
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-[18px]">
             {/* Column 1: Marketing */}
-            <div className="bg-[#EAE3D5] border-t-4 border-[#0E0F14] rounded-b-xl p-6 space-y-4 flex flex-col justify-between">
+            <div className="bento-card p-6 space-y-4 flex flex-col justify-between">
               <div className="space-y-3">
-                <div className="flex items-center justify-between font-mono text-xs text-[#7A5B14]">
+                <div className="flex items-center justify-between font-mono text-xs theme-accent font-semibold">
                   <span>01 · THE GROWTH SYSTEM</span>
                   <span>Market &amp; Offer</span>
                 </div>
-                <h3 className="font-display text-3xl text-[#0E0F14]">Marketing</h3>
-                <p className="text-sm font-medium text-[#1E202E]">
+                <h3 className="font-display text-3xl theme-text">Marketing</h3>
+                <p className="text-sm font-medium theme-text">
                   The broader business system for understanding customer needs, shaping the offer,
                   setting pricing, choosing channels, and retaining buyers.
                 </p>
-                <div className="pt-3 border-t border-[#D4CBB8] space-y-2 text-xs text-[#1E202E]/90">
+                <div className="pt-3 border-t theme-border space-y-2 text-xs theme-text-muted">
                   <p>
-                    <strong>Core Question:</strong> Who is the customer, what problem do they pay
-                    to solve, and how do we deliver value profitably?
+                    <strong className="theme-text">Core Question:</strong> Who is the customer,
+                    what problem do they pay to solve, and how do we deliver value profitably?
                   </p>
                   <p>
-                    <strong>Time Horizon:</strong> Medium-to-long term (acquisition + repeat
-                    retention).
+                    <strong className="theme-text">Time Horizon:</strong> Medium-to-long term
+                    (acquisition + repeat retention).
                   </p>
                   <p>
-                    <strong>Example (Indian D2C Brand):</strong> Designing product bundles, pricing
-                    tiers, WhatsApp/email retention journeys, and post-purchase repeat flows.
+                    <strong className="theme-text">Example (Indian D2C Brand):</strong> Designing
+                    product bundles, pricing tiers, WhatsApp/email retention journeys, and
+                    post-purchase repeat flows.
                   </p>
                 </div>
               </div>
-              <div className="pt-3 border-t border-[#D4CBB8] font-mono text-[11px] text-[#4A32C4]">
-                My Role: Customer segmentation, SQL/Python cohort analysis &amp; retention playbooks.
+              <div className="pt-3 border-t theme-border font-mono text-[11px] theme-accent">
+                My Role: Customer segmentation, SQL/Python cohort analysis &amp; retention
+                playbooks.
               </div>
             </div>
 
             {/* Column 2: Branding */}
-            <div className="bg-[#EAE3D5] border-t-4 border-[#4A32C4] rounded-b-xl p-6 space-y-4 flex flex-col justify-between">
+            <div className="bento-card p-6 space-y-4 flex flex-col justify-between">
               <div className="space-y-3">
-                <div className="flex items-center justify-between font-mono text-xs text-[#4A32C4]">
+                <div className="flex items-center justify-between font-mono text-xs theme-accent-secondary font-semibold">
                   <span>02 · IDENTITY &amp; TRUST</span>
                   <span>Reputation</span>
                 </div>
-                <h3 className="font-display text-3xl text-[#0E0F14]">Branding</h3>
-                <p className="text-sm font-medium text-[#1E202E]">
+                <h3 className="font-display text-3xl theme-text">Branding</h3>
+                <p className="text-sm font-medium theme-text">
                   The identity, positioning, and perception a business builds over time—what
                   customers believe about your quality when no discount is offered.
                 </p>
-                <div className="pt-3 border-t border-[#D4CBB8] space-y-2 text-xs text-[#1E202E]/90">
+                <div className="pt-3 border-t theme-border space-y-2 text-xs theme-text-muted">
                   <p>
-                    <strong>Core Question:</strong> Why should a buyer trust us, remember us, and
-                    return at full price instead of switching for a ₹100 coupon?
+                    <strong className="theme-text">Core Question:</strong> Why should a buyer trust
+                    us, remember us, and return at full price instead of switching for a ₹100
+                    coupon?
                   </p>
                   <p>
-                    <strong>Time Horizon:</strong> Long-term compounding trust across every customer
-                    touchpoint.
+                    <strong className="theme-text">Time Horizon:</strong> Long-term compounding
+                    trust across every customer touchpoint.
                   </p>
                   <p>
-                    <strong>Example (Indian D2C Brand):</strong> Clear positioning, reliable product
-                    experience, and earning repeat full-price orders (as measured in our 3,900-record study).
+                    <strong className="theme-text">Example (Indian D2C Brand):</strong> Clear
+                    positioning, reliable product experience, and earning repeat full-price orders
+                    (as measured in our 3,900-record study).
                   </p>
                 </div>
               </div>
-              <div className="pt-3 border-t border-[#D4CBB8] font-mono text-[11px] text-[#4A32C4]">
+              <div className="pt-3 border-t theme-border font-mono text-[11px] theme-accent-secondary">
                 My Role: Measuring organic repeat buying vs. discount dependency in customer data.
               </div>
             </div>
 
             {/* Column 3: Advertising */}
-            <div className="bg-[#EAE3D5] border-t-4 border-[#7A5B14] rounded-b-xl p-6 space-y-4 flex flex-col justify-between">
+            <div className="bento-card p-6 space-y-4 flex flex-col justify-between">
               <div className="space-y-3">
-                <div className="flex items-center justify-between font-mono text-xs text-[#7A5B14]">
+                <div className="flex items-center justify-between font-mono text-xs theme-accent font-semibold">
                   <span>03 · PAID PROMOTION</span>
                   <span>Paid Reach</span>
                 </div>
-                <h3 className="font-display text-3xl text-[#0E0F14]">Advertising</h3>
-                <p className="text-sm font-medium text-[#1E202E]">
+                <h3 className="font-display text-3xl theme-text">Advertising</h3>
+                <p className="text-sm font-medium theme-text">
                   Paid placements inside the marketing system—paying platforms to put a specific
                   message or offer in front of a targeted audience.
                 </p>
-                <div className="pt-3 border-t border-[#D4CBB8] space-y-2 text-xs text-[#1E202E]/90">
+                <div className="pt-3 border-t theme-border space-y-2 text-xs theme-text-muted">
                   <p>
-                    <strong>Core Question:</strong> Which paid channel and creative message bring
-                    qualified visitors at a sustainable acquisition cost?
+                    <strong className="theme-text">Core Question:</strong> Which paid channel and
+                    creative message bring qualified visitors at a sustainable acquisition cost?
                   </p>
                   <p>
-                    <strong>Time Horizon:</strong> Immediate and campaign-bound (traffic stops when
-                    spend stops).
+                    <strong className="theme-text">Time Horizon:</strong> Immediate and
+                    campaign-bound (traffic stops when spend stops).
                   </p>
                   <p>
-                    <strong>Example (Indian D2C Brand):</strong> Meta, Google Search, or marketplace
-                    sponsored ads promoting a seasonal launch.
+                    <strong className="theme-text">Example (Indian D2C Brand):</strong> Meta,
+                    Google Search, or marketplace sponsored ads promoting a seasonal launch.
                   </p>
                 </div>
               </div>
-              <div className="pt-3 border-t border-[#D4CBB8] font-mono text-[11px] text-[#7A5B14]">
-                My Role: Analysing campaign conversion &amp; discount margin impact (I do not sell ad-buying retainers).
+              <div className="pt-3 border-t theme-border font-mono text-[11px] theme-accent">
+                My Role: Analysing campaign conversion &amp; discount margin impact (I do not sell
+                ad-buying retainers).
               </div>
             </div>
           </div>
@@ -210,11 +221,11 @@ export function InsightsPage() {
       </section>
 
       {/* 3. Interactive Research & Insights Reader */}
-      <section className="bg-[#0E0F14] py-20 px-6 border-b border-[#2C2F42]">
-        <div className="max-w-[1200px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
+      <section className="theme-bg py-16 sm:py-20 px-4 sm:px-6 border-b theme-border">
+        <div className="max-w-[1200px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-[18px] items-start">
           {/* Left Column: Article List */}
           <div className="lg:col-span-5 space-y-3">
-            <p className="font-mono text-xs text-[#A6A9B8] pb-2">
+            <p className="font-mono text-xs theme-text-muted pb-2">
               Select a research note ({filteredNotes.length} shown)
             </p>
             {filteredNotes.map((note) => {
@@ -224,23 +235,21 @@ export function InsightsPage() {
                   key={note.id}
                   type="button"
                   onClick={() => setActiveNoteId(note.id)}
-                  className={`w-full text-left p-5 rounded-xl border transition-colors space-y-2 cursor-pointer ${
+                  className={`w-full text-left p-5 rounded-[24px] border transition-colors space-y-2 cursor-pointer ${
                     isSelected
-                      ? 'bg-[#161822] border-[#D4AE5C]'
-                      : 'bg-[#161822]/50 border-[#2C2F42] hover:border-[#A6A9B8]'
+                      ? 'theme-surface-raised border-[var(--accent)]'
+                      : 'theme-surface theme-border hover:border-[var(--accent)]'
                   }`}
                 >
-                  <div className="flex flex-wrap items-center gap-2 font-mono text-xs text-[#A6A9B8]">
-                    <span className="text-[#D4AE5C]">Note {note.number}</span>
+                  <div className="flex flex-wrap items-center gap-2 font-mono text-xs theme-text-muted">
+                    <span className="theme-accent font-semibold">Note {note.number}</span>
                     <span aria-hidden="true">·</span>
                     <span>{note.category}</span>
                     <span aria-hidden="true">·</span>
                     <span>{note.readTime}</span>
                   </div>
-                  <h2 className="font-display text-2xl text-[#F4F0E8] leading-snug">
-                    {note.title}
-                  </h2>
-                  <p className="font-mono text-[11px] text-[#E6D3A7]">
+                  <h2 className="font-display text-2xl theme-text leading-snug">{note.title}</h2>
+                  <p className="font-mono text-[11px] theme-accent-secondary">
                     Connected to: {note.groundedInProject}
                   </p>
                 </button>
@@ -249,42 +258,44 @@ export function InsightsPage() {
           </div>
 
           {/* Right Column: Full Editorial Article */}
-          <article className="lg:col-span-7 bg-[#161822] border border-[#2C2F42] rounded-2xl p-6 md:p-10 space-y-8">
-            <div className="space-y-3 border-b border-[#2C2F42] pb-6">
-              <div className="flex flex-wrap items-center gap-2 font-mono text-xs text-[#A6A9B8]">
-                <span className="text-[#D4AE5C]">Research Note {activeNote.number}</span>
+          <article className="lg:col-span-7 bento-card p-6 md:p-10 space-y-8">
+            <div className="space-y-3 border-b theme-border pb-6">
+              <div className="flex flex-wrap items-center gap-2 font-mono text-xs theme-text-muted">
+                <span className="theme-accent font-semibold">
+                  Research Note {activeNote.number}
+                </span>
                 <span aria-hidden="true">·</span>
                 <span>{activeNote.category}</span>
                 <span aria-hidden="true">·</span>
                 <span>{activeNote.readTime}</span>
               </div>
-              <h2 className="font-display text-3xl sm:text-4xl text-[#F4F0E8] leading-tight">
+              <h2 className="font-display text-3xl sm:text-4xl theme-text leading-tight">
                 {activeNote.title}
               </h2>
-              <p className="text-base text-[#E6D3A7] leading-relaxed pt-1">
+              <p className="text-base theme-accent-secondary font-medium leading-relaxed pt-1">
                 {activeNote.thesis}
               </p>
             </div>
 
             {/* First-Person Narrative */}
-            <div className="space-y-4 text-sm sm:text-base text-[#F4F0E8]/90 leading-relaxed">
+            <div className="space-y-4 text-sm sm:text-base theme-text leading-relaxed">
               {activeNote.plainSummary.map((para) => (
                 <p key={para}>{para}</p>
               ))}
             </div>
 
             {/* Key Takeaways */}
-            <div className="space-y-3 pt-2 border-t border-[#2C2F42]">
-              <h3 className="font-mono text-xs text-[#D4AE5C] uppercase tracking-wide">
+            <div className="space-y-3 pt-2 border-t theme-border">
+              <h3 className="font-mono text-xs theme-accent font-semibold uppercase tracking-wide">
                 Key Takeaways
               </h3>
-              <ul className="space-y-2.5 text-sm text-[#F4F0E8]/95 leading-relaxed">
+              <ul className="space-y-2.5 text-sm theme-text leading-relaxed">
                 {activeNote.keyTakeaways.map((point) => (
                   <li
                     key={point}
-                    className="bg-[#0E0F14] border border-[#2C2F42] rounded-xl p-4 flex items-start gap-3"
+                    className="bento-card-raised p-4 flex items-start gap-3"
                   >
-                    <span className="font-mono text-[#D4AE5C]">—</span>
+                    <span className="font-mono theme-accent font-semibold">—</span>
                     <span>{point}</span>
                   </li>
                 ))}
@@ -292,21 +303,21 @@ export function InsightsPage() {
             </div>
 
             {/* Practical Implication for Founders & SMBs */}
-            <div className="bg-[#F5F1E8] text-[#0E0F14] rounded-xl p-5 space-y-1.5">
-              <p className="font-mono text-xs text-[#4A32C4] font-medium">
+            <div className="bento-card-raised p-5 space-y-1.5">
+              <p className="font-mono text-xs theme-accent-secondary font-semibold">
                 Practical Takeaway for Founders &amp; Product Teams
               </p>
-              <p className="text-sm text-[#1E202E] leading-relaxed">
+              <p className="text-sm theme-text leading-relaxed">
                 {activeNote.practicalImplicationForSMBs}
               </p>
             </div>
 
             {/* Expandable Technical & Research Notes */}
-            <div className="pt-2 border-t border-[#2C2F42]">
+            <div className="pt-2 border-t theme-border">
               <button
                 type="button"
                 onClick={() => setShowTechnicalDetails((prev) => !prev)}
-                className="inline-flex items-center gap-1.5 font-mono text-xs text-[#E6D3A7] hover:text-[#D4AE5C] cursor-pointer"
+                className="inline-flex items-center gap-1.5 font-mono text-xs theme-accent font-semibold hover:underline cursor-pointer"
               >
                 <span>
                   {showTechnicalDetails
@@ -321,7 +332,7 @@ export function InsightsPage() {
               </button>
 
               {showTechnicalDetails && (
-                <ol className="mt-3 bg-[#0E0F14] border border-[#2C2F42] rounded-xl p-4 space-y-2 text-xs font-mono text-[#A6A9B8]">
+                <ol className="mt-3 bento-card-raised p-4 space-y-2 text-xs font-mono theme-text-muted">
                   {activeNote.technicalBreakdown.map((step, i) => (
                     <li key={step}>
                       0{i + 1}. {step}
@@ -331,23 +342,23 @@ export function InsightsPage() {
               )}
             </div>
 
-            <div className="pt-4 border-t border-[#2C2F42] flex flex-wrap items-center justify-between gap-4">
-              <span className="font-mono text-xs text-[#A6A9B8]">
-                Grounded in: {activeNote.groundedInProject}
+            <div className="pt-4 border-t theme-border flex flex-wrap items-center justify-between gap-4">
+              <span className="font-mono text-xs theme-text-muted">
+                Grounded in: <strong className="theme-text">{activeNote.groundedInProject}</strong>
               </span>
               <Link
                 to={`/work/${activeNote.groundedProjectSlug}`}
-                className="inline-flex items-center gap-2 px-4 py-2 text-xs font-medium text-[#0E0F14] bg-[#D4AE5C] hover:bg-[#E6D3A7] rounded-lg transition-colors"
+                className="inline-flex items-center gap-2 px-5 py-2.5 text-xs font-semibold text-[#F7F0E4] bg-[#6B2635] hover:bg-[#581D2A] rounded-full transition-colors"
               >
                 <span>Inspect Connected Case Study</span>
-                <ArrowRight className="w-3.5 h-3.5" />
+                <ArrowRight className="w-3.5 h-3.5 text-[#D9B873]" />
               </Link>
             </div>
           </article>
         </div>
       </section>
 
-      <CtaSection variant="ivory" />
+      <CtaSection />
     </div>
   );
 }
